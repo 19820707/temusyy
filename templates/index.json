@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "dynamic_slideshow": {
@@ -200,7 +191,7 @@
           "settings": {
             "collection": "health-and-beauty",
             "image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
-            "title": ""
+            "title": "Health and Beauty"
           }
         },
         "collection-5": {
@@ -208,7 +199,7 @@
           "settings": {
             "collection": "accessories",
             "image": "shopify://shop_images/laughter-in-the-sun.jpg",
-            "title": ""
+            "title": "Accessories"
           }
         },
         "collection-6": {
@@ -216,7 +207,7 @@
           "settings": {
             "collection": "toys-and-games",
             "image": "shopify://shop_images/toy-drive-donation-box.jpg",
-            "title": ""
+            "title": "Toys and Games"
           }
         }
       },
@@ -243,7 +234,7 @@
       "settings": {
         "section_height": "original",
         "image": "shopify://shop_images/Watch_Collection_sale_banners_1.png",
-        "title": "",
+        "title": "Watches",
         "text": "<p><br/></p>",
         "content_position": "center-center",
         "color": "#ffffff",
@@ -279,7 +270,7 @@
         "title-card"
       ],
       "settings": {
-        "title": "",
+        "title": "Watches",
         "layout": "grid",
         "mobile_layout": "slideshow",
         "collection": "watches",
@@ -326,7 +317,7 @@
           "settings": {
             "collection": "action-figures",
             "image": "shopify://shop_images/metallic-liquid-in-action.jpg",
-            "title": ""
+            "title": "Action figures"
           }
         },
         "collection_CnaUQM": {
@@ -334,7 +325,7 @@
           "settings": {
             "collection": "headphones",
             "image": "shopify://shop_images/woman-listening-to-music.jpg",
-            "title": ""
+            "title": "Headphones"
           }
         },
         "collection_gaaLR9": {
@@ -342,7 +333,7 @@
           "settings": {
             "collection": "makeup",
             "image": "shopify://shop_images/pink-lip-gloss.jpg",
-            "title": ""
+            "title": "Makeup"
           }
         },
         "collection_mJJfNj": {
@@ -350,7 +341,7 @@
           "settings": {
             "collection": "sports-shoes",
             "image": "shopify://shop_images/pair-of-all-black-sneakers.jpg",
-            "title": ""
+            "title": "Sports shoes"
           }
         },
         "collection_REFgFB": {
@@ -358,7 +349,7 @@
           "settings": {
             "collection": "utensils",
             "image": "shopify://shop_images/kitchen-utensils-on-counter.jpg",
-            "title": ""
+            "title": "Utensils"
           }
         },
         "collection_c9UN9X": {
@@ -366,7 +357,7 @@
           "settings": {
             "collection": "footwear",
             "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
-            "title": ""
+            "title": "Footwear"
           }
         }
       },
@@ -384,7 +375,7 @@
         "thumbnail_columns_mobile": 2,
         "image-crop": "round",
         "cta_label": "View All",
-        "cta_link": "shopify://collections",
+        "cta_link": "shopify://collections/all",
         "cta_button_style": "primary"
       }
     },
@@ -393,7 +384,7 @@
       "settings": {
         "section_height": "original",
         "image": "shopify://shop_images/White_Simple_Photocentric_Jewelry_Promo_Banner_Landscape_1.png",
-        "title": "",
+        "title": "Jewelry",
         "text": "",
         "content_position": "bottom-center",
         "color": "#ffffff",
@@ -406,7 +397,7 @@
     "dynamic_featured_collection_Tc6fXq": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "",
+        "title": "Jewelry & accessories",
         "layout": "grid",
         "mobile_layout": "slideshow",
         "collection": "jewelry-and-fashion-accessories",
@@ -422,7 +413,7 @@
           "type": "highlight",
           "settings": {
             "icon": "icon-delivery",
-            "title": "Fast  Shipping",
+            "title": "Fast Shipping",
             "text": "<p>Swift Shipping Guaranteed.<br/><br/></p>",
             "link": ""
           }
@@ -483,8 +474,8 @@
             "color": "#ffffff",
             "link": "",
             "text_alignment": "center",
-            "button_one_label": "",
-            "button_one_link": "",
+            "button_one_label": "Shop menswear",
+            "button_one_link": "shopify://collections/polos",
             "button_one_style": "primary",
             "button_two_label": "",
             "button_two_link": "",
@@ -539,7 +530,7 @@
           "settings": {
             "star_rating": "5",
             "text": "<p><strong>An elegant and reliable watch, clearly crafted to last. Prompt delivery and refined packaging added to a smooth, premium experience. Highly recommended for those who appreciate quality and style.</strong></p><p></p>",
-            "author": "<p><strong> </strong><em><strong>Jonathan Reed</strong></em></p>"
+            "author": "<p><em><strong>Jonathan Reed</strong></em></p>"
           }
         },
         "testimonial-2": {
@@ -547,7 +538,7 @@
           "settings": {
             "star_rating": "5",
             "text": "<p><strong><br/>Impressive quality and classic design. These loafers are as comfortable as they are stylish. The unboxing experience matched the premium look and feel.<br/><br/></strong></p>",
-            "author": "<p><strong> </strong><em><strong>Oliver Grant</strong></em></p>"
+            "author": "<p><em><strong>Oliver Grant</strong></em></p>"
           }
         },
         "testimonial-3": {
@@ -555,7 +546,7 @@
           "settings": {
             "star_rating": "5",
             "text": "<p><strong>Crisp sound, seamless Bluetooth connection, and a comfortable fit. These earbuds exceeded expectations. Delivery was prompt and packaging felt premium.</strong></p>",
-            "author": "<p><strong>Sophia Lane<br/><br/></strong></p>"
+            "author": "<p><em><strong>Sophia Lane</strong></em></p>"
           }
         },
         "testimonial-4": {

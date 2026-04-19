@@ -781,8 +781,7 @@
       },
       "presets": {
         "countdown_timer": {
-          "name": "Countdown timer",
-          "category": "Image"
+          "name": "Countdown timer"
         }
       }
     },
@@ -792,7 +791,6 @@
         "label": "Minimum age required to access page"
       },
       "presets": {
-        "category": "Age verification",
         "name": "Page age gate"
       }
     },
@@ -1171,7 +1169,7 @@
         }
       }
     },
-    "custom_html": {
+    "custom_section_html": {
       "name": "Custom HTML",
       "title": {
         "label": "Heading"

@@ -304,11 +304,13 @@
                     </s>
                     <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
                     <span class="money order-item-discount-price">
+                      {{ line_item.final_price | money }}
+                    </span>
                   {%- else -%}
                     <span class="money">
+                      {{ line_item.final_price | money }}
+                    </span>
                   {%- endif -%}
-                    {{ line_item.final_price | money }}
-                  </span>
 
                   {% if line_item.unit_price_measurement != blank %}
                     {% capture total_quantity %}<span class="order-item--total-quantity" data-total-quantity>{{ line_item.unit_price_measurement.quantity_value }}{{ line_item.unit_price_measurement.quantity_unit }}</span>{% endcapture %}

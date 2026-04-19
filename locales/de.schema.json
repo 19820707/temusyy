@@ -1169,7 +1169,7 @@
         }
       }
     },
-    "custom_html": {
+    "custom_section_html": {
       "name": "Benutzerdefiniertes HTML",
       "title": {
         "label": "Überschrift"

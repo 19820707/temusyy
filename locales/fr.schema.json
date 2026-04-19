@@ -1169,7 +1169,7 @@
         }
       }
     },
-    "custom_html": {
+    "custom_section_html": {
       "name": "HTML personnalisé",
       "title": {
         "label": "En-tête"
