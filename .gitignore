@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors / IDEs
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# Shopify CLI / local tooling
+.shopify/
+.env
+.env.*
+!.env.example
+
+# Logs and caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Node (if theme gains a build step later)
+node_modules/
+dist/
+build/
+
+# Archives / accidental exports
+*.zip
+*.tar
+*.tar.gz

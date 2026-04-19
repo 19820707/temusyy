@@ -1,0 +1,573 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "dynamic_slideshow": {
+      "type": "dynamic-slideshow",
+      "blocks": {
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Gray_Elegant_Beauty_Brand_Make_Up_Promotion_Banner_2.png",
+            "title": "",
+            "text": "",
+            "color": "#333333",
+            "link": "",
+            "text_alignment": "left",
+            "button_one_label": "",
+            "button_one_link": "shopify://collections/casual-sneakers",
+            "button_one_style": "primary",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 1
+          }
+        },
+        "slide-3": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Gray_and_Black_Minimalist_Fashion_Style_Banner_4.png",
+            "title": "",
+            "text": "",
+            "color": "#333333",
+            "link": "",
+            "text_alignment": "left",
+            "button_one_label": "",
+            "button_one_link": "shopify://collections/pumps",
+            "button_one_style": "primary",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "secondary",
+            "show_overlay": false,
+            "overlay_color": "#e5e4e2",
+            "overlay_opacity": 1
+          }
+        },
+        "slide-4": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Orange_and_Green_Playful_Illustrative_Kids_Fashion_Apparel_Banner_2.png",
+            "title": "",
+            "text": "",
+            "color": "#333333",
+            "link": "",
+            "text_alignment": "left",
+            "button_one_label": "",
+            "button_one_link": "shopify://collections/kids-sneakers",
+            "button_one_style": "primary",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "secondary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 1
+          }
+        },
+        "slide_wQ3R4Y": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Shoes_sale_Banner_Landscape_2.png",
+            "title": "",
+            "text": "",
+            "color": "#333333",
+            "link": "",
+            "text_alignment": "left",
+            "button_one_label": "",
+            "button_one_link": "shopify://collections/bags-and-backpacks",
+            "button_one_style": "primary",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide-2",
+        "slide-3",
+        "slide-4",
+        "slide_wQ3R4Y"
+      ],
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_duration": 5,
+        "slideshow_width": "full",
+        "slideshow_height": "original",
+        "slideshow_height_mobile": "original",
+        "slideshow_text_below_image": false
+      }
+    },
+    "dynamic_collection_list": {
+      "type": "dynamic-collection-list",
+      "blocks": {
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "dresses",
+            "image": "shopify://shop_images/woman-in-summer-floral-fashion.jpg",
+            "title": "Women's Fashion"
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "polos",
+            "image": "shopify://shop_images/man-reaches-inside-his-jacket.jpg",
+            "title": "Men's Fashion"
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "teen-clothing",
+            "image": "shopify://shop_images/little-boy-ready-for-school-looking-up.jpg",
+            "title": "Kids' Fashion"
+          }
+        },
+        "collection-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "health-and-beauty",
+            "image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
+            "title": ""
+          }
+        },
+        "collection-5": {
+          "type": "collection",
+          "settings": {
+            "collection": "accessories",
+            "image": "shopify://shop_images/laughter-in-the-sun.jpg",
+            "title": ""
+          }
+        },
+        "collection-6": {
+          "type": "collection",
+          "settings": {
+            "collection": "toys-and-games",
+            "image": "shopify://shop_images/toy-drive-donation-box.jpg",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection-1",
+        "collection-2",
+        "collection-3",
+        "collection-4",
+        "collection-5",
+        "collection-6"
+      ],
+      "settings": {
+        "title": "Crafted for distinction",
+        "thumbnail_columns_desktop": 6,
+        "thumbnail_columns_mobile": 3,
+        "image-crop": "circle",
+        "cta_label": "View All",
+        "cta_link": "shopify://collections/all",
+        "cta_button_style": "primary"
+      }
+    },
+    "pxs_image_with_text_overlay_8fFPN3": {
+      "type": "pxs-image-with-text-overlay",
+      "settings": {
+        "section_height": "original",
+        "image": "shopify://shop_images/Watch_Collection_sale_banners_1.png",
+        "title": "",
+        "text": "<p><br/></p>",
+        "content_position": "center-center",
+        "color": "#ffffff",
+        "overlay_background": "#000000",
+        "overlay_opacity": 0,
+        "link": "shopify://collections/watches",
+        "button_text": ""
+      }
+    },
+    "dynamic_featured_collection-2": {
+      "type": "dynamic-featured-collection",
+      "blocks": {
+        "title-card": {
+          "type": "title_card",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/wrist-watch-on-driving-arm.jpg",
+            "text_alignment": "center-center",
+            "pre_heading": "",
+            "heading": "Watches",
+            "text_color": "#ffffff",
+            "show_on_mobile": true,
+            "horizontal_size": "3",
+            "vertical_size": "2",
+            "enable_full_width_on_mobile": false,
+            "cta_label": "see more",
+            "overlay_color": "#000000",
+            "overlay_opacity": 10
+          }
+        }
+      },
+      "block_order": [
+        "title-card"
+      ],
+      "settings": {
+        "title": "",
+        "layout": "grid",
+        "mobile_layout": "slideshow",
+        "collection": "watches",
+        "product_count": 6,
+        "cta_label": "",
+        "cta_button_style": "secondary"
+      }
+    },
+    "dynamic_promo_grid-3": {
+      "type": "dynamic-promo-grid",
+      "blocks": {
+        "promotion-1": {
+          "type": "promotion",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/a-woman-in-her-shop.jpg",
+            "title": "Kitchen Organizer",
+            "text": "Organize your kitchen, elevate your space.",
+            "color": "#ffffff",
+            "block_link": "shopify://collections/organizers",
+            "button_text": "Shop Now",
+            "button_style": "primary",
+            "show_overlay": true,
+            "background": "",
+            "opacity": 19
+          }
+        }
+      },
+      "block_order": [
+        "promotion-1"
+      ],
+      "settings": {
+        "title": "",
+        "section_height": "large",
+        "section_columns": 1,
+        "text_alignment": "center-left"
+      }
+    },
+    "dynamic_collection_list_VgVDyd": {
+      "type": "dynamic-collection-list",
+      "blocks": {
+        "collection_a9MeJz": {
+          "type": "collection",
+          "settings": {
+            "collection": "action-figures",
+            "image": "shopify://shop_images/metallic-liquid-in-action.jpg",
+            "title": ""
+          }
+        },
+        "collection_CnaUQM": {
+          "type": "collection",
+          "settings": {
+            "collection": "headphones",
+            "image": "shopify://shop_images/woman-listening-to-music.jpg",
+            "title": ""
+          }
+        },
+        "collection_gaaLR9": {
+          "type": "collection",
+          "settings": {
+            "collection": "makeup",
+            "image": "shopify://shop_images/pink-lip-gloss.jpg",
+            "title": ""
+          }
+        },
+        "collection_mJJfNj": {
+          "type": "collection",
+          "settings": {
+            "collection": "sports-shoes",
+            "image": "shopify://shop_images/pair-of-all-black-sneakers.jpg",
+            "title": ""
+          }
+        },
+        "collection_REFgFB": {
+          "type": "collection",
+          "settings": {
+            "collection": "utensils",
+            "image": "shopify://shop_images/kitchen-utensils-on-counter.jpg",
+            "title": ""
+          }
+        },
+        "collection_c9UN9X": {
+          "type": "collection",
+          "settings": {
+            "collection": "footwear",
+            "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_a9MeJz",
+        "collection_CnaUQM",
+        "collection_gaaLR9",
+        "collection_mJJfNj",
+        "collection_REFgFB",
+        "collection_c9UN9X"
+      ],
+      "settings": {
+        "title": "BEST SELLING",
+        "thumbnail_columns_desktop": 6,
+        "thumbnail_columns_mobile": 2,
+        "image-crop": "round",
+        "cta_label": "View All",
+        "cta_link": "shopify://collections",
+        "cta_button_style": "primary"
+      }
+    },
+    "pxs_image_with_text_overlay_AHYwbH": {
+      "type": "pxs-image-with-text-overlay",
+      "settings": {
+        "section_height": "original",
+        "image": "shopify://shop_images/White_Simple_Photocentric_Jewelry_Promo_Banner_Landscape_1.png",
+        "title": "",
+        "text": "",
+        "content_position": "bottom-center",
+        "color": "#ffffff",
+        "overlay_background": "#000000",
+        "overlay_opacity": 0,
+        "link": "shopify://collections/jewelry-and-fashion-accessories",
+        "button_text": "Shop Now"
+      }
+    },
+    "dynamic_featured_collection_Tc6fXq": {
+      "type": "dynamic-featured-collection",
+      "settings": {
+        "title": "",
+        "layout": "grid",
+        "mobile_layout": "slideshow",
+        "collection": "jewelry-and-fashion-accessories",
+        "product_count": 5,
+        "cta_label": "",
+        "cta_button_style": "primary"
+      }
+    },
+    "dynamic_highlights_banner_WqNKDx": {
+      "type": "dynamic-highlights-banner",
+      "blocks": {
+        "highlight_qVfTeb": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-delivery",
+            "title": "Fast  Shipping",
+            "text": "<p>Swift Shipping Guaranteed.<br/><br/></p>",
+            "link": ""
+          }
+        },
+        "highlight_EjpTGH": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-cell-phone",
+            "title": "Give Us A Call",
+            "text": "<p>+41766344982</p>",
+            "link": ""
+          }
+        },
+        "highlight_zfgA7r": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-chat-alternate",
+            "title": "Chat With Us",
+            "text": "<p>Quick Chat Support.<br/><br/></p>",
+            "link": ""
+          }
+        },
+        "highlight_rm3Jmt": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-discount",
+            "title": "Discount",
+            "text": "<p>Get Discount on Your Favourite Products</p>",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "highlight_qVfTeb",
+        "highlight_EjpTGH",
+        "highlight_zfgA7r",
+        "highlight_rm3Jmt"
+      ],
+      "settings": {
+        "section_spacing": true,
+        "section_width": "full-width",
+        "icon_layout": "left",
+        "color": "#046e82",
+        "icon_color": "#046e82",
+        "background_color": "#e5e4e2",
+        "mobile_layout": "grid"
+      }
+    },
+    "dynamic_slideshow_HU6PyP": {
+      "type": "dynamic-slideshow",
+      "blocks": {
+        "slide_Vj9pMt": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/Black_and_White_Vintage_Illustration_Men_s_Fashion_Banner.png",
+            "title": "",
+            "text": "",
+            "color": "#ffffff",
+            "link": "",
+            "text_alignment": "center",
+            "button_one_label": "",
+            "button_one_link": "",
+            "button_one_style": "primary",
+            "button_two_label": "",
+            "button_two_link": "",
+            "button_two_style": "primary",
+            "show_overlay": false,
+            "overlay_color": "#000000",
+            "overlay_opacity": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_Vj9pMt"
+      ],
+      "settings": {
+        "enable_autoplay": true,
+        "autoplay_duration": 8,
+        "slideshow_width": "full",
+        "slideshow_height": "original",
+        "slideshow_height_mobile": "original",
+        "slideshow_text_below_image": true
+      }
+    },
+    "dynamic_featured_collection": {
+      "type": "dynamic-featured-collection",
+      "settings": {
+        "title": "Dress Shirts",
+        "layout": "slideshow",
+        "mobile_layout": "grid",
+        "collection": "dress-shirts",
+        "product_count": 6,
+        "cta_label": "",
+        "cta_button_style": "secondary"
+      }
+    },
+    "dynamic_featured_collection_ppMTgJ": {
+      "type": "dynamic-featured-collection",
+      "settings": {
+        "title": "Dress Pants",
+        "layout": "slideshow",
+        "mobile_layout": "slideshow",
+        "collection": "dress-pants",
+        "product_count": 6,
+        "cta_label": "",
+        "cta_button_style": "primary"
+      }
+    },
+    "dynamic_testimonials": {
+      "type": "dynamic-testimonials",
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "5",
+            "text": "<p><strong>An elegant and reliable watch, clearly crafted to last. Prompt delivery and refined packaging added to a smooth, premium experience. Highly recommended for those who appreciate quality and style.</strong></p><p></p>",
+            "author": "<p><strong> </strong><em><strong>Jonathan Reed</strong></em></p>"
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "5",
+            "text": "<p><strong><br/>Impressive quality and classic design. These loafers are as comfortable as they are stylish. The unboxing experience matched the premium look and feel.<br/><br/></strong></p>",
+            "author": "<p><strong> </strong><em><strong>Oliver Grant</strong></em></p>"
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "5",
+            "text": "<p><strong>Crisp sound, seamless Bluetooth connection, and a comfortable fit. These earbuds exceeded expectations. Delivery was prompt and packaging felt premium.</strong></p>",
+            "author": "<p><strong>Sophia Lane<br/><br/></strong></p>"
+          }
+        },
+        "testimonial-4": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "5",
+            "text": "<p><br/><strong>A modern, refined scent that works perfectly for day or evening. The fragrance has depth and longevity. Excellent customer care and presentation.<br/></strong><br/></p>",
+            "author": "<p><em><strong>Alex Whitmore</strong></em></p>"
+          }
+        },
+        "testimonial-5": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "5",
+            "text": "<p><strong><br/>Beautifully designed and surprisingly lightweight. This bracelet adds a touch of elegance to every outfit. Arrived in a lovely box and felt like a gift to myself.<br/><br/></strong></p>",
+            "author": "<p><strong>Emily Rhodes</strong></p>"
+          }
+        },
+        "testimonial-6": {
+          "type": "testimonial",
+          "settings": {
+            "star_rating": "5",
+            "text": "<p></p><p><strong>Stylish, sturdy, and incredibly functional. This kitchen organizer helped streamline my space instantly. A well-thought-out design with quality materials—very satisfied.<br/><br/></strong></p>",
+            "author": "<p><em><strong>Chloe Bennett</strong></em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial-1",
+        "testimonial-2",
+        "testimonial-3",
+        "testimonial-4",
+        "testimonial-5",
+        "testimonial-6"
+      ],
+      "settings": {
+        "title": "See why customers choose us!",
+        "image_crop": "circle",
+        "text_size": "small"
+      }
+    },
+    "1746893031c8caac9d": {
+      "type": "apps",
+      "blocks": {
+        "trustoo_io_reviews_card_carousel_yD8KhM": {
+          "type": "shopify://apps/trustoo-io-reviews/blocks/card-carousel/c8f15077-6475-4e86-ad06-b66038d5ba2c",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "trustoo_io_reviews_card_carousel_yD8KhM"
+      ],
+      "settings": {
+        "include_padding": false
+      }
+    }
+  },
+  "order": [
+    "dynamic_slideshow",
+    "dynamic_collection_list",
+    "pxs_image_with_text_overlay_8fFPN3",
+    "dynamic_featured_collection-2",
+    "dynamic_promo_grid-3",
+    "dynamic_collection_list_VgVDyd",
+    "pxs_image_with_text_overlay_AHYwbH",
+    "dynamic_featured_collection_Tc6fXq",
+    "dynamic_highlights_banner_WqNKDx",
+    "dynamic_slideshow_HU6PyP",
+    "dynamic_featured_collection",
+    "dynamic_featured_collection_ppMTgJ",
+    "dynamic_testimonials",
+    "1746893031c8caac9d"
+  ]
+}

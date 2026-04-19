@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcement-bar": {
+      "type": "static-announcement",
+      "settings": {
+        "show_announcement": true,
+        "homepage_announcement": false,
+        "announcement_text": "Exceptional Quality, Thoughtfully Curated.",
+        "announcement_text_mobile": "",
+        "announcement_link": "shopify://collections/all",
+        "announcement_color": "#ffffff",
+        "announcement_background": "#046e82"
+      }
+    },
+    "utility-bar": {
+      "type": "static-utility-bar",
+      "disabled": true,
+      "settings": {
+        "use_full_width": false,
+        "background_color": "#1b175d",
+        "link_color": "#ffffff",
+        "link_hover_color": "#ffffff",
+        "border_color": "rgba(0,0,0,0)",
+        "menu": "",
+        "show_menu_mobile": true,
+        "mobile_layout": "above",
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "show_social_icons": true
+      }
+    },
+    "header": {
+      "type": "static-header",
+      "settings": {
+        "sticky_header": false,
+        "full_width_header": false,
+        "logo": "shopify://shop_images/ChatGPT_Image_9_05_2025_13_09_28_4a0a3865-a17b-493f-b57e-56d278437d22.png",
+        "logo_height": 83,
+        "logo_width": 218,
+        "filter_search_by": "disabled",
+        "enable_live_search": false,
+        "show_mobile_search_bar": false,
+        "enable_live_search_images": false,
+        "quick_links": "",
+        "menu": "main-menu",
+        "secondary_menu": "",
+        "small_promo_heading": "",
+        "small_promo_text": "",
+        "small_promo_text_mobile": "",
+        "small_promo_link": "",
+        "small_promo_icon": "none",
+        "cart_icon": "icon-cart"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "utility-bar",
+    "header"
+  ]
+}
