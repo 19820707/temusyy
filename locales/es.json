@@ -325,6 +325,7 @@
       "enter_order_note": "Ingrese una nota de regalo o instrucciones especiales de entrega a continuación:",
       "special_instructions": "Instrucciones especiales",
       "tax_and_shipping": "Los impuestos y gastos de envío se calculan en la pantalla de pagos",
+      "taxes_at_checkout": "Impuestos calculados al finalizar la compra",
       "taxes_and_shipping_policy_at_checkout_html": "Los impuestos y <a href=\"{{ link }}\">gastos de envío</a> se calculan en la pantalla de pagos",
       "taxes_included_but_shipping_at_checkout": "En la pantalla de pagos se incluye el impuesto y se calculan los gastos de envío",
       "taxes_included_and_shipping_policy_html": "Impuesto incluido. Los <a href=\"{{ link }}\">gastos de envío</a> se calculan en la pantalla de pagos.",

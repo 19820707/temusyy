@@ -325,6 +325,7 @@
       "enter_order_note": "Zadejte poznámku k dárku nebo zvláštní instrukce pro doručení níže:",
       "special_instructions": "Zvláštní instrukce",
       "tax_and_shipping": "Daně a poštovné se vypočítají v pokladně",
+      "taxes_at_checkout": "Daně vypočítané při pokladně",
       "taxes_and_shipping_policy_at_checkout_html": "Daně a <a href=\"{{ link }}\">poštovné</a> se vypočítá v pokladně",
       "taxes_included_but_shipping_at_checkout": "Daně a poštovné se vypočítají v pokladně",
       "taxes_included_and_shipping_policy_html": "Včetně daní. <a href=\"{{ link }}\">Poštovné</a> se vypočítá v pokladně.",
@@ -577,6 +578,7 @@
     "predictive_search": {
       "suggestions": "Návrhy",
       "products_title": "Produkty",
+      "products_label": "Produkty",
       "pages_title": "Stránky",
       "posts_title": "Příspěvky",
       "pages_and_posts_title": "Stránky a příspěvky",

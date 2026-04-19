@@ -1,33 +1,33 @@
 /**
- * Contract: theme.css must not embed shop-locked font URLs; typography is bootstrapped via snippets/theme-font-faces.liquid.
+ * Contract: theme.bundle.css must not embed shop-locked font URLs; typography is bootstrapped via snippets/theme-font-faces.liquid.
  */
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 
-const themeCss = fs.readFileSync(path.join(__dirname, '..', 'assets', 'theme.css'), 'utf8');
+const themeCss = fs.readFileSync(path.join(__dirname, '..', 'assets', 'theme.bundle.css'), 'utf8');
 
 assert.doesNotMatch(
   themeCss,
   /@font-face\s*\{/,
-  'theme.css: must not embed @font-face blocks (use snippets/theme-font-faces.liquid)'
+  'theme.bundle.css: must not embed @font-face blocks (use snippets/theme-font-faces.liquid)'
 );
-assert.doesNotMatch(themeCss, /www\.temusy\.com/i, 'theme.css: must not hardcode legacy shop font hostnames');
-assert.doesNotMatch(themeCss, /temusy\.com\/cdn\/fonts/i, 'theme.css: must not hardcode legacy font CDN paths');
+assert.doesNotMatch(themeCss, /www\.temusy\.com/i, 'theme.bundle.css: must not hardcode legacy shop font hostnames');
+assert.doesNotMatch(themeCss, /temusy\.com\/cdn\/fonts/i, 'theme.bundle.css: must not hardcode legacy font CDN paths');
 assert.match(
   themeCss,
   /var\(--theme-font-body\)/,
-  'theme.css: must use --theme-font-body for body typography (settings-driven)'
+  'theme.bundle.css: must use --theme-font-body for body typography (settings-driven)'
 );
-assert.match(themeCss, /invariant:.*theme-font-faces/i, 'theme.css: must document font-face invariant in header');
+assert.match(themeCss, /invariant:.*theme-font-faces/i, 'theme.bundle.css: must document font-face invariant in header');
 assert.ok(
   themeCss.includes('--theme-font-body|heading|button|menu'),
-  'theme.css: header must document --theme-font-* ownership (theme-font-faces.liquid)'
+  'theme.bundle.css: header must document --theme-font-* ownership (theme-font-faces.liquid)'
 );
 assert.match(
   themeCss,
   /@media\s*\(\s*forced-colors:\s*active\s*\)[\s\S]*\.product-form--atc-button:focus-visible/,
-  'theme.css: must define forced-colors focus-visible fallback for ATC / primary actions'
+  'theme.bundle.css: must define forced-colors focus-visible fallback for ATC / primary actions'
 );
 
 const snippet = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'theme-font-faces.liquid'), 'utf8');
@@ -57,8 +57,8 @@ assertFontsBeforeTheme('none.liquid', 'layout/none.liquid');
   );
   assert.match(
     themeCssLiquid,
-    /@import\s+url\s*\(\s*['"]\{\{\s*["']theme\.css["']\s*\|\s*asset_url\s*\}\}\s*['"]\s*\)\s*;/,
-    'theme.css.liquid: must @import theme.css only (single source of truth)'
+    /@import\s+url\s*\(\s*['"]\{\{\s*["']theme\.bundle\.css["']\s*\|\s*asset_url\s*\}\}\s*['"]\s*\)\s*;/,
+    'theme.css.liquid: must @import theme.bundle.css only (single source of truth; avoid self-import)'
   );
   assert.doesNotMatch(
     themeCssLiquid,

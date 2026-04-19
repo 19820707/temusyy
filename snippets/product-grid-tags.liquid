@@ -146,9 +146,9 @@
         data-filter-active="{{ filter_active }}"
       >
         {% if current_tags contains tag %}
-          {{ tag_text | link_to_remove_tag: tag | replace: '" title="', '&grid_list" title=""' | class: 'filter-link' }}
+          {{ tag_text | link_to_remove_tag: tag | replace: '" title="', '&grid_list" title=""' | replace: '<a ', '<a class="filter-link" ' }}
         {% else %}
-          {{ tag_text | link_to_add_tag: tag | replace: '" title="', '&grid_list" title=""' | class: 'filter-link' }}
+          {{ tag_text | link_to_add_tag: tag | replace: '" title="', '&grid_list" title=""' | replace: '<a ', '<a class="filter-link" ' }}
         {% endif %}
       </li>
     {% endfor %}

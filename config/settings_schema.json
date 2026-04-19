@@ -17,7 +17,7 @@
         "default": false
       },
       {
-        "type": "number",
+        "type": "range",
         "id": "age_gate_site_wide_min_age",
         "label": "t:settings_schema.age_gate.minimum_age.label",
         "default": 18,

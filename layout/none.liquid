@@ -120,16 +120,15 @@
     </div>
     {% comment %}Inject modal end{% endcomment %}
 
-
-    <script
-      src="{{ 'vendors-main.bundle.js' | asset_url }}"
-    >
-    </script>
-
+    {%- comment -%}
+      invariant: layout/none may render without the full storefront shell; load only existing assets
+      and never block parsing on a missing vendor bundle.
+    {%- endcomment -%}
     <script
       src="{{ 'empire.js' | asset_url }}"
       data-scripts
       data-pxu-polyfills="{{ 'polyfills.min.js' | asset_url }}"
+      async
     >
     </script>
   </body>

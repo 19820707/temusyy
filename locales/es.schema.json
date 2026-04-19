@@ -50,18 +50,18 @@
         "label": "Diseño de escritorio",
         "group_1": "Fuera",
         "group_2": "Superposición",
-        "option_1": "Arriba a la izquierda",
-        "option_2": "Centro izquierda",
-        "option_3": "Abajo a la izquierda",
-        "option_4": "Arriba a la derecha",
-        "option_5": "Centro derecha",
-        "option_6": "Abajo a la derecha",
+        "option_1": "Izquierda arriba",
+        "option_2": "Centrado a la izquierda",
+        "option_3": "Izquierda abajo",
+        "option_4": "Derecha arriba",
+        "option_5": "Centrado a la derecha",
+        "option_6": "Derecha abajo",
         "option_7": "Arriba a la izquierda",
         "option_8": "Centro superior",
         "option_9": "Arriba a la derecha",
-        "option_10": "Centro izquierda",
+        "option_10": "Centro a la izquierda",
         "option_11": "Centro",
-        "option_12": "Centro derecha",
+        "option_12": "Centro a la derecha",
         "option_13": "Abajo a la izquierda",
         "option_14": "Centro inferior",
         "option_15": "Abajo a la derecha"
@@ -256,9 +256,7 @@
             "option_28": "Calificación de estrellas",
             "option_29": "Sonrisa",
             "option_30": "Tienda",
-            "option_31": "Cinta métrica",
-            "option_32": "Pulgares arriba",
-            "option_33": "Transferencia"
+            "option_31": "Cinta métrica"
           },
           "image": {
             "label": "Imagen",
@@ -948,14 +946,12 @@
           },
           "horizontal_size": {
             "label": "Estado horizontal en escritorio",
-            "info": "Solo se aplica al diseño de cuadrícula.",
             "option_1": "1 columna",
             "option_2": "2 columnas",
             "option_3": "3 columnas"
           },
           "vertical_size": {
             "label": "Estado vertical en escritorio",
-            "info": "Solo se aplica al diseño de cuadrícula.",
             "option_1": "1 fila",
             "option_2": "2 filas"
           },
@@ -1178,7 +1174,7 @@
       "title": {
         "label": "Título"
       },
-      "custom_html": {
+      "html": {
         "label": "HTML"
       },
       "presets": {
@@ -2243,9 +2239,7 @@
         "option_28": "Calificación de estrellas",
         "option_29": "Sonrisa",
         "option_30": "Tienda",
-        "option_31": "Cinta métrica",
-        "option_32": "Pulgares arriba",
-        "option_33": "Transferencia"
+        "option_31": "Cinta métrica"
       },
       "image": {
         "label": "Imagen",

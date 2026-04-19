@@ -317,6 +317,8 @@
         {% endif %}
 
         alt="{{ rimg_alt }}"
+        width="{{ img.width }}"
+        height="{{ img.height }}"
         data-rimg="noscript"
         srcset="{{ rimg_density_srcset }}"
         {% if class != blank %}class="{{ class }}"{% endif %}
@@ -333,6 +335,8 @@
       src="{{ img | img_url: rimg_size, crop: crop, format: rimg_format }}"
     {% endif %}
     alt="{{ rimg_alt }}"
+    width="{{ img.width }}"
+    height="{{ img.height }}"
 
     {% if lazy %}
       data-rimg="lazy"

@@ -325,6 +325,7 @@
       "enter_order_note": "Aşağıya bir hediye notu veya özel teslimat talimatları girin:",
       "special_instructions": "Özel talimatları",
       "tax_and_shipping": "Vergiler ve kargo, ödeme sayfasında hesaplanır",
+      "taxes_at_checkout": "Vergiler ödeme sırasında hesaplanır",
       "taxes_and_shipping_policy_at_checkout_html": "Vergiler ve <a href=\"{{ link }}\">kargo</a>, ödeme sayfasında hesaplanır",
       "taxes_included_but_shipping_at_checkout": "Vergi dahildir ve kargo, ödeme sayfasında hesaplanır",
       "taxes_included_and_shipping_policy_html": "Vergi dahildir. <a href=\"{{ link }}\">Kargo</a>, ödeme sayfasında hesaplanır.",
@@ -577,6 +578,7 @@
     "predictive_search": {
       "suggestions": "Öneriler",
       "products_title": "Ürünler",
+      "products_label": "Ürünler",
       "pages_title": "Sayfalar",
       "posts_title": "Yazıları",
       "pages_and_posts_title": "Sayfalar ve Yazıları",

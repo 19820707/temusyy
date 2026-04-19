@@ -325,6 +325,7 @@
       "enter_order_note": "नीचे एक उपहार नोट या विशेष डिलीवरी निर्देश दर्ज करें:\n",
       "special_instructions": "विशेष निर्देश\n",
       "tax_and_shipping": "चेकआउट के दौरान कर और शिपिंग गणना की गई",
+      "taxes_at_checkout": "चेकआउट पर करों की गणना की जाएगी",
       "taxes_and_shipping_policy_at_checkout_html": "चेकआउट के दौरान कर और <a href=\"{{ link }}\">शिपिंग</a> गणना की गई",
       "taxes_included_but_shipping_at_checkout": "चेकआउट के दौरान कर शामिल किया और शिपिंग की गणना की गई",
       "taxes_included_and_shipping_policy_html": "कर शामिल है. चेकआउट के दौरान <a href=\"{{ link }}\">शिपिंग</a> की गणना की गई",
@@ -577,6 +578,7 @@
     "predictive_search": {
       "suggestions": "सुझाव",
       "products_title": "उत्पादों",
+      "products_label": "उत्पाद",
       "pages_title": "पृष्ठों",
       "posts_title": "पदों",
       "pages_and_posts_title": "पोस्ट्स और पेज",

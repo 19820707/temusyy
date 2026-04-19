@@ -49,6 +49,7 @@ assert.ok(age, 'settings_schema: age_gate group exists');
 const minAge = age.settings.find(function (s) {
   return s && s.id === 'age_gate_site_wide_min_age';
 });
+assert.strictEqual(minAge.type, 'range', 'settings_schema: age_gate_site_wide_min_age must be range because Shopify only permits min/max/step on range controls');
 assert.strictEqual(minAge.min, 18, 'settings_schema: age_gate_site_wide_min_age.min must be 18');
 assert.ok(minAge.max >= minAge.min, 'settings_schema: age gate max must be >= min');
 assert.ok(data.current && typeof data.current.age_gate_site_wide_min_age === 'number', 'settings_data: current.age_gate_site_wide_min_age present');

@@ -254,6 +254,27 @@
       "send_on_placeholder": "AAAA-MM-DD"
     }
   },
+  "age_gate": {
+    "form": {
+      "confirm": "Confirme sua idade e continue para {{ shop }}",
+      "error": "O acesso à loja é limitado a adultos com {{ age }} anos ou mais.",
+      "day": "Dia",
+      "month": "Mês",
+      "year": "Ano",
+      "january": "Janeiro",
+      "february": "Fevereiro",
+      "march": "Março",
+      "april": "Abril",
+      "may": "Maio",
+      "june": "Junho",
+      "july": "Julho",
+      "august": "Agosto",
+      "september": "Setembro",
+      "october": "Outubro",
+      "november": "Novembro",
+      "december": "Dezembro"
+    }
+  },
   "header": {
     "account": {
       "title": "Minha Conta",
@@ -304,6 +325,7 @@
       "enter_order_note": "Digite uma nota para presente ou instruções de entrega abaixo:",
       "special_instructions": "Instruções especiais",
       "tax_and_shipping": "Tributos e frete calculados no checkout",
+      "taxes_at_checkout": "Impostos calculados no checkout",
       "taxes_and_shipping_policy_at_checkout_html": "Tributos e <a href=\"{{ link }}\">frete</a> calculados no checkout",
       "taxes_included_but_shipping_at_checkout": "Tributos incluídos e frete calculado no checkout",
       "taxes_included_and_shipping_policy_html": "Tributos incluídos. <a href=\"{{ link }}\">Frete</a> calculado no checkout.",

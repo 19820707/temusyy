@@ -50,18 +50,18 @@
         "label": "Mise en page du bureau",
         "group_1": "L'extérieur",
         "group_2": "Superposition",
-        "option_1": "En haut à gauche",
-        "option_2": "Centre gauche",
-        "option_3": "En bas à gauche",
-        "option_4": "En haut à droite",
-        "option_5": "Centre droit",
-        "option_6": "En bas à droite",
+        "option_1": "Gauche en haut",
+        "option_2": "Centré sur la gauche",
+        "option_3": "Gauche en bas",
+        "option_4": "Droite en haut",
+        "option_5": "Centré sur la droite",
+        "option_6": "Droite en bas",
         "option_7": "En haut à gauche",
         "option_8": "En haut au centre",
         "option_9": "En haut à droite",
-        "option_10": "Centre gauche",
+        "option_10": "Centre à gauche",
         "option_11": "Centre",
-        "option_12": "Centre droit",
+        "option_12": "Centre à droite",
         "option_13": "En bas à gauche",
         "option_14": "En bas au centre",
         "option_15": "En bas à droite"
@@ -946,14 +946,12 @@
           },
           "horizontal_size": {
             "label": "État horizontal sur le bureau",
-            "info": "S'applique uniquement à la disposition de grille.",
             "option_1": "1 colonne",
             "option_2": "2 colonnes",
             "option_3": "3 colonnes"
           },
           "vertical_size": {
             "label": "État verticale sur le bureau",
-            "info": "S'applique uniquement à la disposition de grille.",
             "option_1": "1 ligne",
             "option_2": "2 lignes"
           },
@@ -1176,7 +1174,7 @@
       "title": {
         "label": "En-tête"
       },
-      "custom_html": {
+      "html": {
         "label": "HTML"
       },
       "presets": {

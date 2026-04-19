@@ -18,7 +18,7 @@ const allowed = [
   'polyfills.min.js',
   'ripple.css',
   'ripple.css.liquid',
-  'theme.css',
+  'theme.bundle.css',
   'theme.css.liquid',
   'tiny-img-link-preloader.js',
 ].sort();

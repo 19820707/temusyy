@@ -475,7 +475,7 @@
                                 {{ compare_at_price_max | money }}
                               </span>
                             {% else %}
-                              {{ 'product_price.item.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
+                              {{ 'product_price.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
                             {% endif %}
                           {% endcapture %}
                         {% endif %}
@@ -508,7 +508,7 @@
                               {{ compare_at_price_max | money }}
                             </span>
                           {% else %}
-                            {{ 'product_price.item.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
+                            {{ 'product_price.price.range_html' | t: price: compare_at_price_html | strip_newlines }}
                           {% endif %}
                         </div>
                         <div class="price__compare-at--hidden" data-compare-price-hidden>

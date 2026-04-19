@@ -1,6 +1,6 @@
 {% comment %}
-  invariant: Storefront @font-face must come from Shopify font_picker + font_face (shop CDN), not hardcoded URLs in assets/theme.css.
-  invariant: :root --theme-font-* stacks must stay aligned with theme.css rules (var(--theme-font-body|heading|button|menu)).
+  invariant: Storefront @font-face must come from Shopify font_picker + font_face (shop CDN), not hardcoded URLs in assets/theme.bundle.css.
+  invariant: :root --theme-font-* stacks must stay aligned with theme.bundle.css rules (var(--theme-font-body|heading|button|menu)).
 {% endcomment %}
 <style id="theme-font-faces">
   {%- assign fonts_display = 'swap' -%}

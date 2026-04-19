@@ -50,18 +50,18 @@
         "label": "Layout per PC",
         "group_1": "Fuori",
         "group_2": "Sovrimpressione",
-        "option_1": "In alto a sinistra",
-        "option_2": "In mezzo a sinistra",
-        "option_3": "In basso a sinistra",
-        "option_4": "In alto a destra",
-        "option_5": "In mezzo a destra",
-        "option_6": "In basso a destra",
+        "option_1": "Sinistra in alto",
+        "option_2": "Centrato a sinistra",
+        "option_3": "Sinistra in basso",
+        "option_4": "Destra in alto",
+        "option_5": "Centrato a destra",
+        "option_6": "Destra in basso",
         "option_7": "In alto a sinistra",
         "option_8": "In alto al centro",
         "option_9": "In alto a destra",
-        "option_10": "In mezzo a sinistra",
+        "option_10": "Centro a sinistra",
         "option_11": "Al centro",
-        "option_12": "In mezzo a destra",
+        "option_12": "Centro a destra",
         "option_13": "In basso a sinistra",
         "option_14": "In basso al centro",
         "option_15": "In basso a destra"
@@ -946,14 +946,12 @@
           },
           "horizontal_size": {
             "label": "Stato orizzontale sul desktop",
-            "info": "Si applica solo al layout \"Griglia\".",
             "option_1": "1 colonna",
             "option_2": "2 colonne",
             "option_3": "3 colonne"
           },
           "vertical_size": {
             "label": "Stato verticale sul desktop",
-            "info": "Si applica solo al layout \"Griglia\".",
             "option_1": "1 riga",
             "option_2": "2 righe"
           },
@@ -1176,7 +1174,7 @@
       "title": {
         "label": "Intestazione"
       },
-      "custom_html": {
+      "html": {
         "label": "HTML"
       },
       "presets": {

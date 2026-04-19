@@ -325,6 +325,7 @@
       "enter_order_note": "Geben Sie unten eine Geschenknotiz oder besondere Lieferanweisungen ein:",
       "special_instructions": "Besondere Anweisungen",
       "tax_and_shipping": "Steuern und Versandkosten werden beim Checkout berechnet",
+      "taxes_at_checkout": "Steuern werden beim Checkout berechnet",
       "taxes_and_shipping_policy_at_checkout_html": "zzgl. MwSt. und <a href=\"{{ link }}\">Versandkosten</a>",
       "taxes_included_but_shipping_at_checkout": "inkl. MwSt. und zzgl. Versandkosten",
       "taxes_included_and_shipping_policy_html": "inkl. MwSt. zzgl. <a href=\"{{ link }}\">Versandkosten</a>",

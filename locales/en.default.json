@@ -189,7 +189,8 @@
       "no_matched_products": "{{ tag }} has no product matches",
       "star_review_text": "Review",
       "star_reviews_text": "Reviews",
-      "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars"
+      "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
+      "total_reviews": "Total reviews"
     },
     "time": {
       "clear": "Clear recently viewed",
@@ -324,9 +325,11 @@
       "enter_order_note": "Enter a gift note or special delivery instructions below:",
       "special_instructions": "Special instructions",
       "tax_and_shipping": "Taxes and shipping calculated at checkout",
+      "taxes_at_checkout": "Taxes calculated at checkout",
       "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
       "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "total_line_price": "Line total",
       "cart_empty": "Your cart is empty"
     },
     "shipping": {
@@ -600,6 +603,7 @@
     "predictive_search": {
       "suggestions": "Suggestions",
       "products_title": "Products",
+      "products_label": "Products",
       "pages_title": "Pages",
       "posts_title": "Posts",
       "pages_and_posts_title": "Pages & Posts",

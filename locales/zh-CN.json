@@ -254,6 +254,27 @@
       "send_on_placeholder": "YYYY-MM-DD"
     }
   },
+  "age_gate": {
+    "form": {
+      "confirm": "确认年龄并继续前往 {{ shop }}",
+      "error": "商店访问仅限 {{ age }} 岁及以上成年人。",
+      "day": "日",
+      "month": "月",
+      "year": "年",
+      "january": "一月",
+      "february": "二月",
+      "march": "三月",
+      "april": "四月",
+      "may": "五月",
+      "june": "六月",
+      "july": "七月",
+      "august": "八月",
+      "september": "九月",
+      "october": "十月",
+      "november": "十一月",
+      "december": "十二月"
+    }
+  },
   "header": {
     "account": {
       "title": "我的账户",
@@ -304,6 +325,7 @@
       "enter_order_note": "在下面输入礼品留言或特殊送货说明：",
       "special_instructions": "特殊说明",
       "tax_and_shipping": "结账时计算的税金和运费",
+      "taxes_at_checkout": "税费将在结账时计算",
       "taxes_and_shipping_policy_at_checkout_html": "结账时计算的税金和<a href=\"{{ link }}\">运费</a>",
       "taxes_included_but_shipping_at_checkout": "结账时计算的税金（包含）和运费",
       "taxes_included_and_shipping_policy_html": "税金（包含）。结账时计算的<a href=\"{{ link }}\">运费</a>。",

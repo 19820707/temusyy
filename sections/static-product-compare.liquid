@@ -114,7 +114,16 @@
             {% if block.settings.title != blank %}
               {% assign filter_label = block.settings.title %}
             {% elsif translated_block_types contains block.type %}
-              {% assign filter_label = 'product_compare.' | append: block.type | t %}
+              {% case block.type %}
+                {% when 'description' %}
+                  {% assign filter_label = 'product_compare.description' | t %}
+                {% when 'vendor' %}
+                  {% assign filter_label = 'product_compare.vendor' | t %}
+                {% when 'rating' %}
+                  {% assign filter_label = 'product_compare.rating' | t %}
+                {% when 'availability' %}
+                  {% assign filter_label = 'product_compare.availability' | t %}
+              {% endcase %}
             {% endif %}
 
             {% unless filter_label == blank %}

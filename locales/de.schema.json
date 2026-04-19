@@ -54,7 +54,7 @@
         "option_2": "Links Mitte",
         "option_3": "Links unten",
         "option_4": "Rechts oben",
-        "option_5": "Mitte rechts",
+        "option_5": "Rechts Mitte",
         "option_6": "Rechts unten",
         "option_7": "Oben links",
         "option_8": "Oben Mitte",
@@ -1174,7 +1174,7 @@
       "title": {
         "label": "Überschrift"
       },
-      "custom_html": {
+      "html": {
         "label": "HTML"
       },
       "presets": {

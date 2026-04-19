@@ -151,6 +151,19 @@
     }
   },
   "sections": {
+    "slideshow": {
+      "slideshow": "Presentazione",
+      "slide_index": "Diapositiva {{ count }}",
+      "slide_counter": "Diapositiva {{ count }} di {{ total }}",
+      "next_slide": "Diapositiva successiva",
+      "previous_slide": "Diapositiva precedente"
+    },
+    "shoppable-image": {
+      "onboarding": {
+        "product": "Prodotto",
+        "tooltip_link": "Visualizza prodotto"
+      }
+    },
     "faq": {
       "summary": "Vuoi sapere qualcos'altro?",
       "content": "Risparmia tempo e fatica a scrivere sempre la stessa email elencando qui le domande e le risposte più frequenti. Una pagina delle domande frequenti dedicata dovrebbe aiutarti a soddisfare le esigenze di base dei tuoi clienti, ridurre le e-mail del servizio clienti, aumentare le conversioni e creare un'esperienza di acquisto più soddisfacente!",
@@ -158,6 +171,18 @@
         "view_all": "Visualizza tutto",
         "view_less": "Mostra meno"
       }
+    },
+    "countdown-timer": {
+      "days": "Giorni",
+      "hours": "Ore",
+      "minutes": "Minuti",
+      "seconds": "Secondi"
+    },
+    "complementary_product_block": {
+      "from": "da",
+      "now": "ora",
+      "view_details": "Visualizza prodotto",
+      "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} / {{ unit_measure }}"
     }
   },
   "age_gate": {
@@ -231,6 +256,7 @@
       "enter_order_note": "Inserisci una nota o istruzioni di consegna speciali:",
       "special_instructions": "Istruzioni speciali",
       "tax_and_shipping": "Tasse e spedizione calcolate al momento del pagamento",
+      "taxes_at_checkout": "Imposte calcolate al checkout",
       "taxes_and_shipping_policy_at_checkout_html": "Tasse e <a href=\"{{ link }}\">spedizioni</a> calcolate al momento del pagamento",
       "taxes_included_but_shipping_at_checkout": "Tasse incluse e spedizione calcolata al momento del pagamento",
       "taxes_included_and_shipping_policy_html": "Tasse incluse. <a href=\"{{ link }}\">Spedizione</a> calcolata al momento del pagamento.",
@@ -445,6 +471,12 @@
     }
   },
   "product": {
+    "variants": {
+      "choose_variant": "Scegli una variante",
+      "choose_option": "Scegli {{ option }}",
+      "chosen_option_html": "{{ option }}: <span>{{ value }}</span>",
+      "unavailable": "Non disponibile"
+    },
     "general": {
       "by_vendor": " {{ vendor }}",
       "by_vendor_html": " {{ vendor_link }}",
@@ -546,6 +578,7 @@
     "predictive_search": {
       "suggestions": "Suggerimenti",
       "products_title": "Prodotti",
+      "products_label": "Prodotti",
       "pages_title": "Pagine",
       "posts_title": "Post",
       "pages_and_posts_title": "Pagine e Post",

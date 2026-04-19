@@ -86,7 +86,7 @@
 
     {%- if tinyscript -%}{{ content_for_header }}{%- else -%}{% render 'tiny-script-control' %}{%- endif -%}
 
-    {%- comment -%} invariant: theme-font-faces must load before theme.css (defines @font-face + --theme-font-* consumed by theme.css). {%- endcomment -%}
+    {%- comment -%} invariant: theme-font-faces must load before theme.css stylesheet (shim → theme.bundle.css; defines @font-face + --theme-font-*). {%- endcomment -%}
     {% render 'theme-font-faces' %}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
 
@@ -537,8 +537,11 @@
     {% endif %}
 
     {%- if template contains 'customer' -%}
-      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
-      {{ 'customer_area.js' | shopify_asset_url | script_tag }}
+      {%- comment -%}
+        invariant: customer helpers are Shopify-hosted assets and must not block first render.
+      {%- endcomment -%}
+      <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+      <script src="{{ 'customer_area.js' | shopify_asset_url }}" defer></script>
     {%- endif -%}
 
     {%- comment -%} invariant: pxu animation bootstrap must tolerate absent keys / non-object JSON without throwing past JSON.parse. {%- endcomment -%}
@@ -590,7 +593,7 @@
         data-shopify-api-url="{{ 'api.jquery.js' | shopify_asset_url }}"
         data-shopify-countries="/services/javascripts/countries.js"
         data-shopify-common="{{ 'shopify_common.js' | shopify_asset_url }}"
-        data-shopify-cart="{{ 'jquery.cart.js' | asset_url }}"
+        data-shopify-cart="{{ 'jquery.cart.js' | shopify_asset_url }}"
         data-pxu-polyfills="{{ 'polyfills.min.js' | asset_url }}"
         async
       ></script>
@@ -601,7 +604,7 @@
         data-shopify-api-url="{{ 'api.jquery.js' | shopify_asset_url }}"
         data-shopify-countries="/services/javascripts/countries.js"
         data-shopify-common="{{ 'shopify_common.js' | shopify_asset_url }}"
-        data-shopify-cart="{{ 'jquery.cart.js' | asset_url }}"
+        data-shopify-cart="{{ 'jquery.cart.js' | shopify_asset_url }}"
         data-pxu-polyfills="{{ 'polyfills.min.js' | asset_url }}"
         async
       ></script>

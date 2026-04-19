@@ -1,7 +1,7 @@
 /*!
- * invariant: storefront @font-face rules are emitted in snippets/theme-font-faces.liquid (before theme.css in layout).
+ * invariant: storefront @font-face rules are emitted in snippets/theme-font-faces.liquid (before theme.css.liquid shim in layout).
  * invariant: never hardcode shop-specific font CDN URLs here (multi-tenant breakage, URL drift).
- * invariant: --theme-font-body|heading|button|menu are defined only in theme-font-faces.liquid; theme.css must not redefine them (single source of truth).
+ * invariant: --theme-font-body|heading|button|menu are defined only in theme-font-faces.liquid; theme.bundle.css must not redefine them (single source of truth).
  * invariant: conversion-critical focus must remain perceptible in forced-colors / high-contrast modes (box-shadow alone is insufficient; see end-of-file block).
  */
 

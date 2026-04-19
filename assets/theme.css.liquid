@@ -1,6 +1,7 @@
 {%- comment -%}
-  invariant: Canonical storefront CSS lives in assets/theme.css; @font-face and :root --theme-font-* are emitted by snippets/theme-font-faces.liquid (rendered in layout before the theme.css stylesheet).
-  invariant: This file is a thin shim so legacy or app references to theme.css.liquid still work; do not re-expand Liquid font_face blocks or duplicate theme.css here (Shopify asset compile cost, drift, double font loading).
+  invariant: Canonical rules live in assets/theme.bundle.css; this asset is served as theme.css and must @import a different filename (Shopify: avoid asset_url("theme.css") inside theme.css.liquid — circular / empty stylesheets in some CDNs).
+  invariant: @font-face and :root --theme-font-* are emitted by snippets/theme-font-faces.liquid (before this stylesheet_tag in layout).
+  invariant: Do not re-expand font_face or duplicate bundle CSS here.
 {%- endcomment -%}
 
-@import url('{{ "theme.css" | asset_url }}');
+@import url('{{ "theme.bundle.css" | asset_url }}');

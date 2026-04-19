@@ -578,6 +578,7 @@
     "predictive_search": {
       "suggestions": "提案",
       "products_title": "製品",
+      "products_label": "商品",
       "pages_title": "ページ",
       "posts_title": "投稿",
       "pages_and_posts_title": "ページと投稿",
