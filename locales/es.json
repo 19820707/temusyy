@@ -449,6 +449,7 @@
       "additional_notes": "Otras notas",
       "back_to_account": "Volver a Cuenta",
       "select_all_items": "Seleccionar todos los artículos",
+      "select_line_item": "Seleccionar este artículo",
       "selected": "Seleccionados",
       "product_missing": "Este producto ya no existe.",
       "variant_missing": "Este variante ya no existe.",
@@ -556,7 +557,7 @@
       "breadcrumbs_count_when_filtered": {
         "zero": "No hay resultados para “{{ terms }}” en {{ category }}",
         "one": "Un resultado para “{{ terms }}” en {{ category }}",
-        "other": "Resultados de la búsqueda de “{{ terms }}” in {{ category }} ({{ count }})"
+        "other": "Resultados de la búsqueda de “{{ terms }}” en {{ category }} ({{ count }})"
       },
       "view_all_results": "Ver todos los resultados",
       "view_all_products": "Ver todos los productos",
@@ -566,7 +567,7 @@
         "one": "resulta",
         "other": "resultados"
       },
-      "no_results_products_title_in_category": "No hay productos para \"{{terms}}\" en {{category}}.",
+      "no_results_products_title_in_category": "No hay productos para \"{{ terms }}\" en {{ category }}.",
       "no_more_results_products_title": "No hay más productos para “{{ terms }}”.",
       "no_more_results_products_title_in_category": "No hay más productos para “{{ terms }}” en {{ category }}.",
       "pages_title": "Páginas",

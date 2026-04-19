@@ -449,6 +449,7 @@
       "additional_notes": "Zusätzliche Anmerkungen",
       "back_to_account": "Zurück zu Konto",
       "select_all_items": "Wählen Sie alle Elemente aus",
+      "select_line_item": "Diesen Artikel auswählen",
       "selected": "Ausgewählt",
       "product_missing": "Dieses Produkt existiert nicht mehr.",
       "variant_missing": "Dieses Variante existiert nicht mehr.",
@@ -555,7 +556,7 @@
       "breadcrumbs_count": "{{ count }} {{ results }} für „{{ terms }}“",
       "breadcrumbs_count_when_filtered": {
         "zero": "Keine Ergebnisse für „{{ terms }}“ in {{ category }}",
-        "one": "Ein Ergebnis für „{{terms }}“ in {{ category }}",
+        "one": "Ein Ergebnis für „{{ terms }}“ in {{ category }}",
         "other": "Die Suche nach „{{ terms }}“ lieferte {{ category }} ({{ count }})"
       },
       "view_all_results": "Alle Ergebnisse anzeigen",

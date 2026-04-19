@@ -30223,8 +30223,27 @@ const setupRippleEffect = rootElement => {
 
 
 class AddToCartFlyout {
+  // Invariants: (1) only one live cart-mutation chain holds the global add-lock;
+  // (2) instances never touch the DOM after unload(); (3) cart AJAX never waits beyond CART_AJAX_TIMEOUT_MS.
+  static _tryAcquireAddLock(instance) {
+    const owner = AddToCartFlyout._addLockOwner;
+    if (owner) {
+      if (owner._alive) {
+        return false;
+      }
+      AddToCartFlyout._addLockOwner = null;
+    }
+    AddToCartFlyout._addLockOwner = instance;
+    return true;
+  }
+  static _releaseAddLock(instance) {
+    if (AddToCartFlyout._addLockOwner === instance) {
+      AddToCartFlyout._addLockOwner = null;
+    }
+  }
   constructor(formData, options) {
     let callbacks = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+    this._alive = true;
     this.formData = formData;
     this.settings = {
       moneyFormat: null,
@@ -30265,42 +30284,72 @@ class AddToCartFlyout {
     this._updateCart();
   }
   unload() {
+    this._alive = false;
+    AddToCartFlyout._releaseAddLock(this);
     if (this.messageBanner) {
       this.messageBanner.unload();
     }
     this._closeFlyOut();
   }
   _updateCart() {
+    const CART_AJAX_TIMEOUT_MS = 25000;
+    if (!AddToCartFlyout._tryAcquireAddLock(this)) {
+      this._enableAtcButton();
+      return;
+    }
+    const releaseLock = () => AddToCartFlyout._releaseAddLock(this);
     const flyOut = this.atcTemplate.cloneNode(true);
     const quantityField = this.formData.filter(data => data.name === 'quantity');
-    const quantity = quantityField[0].value;
+    const quantity = quantityField.length ? quantityField[0].value : 1;
     jquery_default().ajax({
       type: 'POST',
       url: `${window.Theme.routes.cart_add_url}.js`,
       data: jquery_default().param(this.formData),
-      dataType: 'json'
+      dataType: 'json',
+      timeout: CART_AJAX_TIMEOUT_MS
     }).done(response => {
+      if (!this._alive) {
+        releaseLock();
+        return;
+      }
+      if (response == null || response.id == null) {
+        this._enableAtcButton();
+        releaseLock();
+        this.callbacks.onError('Unable to add this item to the cart.');
+        return;
+      }
       this.itemId = response.id;
       if (response.image) {
         const imageUrl = this.Images.getSizedImageUrl(response.image, '200x');
         this.Images.loadImage(imageUrl);
         const productImage = flyOut.querySelector('[data-atc-banner-product-image]');
-        productImage.innerHTML = `<img src="${imageUrl}" alt="${response.product_title}">`;
+        if (productImage) {
+          const safeTitle = response.product_title ? String(response.product_title) : '';
+          const escAttr = v => v.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+          productImage.innerHTML = `<img src="${imageUrl}" alt="${escAttr(safeTitle)}" width="200" height="200" loading="lazy" decoding="async">`;
+        }
       }
       const productTitle = flyOut.querySelector('[data-atc-banner-product-title]');
-      productTitle.innerHTML = response.product_title;
+      if (productTitle) {
+        productTitle.textContent = response.product_title || '';
+      }
 
       /*
         TODO: Bring in `variant.options`, iterate through to get option
           name for: <strong>Option name:</strong> Option
       */
-      if (response.variant_options[0] !== 'Title' && response.variant_options[0] !== 'Default Title') {
+      const firstVariantOption = response.variant_options && response.variant_options[0];
+      if (firstVariantOption && firstVariantOption !== 'Title' && firstVariantOption !== 'Default Title') {
         const productOptions = flyOut.querySelector('[data-atc-banner-product-options]');
-        productOptions.innerHTML = response.variant_options.join(', ');
+        if (productOptions) {
+          productOptions.textContent = response.variant_options.join(', ');
+        }
       }
       if (response.selling_plan_allocation) {
         const productSubscriptionTitle = flyOut.querySelector('[data-atc-banner-product-subscription-title]');
-        productSubscriptionTitle.innerHTML = response.selling_plan_allocation.selling_plan.name;
+        if (productSubscriptionTitle && response.selling_plan_allocation.selling_plan) {
+          productSubscriptionTitle.textContent = response.selling_plan_allocation.selling_plan.name;
+        }
       }
 
       /*
@@ -30308,7 +30357,9 @@ class AddToCartFlyout {
           to see if the item is on sale
       */
       const productPriceQuantity = flyOut.querySelector('[data-atc-banner-product-price-quantity]');
-      productPriceQuantity.innerHTML = `${quantity} × `;
+      if (productPriceQuantity) {
+        productPriceQuantity.textContent = `${quantity} × `;
+      }
 
       // Update Free shipping bar contents
       const freeShippingBar = flyOut.querySelector('[data-free-shipping-bar]');
@@ -30317,17 +30368,24 @@ class AddToCartFlyout {
           let {
             html
           } = _ref;
+          if (!this._alive || !html) {
+            return;
+          }
           freeShippingBar.innerHTML = html.free_shipping_bar;
-        }).catch(() => {
-          console.error('Error loading content.');
-        });
+        }).catch(() => {});
       }
       jquery_default().ajax({
         type: 'GET',
         url: `${window.Theme.routes.cart_url}.js`,
-        dataType: 'json'
+        dataType: 'json',
+        timeout: CART_AJAX_TIMEOUT_MS
       }).done(secondResponse => {
+        if (!this._alive) {
+          releaseLock();
+          return;
+        }
         if (this.settings.cartRedirection || document.body.classList.contains('template-cart')) {
+          AddToCartFlyout._releaseAddLock(this);
           location.href = window.Theme.routes.cart_url;
           return;
         }
@@ -30336,7 +30394,7 @@ class AddToCartFlyout {
         // Reset formData in case instance is never cleared
         this.formData = {};
         let lineItem = null;
-        secondResponse.items.forEach(item => {
+        (secondResponse.items || []).forEach(item => {
           if (item.id === this.itemId) {
             if (!lineItem) {
               lineItem = item;
@@ -30345,28 +30403,39 @@ class AddToCartFlyout {
               // likely a BOGO offer on the product. We need to grab the highest discounted
               // price (BOGO will be 0) while also combining with the different discounts on
               // the product in the discounts array.
-              lineItem.line_level_discount_allocations = lineItem.line_level_discount_allocations.concat(item.line_level_discount_allocations);
+              lineItem.line_level_discount_allocations = (lineItem.line_level_discount_allocations || []).concat(item.line_level_discount_allocations || []);
               lineItem.final_price = lineItem.final_price > item.final_price ? lineItem.final_price : item.final_price;
               lineItem.quantity += item.quantity;
             }
           }
         });
+        if (!lineItem) {
+          this._enableAtcButton();
+          releaseLock();
+          this.callbacks.onError('Unable to load the cart for this item.');
+          return;
+        }
         const productPriceValue = flyOut.querySelector('[data-atc-banner-product-price-value]');
-        productPriceValue.innerHTML = Shopify.formatMoney(lineItem.original_price, this.settings.moneyFormat);
         const productPriceDiscounted = flyOut.querySelector('[data-atc-banner-product-price-discounted]');
-        if (lineItem.final_price < lineItem.original_price) {
-          productPriceDiscounted.innerHTML = Shopify.formatMoney(lineItem.final_price, this.settings.moneyFormat);
-          productPriceDiscounted.classList.remove('hidden');
-          productPriceValue.classList.add('original-price');
-        } else {
-          productPriceDiscounted.classList.add('hidden');
-          productPriceValue.classList.remove('original-price');
+        if (productPriceValue) {
+          productPriceValue.innerHTML = Shopify.formatMoney(lineItem.original_price, this.settings.moneyFormat);
+        }
+        if (productPriceDiscounted && productPriceValue) {
+          if (lineItem.final_price < lineItem.original_price) {
+            productPriceDiscounted.innerHTML = Shopify.formatMoney(lineItem.final_price, this.settings.moneyFormat);
+            productPriceDiscounted.classList.remove('hidden');
+            productPriceValue.classList.add('original-price');
+          } else {
+            productPriceDiscounted.classList.add('hidden');
+            productPriceValue.classList.remove('original-price');
+          }
         }
         const productDiscounts = flyOut.querySelector('[data-atc-banner-product-discounts]');
+        const discountAllocations = lineItem.line_level_discount_allocations || [];
 
         // Price Per Unit
         const unitPrice = flyOut.querySelector('[data-atc-banner-unit-price]');
-        let unitPriceString = unitPrice.innerHTML;
+        let unitPriceString = unitPrice ? unitPrice.innerHTML : '';
         if (unitPrice && lineItem.unit_price_measurement) {
           unitPriceString = unitPriceString.replace('** total_quantity **', `${lineItem.unit_price_measurement.quantity_value}${lineItem.unit_price_measurement.quantity_unit}`);
           unitPriceString = unitPriceString.replace('** unit_price **', Shopify.formatMoney(lineItem.unit_price, this.settings.moneyFormat));
@@ -30378,26 +30447,38 @@ class AddToCartFlyout {
           unitPrice.innerHTML = unitPriceString;
           unitPrice.classList.remove('hidden');
         }
-        if (lineItem.line_level_discount_allocations.length > 0) {
+        if (productDiscounts && discountAllocations.length > 0 && productDiscounts.firstElementChild) {
           const discountItemTemplate = productDiscounts.firstElementChild.cloneNode(true);
           productDiscounts.innerHTML = '';
-          lineItem.line_level_discount_allocations.forEach(discount => {
+          discountAllocations.forEach(discount => {
             const listItem = discountItemTemplate.cloneNode(true);
             const title = listItem.querySelector('.discount-title');
             const amount = listItem.querySelector('.discount-amount');
-            title.innerHTML = discount.discount_application.title;
-            amount.innerHTML = Shopify.formatMoney(discount.amount, this.settings.moneyFormat);
+            if (title) {
+              title.textContent = discount.discount_application && discount.discount_application.title ? discount.discount_application.title : '';
+            }
+            if (amount) {
+              amount.innerHTML = Shopify.formatMoney(discount.amount, this.settings.moneyFormat);
+            }
             productDiscounts.appendChild(listItem);
           });
           productDiscounts.classList.remove('hidden');
-        } else {
+        } else if (productDiscounts) {
           productDiscounts.classList.add('hidden');
         }
         const subTotal = flyOut.querySelector('[data-atc-banner-cart-subtotal]');
-        subTotal.innerHTML = Shopify.formatMoney(secondResponse.total_price, this.settings.moneyFormat);
+        if (subTotal) {
+          subTotal.innerHTML = Shopify.formatMoney(secondResponse.total_price, this.settings.moneyFormat);
+        }
         const itemCount = flyOut.querySelector('[data-atc-banner-cart-button] span');
-        itemCount.innerHTML = secondResponse.item_count;
-        this.header.appendChild(flyOut);
+        if (itemCount) {
+          itemCount.textContent = secondResponse.item_count;
+        }
+        if (this.header) {
+          this.header.appendChild(flyOut);
+        } else {
+          document.body.appendChild(flyOut);
+        }
         this.flyOut = flyOut;
         setupRippleEffect(this.flyOut);
 
@@ -30414,7 +30495,9 @@ class AddToCartFlyout {
         */
         document.dispatchEvent(new Event('closeFlyouts'));
         const closeButton = flyOut.querySelector('[data-atc-banner-close]');
-        this.events.register(closeButton, 'click', e => this._closeFlyOut(e));
+        if (closeButton) {
+          this.events.register(closeButton, 'click', e => this._closeFlyOut(e));
+        }
         this.events.register(document, 'click', e => this._handleDocumentClick(e));
         this.events.register(document, 'touchstart', e => this._handleDocumentClick(e));
         this.events.register(document, 'closeFlyouts', e => this._closeFlyOut(e));
@@ -30425,25 +30508,44 @@ class AddToCartFlyout {
           state: 'closed'
         });
         this.atcAnimation.animateTo('open').then(() => {
-          trapFocus(this.flyOut);
+          if (this._alive && this.flyOut) {
+            trapFocus(this.flyOut);
+          }
         });
+        releaseLock();
+      }).fail(() => {
+        if (!this._alive) {
+          releaseLock();
+          return;
+        }
+        this._enableAtcButton();
+        releaseLock();
+        this.callbacks.onError('Unable to refresh your cart. Please try again.');
       });
     }).fail(response => {
       let errorText;
+      let errorPayload = null;
       try {
-        const responseText = JSON.parse(response.responseText);
-        errorText = responseText.description;
+        errorPayload = JSON.parse(response.responseText);
+        errorText = errorPayload.description || errorPayload.message;
       } catch (error) {
         errorText = `${response.status} ${response.statusText}`;
         if (response.status === 401) {
           errorText = `${errorText}. Try refreshing and logging in.`;
         }
       }
+      if (!this._alive) {
+        releaseLock();
+        return;
+      }
       this._enableAtcButton();
-      if (errorText.email) {
+      releaseLock();
+      const recipientEmailError = errorPayload && typeof errorPayload === 'object' && errorPayload.email;
+      if (recipientEmailError && this.recipientForm) {
         this.recipientForm.classList.add('recipient-form--has-errors');
       } else {
-        this.callbacks.onError(errorText);
+        const safeMsg = typeof errorText === 'string' && errorText.length ? errorText : 'Unable to add to cart.';
+        this.callbacks.onError(safeMsg);
       }
     });
   }
@@ -48619,6 +48721,7 @@ class Order {
     this.messageBanner = null;
     this.lastCheckedIndex = null;
     this.currentCheckedIndex = null;
+    this._reorderAddInFlight = false;
 
     // We need to create a `Checkbox` instance for each checkbox and access them individually.
     // `this.map` is what will hold each input element along with its `Checkbox` instance.
@@ -48763,35 +48866,66 @@ class Order {
     // Stopping further propagation here is mainly to prevent the click event from bubbling as
     // it will cause an issue with the disclosures and message banner.
     event.stopPropagation();
+    if (this._reorderAddInFlight) {
+      return;
+    }
+    this._reorderAddInFlight = true;
     this._setAtcButtonProcessing();
     const formData = {
       items: this.itemsToAddToCart
     };
+    const CART_FETCH_TIMEOUT_MS = 25000;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CART_FETCH_TIMEOUT_MS);
     fetch(`${window.Theme.routes.cart_add_url}.js`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(formData)
-    }).then(response => response.json()).then(data => {
-      this._removeAtcButtonProcessing();
-      if (data.message === 'Cart Error') {
-        return Promise.reject(data);
+      body: JSON.stringify(formData),
+      signal: controller.signal
+    }).then(async response => {
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        this._removeAtcButtonProcessing();
+        this._reorderAddInFlight = false;
+        const msg = data && typeof data === 'object' && data.description ? data.description : 'Unable to add items to the cart.';
+        this._showErrorBanner(msg);
+        return;
       }
-      return this._onSuccess();
-    }).catch(error => {
-      this._showErrorBanner(error.description);
+      if (data.message === 'Cart Error') {
+        this._removeAtcButtonProcessing();
+        this._reorderAddInFlight = false;
+        this._showErrorBanner(data.description || 'Cart error');
+        return;
+      }
+      this._removeAtcButtonProcessing();
+      return this._onSuccess().then(() => {
+        this._reorderAddInFlight = false;
+      }).catch(() => {
+        this._reorderAddInFlight = false;
+      });
+    }).catch(() => {
+      this._removeAtcButtonProcessing();
+      this._reorderAddInFlight = false;
+      this._showErrorBanner('Unable to add items to the cart.');
+    }).finally(() => {
+      clearTimeout(timeoutId);
     });
   }
   _onSuccess() {
+    const CART_FETCH_TIMEOUT_MS = 25000;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), CART_FETCH_TIMEOUT_MS);
     return fetch(`${window.Theme.routes.cart_url}.js`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      signal: controller.signal
     }).then(response => {
       if (!response.ok) {
-        return Promise.reject(response);
+        return Promise.reject(new Error('Unable to refresh cart.'));
       }
       return response.json();
     }).then(data => {
@@ -48806,8 +48940,10 @@ class Order {
       });
       window.dispatchEvent(countEvent);
       this._showSuccessBanner(this.settings.success_message);
-    }).catch(error => {
-      this._showErrorBanner(error.message);
+    }).catch(() => {
+      this._showErrorBanner('Unable to refresh your cart.');
+    }).finally(() => {
+      clearTimeout(timeoutId);
     });
   }
   _showSuccessBanner(successMsg) {

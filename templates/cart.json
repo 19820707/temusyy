@@ -1,1 +1,9 @@
-{"sections":{"main":{"type":"static-cart","settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "static-cart",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

@@ -1,3 +1,10 @@
+{% comment %}
+  Invariants (static-cart):
+  - Never assume cart has line items without checking cart.items.size (has_items).
+  - add-to-cart concurrency is enforced in assets/empire.js, not in this section.
+  - Sidebar images use rimg with lazy loading; never output raw <img> without rimg here.
+  - Form chrome must be i18n-safe (no hard-coded English aria-labels).
+{% endcomment %}
 {% liquid
   assign is_customer = false
   if shop.customer_accounts_enabled and customer
@@ -60,7 +67,7 @@
 <form
   action="{{ routes.cart_url }}"
   method="post"
-  aria-label="cart checkout"
+  aria-label="{{ 'cart.general.your_cart' | t | escape }}"
 >
   <header class="cart-title">
     <div class="cart-title-left">

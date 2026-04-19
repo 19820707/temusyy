@@ -449,6 +449,7 @@
       "additional_notes": "Notes supplémentaires",
       "back_to_account": "Retour à Compte",
       "select_all_items": "Sélectionner tous les articles",
+      "select_line_item": "Sélectionner cet article",
       "selected": "Sélectionnés",
       "product_missing": "Ce produit n'existe plus.",
       "variant_missing": "Cette variante n'existe plus.",

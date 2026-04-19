@@ -1,8 +1,9 @@
 {% comment %}
   @param address {Object}
     Object containing address items
+  Invariants: Never dereference address fields when address is nil/blank (order billing edge cases).
 {% endcomment %}
-
+{% unless address == blank %}
 <ul class="account-address-list">
   <li>{{ address.first_name }} {{ address.last_name }}</li>
   {% if address.company != blank %}
@@ -23,3 +24,4 @@
     <li>{{ address.phone }}</li>
   {% endif %}
 </ul>
+{% endunless %}

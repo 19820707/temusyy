@@ -1,4 +1,10 @@
 {% layout none %}
+{% comment %}
+  Invariants:
+  - Never read image.presentation without guarding the image drop (gift card logo).
+  - Gift card hero image must declare width/height to avoid CLS (Theme Check ImgWidthAndHeight).
+  - Favicon must use image_url (img_url is deprecated).
+{% endcomment %}
 
 <!doctype html>
 <!--[if IE]><html class="no-js ie9" lang="{{ shop.locale }}"><![endif]-->
@@ -16,11 +22,11 @@
     {% endif %}
 
     {% if settings.favicon != blank %}
-      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | image_url: width: 32 }}">
     {% endif %}
 
     <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     {{ content_for_header }}
 
@@ -37,17 +43,23 @@
   </head>
 
   <body class="template-giftcard">
-    <main class="site-main" role="main" aria-label="Main content">
+    <main class="site-main" role="main" aria-label="{{ 'general.accessibility.nav_main' | t | escape }}">
       <header class="giftcard-header">
         <a
           class="giftcard-header-logo"
           href="{{ routes.root_url }}">
           {% if settings.gift_card_logo != blank %}
+            {% liquid
+              assign gift_card_logo_focal = '50% 50%'
+              if settings.gift_card_logo.presentation != blank and settings.gift_card_logo.presentation.focal_point != blank
+                assign gift_card_logo_focal = settings.gift_card_logo.presentation.focal_point
+              endif
+            %}
             {%
               render 'rimg',
               img: settings.gift_card_logo,
               class: 'site-logo-image',
-              focal_point: settings.gift_card_logo.presentation.focal_point,
+              focal_point: gift_card_logo_focal,
             %}
           {% else %}
             <span class="giftcard-header-logo-text">
@@ -85,6 +97,9 @@
           <img
             src="{{ 'gift-card/card.jpg' | shopify_asset_url }}"
             alt="{{ 'giftcard.issued.title_html' | t: value: formatted_initial_value_stripped, shop: shop.name | escape }}"
+            width="570"
+            height="356"
+            decoding="async"
           >
 
           {%- assign initial_value_size = formatted_initial_value | size -%}

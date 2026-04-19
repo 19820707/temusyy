@@ -1,6 +1,12 @@
+# Invariants (repository hygiene — not storefront runtime):
+# - Never commit Shopify CLI auth/state, API tokens, .env material, or private keys/SSH identities (supply-chain + account takeover).
+# - add-to-cart concurrency, fetch timeouts, Liquid null-safety, CLS: enforced in theme source, not here.
+# - Do not add broad ignores (e.g. /assets, /config) that would drop theme files from version control.
+
 # OS
 .DS_Store
 Thumbs.db
+ehthumbs.db
 Desktop.ini
 
 # Editors / IDEs
@@ -11,12 +17,23 @@ Desktop.ini
 *.swp
 *.swo
 *~
+*.orig
 
 # Shopify CLI / local tooling
 .shopify/
 .env
 .env.*
 !.env.example
+
+# Secrets & keys (accidental paste into repo root)
+*.pem
+*.crt
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+id_ecdsa
 
 # Logs and caches
 *.log
@@ -25,10 +42,12 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Node (if theme gains a build step later)
+# Node / test tooling
 node_modules/
 dist/
 build/
+coverage/
+.nyc_output/
 
 # Archives / accidental exports
 *.zip

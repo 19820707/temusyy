@@ -1,3 +1,9 @@
+{% comment %}
+  Invariants:
+  - Never read selling_plan_allocation or unit_price_measurement fields without a blank guard.
+  - Line images use rimg with explicit size + lazy to limit CLS and bytes.
+  - Remove control must not hard-code English in aria-label (use | t).
+{% endcomment %}
 {% assign compare_at_price = 0 %}
 
 {% for variant in item.product.variants %}
@@ -24,8 +30,10 @@
         {%
           render 'rimg',
           img: item.image,
-          alt: item.title,
-          size: '120x'
+          alt: item.title | default: item.product.title,
+          size: '120x',
+          lazy: true,
+          canvas: true
         %}
       {% else %}
         {{ 'image' | placeholder_svg_tag: 'placeholder--image' }}
@@ -65,7 +73,7 @@
         </div>
       {%- endunless -%}
 
-      {% if item.selling_plan_allocation.selling_plan %}
+      {% if item.selling_plan_allocation != blank and item.selling_plan_allocation.selling_plan != blank %}
         <span class="cart-item--line-item-subscriptions">{{ item.selling_plan_allocation.selling_plan.name }}</span>
       {% endif %}
 
@@ -95,11 +103,10 @@
         </span>
       </div>
 
-      {% capture total_quantity %}<span class="cart-item--total-quantity" data-total-quantity>{{ item.unit_price_measurement.quantity_value }}{{ item.unit_price_measurement.quantity_unit }}</span>{% endcapture %}
-      {% capture unit_price %}<span class="cart-item--unit-price-amount money" data-unit-price-amount>{{ item.unit_price | money }}</span>{% endcapture %}
-      {% capture unit_measure %}<span class="cart-item--unit-price-measure" data-unit-price-measure>{%- if item.unit_price_measurement.reference_value != 1 -%}{{ item.unit_price_measurement.reference_value }}{%- endif %}{{ item.unit_price_measurement.reference_unit }}</span>{% endcapture %}
-
-      {% if item.unit_price_measurement %}
+      {% if item.unit_price_measurement != blank %}
+        {% capture total_quantity %}<span class="cart-item--total-quantity" data-total-quantity>{{ item.unit_price_measurement.quantity_value }}{{ item.unit_price_measurement.quantity_unit }}</span>{% endcapture %}
+        {% capture unit_price %}<span class="cart-item--unit-price-amount money" data-unit-price-amount>{{ item.unit_price | money }}</span>{% endcapture %}
+        {% capture unit_measure %}<span class="cart-item--unit-price-measure" data-unit-price-measure>{%- if item.unit_price_measurement.reference_value != 1 -%}{{ item.unit_price_measurement.reference_value }}{%- endif %}{{ item.unit_price_measurement.reference_unit }}</span>{% endcapture %}
         <div class="cart-item--unit-price">
           {{ 'product.general.price_per_unit_html' | t: total_quantity: total_quantity, unit_price: unit_price, unit_measure: unit_measure | strip_newlines }}
         </div>
@@ -176,7 +183,7 @@
         <a
           class="cart-item__remove-link"
           href="{{ routes.cart_change_url }}?line={{ item_index }}&amp;quantity=0"
-          aria-label="remove {{ item.product.title | escape }}"
+          aria-label="{{ 'product_compare.remove' | t }}: {{ item.product.title | escape }}"
           data-cartitem-remove
           data-no-instant
         >

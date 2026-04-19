@@ -1,3 +1,6 @@
+{% comment %}
+  Invariants: Password fields must use autocomplete hints; no PII in client logs (none emitted here).
+{% endcomment %}
 <section
   class="account-page account-page-activate"
   data-template-account>
@@ -10,7 +13,7 @@
   <article class="account-page-content">
     {% form 'activate_customer_password' %}
 
-      {% if form.errors != blank  %}
+      {% if form.errors != blank %}
         <div class="account-message message--error">
           {{ form.errors | default_errors }}
         </div>
@@ -21,7 +24,8 @@
           class="form-field-input form-field-text"
           id="password"
           name="customer[password]"
-          type="password">
+          type="password"
+          autocomplete="new-password">
         <label
           class="form-field-title"
           for="password">
@@ -34,7 +38,8 @@
           class="form-field-input form-field-text"
           id="password_repeat"
           name="customer[password_confirmation]"
-          type="password">
+          type="password"
+          autocomplete="new-password">
         <label
           class="form-field-title"
           for="password_repeat">

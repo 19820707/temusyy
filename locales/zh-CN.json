@@ -428,6 +428,7 @@
       "additional_notes": "补充说明",
       "back_to_account": "返回账户",
       "select_all_items": "选择所有项目",
+      "select_line_item": "选择此商品",
       "selected": "选择",
       "product_missing": "该产品已不存在",
       "variant_missing": "此变体不再存在。",

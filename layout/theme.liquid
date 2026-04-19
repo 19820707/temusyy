@@ -1,4 +1,10 @@
 <!doctype html>
+{% comment %}
+  Layout invariants (critical storefront shell):
+  - Liquid must never assume settings / handles exist — use blank checks before string splits and preloads.
+  - add-to-cart concurrency + fetch timeouts live in assets (empire.js), not here.
+  - Critical above-the-fold images should set width/height in sections/snippets; favicon uses fixed width URL.
+{% endcomment %}
 <html class="no-js no-touch" lang="{{ request.locale.iso_code }}">
   <head>
     <meta charset="utf-8">
@@ -50,7 +56,7 @@
     {% endif %}
 
     {% if settings.favicon != blank %}
-      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | image_url: width: 32 }}">
     {% endif %}
 
     {% if template contains 'collection' and current_tags %}
@@ -60,15 +66,20 @@
       <link rel="canonical" href="{{ canonical_url }}" />
     {% endif %}
 
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    {% assign x_handle = settings.social_x | split: 'x.com/' | last | split: 'twitter.com/' | last %}
+    {% assign x_handle = '' %}
+    {% if settings.social_x != blank %}
+      {% assign x_handle = settings.social_x | split: 'x.com/' | last | split: 'twitter.com/' | last %}
+    {% endif %}
     {%
       render 'social-meta-tags',
       twitter_handle: x_handle,
     %}
 
-    <link rel="preload" href="{{ settings.type_menu | font_url }}" as="font" crossorigin="anonymous">
+    {% if settings.type_menu != blank %}
+      <link rel="preload" href="{{ settings.type_menu | font_url }}" as="font" crossorigin="anonymous">
+    {% endif %}
     <link rel="preload" as="style" href="{{ 'theme.css' | asset_url }}">
 
     {%- if tinyscript -%}{{ content_for_header }}{%- else -%}{% render 'tiny-script-control' %}{%- endif -%}
@@ -420,7 +431,7 @@
             data-product-count-other="{{ 'product_compare.drawer_notification.other' | t: count: '** count **' }}"
             data-product-compare-drawer-notification
           >
-            {{ 'product_compare.drawer_notification' | t: count }}
+            {{ 'product_compare.drawer_notification.one' | t }}
           </p>
       
           <span class="product-compare-drawer__trigger">
@@ -553,7 +564,7 @@
                       .forEach(function (block) { block.classList.add(classes.block); });
                   });
                 } catch (error) {
-                  console.warn('Unable to parse animation mapping', mappingEl, error);
+                  /* Invalid JSON mapping: fail closed (no console noise in production storefronts). */
                 }
             });
           }
@@ -590,7 +601,7 @@
     <script>
     (function () {
       function handleFirstTab(e) {
-        if (e.keyCode === 9) { // the "I am a keyboard user" key
+        if (e.key === 'Tab' || e.keyCode === 9) {
           document.body.classList.add('user-is-tabbing');
           window.removeEventListener('keydown', handleFirstTab);
         }
@@ -606,6 +617,6 @@
     >
     </script>
     <script>(function(n, v) {/* eslint-disable-next-line max-len */if (window.Shopify && window.Shopify.theme && navigator && navigator.sendBeacon && window.Shopify.designMode) {if (sessionStorage.getItem('oots_beacon')) return;navigator.sendBeacon('https://app.outofthesandbox.com/beacon', new URLSearchParams({shop_domain: window.Shopify.shop.toLowerCase(),shop_id: window.BOOMR.shopId,shop_email: '{{ shop.email }}',theme_name: n.toLowerCase(),theme_version: v.toLowerCase(),theme_store_id: window.Shopify.theme.theme_store_id,theme_id: window.Shopify.theme.id,theme_role: window.Shopify.theme.role,}));sessionStorage.setItem('oots_beacon', '');}}('empire','11.1.3'))</script>
-  {{'tiny-img-link-preloader.js' | asset_url | script_tag }}
-</body>  
+    <script src="{{ 'tiny-img-link-preloader.js' | asset_url }}" defer></script>
+  </body>
 </html>

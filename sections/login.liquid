@@ -1,3 +1,8 @@
+{% comment %}
+  Invariants:
+  - Never assume shop.checkout exists; guard guest_login.
+  - add-to-cart concurrency is N/A here (server forms only).
+{% endcomment %}
 <section
   class="account-page account-page-login"
   data-template-account
@@ -24,6 +29,7 @@
             id="customer_email"
             name="customer[email]"
             type="text"
+            autocomplete="username"
             autocorrect="off"
             autocapitalize="off">
           <label
@@ -39,7 +45,8 @@
               class="form-field-input form-field-text"
               id="customer_password"
               name="customer[password]"
-              type="password">
+              type="password"
+              autocomplete="current-password">
             <label
               class="form-field-title"
               for="customer_password">
@@ -115,6 +122,7 @@
             id="customer_recovery_email"
             name="email"
             type="text"
+            autocomplete="email"
             autocorrect="off"
             autocapitalize="off">
           <label
@@ -140,7 +148,7 @@
       {% endform %}
     </div>
 
-    {% if shop.checkout.guest_login %}
+    {% if shop.checkout != blank and shop.checkout.guest_login %}
       <div class="account-register account-register--guest">
         <h2 class="account-register-subtitle">
           {{ 'customers.guest_login.title' | t }}

@@ -447,6 +447,7 @@
       "additional_notes": "Additional notes",
       "back_to_account": "Back to Account",
       "select_all_items": "Select all items",
+      "select_line_item": "Select this item",
       "selected": "Selected",
       "product_missing": "This product no longer exists.",
       "variant_missing": "This variant no longer exists.",

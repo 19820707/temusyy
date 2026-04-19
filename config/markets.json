@@ -6,6 +6,10 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
+ *
+ * Invariant: "markets" must remain a JSON object (possibly empty). Liquid must
+ * not assume market entries exist without checking keys first.
+ * ------------------------------------------------------------
  */
 {
   "markets": {}

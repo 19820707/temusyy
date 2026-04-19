@@ -1,3 +1,9 @@
+# Shopify theme CI
+# Invariants:
+# - Theme Check never runs unbounded (job timeout-minutes).
+# - PRs cancel superseded runs (concurrency) to cut queue time and flaky overlaps.
+# - Contract tests run before Theme Check (cheaper failures first).
+# - Token permissions stay least-privilege (read on repo tree; no broad mutating scopes).
 name: Theme Check
 
 on:
@@ -5,6 +11,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+
+# Avoid overlapping runs on the same ref (esp. rapid PR pushes).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -14,12 +25,25 @@ jobs:
   theme-check:
     name: Shopify Theme Check
     runs-on: ubuntu-latest
+    # Never burn runner minutes indefinitely if the action or CLI hangs.
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Relatório completo nos logs; falha de job apenas em severidade "crash"
-      # (o tema ainda acumula ofensas "error" herdadas — endurecer para --fail-level error após correção).
+      - name: Verify CI invariants (workflow contract)
+        run: node .github/scripts/verify-ci-invariants.mjs
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Regression / contract: no network; npm test = CI invariants + empire ATC + assets prefetch contracts.
+      - name: Regression tests (theme contracts)
+        run: npm run test
+
+      # Full Theme Check report in logs; job fails only on severity "crash" until legacy debt is cleared.
       - name: Run Theme Check
         uses: shopify/theme-check-action@v2
         with:

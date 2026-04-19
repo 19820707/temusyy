@@ -6,11 +6,17 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
+ *
+ * Invariants (manual governance — keep aligned with settings_schema.json):
+ * - age_gate_site_wide_min_age must never be below the schema "min" (default 18).
+ * - Theme JSON is not Liquid: never assume keys exist in Liquid without defaults | default / unless checks.
+ * - add-to-cart / fetch timeouts are enforced in JS (assets), not in this file.
+ * ------------------------------------------------------------
  */
 {
   "current": {
     "enable_age_gate_site_wide": false,
-    "age_gate_site_wide_min_age": 9,
+    "age_gate_site_wide_min_age": 18,
     "minify_scripts": true,
     "color_background": "#ffffff",
     "color_headings": "#1d1d1d",

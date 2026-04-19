@@ -450,6 +450,7 @@
       "additional_notes": "追加事項",
       "back_to_account": "アカウントに戻る",
       "select_all_items": "すべてのアイテムを選択",
+      "select_line_item": "このアイテムを選択",
       "selected": "選択済み",
       "product_missing": "この製品はもう存在しません",
       "variant_missing": "このバリアントはもう存在しません。",

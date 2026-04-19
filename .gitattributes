@@ -1,3 +1,9 @@
+# Invariants (repository hygiene — not storefront runtime):
+# - Theme text (Liquid/JSON/JS/CSS) must use LF so Linux CI + Theme Check match editor output on Windows/macOS.
+# - Binary assets must never be CRLF-normalized (prevents corrupt images/fonts).
+# - Tooling/config (YAML, Node test scripts) must stay LF for deterministic CI and code review.
+# Note: add-to-cart / fetch timeouts / Liquid null-safety live in theme source, not in this file.
+
 * text=auto
 
 *.liquid text eol=lf
@@ -6,12 +12,21 @@
 *.css text eol=lf
 *.scss text eol=lf
 *.svg text eol=lf
+*.md text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
 
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
 *.webp binary
+*.avif binary
 *.ico binary
 *.woff binary
 *.woff2 binary
+*.eot binary
+*.ttf binary
+*.otf binary

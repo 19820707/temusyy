@@ -20,7 +20,10 @@
         "type": "number",
         "id": "age_gate_site_wide_min_age",
         "label": "t:settings_schema.age_gate.minimum_age.label",
-        "default": 18
+        "default": 18,
+        "min": 18,
+        "max": 99,
+        "step": 1
       },
       {
         "type": "text",
@@ -54,7 +57,8 @@
         "type": "checkbox",
         "id": "minify_scripts",
         "label": "t:settings_schema.performance.minify_scripts.label",
-        "info": "t:settings_schema.performance.minify_scripts.info"
+        "info": "t:settings_schema.performance.minify_scripts.info",
+        "default": false
       }
     ]
   },

@@ -1,17 +1,24 @@
+{% comment %}
+  Invariants:
+  - add-to-cart concurrency is enforced in assets/empire.js (Order class); this section only supplies data attributes.
+  - Liquid must never assume nested objects exist (selling_plan_allocation, unit_price_measurement, billing_address).
+  - Checkbox eligibility must not use ambiguous and/or precedence (group variant stock with product eligibility).
+{% endcomment %}
 {% liquid
   assign enable_orders_atc = settings.enable_orders_atc
   assign enable_checkbox = false
 
-  # Ensure there's at least one item that can be selected for the 'Select all' checkbox to be enabled.
-  # Otherwise, disable the 'Select all' checkbox.
-  # - The condition `line_item.product_id and all_products[line_item.product.handle]` checks if
-  #   the product is active and not set to draft.
-  # - The condition `line_item.variant.inventory_management == nil or line_item.variant.inventory_quantity > 0`
-  #   checks if the variant is available for purchase; either its inventory is not being tracked or
-  #   if the inventory is being tracked, it has at least one available in-stock.
+  # At least one line item must be eligible for the header "select all" control to be interactive.
+  # Eligibility: active product in catalog + variant present + (unmanaged inventory OR quantity > 0).
   if enable_orders_atc
     for line_item in order.line_items
-      if line_item.product_id and all_products[line_item.product.handle] and line_item.variant.inventory_management == nil or line_item.variant.inventory_quantity > 0
+      assign line_eligible = false
+      if line_item.product_id != blank and line_item.variant != blank and all_products[line_item.product.handle] != blank
+        if line_item.variant.inventory_management == blank or line_item.variant.inventory_quantity > 0
+          assign line_eligible = true
+        endif
+      endif
+      if line_eligible
         assign enable_checkbox = true
         break
       endif
@@ -92,7 +99,7 @@
                     class="order-checkbox__input"
                     id="order-checkbox-all"
                     type="checkbox"
-                    title="Select all"
+                    title="{{ 'customers.order.select_all_items' | t | escape }}"
                     {% if enable_checkbox %}
                       data-select-all-checkbox-input
                     {% else %}
@@ -106,7 +113,7 @@
                         {% unless enable_checkbox %}order-checkbox__label--disabled{% endunless %}
                       "
                       for="order-checkbox-all"
-                      aria-label="Select all orders"
+                      aria-label="{{ 'customers.order.select_all_items' | t | escape }}"
                     >
                       <span class="order-checkbox__icon">
                         {% liquid
@@ -207,7 +214,7 @@
                         {% unless is_checkbox_enabled %}order-checkbox__label--disabled{% endunless %}
                       "
                       for="order-checkbox-{{ line_item.id }}"
-                      aria-label="Select order"
+                      aria-label="{{ 'customers.order.select_line_item' | t | escape }}"
                     >
                       <span class="order-checkbox__icon">
                         {%
@@ -268,7 +275,7 @@
                         {% endfor %}
                       </ul>
                     {%- endif -%}
-                    {% if line_item.selling_plan_allocation.selling_plan %}
+                    {% if line_item.selling_plan_allocation != blank and line_item.selling_plan_allocation.selling_plan != blank %}
                       <span class="line-item-subscriptions">{{ line_item.selling_plan_allocation.selling_plan.name }}</span>
                     {% endif %}
                     {% if is_product_or_variant_in_stock == false %}
@@ -303,11 +310,10 @@
                     {{ line_item.final_price | money }}
                   </span>
 
-                  {% capture total_quantity %}<span class="order-item--total-quantity" data-total-quantity>{{ line_item.unit_price_measurement.quantity_value }}{{ line_item.unit_price_measurement.quantity_unit }}</span>{% endcapture %}
-                  {% capture unit_price %}<span class="order-item--unit-price-amount money" data-unit-price-amount>{{ line_item.unit_price | money }}</span>{% endcapture %}
-                  {% capture unit_measure %}<span class="order-item--unit-price-measure" data-unit-price-measure>{%- if line_item.unit_price_measurement.reference_value != 1 -%}{{ line_item.unit_price_measurement.reference_value }}{%- endif %}{{ line_item.unit_price_measurement.reference_unit }}</span>{% endcapture %}
-
-                  {% if line_item.unit_price_measurement %}
+                  {% if line_item.unit_price_measurement != blank %}
+                    {% capture total_quantity %}<span class="order-item--total-quantity" data-total-quantity>{{ line_item.unit_price_measurement.quantity_value }}{{ line_item.unit_price_measurement.quantity_unit }}</span>{% endcapture %}
+                    {% capture unit_price %}<span class="order-item--unit-price-amount money" data-unit-price-amount>{{ line_item.unit_price | money }}</span>{% endcapture %}
+                    {% capture unit_measure %}<span class="order-item--unit-price-measure" data-unit-price-measure>{%- if line_item.unit_price_measurement.reference_value != 1 -%}{{ line_item.unit_price_measurement.reference_value }}{%- endif %}{{ line_item.unit_price_measurement.reference_unit }}</span>{% endcapture %}
                     <span class="order-item--unit-price">
                       {{ 'product.general.price_per_unit_html' | t: total_quantity: total_quantity, unit_price: unit_price, unit_measure: unit_measure | strip_newlines }}
                     </span>
@@ -463,15 +469,17 @@
           </div>
         {% endif %}
 
-        <div class="account-info-block">
-          <h2 class="account-page-subtitle">
-            {{ 'customers.order.billing_address' | t }}
-          </h2>
-          {%
-            render 'account-address-list',
-            address: order.billing_address
-          %}
-        </div>
+        {% if order.billing_address != blank %}
+          <div class="account-info-block">
+            <h2 class="account-page-subtitle">
+              {{ 'customers.order.billing_address' | t }}
+            </h2>
+            {%
+              render 'account-address-list',
+              address: order.billing_address
+            %}
+          </div>
+        {% endif %}
       </div>
     </div>
   </article>
