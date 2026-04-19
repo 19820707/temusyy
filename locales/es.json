@@ -632,7 +632,7 @@
     "description": "Descripción",
     "rating": "Reseñas de productos",
     "breadcrumb": "Volver a {{ location }}",
-    "breadcrumb_generic": "atrás",
+    "breadcrumb_generic": "Volver",
     "remove": "Eliminar"
   }
 }
