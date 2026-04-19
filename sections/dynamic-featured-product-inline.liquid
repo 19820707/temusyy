@@ -15,8 +15,11 @@
 
 {% if selected_collection != blank and selected_collection.products_count > 0 %}
   <section
-    class="featured-product-inline featured-product-inline--{{ section.id }}"
+    class="featured-product-inline featured-product-inline--{{ section.id }}{% if section.settings.buy_zone_band %} featured-product-inline--buy-zone{% endif %}"
     data-featured-product-inline
+    {% if section.settings.buy_zone_band %}
+      data-temusy-buy-zone
+    {% endif %}
     data-temusy-intent-zone="buy"
     {{ section.shopify_attributes }}
   >
@@ -49,6 +52,7 @@
             context: 'collection',
             index: forloop.index,
             products_per_row: show_count,
+            temusy_emphasize_price: section.settings.emphasize_prices_in_band,
           %}
         {% endfor %}
       </div>
@@ -104,6 +108,15 @@
     .featured-product-inline--{{ section.id }} .featured-product-inline__grid {
       margin: 0;
     }
+    {% if section.settings.buy_zone_band %}
+      .featured-product-inline--{{ section.id }}.featured-product-inline--buy-zone {
+        border-bottom: 2px solid var(--tf-border);
+      }
+      .featured-product-inline--{{ section.id }}.featured-product-inline--buy-zone .featured-product-inline__title {
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
+      }
+    {% endif %}
   {% endstyle %}
 {% endif %}
 
@@ -144,6 +157,20 @@
       "id": "collection_link_label",
       "label": "Collection link label",
       "default": "View all"
+    },
+    {
+      "type": "checkbox",
+      "id": "emphasize_prices_in_band",
+      "label": "Emphasize prices in this band",
+      "default": true,
+      "info": "Shows compare-at / sale price more prominently on cards in this strip only."
+    },
+    {
+      "type": "checkbox",
+      "id": "buy_zone_band",
+      "label": "Buy-now band styling",
+      "default": false,
+      "info": "Stronger separator + heading weight for the first SKU band after the hero."
     }
   ],
   "presets": [

@@ -66,6 +66,8 @@
     "product_sales_badge": true,
     "product_sales_badge_style": "text",
     "inventory_status": false,
+    "temusy_product_urgency_badges": true,
+    "low_stock_threshold": 15,
     "inventory_display": "low_stock_threshold",
     "product_option_style": "radio",
     "select_first_available_variant": true,

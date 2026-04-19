@@ -1,8 +1,10 @@
 {% comment %}
-  Frictionless merchandising (tags + inventory). Flow tags map into the same three lanes:
-  - Trending: `trending`, `tendencia`, `popular`, `destaque`, `temusy-interesse`, `flow-interesse`
+  Frictionless merchandising (tags + inventory). Flow tags map into lanes:
+  - Popular: exact tag `popular` → product.merch.popular (separate from “Trending”)
+  - Trending: `trending`, `tendencia`, `destaque`, `temusy-interesse`, `flow-interesse` (not the Popular tag)
+  - Selling fast: handled in `product-urgency-badges.liquid` (same tags + optional metafields) to avoid duplicate chips.
   - Best seller: `bestseller`, `mais-vendido`, `mais vendido`, `temusy-vendas`, `flow-vendas`
-  - Limited stock: Shopify inventory when qty ≤ low_stock_threshold (no tag)
+  - Limited stock: Shopify inventory when qty ≤ low_stock_threshold (merch chip only when tags_only is false)
   See docs/shopify-flow-fase-8.md.
 {% endcomment %}
 {% liquid
@@ -16,7 +18,6 @@
   endif
 %}
 {% if product and show_merch %}
-  {% assign tags_joined = product.tags | join: ' ' | downcase %}
   {% assign v = product.selected_or_first_available_variant %}
   {% assign low_ok = false %}
   {% if v.inventory_management == 'shopify' and v.inventory_quantity != nil %}
@@ -24,16 +25,24 @@
       {% assign low_ok = true %}
     {% endif %}
   {% endif %}
+  {% assign show_popular = false %}
   {% assign show_trending = false %}
-  {% if tags_joined contains 'trending' or tags_joined contains 'tendencia' or tags_joined contains 'popular' or tags_joined contains 'destaque' or tags_joined contains 'temusy-interesse' or tags_joined contains 'flow-interesse' %}
-    {% assign show_trending = true %}
-  {% endif %}
   {% assign show_bestseller = false %}
-  {% if tags_joined contains 'bestseller' or tags_joined contains 'mais-vendido' or tags_joined contains 'mais vendido' or tags_joined contains 'temusy-vendas' or tags_joined contains 'flow-vendas' %}
-    {% assign show_bestseller = true %}
-  {% endif %}
-  {% if show_trending or show_bestseller or low_ok and tags_only == false %}
+  {% for tag in product.tags %}
+    {% assign tl = tag | downcase | strip %}
+    {% if tl == 'popular' %}
+      {% assign show_popular = true %}
+    {% elsif tl == 'trending' or tl == 'tendencia' or tl == 'destaque' or tl == 'temusy-interesse' or tl == 'flow-interesse' %}
+      {% assign show_trending = true %}
+    {% elsif tl == 'bestseller' or tl == 'mais-vendido' or tl == 'mais vendido' or tl == 'temusy-vendas' or tl == 'flow-vendas' %}
+      {% assign show_bestseller = true %}
+    {% endif %}
+  {% endfor %}
+  {% if show_popular or show_trending or show_bestseller or low_ok and tags_only == false %}
     <div class="productitem__merch-labels">
+      {% if show_popular %}
+        <span class="productitem__merch-label productitem__merch-label--popular">{{ 'product.merch.popular' | t }}</span>
+      {% endif %}
       {% if show_trending %}
         <span class="productitem__merch-label productitem__merch-label--trending">🔥 {{ 'product.merch.trending' | t }}</span>
       {% endif %}

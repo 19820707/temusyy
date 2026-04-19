@@ -4,13 +4,15 @@ Este ficheiro descreve **o que podes automatizar no Admin** com [Shopify Flow](h
 
 ## O que o tema faz (hoje)
 
-O snippet `snippets/product-merchandising-labels.liquid` mostra **três faixas** nos cartões:
+O snippet `snippets/product-merchandising-labels.liquid` mostra **várias faixas** nos cartões (tags por **nome exato** quando há risco de substring, ex.: `popular` vs “unpopular”):
 
 | Faixa no cartão | Tags / sinal | Texto (ex. PT-BR) |
 |-----------------|--------------|-------------------|
-| 🔥 Trending | `trending`, `tendencia`, `popular`, `destaque`, `temusy-interesse`, `flow-interesse` | Em alta |
+| Popular | `popular` | Popular |
+| 🔥 Trending | `trending`, `tendencia`, `destaque`, `temusy-interesse`, `flow-interesse` | Em alta |
 | ⭐ Best seller | `bestseller`, `mais-vendido`, `mais vendido`, `temusy-vendas`, `flow-vendas` | Mais vendido |
-| ⚡ Limited stock | stock Shopify ≤ limiar (sem tag) | Stock limitado |
+| ⚡ Selling fast | `selling-fast`, `selling fast`, `temusy-selling-fast`, ou metafield boolean `custom.selling_fast` | A vender rápido (no snippet `product-urgency-badges.liquid`, não duplicado nos merch labels) |
+| ⚡ Limited stock | stock Shopify ≤ limiar (só quando `tags_only` é falso no snippet) | Stock limitado |
 
 **Importante:** o Flow **não vê cliques** na loja nem taxa de conversão por produto. Para “mais cliques → destacar”, tens de **atribuir a tag tu** (revisão semanal com base em Analytics, relatório de pesquisa, app de merchandising, ou export). O tema só **mostra** a etiqueta quando a tag existe.
 
@@ -54,6 +56,18 @@ Para sinais reais de procura (pesquisas, cliques), usa **relatórios** ou uma **
 - **Inteligência = regras:** Flow + tags (e, no futuro, metafields `custom.*` se quiseres workflows mais ricos no Admin).
 - **Prioridade na vitrine:** coleções “Mais vendidos” / automáticas do Shopify + tags `temusy-vendas` nas grelhas dão sinal visual claro sem alterar o algoritmo de ordenação do tema.
 
+## Badges de urgência nos cartões (`product-urgency-badges.liquid`)
+
+Ativado por defeito com **Theme settings → Products → “Compact urgency badges on product cards”**.
+
+| Texto | Origem (honesta) |
+|-------|------------------|
+| Only *N* left | Stock Shopify rastreado, `1 ≤ quantidade ≤ low_stock_threshold` |
+| Selling fast | Tags acima **ou** `custom.selling_fast` = true |
+| In *N* carts | Só se existir metafield **integer** `custom.active_carts` (ex.: app / Flow que escreva o número) |
+
+Sem metafield de carrinhos, **não** aparece “In 12 carts” — evita números inventados no Liquid.
+
 ## Checklist rápido
 
 - [ ] Flow ativo no plano da loja.
@@ -74,4 +88,4 @@ Para sinais reais de procura (pesquisas, cliques), usa **relatórios** ou uma **
 
 **Homepage**
 
-- A pilha final está em `templates/index.json` (hero → hub → bestsellers → categorias → confiança → featured → reviews); não dupliques uma segunda grelha de “departamentos” além de `homepage_trending_categories`.
+- A pilha final está em `templates/index.json` (hero → buy zone inline → countdown → hub → bestsellers → …); não dupliques uma segunda grelha de “departamentos” além de `homepage_trending_categories`.

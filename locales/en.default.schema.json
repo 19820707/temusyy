@@ -1848,6 +1848,13 @@
       "homepage_announcement": {
         "label": "Show on home page only"
       },
+      "temusy_micro_reward_preset": {
+        "label": "Micro reward (urgency strip)",
+        "info": "Ready-made “today” lines for a top-of-site nudge. Use Custom when your own text fields should win. Honor real offers—only promise discounts or shipping you actually provide.",
+        "option_discount": "🎁 Get 10% off today",
+        "option_shipping": "Free shipping today only",
+        "option_custom": "Custom (text fields below)"
+      },
       "announcement_text": {
         "label": "Text"
       },

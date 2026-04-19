@@ -1848,6 +1848,13 @@
       "homepage_announcement": {
         "label": "Mostrar solo en la página de inicio"
       },
+      "temusy_micro_reward_preset": {
+        "label": "Micro recompensa (banda de urgencia)",
+        "info": "Mensajes listos de «hoy». «Personalizado» usa los campos de abajo. Solo promete ofertas reales.",
+        "option_discount": "🎁 10 % de descuento hoy",
+        "option_shipping": "Envío gratis solo hoy",
+        "option_custom": "Personalizado (campos de texto abajo)"
+      },
       "announcement_text": {
         "label": "Texto"
       },

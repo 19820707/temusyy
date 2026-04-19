@@ -34,11 +34,18 @@
     },
     "merch": {
       "popular": "Popular",
+      "selling_fast": "Selling fast",
       "trending": "Trending",
       "bestseller": "Best seller",
       "last_units": "Limited stock",
       "flow_interest": "High demand",
       "flow_sales": "Selling fast"
+    },
+    "urgency": {
+      "group_label": "Availability signals",
+      "only_n_left": "Only {{ count }} left",
+      "selling_fast": "Selling fast",
+      "in_n_carts": "In {{ count }} carts"
     },
     "buttons": {
       "quick_shop": "Quick shop",
@@ -205,7 +212,7 @@
     },
     "time": {
       "clear": "Clear recently viewed",
-      "previous": "Based on what you viewed",
+      "previous": "Recently viewed",
       "second": "second",
       "seconds": "seconds",
       "minute": "minute",
@@ -213,6 +220,12 @@
       "hour": "hour",
       "hours": "hours",
       "ago": "ago"
+    },
+    "temusy_micro_reward": {
+      "discount_desktop": "🎁 Get 10% off today",
+      "discount_mobile": "🎁 10% off today",
+      "shipping_desktop": "Free shipping today only",
+      "shipping_mobile": "Free shipping today"
     }
   },
   "sections": {

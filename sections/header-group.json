@@ -14,13 +14,14 @@
     "announcement-bar": {
       "type": "static-announcement",
       "settings": {
-        "show_announcement": false,
+        "show_announcement": true,
         "homepage_announcement": false,
+        "temusy_micro_reward_preset": "discount_today",
         "announcement_text": "",
         "announcement_text_mobile": "",
         "announcement_link": "shopify://collections/all",
-        "announcement_color": "#ffffff",
-        "announcement_background": "#046e82"
+        "announcement_color": "#fffbeb",
+        "announcement_background": "#c2410c"
       }
     },
     "utility-bar": {

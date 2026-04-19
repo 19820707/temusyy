@@ -30,11 +30,18 @@
     },
     "merch": {
       "popular": "Popular",
+      "selling_fast": "A vender rápido",
       "trending": "Em alta",
       "bestseller": "Mais vendido",
       "last_units": "Stock limitado",
       "flow_interest": "Alta procura",
       "flow_sales": "A subir nas vendas"
+    },
+    "urgency": {
+      "group_label": "Sinais de disponibilidade",
+      "only_n_left": "Só restam {{ count }}",
+      "selling_fast": "A vender rápido",
+      "in_n_carts": "Em {{ count }} carrinhos"
     },
     "buttons": {
       "quick_shop": "Comprar rápido",
@@ -213,6 +220,12 @@
       "hour": "hora",
       "hours": "horas",
       "ago": "atrás"
+    },
+    "temusy_micro_reward": {
+      "discount_desktop": "🎁 10% de desconto hoje",
+      "discount_mobile": "🎁 10% hoje",
+      "shipping_desktop": "Frete grátis só hoje",
+      "shipping_mobile": "Frete grátis hoje"
     }
   },
   "sections": {

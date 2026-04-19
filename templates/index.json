@@ -1,3 +1,15 @@
+/*
+ * Homepage stack — system concept → section instance id:
+ *   hero                 → homepage_hero
+ *   trending_products    → homepage_best_sellers_products
+ *   decision_shortcuts   → homepage_smart_hub
+ *   trust_bar            → homepage_trust_bar
+ *   category_grid        → homepage_trending_categories
+ *   featured_products    → homepage_featured_products
+ *   recently_viewed      → homepage_recently_viewed
+ *   testimonials         → homepage_testimonials
+ * Optional (not in this file): buy-zone strip, countdown, adaptive strip, extra recommended row — add in Theme Editor.
+ */
 {
   "sections": {
     "homepage_hero": {
@@ -7,12 +19,12 @@
           "type": "slide",
           "settings": {
             "background_image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
-            "title": "Beauty & care",
-            "text": "Skincare, makeup and essentials.",
+            "title": "🔥 Best-selling beauty products",
+            "text": "⭐ Rated 4.8 by customers",
             "color": "#222222",
             "link": "",
             "text_alignment": "left",
-            "button_one_label": "See Beauty offers",
+            "button_one_label": "Shop best-selling beauty",
             "button_one_link": "shopify://collections/health-and-beauty",
             "button_one_style": "primary",
             "button_two_label": "",
@@ -36,29 +48,6 @@
         "slideshow_text_below_image": true
       }
     },
-    "homepage_deal_countdown": {
-      "type": "dynamic-countdown-timer",
-      "settings": {
-        "section_height": "small",
-        "countdown_year": "2026",
-        "countdown_month": "04",
-        "countdown_day": "27",
-        "countdown_hour": "23",
-        "countdown_minute": "59",
-        "countdown_timer_background": true,
-        "countdown_timer_complete": true,
-        "countdown_timer_message": "<p>That weekly window closed—use the paths above for what is live now.</p>",
-        "title": "Ends in — weekly spotlight",
-        "text": "<p>Each week we spotlight a tight edit. When time is up, the strip refreshes—deadlines stay real, set in the theme editor.</p>",
-        "button_label": "Unlock bestseller offers",
-        "button_link": "shopify://collections/best-sellers",
-        "button_style": "primary",
-        "text_color": "#FFFFFF",
-        "overlay_color": "#000000",
-        "overlay_opacity": 22,
-        "product_card_background_color": "#F5F3ED"
-      }
-    },
     "homepage_smart_hub": {
       "type": "dynamic-smart-homepage-hub",
       "blocks": {
@@ -70,8 +59,8 @@
             "path_emoji": "⭐",
             "chip_label": "Best sellers",
             "badge": "Top picks",
-            "title": "I want proven best sellers",
-            "text": "What shoppers buy again—less trial and error."
+            "title": "Best sellers",
+            "text": ""
           }
         },
         "lane_gifts": {
@@ -82,8 +71,8 @@
             "path_emoji": "🎁",
             "chip_label": "Gifts",
             "badge": "Bundles",
-            "title": "I want a gift",
-            "text": "Gift-ready picks without wandering every aisle."
+            "title": "Gifts",
+            "text": ""
           }
         },
         "lane_under_50": {
@@ -94,8 +83,8 @@
             "path_emoji": "💸",
             "chip_label": "Under $50",
             "badge": "Value offers",
-            "title": "I want something under $50",
-            "text": "A tight value edit—clear price ceiling."
+            "title": "Under $50",
+            "text": ""
           }
         },
         "lane_new_arrivals": {
@@ -106,15 +95,15 @@
             "path_emoji": "🔥",
             "chip_label": "Trending",
             "badge": "Fresh offers",
-            "title": "I want trending products",
-            "text": "Fresh momentum—what is landing and selling now."
+            "title": "Trending",
+            "text": ""
           }
         },
         "lane_support": {
           "type": "trust_point",
           "settings": {
             "title": "Support",
-            "text": "Talk to us about an order—no ticket black hole."
+            "text": ""
           }
         },
         "intent_watch_under50": {
@@ -154,18 +143,18 @@
       ],
       "settings": {
         "kicker": "",
-        "title": "Looking for a gift, under $50, or trending picks?",
-        "text": "<p>Tap one lane—we narrow the store. Search only when you already know the exact item.</p>",
-        "search_placeholder": "Know what you want? Search here.",
-        "search_button": "Search",
-        "primary_label": "See offers & full catalog",
+        "title": "Shop flow automático",
+        "text": "",
+        "search_placeholder": "Search products",
+        "search_button": "Go",
+        "primary_label": "All products",
         "primary_link": "shopify://collections/all",
-        "secondary_label": "Customer support",
+        "secondary_label": "Support",
         "secondary_link": "shopify://pages/support",
         "paths_layout": "path_chips",
-        "panel_label": "Shortcuts—gifts, trending, under $50, bestsellers",
-        "search_shortcuts_a11y_label": "Optional category chips",
-        "search_intents_heading": "Buying a watch? Jump ahead"
+        "panel_label": "Shop paths",
+        "search_shortcuts_a11y_label": "Categories",
+        "search_intents_heading": "Quick picks"
       }
     },
     "homepage_best_sellers_products": {
@@ -181,83 +170,54 @@
         "temusy_intent_zone": "buy"
       }
     },
-    "homepage_adaptive_priority": {
-      "type": "dynamic-adaptive-homepage-priority",
-      "settings": {
-        "heading": "Pick up where you left off",
-        "subheading": "Same collection you last tapped or viewed—skip hunting the full catalog again.",
-        "cta_label": "View full [[collection]]",
-        "product_limit": 4,
-        "products_per_row": 4,
-        "show_clear": true
-      }
-    },
     "homepage_trending_categories": {
       "type": "dynamic-collection-list",
       "blocks": {
-        "collection_a9MeJz": {
+        "intent_gifts_under_50": {
           "type": "collection",
           "settings": {
-            "collection": "accessories",
-            "image": "shopify://shop_images/laughter-in-the-sun.jpg",
-            "title": "Everyday accessories"
-          }
-        },
-        "collection_CnaUQM": {
-          "type": "collection",
-          "settings": {
-            "collection": "headphones",
-            "image": "shopify://shop_images/woman-listening-to-music.jpg",
-            "title": "Headphones & audio"
-          }
-        },
-        "collection_gaaLR9": {
-          "type": "collection",
-          "settings": {
-            "collection": "health-and-beauty",
-            "image": "shopify://shop_images/pink-lip-gloss.jpg",
-            "title": "Beauty & care"
-          }
-        },
-        "collection_mJJfNj": {
-          "type": "collection",
-          "settings": {
-            "collection": "toys-and-games",
+            "collection": "under-50",
             "image": "shopify://shop_images/toy-drive-donation-box.jpg",
-            "title": "Toys & family gifts"
+            "title": "🎁 Gifts under $50"
           }
         },
-        "collection_REFgFB": {
+        "intent_best_sellers": {
           "type": "collection",
           "settings": {
-            "collection": "home-and-decoration",
-            "image": "shopify://shop_images/kitchen-utensils-on-counter.jpg",
-            "title": "Home & kitchen"
-          }
-        },
-        "collection_c9UN9X": {
-          "type": "collection",
-          "settings": {
-            "collection": "footwear",
+            "collection": "best-sellers",
             "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
-            "title": "Shoes & footwear"
+            "title": "🔥 Best sellers"
+          }
+        },
+        "intent_new_arrivals": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-arrivals",
+            "image": "shopify://shop_images/woman-listening-to-music.jpg",
+            "title": "🆕 New arrivals"
+          }
+        },
+        "intent_trending_week": {
+          "type": "collection",
+          "settings": {
+            "collection": "watches",
+            "image": "shopify://shop_images/man-reaches-inside-his-jacket.jpg",
+            "title": "⚡ Trending this week"
           }
         }
       },
       "block_order": [
-        "collection_gaaLR9",
-        "collection_c9UN9X",
-        "collection_a9MeJz",
-        "collection_CnaUQM",
-        "collection_REFgFB",
-        "collection_mJJfNj"
+        "intent_gifts_under_50",
+        "intent_best_sellers",
+        "intent_new_arrivals",
+        "intent_trending_week"
       ],
       "settings": {
-        "title": "Browse by use case",
-        "thumbnail_columns_desktop": 6,
+        "title": "Shop by intent:",
+        "thumbnail_columns_desktop": 4,
         "thumbnail_columns_mobile": 2,
         "image-crop": "circle",
-        "cta_label": "Browse offers by category",
+        "cta_label": "Shop full catalog",
         "cta_link": "shopify://collections/all",
         "cta_button_style": "primary"
       }
@@ -268,36 +228,36 @@
         "highlight_proof_12k": {
           "type": "highlight",
           "settings": {
-            "icon": "icon-award-trophy",
-            "title": "+12,000 orders delivered",
-            "text": "<p>Trusted by customers worldwide.</p><p>Real fulfilment history lowers “will this ship?” anxiety before you commit.</p>",
-            "link": ""
+            "icon": "icon-delivery-package",
+            "title": "✔ Free shipping",
+            "text": "<p>Qualifying orders ship on clear timelines—see the policy for regions and rates.</p>",
+            "link": "/policies/shipping-policy"
           }
         },
         "highlight_qVfTeb": {
           "type": "highlight",
           "settings": {
-            "icon": "icon-delivery",
-            "title": "Shipping costs & timelines—up front",
-            "text": "<p>Policy spells rates, regions, and delivery expectations so checkout is not a guessing game.</p>",
-            "link": "/policies/shipping-policy"
+            "icon": "icon-label-tag",
+            "title": "✔ Easy returns",
+            "text": "<p>Read return eligibility and time windows in the policy before you buy—no fine-print hide-and-seek.</p>",
+            "link": "/policies/refund-policy"
           }
         },
         "highlight_zfgA7r": {
           "type": "highlight",
           "settings": {
-            "icon": "icon-label-tag",
-            "title": "Returns you can read before you buy",
-            "text": "<p>Clear eligibility and windows in policy—less fear of being stuck with the wrong item.</p>",
-            "link": "/policies/refund-policy"
+            "icon": "icon-lock",
+            "title": "✔ Secure checkout",
+            "text": "<p>Shopify-hosted checkout with encryption and trusted payment rails.</p>",
+            "link": ""
           }
         },
         "highlight_EjpTGH": {
           "type": "highlight",
           "settings": {
-            "icon": "icon-chat",
-            "title": "Support when an order matters",
-            "text": "<p>A visible path for order issues—reduces “what if something goes wrong?” in the cart.</p>",
+            "icon": "icon-chat-alternate",
+            "title": "✔ 24/7 support",
+            "text": "<p>Reach us anytime for order questions—link below opens your support hub.</p>",
             "link": "shopify://pages/support"
           }
         }
@@ -312,9 +272,9 @@
         "section_spacing": true,
         "section_width": "full-width",
         "icon_layout": "left",
-        "color": "#046e82",
-        "icon_color": "#046e82",
-        "background_color": "#e5e4e2",
+        "color": "#f1f5f9",
+        "icon_color": "#5eead4",
+        "background_color": "#0f172a",
         "mobile_layout": "grid"
       }
     },
@@ -329,6 +289,12 @@
         "cta_label": "See offer picks in this edit",
         "cta_button_style": "secondary",
         "temusy_intent_zone": "buy"
+      }
+    },
+    "homepage_recently_viewed": {
+      "type": "static-recently-viewed",
+      "settings": {
+        "enable_recently_viewed_products": true
       }
     },
     "homepage_testimonials": {
@@ -386,13 +352,12 @@
   },
   "order": [
     "homepage_hero",
-    "homepage_deal_countdown",
-    "homepage_smart_hub",
     "homepage_best_sellers_products",
+    "homepage_smart_hub",
     "homepage_trust_bar",
-    "homepage_adaptive_priority",
     "homepage_trending_categories",
     "homepage_featured_products",
+    "homepage_recently_viewed",
     "homepage_testimonials"
   ]
 }

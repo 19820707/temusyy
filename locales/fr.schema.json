@@ -1848,6 +1848,13 @@
       "homepage_announcement": {
         "label": "Afficher uniquement sur la page d'accueil"
       },
+      "temusy_micro_reward_preset": {
+        "label": "Micro-récompense (bandeau d’urgence)",
+        "info": "Messages « aujourd’hui » prêts à l’emploi. « Personnalisé » utilise les champs ci-dessous. Ne promettez que des offres réelles.",
+        "option_discount": "🎁 -10 % aujourd’hui",
+        "option_shipping": "Livraison gratuite aujourd’hui seulement",
+        "option_custom": "Personnalisé (champs texte ci-dessous)"
+      },
       "announcement_text": {
         "label": "Texte"
       },

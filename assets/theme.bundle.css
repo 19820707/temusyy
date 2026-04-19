@@ -23792,14 +23792,51 @@ rgb(255, 255, 255)
   color: #1d1d1d;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
+.productitem__merch-label--popular {
+  color: #5d4037;
+}
 .productitem__merch-label--trending {
   color: #8b4513;
+}
+.productitem__merch-label--selling-fast {
+  color: #b00020;
 }
 .productitem__merch-label--bestseller {
   color: #046e82;
 }
 .productitem__merch-label--scarcity {
   color: #b00020;
+}
+
+/* Compact urgency badges (product-urgency-badges + product-grid-item) */
+.productitem__urgency-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.15rem 0 0.4rem;
+}
+.productitem__urgency-badge {
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  padding: 0.2rem 0.45rem;
+  text-transform: none;
+  white-space: nowrap;
+}
+.productitem__urgency-badge--stock {
+  background: rgba(176, 0, 32, 0.08);
+  color: #8b0000;
+}
+.productitem__urgency-badge--velocity {
+  background: rgba(139, 69, 19, 0.1);
+  color: #6d360f;
+}
+.productitem__urgency-badge--carts {
+  background: rgba(4, 110, 130, 0.1);
+  color: #046e82;
 }
 
 /* Smart product stack — one column for label / proof / urgency / shortcut (product-grid-item) */

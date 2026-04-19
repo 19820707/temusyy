@@ -1,10 +1,27 @@
 # Homepage template dependencies
 
+`templates/index.json` opens with a **block comment** mapping system concepts to instance ids (same order as `order[]`).
+
+## Canonical eight-step stack (concept → instance id)
+
+| Concept | Instance id | Section type |
+|--------|----------------|---------------|
+| hero | `homepage_hero` | `dynamic-slideshow` |
+| trending_products | `homepage_best_sellers_products` | `dynamic-featured-collection` |
+| decision_shortcuts | `homepage_smart_hub` | `dynamic-smart-homepage-hub` |
+| trust_bar | `homepage_trust_bar` | `dynamic-highlights-banner` |
+| category_grid | `homepage_trending_categories` | `dynamic-collection-list` |
+| featured_products | `homepage_featured_products` | `dynamic-featured-collection` |
+| recently_viewed | `homepage_recently_viewed` | `static-recently-viewed` |
+| testimonials | `homepage_testimonials` | `dynamic-testimonials` |
+
+Optional sections **not** in the default homepage JSON (re-add via Theme Editor when needed): compact trending strip (`dynamic-featured-product-inline`), countdown (`dynamic-countdown-timer`), adaptive cookie strip (`dynamic-adaptive-homepage-priority`), extra recommended row (`dynamic-featured-collection`).
+
 ## `dynamic-smart-homepage-hub`
 
 - **Template:** `templates/index.json` includes section `homepage_smart_hub` with type `dynamic-smart-homepage-hub`.
 - **Required file:** `sections/dynamic-smart-homepage-hub.liquid` must exist in the published theme. If it is missing, Shopify will not render this section correctly and the homepage loses the search hub, lanes panel, and path cards.
-- **CI:** `npm run test` runs `tests/templates-index-section-files-exist.test.cjs`, which fails if any section type referenced by `templates/index.json` has no matching `sections/<type>.liquid` file.
+- **CI:** `npm run test` runs `tests/templates-index-section-files-exist.test.cjs`, which fails if any section `type` referenced by `templates/index.json` has no matching `sections/<type>.liquid` file.
 
 ## Manual fallback (if the smart hub is removed)
 
@@ -18,23 +35,7 @@ Shopify JSON templates cannot swap sections at runtime when a file is missing. I
 
 Then update `templates/index.json` in the repo so it matches what you published, and run `npm run test` before pushing.
 
-## Semantic homepage section IDs (`templates/index.json`)
-
-Stable keys for automation and contracts. Section **`type`** is the Shopify section handle; JSON **instance id** is semantic.
-
-| Instance id | Role |
-|-------------|------|
-| `homepage_hero` | Single-slide hero (compact height, one CTA) |
-| `homepage_deal_countdown` | `dynamic-countdown-timer`: time-bound offer strip (“Ends in…”) — update end date/time in Theme Editor for real promos |
-| `homepage_smart_hub` | Search + intent lanes (collection links + support) |
-| `homepage_best_sellers_products` | Primary SKU grid (`best-sellers`) — stacked right after the hub for one-screen commerce |
-| `homepage_trust_bar` | Highlights strip (proof + policies + support) — immediately after bestsellers |
-| `homepage_adaptive_priority` | Cookie-driven “pick up where you left off” strip (often empty until a hub/category click sets interest) |
-| `homepage_trending_categories` | One `dynamic-collection-list` for category thumbnails (no second department grid) |
-| `homepage_featured_products` | Second SKU grid (curated collection; keep distinct from bestsellers) |
-| `homepage_testimonials` | Social proof |
-
-Canonical **order** is asserted in `tests/templates-index-smart-homepage-contract.test.cjs`.
+Canonical **order** and merchandising rules are asserted in `tests/templates-index-smart-homepage-contract.test.cjs`.
 
 ## Performance (homepage)
 

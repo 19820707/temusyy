@@ -1848,6 +1848,13 @@
       "homepage_announcement": {
         "label": "Nur auf der Startseite anzeigen"
       },
+      "temusy_micro_reward_preset": {
+        "label": "Micro reward (Dringlichkeitsleiste)",
+        "info": "Vorgefertigte „heute“-Texte. „Benutzerdefiniert“ nutzt die Felder unten. Nur echte Angebote versprechen.",
+        "option_discount": "🎁 Heute 10 % Rabatt",
+        "option_shipping": "Heute nur kostenloser Versand",
+        "option_custom": "Benutzerdefiniert (Textfelder unten)"
+      },
       "announcement_text": {
         "label": "Text"
       },

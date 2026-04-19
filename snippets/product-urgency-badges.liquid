@@ -1,0 +1,68 @@
+{% comment %}
+  Snippet: product-urgency-badges.liquid — compact “invisible urgency” row for product cards (grids, buy zone, etc.).
+  - “Only N left”: real Shopify tracked inventory when quantity is 1..low_stock_threshold.
+  - “Selling fast”: product tags `selling-fast` / `temusy-selling-fast`, OR boolean metafield `custom.selling_fast`.
+  - “In N carts”: integer metafield `custom.active_carts` only (populate via app/automation — never fake a number in Liquid).
+  Theme setting: `settings.temusy_product_urgency_badges` (defaults on in schema).
+{% endcomment %}
+{% liquid
+  assign recently_viewed = recently_viewed | default: nil
+  assign countdown_timer = countdown_timer | default: nil
+  assign product_compare = product_compare | default: false
+  assign variant = variant | default: product.selected_or_first_available_variant
+  assign badges_on = true
+  if settings.temusy_product_urgency_badges == false
+    assign badges_on = false
+  endif
+%}
+{% if badges_on and product and recently_viewed == nil and countdown_timer == nil and product_compare == false %}
+  {% assign show_only_left = false %}
+  {% assign only_left_n = 0 %}
+  {% if variant.inventory_management == 'shopify' and variant.inventory_quantity != nil %}
+    {% if variant.inventory_quantity > 0 and variant.inventory_quantity <= settings.low_stock_threshold %}
+      {% assign show_only_left = true %}
+      {% assign only_left_n = variant.inventory_quantity %}
+    {% endif %}
+  {% endif %}
+
+  {% assign show_selling_fast = false %}
+  {% for tag in product.tags %}
+    {% assign tl = tag | downcase | strip %}
+    {% if tl == 'selling-fast' or tl == 'selling fast' or tl == 'temusy-selling-fast' %}
+      {% assign show_selling_fast = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% if show_selling_fast == false %}
+    {% if product.metafields.custom.selling_fast.value == true %}
+      {% assign show_selling_fast = true %}
+    {% endif %}
+  {% endif %}
+
+  {% assign carts_raw = product.metafields.custom.active_carts.value %}
+  {% assign carts_n = carts_raw | plus: 0 %}
+  {% assign show_carts = false %}
+  {% if carts_raw != blank and carts_n > 0 %}
+    {% assign show_carts = true %}
+  {% endif %}
+
+  {% if show_only_left or show_selling_fast or show_carts %}
+    <div class="productitem__urgency-badges" aria-label="{{ 'product.urgency.group_label' | t | escape }}">
+      {% if show_only_left %}
+        <span class="productitem__urgency-badge productitem__urgency-badge--stock">
+          {{- 'product.urgency.only_n_left' | t: count: only_left_n -}}
+        </span>
+      {% endif %}
+      {% if show_selling_fast %}
+        <span class="productitem__urgency-badge productitem__urgency-badge--velocity">
+          {{- 'product.urgency.selling_fast' | t -}}
+        </span>
+      {% endif %}
+      {% if show_carts %}
+        <span class="productitem__urgency-badge productitem__urgency-badge--carts">
+          {{- 'product.urgency.in_n_carts' | t: count: carts_n -}}
+        </span>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endif %}

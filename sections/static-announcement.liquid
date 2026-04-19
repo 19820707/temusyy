@@ -4,6 +4,19 @@
   data-section-type="static-announcement">
 </script>
 
+{% liquid
+  assign micro_preset = section.settings.temusy_micro_reward_preset | default: 'custom'
+  assign announcement_desktop = section.settings.announcement_text | strip
+  assign announcement_mobile = section.settings.announcement_text_mobile | strip
+  if micro_preset == 'discount_today'
+    assign announcement_desktop = 'general.temusy_micro_reward.discount_desktop' | t
+    assign announcement_mobile = 'general.temusy_micro_reward.discount_mobile' | t
+  elsif micro_preset == 'free_shipping_today'
+    assign announcement_desktop = 'general.temusy_micro_reward.shipping_desktop' | t
+    assign announcement_mobile = 'general.temusy_micro_reward.shipping_mobile' | t
+  endif
+%}
+
 {% assign show_everywhere = false %}
 {% assign homepage_only = false %}
 
@@ -23,14 +36,11 @@
 {% endif %}
 
 {% if show_everywhere or homepage_only %}
-  {% if
-    section.settings.announcement_text != blank or
-    section.settings.announcement_text_mobile != blank
-  %}
+  {% if announcement_desktop != blank or announcement_mobile != blank %}
     <div
       class="
         announcement-bar
-        {% if section.settings.announcement_text == blank and section.settings.announcement_text_mobile != blank %}
+        {% if announcement_desktop == blank and announcement_mobile != blank %}
           only-mobile
         {% endif %}
       "
@@ -47,17 +57,17 @@
           ></a>
       {% endif %}
 
-      {% if section.settings.announcement_text != blank %}
+      {% if announcement_desktop != blank %}
         <div class="announcement-bar-text">
-          {{ section.settings.announcement_text }}
+          {{ announcement_desktop }}
         </div>
       {% endif %}
 
       <div class="announcement-bar-text-mobile">
-        {% if section.settings.announcement_text_mobile != blank %}
-          {{ section.settings.announcement_text_mobile }}
+        {% if announcement_mobile != blank %}
+          {{ announcement_mobile }}
         {% else %}
-          {{ section.settings.announcement_text }}
+          {{ announcement_desktop }}
         {% endif %}
       </div>
     </div>
@@ -84,6 +94,27 @@
       "id": "homepage_announcement",
       "label": "t:sections.announcement_bar.homepage_announcement.label",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "temusy_micro_reward_preset",
+      "label": "t:sections.announcement_bar.temusy_micro_reward_preset.label",
+      "info": "t:sections.announcement_bar.temusy_micro_reward_preset.info",
+      "default": "discount_today",
+      "options": [
+        {
+          "value": "discount_today",
+          "label": "t:sections.announcement_bar.temusy_micro_reward_preset.option_discount"
+        },
+        {
+          "value": "free_shipping_today",
+          "label": "t:sections.announcement_bar.temusy_micro_reward_preset.option_shipping"
+        },
+        {
+          "value": "custom",
+          "label": "t:sections.announcement_bar.temusy_micro_reward_preset.option_custom"
+        }
+      ]
     },
     {
       "id": "announcement_text",

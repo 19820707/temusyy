@@ -8,13 +8,13 @@
     If you remove it, replace the section in the Theme Editor (see docs/homepage-section-dependencies.md).
 {% endcomment %}
 {% liquid
-  assign title = section.settings.title | default: 'Looking for a gift, under $50, or trending picks?'
-  assign text = section.settings.text | default: '<p>Tap one lane—we narrow the store. Search only when you already know the exact item.</p>'
-  assign search_placeholder = section.settings.search_placeholder | default: 'Know what you want? Search here.'
-  assign search_button = section.settings.search_button | default: 'Search'
-  assign primary_label = section.settings.primary_label | default: 'Explore all products'
+  assign title = section.settings.title | default: 'Shop flow automático'
+  assign text = section.settings.text | default: ''
+  assign search_placeholder = section.settings.search_placeholder | default: 'Search products'
+  assign search_button = section.settings.search_button | default: 'Go'
+  assign primary_label = section.settings.primary_label | default: 'All products'
   assign primary_link = section.settings.primary_link | default: routes.all_products_collection_url
-  assign secondary_label = section.settings.secondary_label | default: 'Customer support'
+  assign secondary_label = section.settings.secondary_label | default: 'Support'
   assign secondary_link = section.settings.secondary_link | default: routes.search_url
 %}
 
@@ -87,11 +87,11 @@
             class="smart-homepage-hub__search-intents"
             role="region"
             aria-live="polite"
-            aria-label="{{ section.settings.search_intents_heading | default: 'Buying a watch? Jump ahead' | escape }}"
+            aria-label="{{ section.settings.search_intents_heading | default: 'Quick picks' | escape }}"
             hidden
           >
             <p class="smart-homepage-hub__search-intents-kicker">
-              {{ section.settings.search_intents_heading | default: 'Buying a watch? Jump ahead' | escape }}
+              {{ section.settings.search_intents_heading | default: 'Quick picks' | escape }}
             </p>
             <ul class="smart-homepage-hub__search-intents-list" data-temusy-search-intents-list></ul>
           </div>
@@ -645,37 +645,37 @@
       "id": "kicker",
       "label": "Kicker",
       "default": "",
-      "info": "Optional. Leave blank to keep the fold decisive—open-ended kickers (“where to start”) add mental load."
+      "info": "Optional. Leave blank—extra labels slow the first tap."
     },
     {
       "type": "text",
       "id": "title",
       "label": "Title",
-      "default": "Looking for a gift, under $50, or trending picks?"
+      "default": "Shop flow automático"
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>Tap one lane—we narrow the store. Search only when you already know the exact item.</p>"
+      "default": ""
     },
     {
       "type": "text",
       "id": "search_placeholder",
       "label": "Search placeholder",
-      "default": "Know what you want? Search here."
+      "default": "Search products"
     },
     {
       "type": "text",
       "id": "search_button",
       "label": "Search button",
-      "default": "Search"
+      "default": "Go"
     },
     {
       "type": "text",
       "id": "primary_label",
       "label": "Primary button label",
-      "default": "Explore all products"
+      "default": "All products"
     },
     {
       "type": "url",
@@ -686,7 +686,7 @@
       "type": "text",
       "id": "secondary_label",
       "label": "Secondary button label",
-      "default": "Customer support"
+      "default": "Support"
     },
     {
       "type": "url",
@@ -713,20 +713,20 @@
       "type": "text",
       "id": "panel_label",
       "label": "Panel accessibility label",
-      "default": "Shortcuts—gifts, trending, budget, bestsellers"
+      "default": "Shop paths"
     },
     {
       "type": "text",
       "id": "search_shortcuts_a11y_label",
       "label": "Search shortcuts label (screen readers)",
-      "default": "Jump to a category"
+      "default": "Categories"
     },
     {
       "type": "text",
       "id": "search_intents_heading",
       "label": "Smart search suggestions heading",
-      "default": "Buying a watch? Jump ahead",
-      "info": "Shown above live suggestions while shoppers type in the hub search field (keywords are configured per block below)."
+      "default": "Quick picks",
+      "info": "Short line above live suggestions (keywords are set per block below)."
     }
   ],
   "blocks": [

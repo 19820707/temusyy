@@ -514,6 +514,13 @@
         "default": 5
       },
       {
+        "type": "checkbox",
+        "id": "temusy_product_urgency_badges",
+        "label": "Compact urgency badges on product cards",
+        "default": true,
+        "info": "Honest pills: “Only N left” from Shopify inventory (≤ low-stock threshold); “Selling fast” from tags or metafield custom.selling_fast; “In N carts” only if metafield custom.active_carts (integer) is set (e.g. app)."
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.products.header_3.content"
       },

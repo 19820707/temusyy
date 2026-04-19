@@ -35,6 +35,10 @@
   assign product_compare = product_compare | default: nil
   assign product_grid_show_second_image = settings.product_grid_show_second_image
   assign emphasize_price = settings.product_grid_emphasize_price
+  assign temusy_emphasize_price = temusy_emphasize_price | default: nil
+  if temusy_emphasize_price == true or temusy_emphasize_price == false
+    assign emphasize_price = temusy_emphasize_price
+  endif
   assign quick_shop_display = settings.product_grid_quick_shop_display
   assign enable_quickshop = settings.product_grid_enable_quickshop
   assign atc_display = settings.product_grid_show_atc
@@ -128,14 +132,15 @@
   assign ss_has_label = false
   assign ss_has_review = false
   assign ss_has_urgency = false
+  assign ss_has_urgency_badges = false
   if product and smart_stack_eligible
-    assign tags_for_ss = product.tags | join: ' ' | downcase
-    if tags_for_ss contains 'trending' or tags_for_ss contains 'tendencia' or tags_for_ss contains 'popular' or tags_for_ss contains 'destaque' or tags_for_ss contains 'temusy-interesse' or tags_for_ss contains 'flow-interesse'
-      assign ss_has_label = true
-    endif
-    if tags_for_ss contains 'bestseller' or tags_for_ss contains 'mais-vendido' or tags_for_ss contains 'mais vendido' or tags_for_ss contains 'temusy-vendas' or tags_for_ss contains 'flow-vendas'
-      assign ss_has_label = true
-    endif
+    for tag in product.tags
+      assign tl = tag | downcase | strip
+      if tl == 'popular' or tl == 'trending' or tl == 'tendencia' or tl == 'destaque' or tl == 'temusy-interesse' or tl == 'flow-interesse' or tl == 'selling-fast' or tl == 'selling fast' or tl == 'temusy-selling-fast' or tl == 'bestseller' or tl == 'mais-vendido' or tl == 'mais vendido' or tl == 'temusy-vendas' or tl == 'flow-vendas'
+        assign ss_has_label = true
+        break
+      endif
+    endfor
     if settings.product_ratings_star_display and product.metafields.reviews.rating.value != blank
       assign ss_has_review = true
     endif
@@ -145,10 +150,35 @@
         assign ss_has_urgency = true
       endif
     endif
+
+    if settings.temusy_product_urgency_badges != false
+      if ss_v.inventory_management == 'shopify' and ss_v.inventory_quantity != nil and ss_v.inventory_quantity > 0 and ss_v.inventory_quantity <= settings.low_stock_threshold
+        assign ss_has_urgency_badges = true
+      endif
+      if ss_has_urgency_badges == false
+        for tag in product.tags
+          assign tl2 = tag | downcase | strip
+          if tl2 == 'selling-fast' or tl2 == 'selling fast' or tl2 == 'temusy-selling-fast'
+            assign ss_has_urgency_badges = true
+            break
+          endif
+        endfor
+      endif
+      if ss_has_urgency_badges == false and product.metafields.custom.selling_fast.value == true
+        assign ss_has_urgency_badges = true
+      endif
+      if ss_has_urgency_badges == false
+        assign _carts_raw = product.metafields.custom.active_carts.value
+        assign _cn = _carts_raw | plus: 0
+        if _carts_raw != blank and _cn > 0
+          assign ss_has_urgency_badges = true
+        endif
+      endif
+    endif
   endif
 
   assign ss_has_context = false
-  if ss_has_label or ss_has_review or ss_has_urgency
+  if ss_has_label or ss_has_review or ss_has_urgency or ss_has_urgency_badges
     assign ss_has_context = true
   endif
 %}
@@ -592,6 +622,14 @@
         {% if smart_stack_eligible and product %}
           <div class="productitem__smart-stack" data-smart-product-stack>
             {%
+              render 'product-urgency-badges',
+              product: product,
+              variant: ss_v,
+              recently_viewed: recently_viewed,
+              countdown_timer: countdown_timer,
+              product_compare: product_compare,
+            %}
+            {%
               render 'product-merchandising-labels',
               product: product,
               recently_viewed: recently_viewed,
@@ -631,15 +669,17 @@
               {% endunless %}
 
               {% if settings.inventory_status and ss_has_urgency %}
-                <div class="productitem__stock-level productitem__smart-stack-urgency">
-                  {%
-                    render 'product-stock-level',
-                    inventory_display: settings.inventory_display,
-                    inventory_transfer: settings.inventory_transfer_notice,
-                    variant: product.selected_or_first_available_variant,
-                    verbose: false,
-                  %}
-                </div>
+                {% unless settings.temusy_product_urgency_badges %}
+                  <div class="productitem__stock-level productitem__smart-stack-urgency">
+                    {%
+                      render 'product-stock-level',
+                      inventory_display: settings.inventory_display,
+                      inventory_transfer: settings.inventory_transfer_notice,
+                      variant: product.selected_or_first_available_variant,
+                      verbose: false,
+                    %}
+                  </div>
+                {% endunless %}
               {% endif %}
             {% endunless %}
 
