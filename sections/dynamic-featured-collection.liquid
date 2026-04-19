@@ -28,51 +28,56 @@
   assign title_card_block = section.blocks.first
   assign product_count_remainder = product_count | modulo: 5
 
-  assign horizontal_size = title_card_block.settings.horizontal_size
-  if section.settings.layout == 'slideshow'
-    assign horizontal_size = 1
-  endif
-
-  # Determine how many items are in the featured collection
-
-  if section.settings.layout == 'grid'
-    assign item_count = horizontal_size | plus: product_count
-  else
-    if section.blocks.size > 0
-      assign item_count = 1 | plus: product_count
-    else
-      assign item_count = product_count
+  if section.blocks.size > 0
+    assign horizontal_size = title_card_block.settings.horizontal_size
+    if section.settings.layout == 'slideshow'
+      assign horizontal_size = 1
     endif
-  endif
 
-  if item_count > 5
-    assign vertical_size = title_card_block.settings.vertical_size
+    if section.settings.layout == 'grid'
+      assign item_count = horizontal_size | plus: product_count
+    else
+      assign item_count = 1 | plus: product_count
+    endif
+
+    if item_count > 5
+      assign vertical_size = title_card_block.settings.vertical_size
+    else
+      assign vertical_size = 1
+    endif
   else
+    assign horizontal_size = 1
+    if section.settings.layout == 'slideshow'
+      assign horizontal_size = 1
+    endif
+    assign item_count = product_count
     assign vertical_size = 1
   endif
 %}
 
-{% style %}
-  #shopify-section-{{ section.id }} .featured-collection__title-card {
-    color: {{ title_card_block.settings.text_color }};
-  }
-
-  #shopify-section-{{ section.id }} .featured-collection__title-card-outer::before {
-    background-color: {{ title_card_block.settings.overlay_color }};
-    opacity: {{ title_card_block.settings.overlay_opacity | divided_by: 100.00 }};
-  }
-
-  @media screen and (min-width: 1080px) {
-    #shopify-section-{{ section.id }} [data-layout="grid"] .featured-collection__title-card {
-      {% if title_card_block.type == 'title_card' %}
-        grid-column: span {{ horizontal_size }};
-        {% if item_count > 5 %}
-          grid-row: span {{ vertical_size }};
-        {% endif %}
-      {% endif %}
+{% if section.blocks.size > 0 %}
+  {% style %}
+    #shopify-section-{{ section.id }} .featured-collection__title-card {
+      color: {{ title_card_block.settings.text_color }};
     }
-  }
-{% endstyle %}
+
+    #shopify-section-{{ section.id }} .featured-collection__title-card-outer::before {
+      background-color: {{ title_card_block.settings.overlay_color }};
+      opacity: {{ title_card_block.settings.overlay_opacity | divided_by: 100.00 }};
+    }
+
+    @media screen and (min-width: 1080px) {
+      #shopify-section-{{ section.id }} [data-layout="grid"] .featured-collection__title-card {
+        {% if title_card_block.type == 'title_card' %}
+          grid-column: span {{ horizontal_size }};
+          {% if item_count > 5 %}
+            grid-row: span {{ vertical_size }};
+          {% endif %}
+        {% endif %}
+      }
+    }
+  {% endstyle %}
+{% endif %}
 
 {% if section.settings.title != blank %}
   {% capture title %}
@@ -82,15 +87,27 @@
   {% endcapture %}
 {% endif %}
 
-{%
-  render 'featured-collection',
-  section: section,
-  selected_collection: selected_collection,
-  title_card_source: 'block',
-  title_card_block: title_card_block,
-  item_count: item_count,
-  title: title,
-%}
+{% if section.blocks.size > 0 %}
+  {%
+    render 'featured-collection',
+    section: section,
+    selected_collection: selected_collection,
+    title_card_source: 'block',
+    title_card_block: title_card_block,
+    item_count: item_count,
+    title: title,
+  %}
+{% else %}
+  {%
+    render 'featured-collection',
+    section: section,
+    selected_collection: selected_collection,
+    title_card_source: '',
+    title_card_block: title_card_block,
+    item_count: item_count,
+    title: title,
+  %}
+{% endif %}
 
 {% render 'quick-shop' %}
 

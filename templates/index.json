@@ -91,7 +91,7 @@
         "slide_wQ3R4Y"
       ],
       "settings": {
-        "enable_autoplay": true,
+        "enable_autoplay": false,
         "autoplay_duration": 5,
         "slideshow_width": "full",
         "slideshow_height": "original",
@@ -235,78 +235,25 @@
         "section_height": "original",
         "image": "shopify://shop_images/Watch_Collection_sale_banners_1.png",
         "title": "Watches",
-        "text": "<p><br/></p>",
+        "text": "",
         "content_position": "center-center",
         "color": "#ffffff",
         "overlay_background": "#000000",
         "overlay_opacity": 0,
         "link": "shopify://collections/watches",
-        "button_text": ""
+        "button_text": "Shop watches"
       }
     },
     "dynamic_featured_collection-2": {
       "type": "dynamic-featured-collection",
-      "blocks": {
-        "title-card": {
-          "type": "title_card",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/wrist-watch-on-driving-arm.jpg",
-            "text_alignment": "center-center",
-            "pre_heading": "",
-            "heading": "Watches",
-            "text_color": "#ffffff",
-            "show_on_mobile": true,
-            "horizontal_size": "3",
-            "vertical_size": "2",
-            "enable_full_width_on_mobile": false,
-            "cta_label": "see more",
-            "overlay_color": "#000000",
-            "overlay_opacity": 10
-          }
-        }
-      },
-      "block_order": [
-        "title-card"
-      ],
       "settings": {
         "title": "Watches",
         "layout": "grid",
         "mobile_layout": "slideshow",
         "collection": "watches",
         "product_count": 6,
-        "cta_label": "",
+        "cta_label": "Shop watches",
         "cta_button_style": "secondary"
-      }
-    },
-    "dynamic_promo_grid-3": {
-      "type": "dynamic-promo-grid",
-      "blocks": {
-        "promotion-1": {
-          "type": "promotion",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/a-woman-in-her-shop.jpg",
-            "title": "Kitchen Organizer",
-            "text": "Organize your kitchen, elevate your space.",
-            "color": "#ffffff",
-            "block_link": "shopify://collections/organizers",
-            "button_text": "Shop Now",
-            "button_style": "primary",
-            "show_overlay": true,
-            "background": "",
-            "opacity": 19
-          }
-        }
-      },
-      "block_order": [
-        "promotion-1"
-      ],
-      "settings": {
-        "title": "",
-        "section_height": "large",
-        "section_columns": 1,
-        "text_alignment": "center-left"
       }
     },
     "dynamic_collection_list_VgVDyd": {
@@ -402,7 +349,7 @@
         "mobile_layout": "slideshow",
         "collection": "jewelry-and-fashion-accessories",
         "product_count": 5,
-        "cta_label": "",
+        "cta_label": "Shop jewelry",
         "cta_button_style": "primary"
       }
     },
@@ -414,7 +361,7 @@
           "settings": {
             "icon": "icon-delivery",
             "title": "Fast Shipping",
-            "text": "<p>Swift Shipping Guaranteed.<br/><br/></p>",
+            "text": "<p>Swift shipping guaranteed.</p>",
             "link": ""
           }
         },
@@ -432,7 +379,7 @@
           "settings": {
             "icon": "icon-chat-alternate",
             "title": "Chat With Us",
-            "text": "<p>Quick Chat Support.<br/><br/></p>",
+            "text": "<p>Quick chat support.</p>",
             "link": ""
           }
         },
@@ -441,7 +388,7 @@
           "settings": {
             "icon": "icon-discount",
             "title": "Discount",
-            "text": "<p>Get Discount on Your Favourite Products</p>",
+            "text": "<p>Get discounts on your favorite products.</p>",
             "link": ""
           }
         }
@@ -490,7 +437,7 @@
         "slide_Vj9pMt"
       ],
       "settings": {
-        "enable_autoplay": true,
+        "enable_autoplay": false,
         "autoplay_duration": 8,
         "slideshow_width": "full",
         "slideshow_height": "original",
@@ -506,7 +453,7 @@
         "mobile_layout": "grid",
         "collection": "dress-shirts",
         "product_count": 6,
-        "cta_label": "",
+        "cta_label": "Shop dress shirts",
         "cta_button_style": "secondary"
       }
     },
@@ -518,7 +465,7 @@
         "mobile_layout": "slideshow",
         "collection": "dress-pants",
         "product_count": 6,
-        "cta_label": "",
+        "cta_label": "Shop dress pants",
         "cta_button_style": "primary"
       }
     },
@@ -529,7 +476,7 @@
           "type": "testimonial",
           "settings": {
             "star_rating": "5",
-            "text": "<p><strong>An elegant and reliable watch, clearly crafted to last. Prompt delivery and refined packaging added to a smooth, premium experience. Highly recommended for those who appreciate quality and style.</strong></p><p></p>",
+            "text": "<p><strong>An elegant and reliable watch, clearly crafted to last. Prompt delivery and refined packaging added to a smooth, premium experience. Highly recommended for those who appreciate quality and style.</strong></p>",
             "author": "<p><em><strong>Jonathan Reed</strong></em></p>"
           }
         },
@@ -537,7 +484,7 @@
           "type": "testimonial",
           "settings": {
             "star_rating": "5",
-            "text": "<p><strong><br/>Impressive quality and classic design. These loafers are as comfortable as they are stylish. The unboxing experience matched the premium look and feel.<br/><br/></strong></p>",
+            "text": "<p><strong>Impressive quality and classic design. These loafers are as comfortable as they are stylish. The unboxing experience matched the premium look and feel.</strong></p>",
             "author": "<p><em><strong>Oliver Grant</strong></em></p>"
           }
         },
@@ -553,7 +500,7 @@
           "type": "testimonial",
           "settings": {
             "star_rating": "5",
-            "text": "<p><br/><strong>A modern, refined scent that works perfectly for day or evening. The fragrance has depth and longevity. Excellent customer care and presentation.<br/></strong><br/></p>",
+            "text": "<p><strong>A modern, refined scent that works perfectly for day or evening. The fragrance has depth and longevity. Excellent customer care and presentation.</strong></p>",
             "author": "<p><em><strong>Alex Whitmore</strong></em></p>"
           }
         },
@@ -561,15 +508,15 @@
           "type": "testimonial",
           "settings": {
             "star_rating": "5",
-            "text": "<p><strong><br/>Beautifully designed and surprisingly lightweight. This bracelet adds a touch of elegance to every outfit. Arrived in a lovely box and felt like a gift to myself.<br/><br/></strong></p>",
-            "author": "<p><strong>Emily Rhodes</strong></p>"
+            "text": "<p><strong>Beautifully designed and surprisingly lightweight. This bracelet adds a touch of elegance to every outfit. Arrived in a lovely box and felt like a gift to myself.</strong></p>",
+            "author": "<p><em><strong>Emily Rhodes</strong></em></p>"
           }
         },
         "testimonial-6": {
           "type": "testimonial",
           "settings": {
             "star_rating": "5",
-            "text": "<p></p><p><strong>Stylish, sturdy, and incredibly functional. This kitchen organizer helped streamline my space instantly. A well-thought-out design with quality materials—very satisfied.<br/><br/></strong></p>",
+            "text": "<p><strong>Stylish, sturdy, and incredibly functional. This kitchen organizer helped streamline my space instantly. A well-thought-out design with quality materials—very satisfied.</strong></p>",
             "author": "<p><em><strong>Chloe Bennett</strong></em></p>"
           }
         }
@@ -587,22 +534,6 @@
         "image_crop": "circle",
         "text_size": "small"
       }
-    },
-    "1746893031c8caac9d": {
-      "type": "apps",
-      "blocks": {
-        "trustoo_io_reviews_card_carousel_yD8KhM": {
-          "type": "shopify://apps/trustoo-io-reviews/blocks/card-carousel/c8f15077-6475-4e86-ad06-b66038d5ba2c",
-          "disabled": true,
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "trustoo_io_reviews_card_carousel_yD8KhM"
-      ],
-      "settings": {
-        "include_padding": false
-      }
     }
   },
   "order": [
@@ -611,7 +542,6 @@
     "dynamic_collection_list",
     "pxs_image_with_text_overlay_8fFPN3",
     "dynamic_featured_collection-2",
-    "dynamic_promo_grid-3",
     "dynamic_collection_list_VgVDyd",
     "pxs_image_with_text_overlay_AHYwbH",
     "dynamic_featured_collection_Tc6fXq",
@@ -619,7 +549,6 @@
     "dynamic_slideshow_HU6PyP",
     "dynamic_featured_collection",
     "dynamic_featured_collection_ppMTgJ",
-    "dynamic_testimonials",
-    "1746893031c8caac9d"
+    "dynamic_testimonials"
   ]
 }

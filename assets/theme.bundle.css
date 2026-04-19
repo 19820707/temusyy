@@ -329,9 +329,12 @@ audio:not([controls]) {
 
 /**
  * Remove the border on images inside links in IE 10-.
+ * Fluid defaults: intrinsic raster dimensions must not overflow the layout (CLS + horizontal scroll).
  */
 img {
   border-style: none;
+  max-width: 100%;
+  height: auto;
 }
 
 /**

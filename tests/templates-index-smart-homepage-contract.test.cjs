@@ -37,4 +37,26 @@ assert.ok(
   'index.json: smart_homepage_hub must include enough paths/trust points to guide shoppers'
 );
 
+// T7 — No placeholder apps section: homepage must not ship an empty `apps` shell (removed from template; re-add via editor when an app block is needed).
+assert.ok(
+  !Object.values(indexTemplate.sections || {}).some(function (s) {
+    return s && s.type === 'apps';
+  }),
+  'index.json: must not include an apps-only placeholder section on the homepage'
+);
+
+// T8 — Featured collection rows should expose a primary CTA label (conversion + screen-reader context on section chrome).
+['dynamic_featured_collection-2', 'dynamic_featured_collection_Tc6fXq', 'dynamic_featured_collection', 'dynamic_featured_collection_ppMTgJ'].forEach(
+  function (sid) {
+    const sec = indexTemplate.sections[sid];
+    if (!sec || sec.type !== 'dynamic-featured-collection') {
+      return;
+    }
+    assert.ok(
+      typeof sec.settings.cta_label === 'string' && sec.settings.cta_label.trim().length > 0,
+      'index.json: ' + sid + ' must set a non-empty cta_label'
+    );
+  }
+);
+
 console.log('templates-index-smart-homepage-contract: ok');

@@ -33,24 +33,30 @@
   endif
 
   assign mobile_layout = section.settings.mobile_layout | default: 'slideshow'
-  assign mobile_image = title_card_block.settings.mobile_image | default: title_card_block.settings.image
 
   assign is_title_card_type = false
   assign is_view_all_card_type = false
-  if title_card_block.type == 'title_card'
-    assign is_title_card_type = true
-  elsif title_card_block.type == 'view_all_card'
-    assign is_view_all_card_type = true
-  endif
-
-  assign show_on_mobile = title_card_block.settings.show_on_mobile
-  # if show_on_mobile is not a boolean, it means the setting is not present.
-  if show_on_mobile == nil
-    assign show_on_mobile = true
-  endif
-
+  assign show_on_mobile = true
   assign enable_full_width_on_mobile = false
-  if section.settings.enable_full_width_on_mobile or title_card_block.settings.enable_full_width_on_mobile
+  assign mobile_image = blank
+
+  if title_card_block != blank
+    assign mobile_image = title_card_block.settings.mobile_image | default: title_card_block.settings.image
+    if title_card_block.type == 'title_card'
+      assign is_title_card_type = true
+    elsif title_card_block.type == 'view_all_card'
+      assign is_view_all_card_type = true
+    endif
+
+    assign show_on_mobile = title_card_block.settings.show_on_mobile
+    if show_on_mobile == nil
+      assign show_on_mobile = true
+    endif
+
+    if section.settings.enable_full_width_on_mobile or title_card_block.settings.enable_full_width_on_mobile
+      assign enable_full_width_on_mobile = true
+    endif
+  elsif section.settings.enable_full_width_on_mobile
     assign enable_full_width_on_mobile = true
   endif
 %}
