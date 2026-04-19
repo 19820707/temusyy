@@ -1,0 +1,319 @@
+{% comment %}
+  Homepage-only heuristics (sessionStorage, no server/Liquid): fast click → buy focus; fast scroll → explore;
+  long idle → indecisive (guides + categories). Progressive enhancement: no JS leaves layout unchanged.
+{% endcomment %}
+<style>
+  .temusy-intent-nudge {
+    background: {{ settings.color_headings }};
+    border-radius: 8px 8px 0 0;
+    bottom: 0;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+    color: {{ settings.color_background }};
+    font-family: var(--theme-font-body), sans-serif;
+    left: 50%;
+    max-width: min(520px, calc(100vw - 24px));
+    padding: 12px 14px 14px;
+    position: fixed;
+    transform: translateX(-50%);
+    z-index: 30;
+  }
+  .temusy-intent-nudge[hidden] {
+    display: none !important;
+  }
+  .temusy-intent-nudge__row {
+    align-items: flex-start;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+  }
+  .temusy-intent-nudge__text {
+    font-size: 0.92rem;
+    line-height: 1.35;
+    margin: 0;
+    padding-right: 4px;
+  }
+  .temusy-intent-nudge__close {
+    background: {{ settings.color_background }};
+    border: 0;
+    border-radius: 6px;
+    color: {{ settings.color_headings }};
+    cursor: pointer;
+    flex-shrink: 0;
+    font-family: var(--theme-font-button), sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 6px 10px;
+  }
+  .temusy-intent-nudge__close:focus-visible {
+    outline: 2px solid {{ settings.color_links }};
+    outline-offset: 2px;
+  }
+  html.temusy-intent-buy [data-temusy-intent-zone='buy'] {
+    position: relative;
+    z-index: 1;
+  }
+  html.temusy-intent-buy [data-temusy-intent-zone='guides'],
+  html.temusy-intent-buy [data-temusy-intent-zone='categories'] {
+    opacity: 0.74;
+    transition: opacity 0.2s ease;
+  }
+  html.temusy-intent-explore [data-temusy-intent-zone='guides'],
+  html.temusy-intent-explore [data-temusy-intent-zone='categories'] {
+    outline: 2px solid {{ settings.color_links }};
+    outline-offset: 4px;
+  }
+  html.temusy-intent-explore [data-temusy-intent-zone='buy'] {
+    opacity: 0.78;
+    transition: opacity 0.2s ease;
+  }
+  html.temusy-intent-indecisive [data-temusy-intent-zone='guides'],
+  html.temusy-intent-indecisive [data-temusy-intent-zone='categories'] {
+    box-shadow: 0 0 0 2px {{ settings.color_links }}, 0 10px 28px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<div
+  id="temusy-intent-nudge"
+  class="temusy-intent-nudge"
+  role="status"
+  aria-live="polite"
+  hidden
+>
+  <div class="temusy-intent-nudge__row">
+    <p class="temusy-intent-nudge__text" id="temusy-intent-nudge-msg"></p>
+    <button type="button" class="temusy-intent-nudge__close">{{ 'general.accessibility.close' | t }}</button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var STORAGE_KEY = 'temusy_home_intent';
+    var DISMISS_KEY = 'temusy_intent_nudge_dismissed';
+    var FAST_CLICK_MS = 1300;
+    var FAST_SCROLL_PX = 720;
+    var FAST_SCROLL_WINDOW_MS = 420;
+    var IDLE_MS = 13500;
+
+    if (typeof sessionStorage === 'undefined') return;
+    var designMode = typeof window.Shopify !== 'undefined' && window.Shopify.designMode;
+
+    function emitIntent(intent) {
+      try {
+        document.dispatchEvent(new CustomEvent('temusy:intent', { detail: { intent: intent } }));
+      } catch (evtErr) {}
+    }
+
+    var existing = sessionStorage.getItem(STORAGE_KEY);
+    if (existing === 'buy' || existing === 'explore' || existing === 'indecisive') {
+      document.documentElement.classList.add('temusy-intent-' + existing);
+      if (!sessionStorage.getItem(DISMISS_KEY)) showNudge(existing);
+      emitIntent(existing);
+      return;
+    }
+    if (designMode) return;
+
+    var t0 = performance.now();
+    var settled = false;
+    var idleTimer;
+    var scrollBuf = [];
+
+    function commit(intent) {
+      if (settled) return;
+      settled = true;
+      try {
+        sessionStorage.setItem(STORAGE_KEY, intent);
+      } catch (e) {}
+      document.documentElement.classList.add('temusy-intent-' + intent);
+      emitIntent(intent);
+      clearTimeout(idleTimer);
+      maybeScroll(intent);
+      if (!sessionStorage.getItem(DISMISS_KEY)) showNudge(intent);
+    }
+
+    function prefersReducedMotion() {
+      return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    function maybeScroll(intent) {
+      var smooth = !prefersReducedMotion();
+      var opts = { behavior: smooth ? 'smooth' : 'auto', block: intent === 'buy' ? 'center' : 'start' };
+      var sel = intent === 'buy' ? '[data-temusy-intent-zone="buy"]' : '[data-temusy-intent-zone="guides"]';
+      var el = document.querySelector(sel);
+      if (el) {
+        try {
+          el.scrollIntoView(opts);
+        } catch (err) {}
+      }
+    }
+
+    function showNudge(intent) {
+      var el = document.getElementById('temusy-intent-nudge');
+      var msg = document.getElementById('temusy-intent-nudge-msg');
+      if (!el || !msg) return;
+      var copy = {
+        buy: 'Top picks are highlighted — a fast path into real SKUs.',
+        explore: 'You are moving fast — paths and categories are highlighted to help you scan.',
+        indecisive: 'No rush — when you are ready, use the shopping paths and categories below.'
+      };
+      msg.textContent = copy[intent] || '';
+      el.hidden = false;
+    }
+
+    function onPointerDown(e) {
+      if (settled) return;
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var interactive = t.closest('a, button, [role="button"], input[type="submit"], [data-product-page-link]');
+      if (!interactive) return;
+      if (t.closest('#temusy-intent-nudge')) return;
+      if (t.closest('.site-header, .site-navigation, .mobile-nav, [data-site-header]')) return;
+      if (performance.now() - t0 <= FAST_CLICK_MS) commit('buy');
+    }
+
+    function onScroll() {
+      if (settled) return;
+      var now = performance.now();
+      var y = window.scrollY || window.pageYOffset || 0;
+      scrollBuf.push({ t: now, y: y });
+      while (scrollBuf.length && scrollBuf[0].t < now - FAST_SCROLL_WINDOW_MS) {
+        scrollBuf.shift();
+      }
+      var total = 0;
+      for (var i = 1; i < scrollBuf.length; i++) {
+        total += Math.abs(scrollBuf[i].y - scrollBuf[i - 1].y);
+      }
+      if (total >= FAST_SCROLL_PX) commit('explore');
+    }
+
+    function resetIdle() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function () {
+        if (!settled) commit('indecisive');
+      }, IDLE_MS);
+    }
+
+    document.addEventListener('mousedown', onPointerDown, true);
+    document.addEventListener('touchstart', onPointerDown, { passive: true, capture: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    ['keydown', 'scroll', 'mousemove', 'touchstart', 'mousedown'].forEach(function (ev) {
+      document.addEventListener(
+        ev,
+        function () {
+          if (!settled) resetIdle();
+        },
+        { passive: true }
+      );
+    });
+    resetIdle();
+
+    var nudge = document.getElementById('temusy-intent-nudge');
+    if (nudge) {
+      nudge.addEventListener('click', function (e) {
+        if (e.target.closest('.temusy-intent-nudge__close')) {
+          e.preventDefault();
+          nudge.hidden = true;
+          try {
+            sessionStorage.setItem(DISMISS_KEY, '1');
+          } catch (e2) {}
+        }
+      });
+    }
+  })();
+
+  (function () {
+    function norm(s) {
+      return (s || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    }
+    function keywordsFromCell(str) {
+      return (str || '')
+        .split(',')
+        .map(function (k) {
+          return norm(k);
+        })
+        .filter(Boolean);
+    }
+    function rowMatches(row, q) {
+      if (!q) return false;
+      var keys = keywordsFromCell(row.keywords);
+      for (var i = 0; i < keys.length; i++) {
+        var k = keys[i];
+        if (!k) continue;
+        if (k.indexOf(q) !== -1 || q.indexOf(k) !== -1) return true;
+      }
+      return false;
+    }
+    function debounce(fn, ms) {
+      var t;
+      return function () {
+        var ctx = this;
+        var args = arguments;
+        clearTimeout(t);
+        t = setTimeout(function () {
+          fn.apply(ctx, args);
+        }, ms);
+      };
+    }
+    function initWrap(wrap) {
+      var template = wrap.querySelector('template[data-temusy-hub-intents]');
+      if (!template || !template.textContent || !template.textContent.trim()) return;
+      var sid = template.getAttribute('data-temusy-hub-intents');
+      if (!sid) return;
+      var rows;
+      try {
+        rows = JSON.parse(template.textContent.trim());
+      } catch (err) {
+        return;
+      }
+      if (!Array.isArray(rows) || !rows.length) return;
+      var input = document.getElementById('smart-homepage-search-' + sid);
+      if (!input) return;
+      var region = wrap.querySelector('.smart-homepage-hub__search-intents');
+      var listHost = wrap.querySelector('[data-temusy-search-intents-list]');
+      if (!region || !listHost) return;
+
+      function applyQuery() {
+        var q = norm(input.value);
+        if (!q) {
+          region.hidden = true;
+          listHost.innerHTML = '';
+          return;
+        }
+        var matches = rows.filter(function (r) {
+          return r && r.url && r.label && rowMatches(r, q);
+        });
+        if (!matches.length) {
+          region.hidden = true;
+          listHost.innerHTML = '';
+          return;
+        }
+        listHost.innerHTML = '';
+        matches.forEach(function (row) {
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.className = 'smart-homepage-hub__search-intents-link';
+          a.href = row.url;
+          a.textContent = row.label;
+          li.appendChild(a);
+          listHost.appendChild(li);
+        });
+        region.hidden = false;
+      }
+
+      var run = debounce(applyQuery, 120);
+      input.addEventListener('input', run);
+      input.addEventListener('focus', applyQuery);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          region.hidden = true;
+          listHost.innerHTML = '';
+        }
+      });
+    }
+
+    function boot() {
+      document.querySelectorAll('[data-temusy-hub-search-wrap]').forEach(initWrap);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+    else boot();
+  })();
+</script>

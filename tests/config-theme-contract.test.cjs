@@ -235,4 +235,21 @@ schema.forEach(function (block) {
   });
 });
 
+(function brandVoiceGuidance() {
+  const brandVoice = schema.find(function (b) {
+    return b && b.name === 'Brand voice & naming';
+  });
+  assert.ok(brandVoice && Array.isArray(brandVoice.settings), 'settings_schema: Brand voice & naming group exists');
+  assert.ok(
+    brandVoice.settings.some(function (s) {
+      return (
+        s &&
+        (s.type === 'paragraph' || s.type === 'header') &&
+        String(s.content || '').toLowerCase().indexOf('anti-dropshipping') !== -1
+      );
+    }),
+    'settings_schema: brand voice group must surface anti-dropshipping checklist copy'
+  );
+})();
+
 console.log('config-theme-contract: ok');

@@ -1,0 +1,229 @@
+{% comment %}
+  Client-side personalization layer (heuristic “AI-like” behaviour — no external model):
+  - Reads `temusy_interest` cookie, `temusy_home_intent` sessionStorage, optional `temusy_signal_weights` localStorage.
+  - Reorders smart hub path chips by score (interest match + click history + buy-intent nudge toward bestsellers).
+  - Marks `html` with stable classes for CSS hooks across the theme shell.
+  Depends on `temusy-interest-bridge` running first (same page) for cookie semantics.
+{% endcomment %}
+<style>
+  html.temusy-adaptive .smart-homepage-hub__path-chip.temusy-hub-chip--boosted {
+    box-shadow: 0 0 0 2px var(--th-accent, currentColor);
+    border-radius: 999px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html.temusy-adaptive .smart-homepage-hub__path-chip.temusy-hub-chip--boosted {
+      transition: box-shadow 0.2s ease;
+    }
+  }
+</style>
+<script>
+  (function () {
+    var COOKIE_INTEREST = 'temusy_interest';
+    var STORAGE_INTENT = 'temusy_home_intent';
+    var STORAGE_WEIGHTS = 'temusy_signal_weights';
+    var MAX_WEIGHT_KEYS = 28;
+    var WEIGHT_CAP = 24;
+
+    function safeHandle(v) {
+      if (!v || typeof v !== 'string') return '';
+      v = v.trim().toLowerCase();
+      if (!/^[a-z0-9\-]+$/.test(v) || v.length > 64) return '';
+      return v;
+    }
+
+    function getCookie(name) {
+      var parts = ('; ' + document.cookie).split('; ' + name + '=');
+      if (parts.length < 2) return '';
+      return decodeURIComponent(parts.pop().split(';').shift() || '');
+    }
+
+    function readIntent() {
+      if (typeof sessionStorage === 'undefined') return '';
+      try {
+        var v = sessionStorage.getItem(STORAGE_INTENT);
+        return v === 'buy' || v === 'explore' || v === 'indecisive' ? v : '';
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function readWeights() {
+      if (typeof localStorage === 'undefined') return {};
+      try {
+        var raw = localStorage.getItem(STORAGE_WEIGHTS);
+        var o = raw ? JSON.parse(raw) : {};
+        return o && typeof o === 'object' ? o : {};
+      } catch (e2) {
+        return {};
+      }
+    }
+
+    function writeWeights(obj) {
+      if (typeof localStorage === 'undefined') return;
+      try {
+        var keys = Object.keys(obj);
+        if (keys.length > MAX_WEIGHT_KEYS) {
+          keys
+            .sort(function (a, b) {
+              return (obj[a] || 0) - (obj[b] || 0);
+            })
+            .slice(0, keys.length - MAX_WEIGHT_KEYS)
+            .forEach(function (k) {
+              delete obj[k];
+            });
+        }
+        localStorage.setItem(STORAGE_WEIGHTS, JSON.stringify(obj));
+      } catch (e3) {}
+    }
+
+    function bumpHandle(h) {
+      var handle = safeHandle(h);
+      if (!handle) return;
+      var w = readWeights();
+      w[handle] = Math.min(WEIGHT_CAP, (w[handle] || 0) + 1);
+      writeWeights(w);
+    }
+
+    function scoreChip(el, interest, intent, weights) {
+      var h = safeHandle(el.getAttribute('data-temusy-interest') || '');
+      var s = 0;
+      if (interest && h === interest) s += 100;
+      if (h && weights[h]) s += Math.min(40, weights[h] * 4);
+      if (intent === 'buy' && h === 'best-sellers') s += 25;
+      if (intent === 'explore' && (h === 'new-arrivals' || h === 'toys-and-games')) s += 12;
+      if (intent === 'indecisive' && h === 'under-50') s += 10;
+      return s;
+    }
+
+    function clearBoostClasses(row) {
+      if (!row) return;
+      var boosted = row.querySelectorAll('.temusy-hub-chip--boosted');
+      for (var j = 0; j < boosted.length; j++) {
+        boosted[j].classList.remove('temusy-hub-chip--boosted');
+      }
+    }
+
+    function chipHandle(el) {
+      return el.getAttribute('data-temusy-interest') || '';
+    }
+
+    function reorderHubPaths() {
+      var rows = document.querySelectorAll('[data-temusy-hub-paths]');
+      if (!rows.length) return;
+      var interest = safeHandle(getCookie(COOKIE_INTEREST));
+      var intent = readIntent();
+      var weights = readWeights();
+
+      rows.forEach(function (row) {
+        var chips = [].slice.call(row.querySelectorAll('.smart-homepage-hub__path-chip'));
+        if (chips.length < 2) return;
+        clearBoostClasses(row);
+        var scored = chips.map(function (el, idx) {
+          return { el: el, idx: idx, score: scoreChip(el, interest, intent, weights) };
+        });
+        scored.sort(function (a, b) {
+          if (b.score !== a.score) return b.score - a.score;
+          return a.idx - b.idx;
+        });
+        var before = chips.map(chipHandle).join('\u0001');
+        var after = scored.map(function (x) {
+          return chipHandle(x.el);
+        }).join('\u0001');
+        if (before !== after) {
+          var frag = document.createDocumentFragment();
+          for (var k = 0; k < scored.length; k++) {
+            frag.appendChild(scored[k].el);
+          }
+          row.appendChild(frag);
+        }
+        if (scored[0] && scored[0].score > 0) {
+          scored[0].el.classList.add('temusy-hub-chip--boosted');
+        }
+      });
+    }
+
+    function applyHtmlState() {
+      var root = document.documentElement;
+      if (!root) return;
+      root.classList.add('temusy-adaptive');
+      var interest = safeHandle(getCookie(COOKIE_INTEREST));
+      var cl = root.classList;
+      var i;
+      for (i = cl.length - 1; i >= 0; i--) {
+        var c = cl[i];
+        if (c.indexOf('temusy-adaptive--interest-') === 0) cl.remove(c);
+      }
+      if (interest) cl.add('temusy-adaptive--interest-' + interest.replace(/[^a-z0-9\-]/g, ''));
+    }
+
+    function run() {
+      applyHtmlState();
+      reorderHubPaths();
+    }
+
+    var debTimer;
+    function debouncedRun() {
+      clearTimeout(deTimer);
+      debTimer = setTimeout(function () {
+        debTimer = null;
+        run();
+      }, 48);
+    }
+
+    function getState() {
+      return {
+        interest: safeHandle(getCookie(COOKIE_INTEREST)),
+        intent: readIntent(),
+        weights: readWeights()
+      };
+    }
+
+    document.addEventListener(
+      'click',
+      function (e) {
+        var t = e.target;
+        if (!t || !t.closest) return;
+        var a = t.closest('[data-temusy-interest]');
+        if (a) {
+          var h = a.getAttribute('data-temusy-interest');
+          if (h) {
+            bumpHandle(h);
+            debouncedRun();
+          }
+          return;
+        }
+        var row = t.closest('[data-temusy-feedback-collection]');
+        if (row) {
+          var fh = row.getAttribute('data-temusy-feedback-collection');
+          if (fh) {
+            bumpHandle(fh);
+            debouncedRun();
+          }
+        }
+      },
+      true
+    );
+
+    window.addEventListener('cartcount:update', function () {
+      var h = safeHandle(getCookie(COOKIE_INTEREST));
+      if (h) bumpHandle(h);
+      debouncedRun();
+    });
+
+    document.addEventListener('temusy:intent', debouncedRun);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', debouncedRun);
+    } else {
+      debouncedRun();
+    }
+
+    ['shopify:section:load', 'shopify:section:unload', 'shopify:section:reorder'].forEach(function (ev) {
+      document.addEventListener(ev, function () {
+        setTimeout(debouncedRun, 60);
+      });
+    });
+
+    window.TemusyPersonalization = { refresh: run, getState: getState };
+  })();
+</script>

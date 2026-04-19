@@ -50,7 +50,17 @@ assert.strictEqual(
 assert.strictEqual(
   indexTemplate.order.indexOf('homepage_smart_hub'),
   indexTemplate.order.indexOf('homepage_hero') + 1,
-  'index.json: homepage_smart_hub should appear immediately after hero slideshow'
+  'index.json: smart hub must follow hero (one-screen commerce: decide without scrolling past orientation)'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_best_sellers_products'),
+  indexTemplate.order.indexOf('homepage_smart_hub') + 1,
+  'index.json: bestsellers grid must follow hub (primary SKU decision surface near the fold)'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_trust_bar'),
+  indexTemplate.order.indexOf('homepage_best_sellers_products') + 1,
+  'index.json: trust bar must follow bestsellers (proof right after the main product row)'
 );
 assert.ok(
   indexTemplate.sections.homepage_smart_hub.settings.primary_link,

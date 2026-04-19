@@ -68,7 +68,7 @@
     },
     "onboarding": {
       "tab_title": "Descrição",
-      "tab_content": "Adicione uma descrição do produto para compartilhar informações sobre o seu produto."
+      "tab_content": "Explique o uso real—materiais, rotina de uso, cuidados—evite frases vazias como “alta qualidade”. Ex.: Pensado para o dia a dia, com um perfil minimalista e limpo."
     },
     "blocks": {
       "request_quote": {
@@ -141,6 +141,9 @@
     "breadcrumbs": {
       "home": "Início",
       "collections": "Coleções"
+    },
+    "adaptive": {
+      "clear": "Redefinir sugestões personalizadas"
     },
     "general": {
       "email": "Email",
@@ -611,9 +614,9 @@
       "link_text": "Link"
     },
     "product": {
-      "title": "Título do produto",
-      "vendor": "Fabricante do produto",
-      "by_vendor": "Pelo fabricante"
+      "title": "Relógio de aço minimalista",
+      "vendor": "Nome da sua marca",
+      "by_vendor": "pela sua marca"
     },
     "page": {
       "title": "Título da página"

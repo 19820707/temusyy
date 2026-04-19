@@ -121,7 +121,27 @@
 
   </head>
 
-  <body class="template-{{ template.name }}" data-instant-allow-query-string {% if settings.reduce_animations %}data-reduce-animations{% endif %}>
+  {% liquid
+    assign temusy_feedback_collection = ''
+    if template.name == 'product' and product
+      if collection != blank and collection.handle != blank
+        assign temusy_feedback_collection = collection.handle
+      elsif product.collections.size > 0
+        assign temusy_feedback_collection = product.collections.first.handle
+      endif
+    elsif template.name == 'collection' and collection and collection.handle != blank
+      assign temusy_feedback_collection = collection.handle
+    endif
+  %}
+
+  <body
+    class="template-{{ template.name }}"
+    data-instant-allow-query-string
+    {% if settings.reduce_animations %}data-reduce-animations{% endif %}
+    {% if temusy_feedback_collection != blank %}
+      data-temusy-feedback-collection="{{ temusy_feedback_collection | escape }}"
+    {% endif %}
+  >
     <script>
       document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');
       if(window.Shopify&&window.Shopify.designMode)document.documentElement.className+=' in-theme-editor';
@@ -634,5 +654,11 @@
     {%- comment -%} invariant: OOTS design beacon must not assume window.BOOMR or Shopify.shop; missing values must not throw. {%- endcomment -%}
     <script>(function(n, v) {/* eslint-disable-next-line max-len */if (window.Shopify && window.Shopify.theme && navigator && navigator.sendBeacon && window.Shopify.designMode) {if (sessionStorage.getItem('oots_beacon')) return;navigator.sendBeacon('https://app.outofthesandbox.com/beacon', new URLSearchParams({shop_domain:(window.Shopify.shop && window.Shopify.shop.toLowerCase()) || '',shop_id:(window.BOOMR && window.BOOMR.shopId) || '',shop_email: '{{ shop.email }}',theme_name: n.toLowerCase(),theme_version: v.toLowerCase(),theme_store_id: window.Shopify.theme.theme_store_id,theme_id: window.Shopify.theme.id,theme_role: window.Shopify.theme.role,}));sessionStorage.setItem('oots_beacon', '');}}('empire','11.1.3'))</script>
     <script src="{{ 'tiny-img-link-preloader.js' | asset_url }}" defer></script>
+
+    {% render 'temusy-interest-bridge' %}
+    {% render 'temusy-personalization-engine' %}
+    {%- if template.name == 'index' -%}
+      {% render 'temusy-intent-detection' %}
+    {%- endif -%}
   </body>
 </html>

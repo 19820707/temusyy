@@ -14,9 +14,14 @@
   @param title [String] Markup to output for collection title
 
   @param disable_cta_button [Boolean]  If true, CTA button will not be rendered.
+
+  @param intent_zone {String}
+    Optional. When set (e.g. "buy"), adds data-temusy-intent-zone for homepage intent CSS.
 {% endcomment %}
 
 {% liquid
+  assign intent_zone = intent_zone | default: ''
+
   if selected_collection
     assign products = selected_collection.products
   else
@@ -201,7 +206,13 @@
   {% endcapture %}
 {% endif %}
 
-<section class="featured-collection__container" data-featured-collection>
+<section
+  class="featured-collection__container"
+  data-featured-collection
+  {% if intent_zone != blank %}
+    data-temusy-intent-zone="{{ intent_zone | escape }}"
+  {% endif %}
+>
   {{ title }}
 
   <div
@@ -214,16 +225,24 @@
       {{ title_card }}
     {% endif %}
 
+    {% liquid
+      assign temusy_fc = ''
+      if selected_collection != blank and selected_collection.handle != blank
+        assign temusy_fc = selected_collection.handle
+      endif
+    %}
     {% for p in products limit: product_count %}
       {%
         render 'product-grid-item',
         product: p,
+        temusy_feedback_collection: temusy_fc,
       %}
     {% else %}
       {% for i in (1..product_count) %}
         {%
           render 'product-grid-item',
           product: false,
+          temusy_feedback_collection: temusy_fc,
         %}
       {% endfor %}
     {% endfor %}

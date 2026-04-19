@@ -1,0 +1,129 @@
+{% comment %}
+  Feedback loop → adaptive homepage:
+  - Click: `data-temusy-interest` (explicit handle) or `data-temusy-feedback-collection` on product cards / rows.
+  - View: `data-temusy-feedback-collection` on `<body>` (product + collection templates; see layout/theme.liquid).
+  - Add to cart: `pointerdown` on `[data-product-atc]` captures nearest feedback handle; `cartcount:update` commits it.
+  Persists `temusy_interest` as cookie (+ localStorage mirror) so Liquid can read `request.cookies.temusy_interest` on the next full page load (dynamic-adaptive-homepage-priority).
+{% endcomment %}
+<script>
+(function () {
+  var COOKIE = 'temusy_interest';
+  var MAX_AGE = 60 * 60 * 24 * 45;
+  var LAST_ATC = '__temusyLastAtcCollection';
+
+  function safeHandle(v) {
+    if (!v || typeof v !== 'string') return '';
+    v = v.trim().toLowerCase();
+    if (!/^[a-z0-9\-]+$/.test(v) || v.length > 64) return '';
+    return v;
+  }
+
+  function setInterest(handle) {
+    var h = safeHandle(handle);
+    if (!h) return;
+    try {
+      localStorage.setItem(COOKIE, h);
+    } catch (e) {}
+    var secure = typeof location !== 'undefined' && location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie =
+      COOKIE +
+      '=' +
+      encodeURIComponent(h) +
+      ';path=/;max-age=' +
+      MAX_AGE +
+      ';SameSite=Lax' +
+      secure;
+  }
+
+  function readBodyFeedback() {
+    if (!document.body || !document.body.getAttribute) return '';
+    return safeHandle(document.body.getAttribute('data-temusy-feedback-collection'));
+  }
+
+  function readRowFeedback(el) {
+    if (!el || !el.closest) return '';
+    var row = el.closest('[data-temusy-feedback-collection]');
+    if (!row) return '';
+    return safeHandle(row.getAttribute('data-temusy-feedback-collection'));
+  }
+
+  function clearInterest(e) {
+    if (e) e.preventDefault();
+    try {
+      localStorage.removeItem(COOKIE);
+    } catch (err) {}
+    var secureClear = typeof location !== 'undefined' && location.protocol === 'https:' ? ';Secure' : '';
+    document.cookie = COOKIE + '=;path=/;max-age=0;SameSite=Lax' + secureClear;
+    try {
+      delete window[LAST_ATC];
+    } catch (e2) {}
+    window.location.reload();
+  }
+
+  document.addEventListener(
+    'click',
+    function (e) {
+      var clearBtn = e.target && e.target.closest && e.target.closest('[data-temusy-clear-interest]');
+      if (clearBtn) {
+        clearInterest(e);
+        return;
+      }
+      var el = e.target && e.target.closest && e.target.closest('[data-temusy-interest]');
+      if (el) {
+        var val = el.getAttribute('data-temusy-interest');
+        if (val) setInterest(val);
+        return;
+      }
+      var fb = readRowFeedback(e.target);
+      if (fb) setInterest(fb);
+    },
+    true
+  );
+
+  document.addEventListener(
+    'pointerdown',
+    function (e) {
+      var btn = e.target && e.target.closest && e.target.closest('[data-product-atc]');
+      if (!btn) return;
+      var scope =
+        btn.closest('[data-product-item]') ||
+        btn.closest('[data-product-wrapper]') ||
+        btn.closest('[data-product-form-area]');
+      var h = '';
+      if (scope && scope.getAttribute) {
+        h = safeHandle(scope.getAttribute('data-temusy-feedback-collection'));
+      }
+      if (!h) h = readBodyFeedback();
+      if (h) {
+        try {
+          window[LAST_ATC] = h;
+        } catch (err) {}
+      }
+    },
+    true
+  );
+
+  function applyViewSignal() {
+    var h = readBodyFeedback();
+    if (h) setInterest(h);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyViewSignal);
+  } else {
+    applyViewSignal();
+  }
+
+  window.addEventListener('cartcount:update', function () {
+    var h = '';
+    try {
+      h = safeHandle(window[LAST_ATC]);
+    } catch (e) {}
+    if (!h) h = readBodyFeedback();
+    if (h) setInterest(h);
+    try {
+      delete window[LAST_ATC];
+    } catch (e2) {}
+  });
+})();
+</script>

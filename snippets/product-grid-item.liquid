@@ -19,9 +19,17 @@
 
   @param products_per_row {String}
     The number of products per row
+
+  Smart stack (standard grids): trending/best-seller labels + reviews + low-stock urgency + ATC are
+  grouped under the title; scarcity chip stays on stock row only. Cards with none of label/review/low-stock
+  get class productitem--no-smart-context (still shoppable).
 {% endcomment %}
 
 {% liquid
+  assign temusy_feedback_collection = temusy_feedback_collection | default: ''
+  if temusy_feedback_collection == blank and collection != blank and collection.handle != blank
+    assign temusy_feedback_collection = collection.handle
+  endif
   assign recently_viewed = recently_viewed | default: nil
   assign countdown_timer = countdown_timer | default: nil
   assign product_compare = product_compare | default: nil
@@ -111,6 +119,40 @@
   {% assign consistent_saved = true %}
 {% endif %}
 
+{% liquid
+  assign smart_stack_eligible = true
+  if recently_viewed or countdown_timer or product_compare
+    assign smart_stack_eligible = false
+  endif
+
+  assign ss_has_label = false
+  assign ss_has_review = false
+  assign ss_has_urgency = false
+  if product and smart_stack_eligible
+    assign tags_for_ss = product.tags | join: ' ' | downcase
+    if tags_for_ss contains 'trending' or tags_for_ss contains 'tendencia' or tags_for_ss contains 'popular' or tags_for_ss contains 'destaque' or tags_for_ss contains 'temusy-interesse' or tags_for_ss contains 'flow-interesse'
+      assign ss_has_label = true
+    endif
+    if tags_for_ss contains 'bestseller' or tags_for_ss contains 'mais-vendido' or tags_for_ss contains 'mais vendido' or tags_for_ss contains 'temusy-vendas' or tags_for_ss contains 'flow-vendas'
+      assign ss_has_label = true
+    endif
+    if settings.product_ratings_star_display and product.metafields.reviews.rating.value != blank
+      assign ss_has_review = true
+    endif
+    assign ss_v = product.selected_or_first_available_variant
+    if settings.inventory_status and ss_v.inventory_management == 'shopify' and ss_v.inventory_quantity != nil
+      if ss_v.inventory_quantity > 0 and ss_v.inventory_quantity <= settings.low_stock_threshold
+        assign ss_has_urgency = true
+      endif
+    endif
+  endif
+
+  assign ss_has_context = false
+  if ss_has_label or ss_has_review or ss_has_urgency
+    assign ss_has_context = true
+  endif
+%}
+
 {%- capture classes -%}
   productgrid--item
   imagestyle--{% if settings.product_grid_image_crop and settings.product_grid_image_style != 'natural' %}cropped-{% endif %}{{ settings.product_grid_image_style }}
@@ -120,6 +162,7 @@
   {% if recently_viewed %}product-recently-viewed-card{% endif %}
   {% if product_compare %}product-compare-card{% endif %}
   {% if atc_display == 'always' or quick_shop_display == 'always' %}show-actions--mobile{% endif %}
+  {% if smart_stack_eligible and product and ss_has_context == false %} productitem--no-smart-context{% endif %}
 {%- endcapture -%}
 
 {%- assign show_swatches = false -%}
@@ -252,6 +295,9 @@
   class="{{ classes | strip_newlines }}"
   data-product-item
   data-product-quickshop-url="{{ product_link }}"
+  {% if temusy_feedback_collection != blank %}
+    data-temusy-feedback-collection="{{ temusy_feedback_collection | escape }}"
+  {% endif %}
   {% if recently_viewed %}
     data-recently-viewed-card
   {% endif %}
@@ -390,13 +436,15 @@
               include_range: true,
             %}
 
-            {%
-              render 'product-merchandising-labels',
-              product: product,
-              recently_viewed: recently_viewed,
-              countdown_timer: countdown_timer,
-              product_compare: product_compare,
-            %}
+            {% unless smart_stack_eligible %}
+              {%
+                render 'product-merchandising-labels',
+                product: product,
+                recently_viewed: recently_viewed,
+                countdown_timer: countdown_timer,
+                product_compare: product_compare,
+              %}
+            {% endunless %}
 
             <span class="visually-hidden">
               {{- product_title -}}
@@ -423,6 +471,109 @@
         %}
       {%- endcapture -%}
 
+      {% capture product_item_actions %}
+        {% unless recently_viewed or countdown_timer %}
+          {% if enable_quickshop or atc_button %}
+            {% assign quick_shop_text = 'product.buttons.quick_shop' | t %}
+            {% assign quick_buy_text = 'product.buttons.add_to_cart' | t %}
+
+            {% assign quick_shop_classes = 'productitem--action-trigger button-secondary' %}
+            {% assign quick_buy_classes = 'productitem--action-trigger productitem--action-atc button-primary' %}
+
+            {% if has_variants %}
+              {% assign quick_buy_text = 'product.buttons.choose_options' | t %}
+            {% else %}
+              {% if product.template_suffix contains 'pre-order' %}
+                {% assign quick_buy_text = 'product.buttons.pre_order' | t %}
+              {% endif %}
+            {% endif %}
+
+            {% unless product_available %}
+              {% assign quick_buy_text = 'product.buttons.sold_out' | t %}
+              {% assign quick_buy_classes = quick_buy_classes | append: ' disabled' %}
+            {% endunless %}
+
+            <div class="productitem--actions" data-product-actions>
+              <div class="productitem--listview-price">
+                {{ product_item_price }}
+              </div>
+
+              <div class="productitem--listview-badge">
+                {%
+                  render 'product-badge',
+                  product: product,
+                  class_root: 'productitem',
+                  product_available: product_available,
+                  price: price,
+                  price_varies: price_varies,
+                  compare_at_price: compare_at_price,
+                  compare_at_price_varies: compare_at_price_varies,
+                  on_sale: on_sale,
+                  show_saved: consistent_saved,
+                  include_range: true,
+                %}
+              </div>
+
+              {% if enable_quickshop %}
+                <div
+                  class="
+                    productitem--action
+                    quickshop-button
+                    {% if quick_shop_display == 'desktop' %}productitem-action--desktop{% endif %}
+                  "
+                >
+                  <button
+                    class="{{ quick_shop_classes }}"
+                    data-quickshop-full
+                    {% if settings.gallery_thumbnail_position == 'left' %}
+                      data-thumbs-left
+                    {% endif %}
+                    {% if product == false %}
+                      disabled
+                    {% endif %}
+                    type="button"
+                  >
+                    {{ quick_shop_text }}
+                  </button>
+                </div>
+              {% endif %}
+
+              {% if atc_button %}
+                <div
+                  class="
+                    productitem--action
+                    atc--button
+                    {% if atc_display == 'desktop' %}productitem-action--desktop{% endif %}
+                  "
+                >
+                  <button
+                    class="{{ quick_buy_classes }}"
+                    type="button"
+                    aria-label="{{ quick_buy_text }}"
+                    {% unless has_variants %}
+                      data-quick-buy
+                    {% else %}
+                      data-quickshop-slim
+                    {% endunless %}
+                    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                    {% if product == false or product_available == false %}
+                      disabled
+                    {% endif %}
+                  >
+                    <span class="atc-button--text">
+                      {{ quick_buy_text }}
+                    </span>
+                    <span class="atc-button--icon">
+                      {%- render 'icon-spinner' -%}
+                    </span>
+                  </button>
+                </div>
+              {% endif %}
+            </div>
+          {% endif %}
+        {% endunless %}
+      {% endcapture %}
+
       <div class="productitem--info">
         {% unless countdown_timer %}
           {{ product_item_swatches }}
@@ -438,6 +589,64 @@
           </a>
         </h2>
 
+        {% if smart_stack_eligible and product %}
+          <div class="productitem__smart-stack" data-smart-product-stack>
+            {%
+              render 'product-merchandising-labels',
+              product: product,
+              recently_viewed: recently_viewed,
+              countdown_timer: countdown_timer,
+              product_compare: product_compare,
+              tags_only: true,
+            %}
+
+            {% unless product_compare %}
+              {% unless countdown_timer %}
+                {% if settings.product_ratings_star_display and product.metafields.reviews.rating.value != blank %}
+                  <div class="product__rating rating productitem__smart-stack-rating">
+                    {%
+                      render 'rating-stars',
+                      value: product.metafields.reviews.rating.value.rating,
+                      scale_max: product.metafields.reviews.rating.value.scale_max,
+                    %}
+
+                    <p class="rating__text">
+                      <span aria-hidden="true">
+                        {{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}
+                      </span>
+                    </p>
+
+                    <p class="rating__count">
+                      <span aria-hidden="true">
+                        {{ product.metafields.reviews.rating_count }}
+                        {% if product.metafields.reviews.rating_count > 1 %}
+                          {{ "general.accessibility.star_reviews_text" | t }}
+                        {% else %}
+                          {{ "general.accessibility.star_review_text" | t }}
+                        {% endif %}
+                      </span>
+                    </p>
+                  </div>
+                {% endif %}
+              {% endunless %}
+
+              {% if settings.inventory_status and ss_has_urgency %}
+                <div class="productitem__stock-level productitem__smart-stack-urgency">
+                  {%
+                    render 'product-stock-level',
+                    inventory_display: settings.inventory_display,
+                    inventory_transfer: settings.inventory_transfer_notice,
+                    variant: product.selected_or_first_available_variant,
+                    verbose: false,
+                  %}
+                </div>
+              {% endif %}
+            {% endunless %}
+
+            {{ product_item_actions }}
+          </div>
+        {% endif %}
+
         {% unless product_compare %}
           {% if settings.product_show_vendor and product.vendor != blank %}
             <span class="productitem--vendor">
@@ -451,46 +660,48 @@
         {% endunless %}
 
         {% unless product_compare %}
-          {% if settings.inventory_status %}
-            <div class="productitem__stock-level">
-              {%
-                render 'product-stock-level',
-                inventory_display: settings.inventory_display,
-                inventory_transfer: settings.inventory_transfer_notice,
-                variant: product.selected_or_first_available_variant,
-                verbose: false,
-              %}
-            </div>
-          {% endif %}
-
-          {% unless countdown_timer %}
-            {% comment %} Judge.me / Loox (and Shopify-compatible apps) sync into `product.metafields.reviews.*` — keep app installed so grids show stars. {% endcomment %}
-            {% if settings.product_ratings_star_display and product.metafields.reviews.rating.value != blank %}
-              <div class="product__rating rating">
+          {% unless smart_stack_eligible %}
+            {% if settings.inventory_status %}
+              <div class="productitem__stock-level">
                 {%
-                  render 'rating-stars',
-                  value: product.metafields.reviews.rating.value.rating,
-                  scale_max: product.metafields.reviews.rating.value.scale_max,
+                  render 'product-stock-level',
+                  inventory_display: settings.inventory_display,
+                  inventory_transfer: settings.inventory_transfer_notice,
+                  variant: product.selected_or_first_available_variant,
+                  verbose: false,
                 %}
-
-                <p class="rating__text">
-                  <span aria-hidden="true">
-                    {{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}
-                  </span>
-                </p>
-
-                <p class="rating__count">
-                  <span aria-hidden="true">
-                    {{ product.metafields.reviews.rating_count }}
-                    {% if product.metafields.reviews.rating_count > 1 %}
-                      {{ "general.accessibility.star_reviews_text" | t }}
-                    {% else %}
-                      {{ "general.accessibility.star_review_text" | t }}
-                    {% endif %}
-                  </span>
-                </p>
               </div>
             {% endif %}
+
+            {% unless countdown_timer %}
+              {% comment %} Judge.me / Loox (and Shopify-compatible apps) sync into `product.metafields.reviews.*` — keep app installed so grids show stars. {% endcomment %}
+              {% if settings.product_ratings_star_display and product.metafields.reviews.rating.value != blank %}
+                <div class="product__rating rating">
+                  {%
+                    render 'rating-stars',
+                    value: product.metafields.reviews.rating.value.rating,
+                    scale_max: product.metafields.reviews.rating.value.scale_max,
+                  %}
+
+                  <p class="rating__text">
+                    <span aria-hidden="true">
+                      {{ product.metafields.reviews.rating.value }} / {{ product.metafields.reviews.rating.value.scale_max }}
+                    </span>
+                  </p>
+
+                  <p class="rating__count">
+                    <span aria-hidden="true">
+                      {{ product.metafields.reviews.rating_count }}
+                      {% if product.metafields.reviews.rating_count > 1 %}
+                        {{ "general.accessibility.star_reviews_text" | t }}
+                      {% else %}
+                        {{ "general.accessibility.star_review_text" | t }}
+                      {% endif %}
+                    </span>
+                  </p>
+                </div>
+              {% endif %}
+            {% endunless %}
           {% endunless %}
         {% endunless %}
 
@@ -511,108 +722,8 @@
         {% endif %}
       </div>
 
-      {% unless recently_viewed or countdown_timer %}
-        {% if enable_quickshop or atc_button %}
-          {% comment %}
-            Default button appearance and text
-          {% endcomment %}
-          {% assign quick_shop_text = 'product.buttons.quick_shop' | t %}
-          {% assign quick_buy_text = 'product.buttons.add_to_cart' | t %}
-
-          {% assign quick_shop_classes = 'productitem--action-trigger button-secondary' %}
-          {% assign quick_buy_classes = 'productitem--action-trigger productitem--action-atc button-primary' %}
-
-          {% if has_variants %}
-            {% assign quick_buy_text = 'product.buttons.choose_options' | t %}
-          {% else %}
-            {% if product.template_suffix contains 'pre-order' %}
-              {% assign quick_buy_text = 'product.buttons.pre_order' | t %}
-            {% endif %}
-          {% endif %}
-
-          {% unless product_available %}
-            {% assign quick_buy_text = 'product.buttons.sold_out' | t %}
-            {% assign quick_buy_classes = quick_buy_classes | append: ' disabled' %}
-          {% endunless %}
-
-          <div class="productitem--actions" data-product-actions>
-            <div class="productitem--listview-price">
-              {{ product_item_price }}
-            </div>
-
-            <div class="productitem--listview-badge">
-              {%
-                render 'product-badge',
-                product: product,
-                class_root: 'productitem',
-                product_available: product_available,
-                price: price,
-                price_varies: price_varies,
-                compare_at_price: compare_at_price,
-                compare_at_price_varies: compare_at_price_varies,
-                on_sale: on_sale,
-                show_saved: consistent_saved,
-                include_range: true,
-              %}
-            </div>
-
-            {% if enable_quickshop %}
-              <div
-                class="
-                  productitem--action
-                  quickshop-button
-                  {% if quick_shop_display == 'desktop' %}productitem-action--desktop{% endif %}
-                "
-              >
-                <button
-                  class="{{ quick_shop_classes }}"
-                  data-quickshop-full
-                  {% if settings.gallery_thumbnail_position == 'left' %}
-                    data-thumbs-left
-                  {% endif %}
-                  {% if product == false %}
-                    disabled
-                  {% endif %}
-                  type="button"
-                >
-                  {{ quick_shop_text }}
-                </button>
-              </div>
-            {% endif %}
-
-            {% if atc_button %}
-              <div
-                class="
-                  productitem--action
-                  atc--button
-                  {% if atc_display == 'desktop' %}productitem-action--desktop{% endif %}
-                "
-              >
-                <button
-                  class="{{ quick_buy_classes }}"
-                  type="button"
-                  aria-label="{{ quick_buy_text }}"
-                  {% unless has_variants %}
-                    data-quick-buy
-                  {% else %}
-                    data-quickshop-slim
-                  {% endunless %}
-                  data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-                  {% if product == false or product_available == false %}
-                    disabled
-                  {% endif %}
-                >
-                  <span class="atc-button--text">
-                    {{ quick_buy_text }}
-                  </span>
-                  <span class="atc-button--icon">
-                    {%- render 'icon-spinner' -%}
-                  </span>
-                </button>
-              </div>
-            {% endif %}
-          </div>
-        {% endif %}
+      {% unless smart_stack_eligible %}
+        {{ product_item_actions }}
       {% endunless %}
     </div>
   </div>

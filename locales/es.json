@@ -134,6 +134,9 @@
       "home": "Inicio",
       "collections": "Colecciones"
     },
+    "adaptive": {
+      "clear": "Restablecer sugerencias personalizadas"
+    },
     "general": {
       "email": "Correo electrónico",
       "quantity": "Cantidad",

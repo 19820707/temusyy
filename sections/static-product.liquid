@@ -5,6 +5,14 @@
       break
     endif
   endfor
+  assign temusy_product_feedback = ''
+  if product
+    if collection != blank and collection.handle != blank
+      assign temusy_product_feedback = collection.handle
+    elsif product.collections.size > 0
+      assign temusy_product_feedback = product.collections.first.handle
+    endif
+  endif
 %}
 
 <script
@@ -47,6 +55,9 @@
     product__container--two-columns
   "
   data-product-wrapper
+  {% if temusy_product_feedback != blank %}
+    data-temusy-feedback-collection="{{ temusy_product_feedback | escape }}"
+  {% endif %}
 >
   {%
     render 'product',

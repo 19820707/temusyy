@@ -23801,3 +23801,35 @@ rgb(255, 255, 255)
 .productitem__merch-label--scarcity {
   color: #b00020;
 }
+
+/* Smart product stack — one column for label / proof / urgency / shortcut (product-grid-item) */
+.productitem__smart-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0.4rem 0 0.65rem;
+}
+.productitem__smart-stack .productitem__merch-labels {
+  position: static;
+  left: auto;
+  bottom: auto;
+  max-width: none;
+  pointer-events: auto;
+  margin: 0;
+}
+.productitem__smart-stack .productitem__smart-stack-rating {
+  margin: 0;
+}
+.productitem__smart-stack .productitem__smart-stack-urgency {
+  margin: 0;
+}
+.productitem__smart-stack .productitem--actions {
+  margin-top: 0.35rem;
+  justify-content: flex-start;
+}
+.productgrid--item.productitem--no-smart-context .productitem {
+  opacity: 0.74;
+}
+.productgrid--item.productitem--no-smart-context .productitem--title a {
+  text-decoration-thickness: 1px;
+}

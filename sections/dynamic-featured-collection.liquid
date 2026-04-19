@@ -96,6 +96,7 @@
     title_card_block: title_card_block,
     item_count: item_count,
     title: title,
+    intent_zone: section.settings.temusy_intent_zone,
   %}
 {% else %}
   {%
@@ -106,6 +107,7 @@
     title_card_block: title_card_block,
     item_count: item_count,
     title: title,
+    intent_zone: section.settings.temusy_intent_zone,
   %}
 {% endif %}
 
@@ -193,6 +195,23 @@
         }
       ],
       "default": "primary"
+    },
+    {
+      "type": "select",
+      "id": "temusy_intent_zone",
+      "label": "Homepage intent highlight zone",
+      "options": [
+        {
+          "value": "",
+          "label": "None"
+        },
+        {
+          "value": "buy",
+          "label": "Buy-focused shelf"
+        }
+      ],
+      "default": "",
+      "info": "Optional: pairs with homepage intent detection (fast click, fast scroll, idle)."
     }
   ],
   "blocks": [

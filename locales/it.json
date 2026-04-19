@@ -65,6 +65,9 @@
       "home": "Home",
       "collections": "Collezioni"
     },
+    "adaptive": {
+      "clear": "Reimposta suggerimenti personalizzati"
+    },
     "general": {
       "email": "Email",
       "quantity": "Quantità",

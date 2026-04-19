@@ -1079,5 +1079,18 @@
         "info": "t:settings_schema.advanced.gift_card_logo.info"
       }
     ]
+  },
+  {
+    "name": "Brand voice & naming",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Anti-dropshipping look (merchant checklist)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Product titles: lead with material + role (e.g. Minimal steel watch), not gender + category + model year. Descriptions: explain fit in real life—how it wears, where it belongs, how to care for it. Skip empty claims like “high quality” or “best price”. Typography and colours on this storefront come from Theme settings → Typography and Colours so homepage modules stay visually consistent."
+      }
+    ]
   }
 ]

@@ -18,6 +18,7 @@ assert.match(snippet, /product\.merch\.last_units/, 'merch labels: must translat
 assert.match(snippet, /productitem__merch-label--trending/, 'merch labels: must style trending lane');
 assert.match(snippet, /productitem__merch-label--bestseller/, 'merch labels: must style best seller lane');
 assert.match(snippet, /productitem__merch-label--scarcity/, 'merch labels: must style scarcity lane');
+assert.match(snippet, /assign tags_only = tags_only \| default: false/, 'merch labels: tags_only param for smart stack (urgency via stock row)');
 
 function assertMerchKeys(file) {
   const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'locales', file), 'utf8'));
@@ -55,5 +56,10 @@ const doc = fs.readFileSync(docPath, 'utf8');
 assert.match(doc, /Shopify Flow/, 'fase-8 doc: must mention Shopify Flow');
 assert.match(doc, /temusy-interesse/, 'fase-8 doc: must document interest tag');
 assert.match(doc, /temusy-vendas/, 'fase-8 doc: must document sales tag');
+
+const gridItem = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'product-grid-item.liquid'), 'utf8');
+assert.match(gridItem, /data-smart-product-stack/, 'product-grid-item: must render smart stack region');
+assert.match(gridItem, /tags_only:\s*true/, 'product-grid-item: stack must pass tags_only to merch labels');
+assert.match(gridItem, /productitem--no-smart-context/, 'product-grid-item: de-emphasize cards without merchandising context');
 
 console.log('product-merchandising-flow-contract: ok');

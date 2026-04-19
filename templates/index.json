@@ -44,9 +44,11 @@
           "settings": {
             "collection": "best-sellers",
             "link": "shopify://collections/best-sellers",
-            "badge": "Staff pick",
-            "title": "Best sellers",
-            "text": "SKUs we restock because they sell through."
+            "path_emoji": "⭐",
+            "chip_label": "Best sellers",
+            "badge": "",
+            "title": "I want proven best sellers",
+            "text": "What shoppers buy again—less trial and error."
           }
         },
         "lane_gifts": {
@@ -54,9 +56,11 @@
           "settings": {
             "collection": "toys-and-games",
             "link": "shopify://collections/toys-and-games",
-            "badge": "Gift-ready",
-            "title": "Gifts",
-            "text": "Ready-to-wrap picks with clear delivery windows."
+            "path_emoji": "🎁",
+            "chip_label": "Gifts",
+            "badge": "",
+            "title": "I want a gift",
+            "text": "Gift-ready picks without wandering every aisle."
           }
         },
         "lane_under_50": {
@@ -64,9 +68,11 @@
           "settings": {
             "collection": "under-50",
             "link": "shopify://collections/under-50",
-            "badge": "Value",
-            "title": "Under $50",
-            "text": "Tight edit: strong value without filler SKUs."
+            "path_emoji": "💸",
+            "chip_label": "Under $50",
+            "badge": "",
+            "title": "I want something under $50",
+            "text": "A tight value edit—clear price ceiling."
           }
         },
         "lane_new_arrivals": {
@@ -74,9 +80,11 @@
           "settings": {
             "collection": "new-arrivals",
             "link": "shopify://collections/new-arrivals",
-            "badge": "Just in",
-            "title": "New arrivals",
-            "text": "What landed on shelves most recently."
+            "path_emoji": "🔥",
+            "chip_label": "Trending",
+            "badge": "",
+            "title": "I want trending products",
+            "text": "Fresh momentum—what is landing and selling now."
           }
         },
         "lane_support": {
@@ -85,27 +93,56 @@
             "title": "Support",
             "text": "Talk to us about an order—no ticket black hole."
           }
+        },
+        "intent_watch_under50": {
+          "type": "search_intent_hint",
+          "settings": {
+            "keywords": "watch, watches, relogio, relógio",
+            "label": "Watches under $50",
+            "link": "shopify://collections/under-50"
+          }
+        },
+        "intent_watch_premium": {
+          "type": "search_intent_hint",
+          "settings": {
+            "keywords": "watch, watches, relogio, relógio",
+            "label": "Premium watches",
+            "link": "shopify://collections/watches"
+          }
+        },
+        "intent_watch_bestsellers": {
+          "type": "search_intent_hint",
+          "settings": {
+            "keywords": "watch, watches, relogio, relógio",
+            "label": "Best sellers",
+            "link": "shopify://collections/best-sellers"
+          }
         }
       },
       "block_order": [
-        "lane_best_sellers",
         "lane_gifts",
-        "lane_under_50",
         "lane_new_arrivals",
-        "lane_support"
+        "lane_under_50",
+        "lane_best_sellers",
+        "lane_support",
+        "intent_watch_under50",
+        "intent_watch_premium",
+        "intent_watch_bestsellers"
       ],
       "settings": {
-        "kicker": "",
-        "title": "Temusy — where to start",
-        "text": "<p>Search or choose a lane—each one is a real buying job, not a random category dump.</p>",
-        "search_placeholder": "Search products…",
+        "kicker": "Guided shopping—not a flat catalog",
+        "title": "What are you trying to do?",
+        "text": "<p>Typical sites stop at showing products. Here we <strong>suggest the next step</strong>, <strong>remember what you tapped or viewed</strong>, and <strong>cut comparison load</strong>—paths stay concrete (gift, trending, budget, bestsellers), and search stays open when you already know what you want.</p><p><strong>What that aims for:</strong> less browse-to-nowhere, more confident clicks, an easier path from intent to cart, and a storefront that feels <strong>intelligent</strong>—because options are framed for you, not dumped in a grid.</p>",
+        "search_placeholder": "Search or pick a path below…",
         "search_button": "Search",
         "primary_label": "Shop all products",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Customer support",
         "secondary_link": "shopify://pages/support",
-        "panel_label": "Curated shopping paths",
-        "search_shortcuts_a11y_label": "Optional category chips"
+        "paths_layout": "path_chips",
+        "panel_label": "Guided paths—pick a job, not a maze",
+        "search_shortcuts_a11y_label": "Optional category chips",
+        "search_intents_heading": "Quick paths"
       }
     },
     "homepage_best_sellers_products": {
@@ -117,7 +154,19 @@
         "collection": "best-sellers",
         "product_count": 6,
         "cta_label": "See what's selling",
-        "cta_button_style": "primary"
+        "cta_button_style": "primary",
+        "temusy_intent_zone": "buy"
+      }
+    },
+    "homepage_adaptive_priority": {
+      "type": "dynamic-adaptive-homepage-priority",
+      "settings": {
+        "heading": "We saved this lane for you",
+        "subheading": "From your last tap, view, or add to cart—so you do not have to re-decide from scratch when you come back.",
+        "cta_label": "View full [[collection]]",
+        "product_limit": 4,
+        "products_per_row": 4,
+        "show_clear": true
       }
     },
     "homepage_trending_categories": {
@@ -315,8 +364,9 @@
     "homepage_hero",
     "homepage_smart_hub",
     "homepage_best_sellers_products",
-    "homepage_trending_categories",
     "homepage_trust_bar",
+    "homepage_adaptive_priority",
+    "homepage_trending_categories",
     "homepage_featured_products",
     "homepage_testimonials"
   ]

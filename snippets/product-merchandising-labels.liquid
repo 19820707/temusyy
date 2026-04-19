@@ -9,6 +9,7 @@
   assign recently_viewed = recently_viewed | default: nil
   assign countdown_timer = countdown_timer | default: nil
   assign product_compare = product_compare | default: false
+  assign tags_only = tags_only | default: false
   assign show_merch = true
   if recently_viewed or countdown_timer or product_compare
     assign show_merch = false
@@ -31,7 +32,7 @@
   {% if tags_joined contains 'bestseller' or tags_joined contains 'mais-vendido' or tags_joined contains 'mais vendido' or tags_joined contains 'temusy-vendas' or tags_joined contains 'flow-vendas' %}
     {% assign show_bestseller = true %}
   {% endif %}
-  {% if show_trending or show_bestseller or low_ok %}
+  {% if show_trending or show_bestseller or low_ok and tags_only == false %}
     <div class="productitem__merch-labels">
       {% if show_trending %}
         <span class="productitem__merch-label productitem__merch-label--trending">🔥 {{ 'product.merch.trending' | t }}</span>
@@ -39,7 +40,7 @@
       {% if show_bestseller %}
         <span class="productitem__merch-label productitem__merch-label--bestseller">⭐ {{ 'product.merch.bestseller' | t }}</span>
       {% endif %}
-      {% if low_ok %}
+      {% if low_ok and tags_only == false %}
         <span class="productitem__merch-label productitem__merch-label--scarcity">⚡ {{ 'product.merch.last_units' | t }}</span>
       {% endif %}
     </div>

@@ -134,6 +134,9 @@
       "home": "Home",
       "collections": "Sammlungen"
     },
+    "adaptive": {
+      "clear": "Personalisierte Vorschläge zurücksetzen"
+    },
     "general": {
       "email": "Email",
       "quantity": "Anzahl",

@@ -26,9 +26,10 @@ Stable keys for automation and contracts. Section **`type`** is the Shopify sect
 |-------------|------|
 | `homepage_hero` | Single-slide hero (compact height, one CTA) |
 | `homepage_smart_hub` | Search + intent lanes (collection links + support) |
-| `homepage_best_sellers_products` | First SKU grid (`best-sellers`) |
+| `homepage_best_sellers_products` | Primary SKU grid (`best-sellers`) — stacked right after the hub for one-screen commerce |
+| `homepage_trust_bar` | Highlights strip (proof + policies + support) — immediately after bestsellers |
+| `homepage_adaptive_priority` | Cookie-driven “pick up where you left off” strip (often empty until a hub/category click sets interest) |
 | `homepage_trending_categories` | One `dynamic-collection-list` for category thumbnails (no second department grid) |
-| `homepage_trust_bar` | Highlights strip (proof + policies + support) |
 | `homepage_featured_products` | Second SKU grid (curated collection; keep distinct from bestsellers) |
 | `homepage_testimonials` | Social proof |
 

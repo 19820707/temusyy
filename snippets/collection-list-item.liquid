@@ -60,7 +60,12 @@
 {% endif %}
 
 <li class="collection__item" {% if block %}{{ block.shopify_attributes }}{% endif %}>
-  <a href="{{ collection_url }}">
+  <a
+    href="{{ collection_url }}"
+    {% if onboard == false and current_collection.handle != blank %}
+      data-temusy-interest="{{ current_collection.handle | escape }}"
+    {% endif %}
+  >
     <figure class="collection__item-image">
         {% if image and image_alt %}
           {%

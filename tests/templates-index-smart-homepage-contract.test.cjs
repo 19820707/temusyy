@@ -26,7 +26,17 @@ assert.strictEqual(
 assert.strictEqual(
   indexTemplate.order.indexOf('homepage_smart_hub'),
   indexTemplate.order.indexOf('homepage_hero') + 1,
-  'index.json: homepage_smart_hub must appear immediately after the hero slideshow'
+  'index.json: smart hub must follow hero (one-screen commerce stack)'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_best_sellers_products'),
+  indexTemplate.order.indexOf('homepage_smart_hub') + 1,
+  'index.json: bestsellers grid must follow hub'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_trust_bar'),
+  indexTemplate.order.indexOf('homepage_best_sellers_products') + 1,
+  'index.json: trust bar must follow bestsellers (proof near the fold)'
 );
 assert.ok(
   indexTemplate.sections.homepage_smart_hub.settings.primary_link,
@@ -37,23 +47,44 @@ assert.ok(
   'index.json: homepage_smart_hub must include enough paths/trust points to guide shoppers'
 );
 
-// Smart hub — intent lanes (not only category shortcuts): bestsellers, gifts, price cap, new, support.
+// Smart hub — shopping path engine: gifts → trending → under $50 → best sellers → support.
 (function smartHubShoppingLanes() {
   const hub = indexTemplate.sections.homepage_smart_hub;
   const bo = hub.block_order;
-  assert.strictEqual(bo.length, 5, 'index.json: hub must ship five lane blocks');
+  assert.strictEqual(hub.settings.paths_layout, 'path_chips', 'index.json: hub must use path_chips layout');
+  assert.strictEqual(bo.length, 8, 'index.json: hub must ship five lane blocks plus three search intent hints');
   assert.strictEqual(hub.blocks[bo[0]].type, 'collection_link', 'index.json: lane 1 type');
-  assert.strictEqual(hub.blocks[bo[0]].settings.collection, 'best-sellers', 'index.json: lane 1 best sellers');
+  assert.strictEqual(hub.blocks[bo[0]].settings.collection, 'toys-and-games', 'index.json: lane 1 gifts path');
+  assert.strictEqual((hub.blocks[bo[0]].settings.chip_label || '').trim(), 'Gifts', 'index.json: lane 1 chip Gifts');
   assert.strictEqual(hub.blocks[bo[1]].type, 'collection_link', 'index.json: lane 2 type');
-  assert.strictEqual(hub.blocks[bo[1]].settings.collection, 'toys-and-games', 'index.json: lane 2 gifts');
+  assert.strictEqual(hub.blocks[bo[1]].settings.collection, 'new-arrivals', 'index.json: lane 2 trending path');
+  assert.strictEqual((hub.blocks[bo[1]].settings.chip_label || '').trim(), 'Trending', 'index.json: lane 2 chip Trending');
   assert.strictEqual(hub.blocks[bo[2]].type, 'collection_link', 'index.json: lane 3 type');
   assert.strictEqual(hub.blocks[bo[2]].settings.collection, 'under-50', 'index.json: lane 3 under fifty');
   assert.strictEqual(hub.blocks[bo[3]].type, 'collection_link', 'index.json: lane 4 type');
-  assert.strictEqual(hub.blocks[bo[3]].settings.collection, 'new-arrivals', 'index.json: lane 4 new arrivals');
+  assert.strictEqual(hub.blocks[bo[3]].settings.collection, 'best-sellers', 'index.json: lane 4 best sellers');
   assert.strictEqual(hub.blocks[bo[4]].type, 'trust_point', 'index.json: lane 5 support');
   assert.ok(
     ((hub.blocks[bo[4]].settings.title || '') + '').toLowerCase().indexOf('support') !== -1,
     'index.json: support lane title must mention support'
+  );
+  assert.strictEqual(hub.blocks[bo[5]].type, 'search_intent_hint', 'index.json: intent block 1 type');
+  assert.strictEqual(
+    (hub.blocks[bo[5]].settings.label || '').trim(),
+    'Watches under $50',
+    'index.json: intent under $50 label'
+  );
+  assert.strictEqual(hub.blocks[bo[6]].type, 'search_intent_hint', 'index.json: intent block 2 type');
+  assert.strictEqual(
+    (hub.blocks[bo[6]].settings.label || '').trim(),
+    'Premium watches',
+    'index.json: intent premium label'
+  );
+  assert.strictEqual(hub.blocks[bo[7]].type, 'search_intent_hint', 'index.json: intent block 3 type');
+  assert.strictEqual((hub.blocks[bo[7]].settings.label || '').trim(), 'Best sellers', 'index.json: intent bestsellers label');
+  assert.ok(
+    ((hub.blocks[bo[5]].settings.keywords || '') + '').toLowerCase().indexOf('watch') !== -1,
+    'index.json: intent hints must trigger on watch-related typing'
   );
 })();
 
@@ -73,16 +104,18 @@ assert.deepStrictEqual(
     'homepage_hero',
     'homepage_smart_hub',
     'homepage_best_sellers_products',
-    'homepage_trending_categories',
     'homepage_trust_bar',
+    'homepage_adaptive_priority',
+    'homepage_trending_categories',
     'homepage_featured_products',
     'homepage_testimonials',
   ],
-  'index.json: canonical homepage stack (hero → hub → SKUs → categories → trust → featured → reviews)'
+  'index.json: canonical homepage stack (hero → hub → bestsellers → trust → adaptive → categories → featured → reviews)'
 );
 
 const idxHub = indexTemplate.order.indexOf('homepage_smart_hub');
 const idxBest = indexTemplate.order.indexOf('homepage_best_sellers_products');
+const idxAdapt = indexTemplate.order.indexOf('homepage_adaptive_priority');
 const idxTrending = indexTemplate.order.indexOf('homepage_trending_categories');
 const idxTrust = indexTemplate.order.indexOf('homepage_trust_bar');
 const idxFeatured = indexTemplate.order.indexOf('homepage_featured_products');
@@ -92,8 +125,23 @@ assert.strictEqual(
   'dynamic-featured-collection',
   'index.json: homepage_best_sellers_products must use dynamic-featured-collection'
 );
+assert.ok(indexTemplate.sections.homepage_adaptive_priority, 'index.json: must include homepage_adaptive_priority');
+assert.strictEqual(
+  indexTemplate.sections.homepage_adaptive_priority.type,
+  'dynamic-adaptive-homepage-priority',
+  'index.json: adaptive strip must use dynamic-adaptive-homepage-priority'
+);
+(function adaptivePriorityStrip() {
+  const st = indexTemplate.sections.homepage_adaptive_priority.settings;
+  const n = st.product_limit;
+  assert.ok(typeof n === 'number' && n >= 2 && n <= 8, 'index.json: adaptive product_limit must stay between 2 and 8');
+  assert.ok(
+    typeof st.cta_label === 'string' && st.cta_label.indexOf('[[collection]]') !== -1,
+    'index.json: adaptive CTA must support [[collection]] token'
+  );
+})();
 
-// T2 — Decision engine: real product grid within first scroll (hero + hub, then featured collection).
+// T2 — One-screen commerce: hero → hub → bestsellers → trust (decide without scrolling past the primary stack).
 assert.strictEqual(
   indexTemplate.order[0],
   'homepage_hero',
@@ -102,12 +150,22 @@ assert.strictEqual(
 assert.strictEqual(
   indexTemplate.order[1],
   'homepage_smart_hub',
-  'index.json: second section must be smart hub (search + paths)'
+  'index.json: second section must be smart hub (search + shopping paths)'
 );
 assert.strictEqual(
   indexTemplate.order[2],
   'homepage_best_sellers_products',
-  'index.json: third section must be best-sellers grid so shoppers see real products early'
+  'index.json: third section must be best-sellers grid (main SKU decision surface near the fold)'
+);
+assert.strictEqual(
+  indexTemplate.order[3],
+  'homepage_trust_bar',
+  'index.json: fourth section must be trust bar (proof immediately after bestsellers)'
+);
+assert.strictEqual(
+  indexTemplate.order[4],
+  'homepage_adaptive_priority',
+  'index.json: fifth section must be adaptive priority (cookie-driven; empty until interest is set)'
 );
 (function decisionEngineFeaturedCollection() {
   const sec = indexTemplate.sections.homepage_best_sellers_products;
@@ -115,6 +173,11 @@ assert.strictEqual(
   assert.strictEqual(st.collection, 'best-sellers', 'index.json: decision row must use best-sellers collection');
   assert.strictEqual(st.layout, 'grid', 'index.json: decision row must use grid layout');
   assert.strictEqual(st.product_count, 6, 'index.json: decision row must surface six products (dense first scroll)');
+  assert.strictEqual(
+    st.temusy_intent_zone,
+    'buy',
+    'index.json: bestsellers featured collection must opt into buy-intent zone (intent detection)'
+  );
   assert.strictEqual(
     (st.title || '').trim(),
     "This week's top sellers",
@@ -136,13 +199,16 @@ assert.strictEqual(
 assert.ok(
   idxHub !== -1 &&
     idxBest === idxHub + 1 &&
-    idxTrending === idxHub + 2 &&
-    idxTrust === idxHub + 3 &&
-    idxFeatured === idxHub + 4,
-  'index.json: hub → bestsellers → category discovery → trust → one featured grid'
+    idxTrust === idxHub + 2 &&
+    idxAdapt === idxHub + 3 &&
+    idxTrending === idxHub + 4 &&
+    idxFeatured === idxHub + 5,
+  'index.json: hub → bestsellers → trust → adaptive → categories → featured grid'
 );
+assert.ok(idxBest < idxAdapt, 'index.json: best sellers before adaptive strip');
+assert.ok(idxAdapt < idxTrending, 'index.json: adaptive strip before category thumbnails');
 assert.ok(idxBest < idxTrending, 'index.json: best sellers before category thumbnails');
-assert.ok(idxTrending < idxTrust, 'index.json: category row before trust bar');
+assert.ok(idxTrust < idxAdapt, 'index.json: trust bar before adaptive strip');
 assert.ok(idxTrust < idxFeatured, 'index.json: trust before final featured product strip');
 
 // T5 — Trust bar: shipping, returns, support + volume proof (homepage merchandising contract).
@@ -168,9 +234,11 @@ assert.ok(idxTrust < idxFeatured, 'index.json: trust before final featured produ
   assert.strictEqual((sup.link || '').trim(), 'shopify://pages/support', 'index.json: support highlight link');
 })();
 
-// T5b — Trust sits after category discovery (volume proof before the last product strip).
-assert.strictEqual(idxTrust, idxTrending + 1, 'index.json: trust bar follows trending categories');
-assert.strictEqual(idxFeatured, idxTrust + 1, 'index.json: featured picks follow trust');
+// T5b — Trust sits right after bestsellers; deeper discovery (categories, featured) stays below the primary stack.
+assert.strictEqual(idxTrust, idxBest + 1, 'index.json: trust bar follows bestsellers grid');
+assert.strictEqual(idxAdapt, idxTrust + 1, 'index.json: adaptive strip follows trust');
+assert.strictEqual(idxTrending, idxAdapt + 1, 'index.json: trending categories follow adaptive');
+assert.strictEqual(idxFeatured, idxTrending + 1, 'index.json: featured picks follow category row');
 assert.strictEqual(
   indexTemplate.order.indexOf('homepage_editorial_watches_banner'),
   -1,
@@ -319,5 +387,66 @@ assert.ok(
     'index.json: ' + sid + ' must set a non-empty cta_label'
   );
 });
+
+// Adaptive interest: cookie bridge + hub anchors (Liquid cannot read localStorage).
+(function adaptiveInterestWiring() {
+  const root = path.join(__dirname, '..');
+  const themeLiquid = fs.readFileSync(path.join(root, 'layout', 'theme.liquid'), 'utf8');
+  const bridge = fs.readFileSync(path.join(root, 'snippets', 'temusy-interest-bridge.liquid'), 'utf8');
+  const hubLiquid = fs.readFileSync(path.join(root, 'sections', 'dynamic-smart-homepage-hub.liquid'), 'utf8');
+  const collectionItem = fs.readFileSync(path.join(root, 'snippets', 'collection-list-item.liquid'), 'utf8');
+  const adaptiveSection = fs.readFileSync(
+    path.join(root, 'sections', 'dynamic-adaptive-homepage-priority.liquid'),
+    'utf8'
+  );
+  const inlineProducts = fs.readFileSync(
+    path.join(root, 'sections', 'dynamic-featured-product-inline.liquid'),
+    'utf8'
+  );
+  assert.match(themeLiquid, /render\s+'temusy-interest-bridge'/, 'theme.liquid: must load temusy-interest-bridge (feedback loop cookie)');
+  assert.match(themeLiquid, /render\s+'temusy-personalization-engine'/, 'theme.liquid: must load temusy-personalization-engine (adaptive shell)');
+  assert.match(
+    themeLiquid,
+    /data-temusy-feedback-collection/,
+    'theme.liquid: must expose data-temusy-feedback-collection on body for product/collection view signals'
+  );
+  assert.match(
+    themeLiquid,
+    /template\.name\s*==\s*['"]index['"][\s\S]{0,800}temusy-intent-detection/,
+    'theme.liquid: index template must load temusy-intent-detection (scroll/click/idle heuristics)'
+  );
+  const intentSnippet = fs.readFileSync(path.join(root, 'snippets', 'temusy-intent-detection.liquid'), 'utf8');
+  assert.match(intentSnippet, /temusy_home_intent/, 'temusy-intent-detection: must persist intent key in sessionStorage');
+  assert.match(intentSnippet, /FAST_SCROLL_PX/, 'temusy-intent-detection: must define fast-scroll threshold');
+  assert.match(intentSnippet, /commit\('buy'\)/, 'temusy-intent-detection: must commit buy intent on fast click');
+  assert.match(intentSnippet, /commit\('indecisive'\)/, 'temusy-intent-detection: must commit indecisive on long idle');
+  assert.match(intentSnippet, /temusy:intent/, 'temusy-intent-detection: must emit temusy:intent for personalization sync');
+  assert.match(bridge, /temusy_interest/, 'temusy-interest-bridge: must set temusy_interest cookie name');
+  assert.match(bridge, /cartcount:update/, 'temusy-interest-bridge: must listen for cartcount:update (add-to-cart feedback)');
+  assert.match(bridge, /data-temusy-feedback-collection/, 'temusy-interest-bridge: must read data-temusy-feedback-collection rows');
+  assert.match(bridge, /data-product-atc/, 'temusy-interest-bridge: must capture ATC context via data-product-atc');
+  assert.match(hubLiquid, /data-temusy-interest="\{\{\s*block\.settings\.collection/, 'hub: collection cards must expose data-temusy-interest');
+  assert.match(
+    collectionItem,
+    /data-temusy-interest="\{\{\s*current_collection\.handle/,
+    'collection-list-item: real collection links must tag data-temusy-interest with handle'
+  );
+  assert.match(
+    adaptiveSection,
+    /request\.cookies\.temusy_interest/,
+    'dynamic-adaptive-homepage-priority: must read request.cookies.temusy_interest'
+  );
+  assert.match(
+    inlineProducts,
+    /data-featured-product-inline/,
+    'dynamic-featured-product-inline: must expose section hook for contracts / styling'
+  );
+  assert.match(
+    inlineProducts,
+    /render\s+'product-grid-item'/,
+    'dynamic-featured-product-inline: must render real product cards (re-add via Theme Editor when a compact strip is needed)'
+  );
+  assert.match(inlineProducts, /"id":\s*"limit"/, 'dynamic-featured-product-inline: schema must expose limit setting');
+})();
 
 console.log('templates-index-smart-homepage-contract: ok');

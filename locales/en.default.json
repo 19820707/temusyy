@@ -27,7 +27,7 @@
     },
     "onboarding": {
       "tab_title": "Description",
-      "tab_content": "Add a product description to share information about your product."
+      "tab_content": "Write how it fits real life—materials, daily wear, care—not filler like “high quality”. Example: Designed for everyday wear with a clean, minimal profile."
     },
     "media": {
       "view_in_your_space": "View in your space"
@@ -141,6 +141,9 @@
     "breadcrumbs": {
       "home": "Home",
       "collections": "Collections"
+    },
+    "adaptive": {
+      "clear": "Reset personalized picks"
     },
     "general": {
       "email": "Email",
@@ -636,9 +639,9 @@
       "link_text": "Link"
     },
     "product": {
-      "title": "Product title",
-      "vendor": "Product vendor",
-      "by_vendor": "by Product vendor"
+      "title": "Minimal steel watch",
+      "vendor": "Your brand name",
+      "by_vendor": "by Your brand name"
     },
     "page": {
       "title": "Page title"
