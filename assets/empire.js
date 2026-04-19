@@ -27629,10 +27629,11 @@ class StaticCart {
     });
   }
   _enableShippingButton() {
-    this.$shippingSubmit.html(this.shipping.calculate_shipping).attr('disabled', false);
+    // invariant: use .prop for disabled (consistent with LiveSearch; attr('disabled',…) is easy to misuse across browsers).
+    this.$shippingSubmit.html(this.shipping.calculate_shipping).prop('disabled', false);
   }
   _disableShippingButton() {
-    this.$shippingSubmit.html(this.shipping.calculating).attr('disabled', true);
+    this.$shippingSubmit.html(this.shipping.calculating).prop('disabled', true);
   }
   _showShippingResponse() {
     this.$shippingResponse.addClass('visible');
@@ -28511,8 +28512,8 @@ class SurfacePickUp {
             distanceUnitEl.remove();
           }
         });
-      }).catch(e => {
-        console.log(e);
+      }).catch(() => {
+        // invariant: never console.log geolocation / network errors (PII-adjacent); fail closed by stripping distance UI.
         items.forEach(item => {
           const distanceEl = item.querySelector('[data-distance]');
           const distanceUnitEl = item.querySelector('[data-distance-unit]');
@@ -35986,6 +35987,8 @@ class LiveSearch {
     this.$searchPlaceholder = this.$flyDown.find('[data-live-search-placeholder]');
     this.$quickLinks = this.$flyDown.find('[data-live-search-quick-links]');
     this._onClose = () => {};
+    // invariant: only one predictive-search fetch may be in flight; stale responses must not repaint DOM.
+    this._predictiveSearchAbort = null;
     this.disableAnimations = 'reduceAnimations' in document.body.dataset;
     this.animationFlyDown = animations_es_transition({
       el: this.$flyDown.get(0),
@@ -36050,6 +36053,14 @@ class LiveSearch {
     this._onClose = onClose;
   }
   unload() {
+    if (this._predictiveSearchAbort) {
+      try {
+        this._predictiveSearchAbort.abort();
+      } catch (_e) {
+        /* noop */
+      }
+      this._predictiveSearchAbort = null;
+    }
     this.events.forEach($el => $el.off('.live-search'));
     this.closeEvents.unregisterAll();
     this.closeEventRequestors.clear();
@@ -36101,7 +36112,22 @@ class LiveSearch {
       // return the expected results. Explicitly use an `AND` so splitting in Liquid becomes easier.
       // https://help.shopify.com/en/manual/online-store/storefront-search#prefix-search
       terms = filter && filter.value ? `${filter.value} AND ${terms}` : terms;
-      fetch(`${window.Theme.routes.predictive_search_url}?q=${encodeURIComponent(terms)}&section_id=predictive-search`).then(response => {
+      if (this._predictiveSearchAbort) {
+        try {
+          this._predictiveSearchAbort.abort();
+        } catch (_e) {
+          /* noop */
+        }
+      }
+      const predictiveController = new AbortController();
+      this._predictiveSearchAbort = predictiveController;
+      const PREDICTIVE_SEARCH_TIMEOUT_MS = 15000;
+      const predictiveTimeoutId = setTimeout(function () {
+        predictiveController.abort();
+      }, PREDICTIVE_SEARCH_TIMEOUT_MS);
+      fetch(`${window.Theme.routes.predictive_search_url}?q=${encodeURIComponent(terms)}&section_id=predictive-search`, {
+        signal: predictiveController.signal
+      }).then(response => {
         if (!response.ok) {
           throw new Error(response.status);
         }
@@ -36112,7 +36138,21 @@ class LiveSearch {
         this._openFlyDown();
         this._toggleButton(false);
       }).catch(error => {
-        throw error;
+        clearTimeout(predictiveTimeoutId);
+        if (error && error.name === 'AbortError') {
+          if (this._predictiveSearchAbort === predictiveController) {
+            this._predictiveSearchAbort = null;
+            this._toggleButton(false);
+          }
+          return;
+        }
+        // invariant: never rethrow from predictive-search path (prevents unhandled rejection + devtools noise); fail closed via _searchError.
+        this._searchError(error);
+      }).finally(() => {
+        clearTimeout(predictiveTimeoutId);
+        if (this._predictiveSearchAbort === predictiveController) {
+          this._predictiveSearchAbort = null;
+        }
       });
     } else if (this.$quickLinks.length) {
       this._openFlyDown();
@@ -36120,9 +36160,8 @@ class LiveSearch {
       this._closeFlyDown(true);
     }
   }
-  _searchError(response) {
-    console.warn('Search had error');
-    console.log(response.message, response.error, response.event);
+  _searchError(_response) {
+    // invariant: no console noise or raw search payload in production (customer terms / errors stay off-console).
     this._toggleButton(false);
   }
 
@@ -36134,9 +36173,10 @@ class LiveSearch {
    */
   _toggleButton(disable) {
     if (disable) {
-      this.$button.addClass('search-icon--processing').attr('disabled');
+      // invariant: jQuery .attr('disabled') without a value does NOT disable; use .prop for real disabled semantics.
+      this.$button.addClass('search-icon--processing').prop('disabled', true);
     } else {
-      this.$button.removeClass('search-icon--processing').removeAttr('disabled');
+      this.$button.removeClass('search-icon--processing').prop('disabled', false);
     }
   }
   _shouldOpenFlyDown() {
@@ -48707,16 +48747,23 @@ class Page {
 class Order {
   constructor() {
     this.el = document.querySelector('.template-order');
+    if (!this.el) {
+      return;
+    }
     this.checkboxEls = this.el.querySelectorAll('[data-checkbox]');
     this.atcButton = this.el.querySelector('[data-atc-button]');
     this.selectAllCheckbox = this.el.querySelector('[data-select-all-checkbox]');
     this.selectAllCheckboxInput = this.el.querySelector('[data-select-all-checkbox-input]');
     this.selectItemsCountEl = this.el.querySelector('[data-select-items-count]');
     this.lineCheckboxInputs = this.el.querySelectorAll('[data-line-checkbox-input]');
-    if (!this.selectAllCheckboxInput) return;
+    // Invariant: reorder initializes only when every critical control + payload exists.
+    if (!this.atcButton || !this.selectAllCheckbox || !this.selectAllCheckboxInput || !this.selectItemsCountEl) return;
     this.lineCheckboxInputsArray = Array.from(this.lineCheckboxInputs);
-    this.data = JSON.parse(this.el.querySelector('[data-order-line-items-data]').innerHTML);
-    this.settings = JSON.parse(this.el.querySelector('[data-settings]').innerHTML);
+    this.data = this._readJsonNode('[data-order-line-items-data]', []);
+    this.settings = this._readJsonNode('[data-settings]', {});
+    if (!Array.isArray(this.data)) {
+      this.data = [];
+    }
     this.itemsToAddToCart = [];
     this.messageBanner = null;
     this.lastCheckedIndex = null;
@@ -48728,6 +48775,32 @@ class Order {
     this.map = new Map();
     this.events = new dist_EventHandler/* default */.Z();
     this._init();
+  }
+  _readJsonNode(selector, fallback) {
+    const node = this.el.querySelector(selector);
+    if (!node) {
+      return fallback;
+    }
+    try {
+      return JSON.parse(node.textContent || node.innerHTML || '');
+    } catch (error) {
+      return fallback;
+    }
+  }
+  _createTimeoutSignal(timeoutMs) {
+    // Invariant: cart requests are time-bounded when AbortController exists; older browsers must still submit safely.
+    if (typeof AbortController === 'undefined') {
+      return {
+        signal: undefined,
+        clear: () => {}
+      };
+    }
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    return {
+      signal: controller.signal,
+      clear: () => clearTimeout(timeoutId)
+    };
   }
   get _selectedLines() {
     return this.el.querySelectorAll('[data-line-checkbox-input]:checked');
@@ -48808,17 +48881,21 @@ class Order {
   _onCheckboxChange(el, isChecked) {
     let isIndeterminate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     const targetEl = el.parentElement;
+    const checkbox = this.map.get(targetEl);
+    if (!checkbox) {
+      return;
+    }
     if (isChecked) {
-      this.map.get(targetEl).unsetIndeterminate();
-      this.map.get(targetEl).check();
+      checkbox.unsetIndeterminate();
+      checkbox.check();
       el.closest('[data-order-row]')?.classList.add('checkbox-selected');
     } else if (isIndeterminate) {
-      this.map.get(targetEl).uncheck();
-      this.map.get(targetEl).setIndeterminate();
+      checkbox.uncheck();
+      checkbox.setIndeterminate();
       el.closest('[data-order-row]')?.classList.add('checkbox-selected');
     } else {
-      this.map.get(targetEl).uncheck();
-      this.map.get(targetEl).unsetIndeterminate();
+      checkbox.uncheck();
+      checkbox.unsetIndeterminate();
       el.closest('[data-order-row]')?.classList.remove('checkbox-selected');
     }
   }
@@ -48852,12 +48929,13 @@ class Order {
       selectedOrderIds.push(Number(line.getAttribute('data-line-item-id')));
     });
     this.data.forEach(item => {
-      if (selectedOrderIds.includes(item.id)) {
+      const quantity = Number(item.quantity);
+      if (selectedOrderIds.includes(item.id) && item.variant_id && quantity > 0) {
         // Shopify docs: https://shopify.dev/api/ajax/reference/cart
         this.itemsToAddToCart.push({
           id: item.variant_id,
-          quantity: item.quantity,
-          selling_plan: item.selling_plan_allocation ? item.selling_plan_allocation.selling_plan.id : null
+          quantity,
+          selling_plan: item.selling_plan_allocation && item.selling_plan_allocation.selling_plan ? item.selling_plan_allocation.selling_plan.id : null
         });
       }
     });
@@ -48866,7 +48944,13 @@ class Order {
     // Stopping further propagation here is mainly to prevent the click event from bubbling as
     // it will cause an issue with the disclosures and message banner.
     event.stopPropagation();
+    event.preventDefault();
     if (this._reorderAddInFlight) {
+      return;
+    }
+    if (!this.itemsToAddToCart.length) {
+      this._disableAtcButton();
+      this._showErrorBanner('Select at least one available item to add to the cart.');
       return;
     }
     this._reorderAddInFlight = true;
@@ -48875,15 +48959,14 @@ class Order {
       items: this.itemsToAddToCart
     };
     const CART_FETCH_TIMEOUT_MS = 25000;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), CART_FETCH_TIMEOUT_MS);
+    const request = this._createTimeoutSignal(CART_FETCH_TIMEOUT_MS);
     fetch(`${window.Theme.routes.cart_add_url}.js`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formData),
-      signal: controller.signal
+      signal: request.signal
     }).then(async response => {
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
@@ -48910,19 +48993,18 @@ class Order {
       this._reorderAddInFlight = false;
       this._showErrorBanner('Unable to add items to the cart.');
     }).finally(() => {
-      clearTimeout(timeoutId);
+      request.clear();
     });
   }
   _onSuccess() {
     const CART_FETCH_TIMEOUT_MS = 25000;
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), CART_FETCH_TIMEOUT_MS);
+    const request = this._createTimeoutSignal(CART_FETCH_TIMEOUT_MS);
     return fetch(`${window.Theme.routes.cart_url}.js`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
-      signal: controller.signal
+      signal: request.signal
     }).then(response => {
       if (!response.ok) {
         return Promise.reject(new Error('Unable to refresh cart.'));
@@ -48943,7 +49025,7 @@ class Order {
     }).catch(() => {
       this._showErrorBanner('Unable to refresh your cart.');
     }).finally(() => {
-      clearTimeout(timeoutId);
+      request.clear();
     });
   }
   _showSuccessBanner(successMsg) {
@@ -49527,4 +49609,3 @@ if (ageGatePage) {
 
 /******/ })()
 ;
-//# sourceMappingURL=empire.js.map?1740096011256

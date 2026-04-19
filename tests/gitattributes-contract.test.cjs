@@ -11,8 +11,10 @@ const raw = fs.readFileSync(p, 'utf8');
 
 assert.match(raw, /^\s*#\s*Invariants/m, '.gitattributes: must document invariants header');
 assert.match(raw, /^\*\s+text=auto\s*$/m, '.gitattributes: * text=auto required');
+assert.match(raw, /^\.gitattributes\s+text\s+eol=lf\s*$/m, '.gitattributes: must be LF text');
 assert.match(raw, /^\*\.liquid\s+text\s+eol=lf\s*$/m, '.gitattributes: Liquid must be LF text');
 assert.match(raw, /^\*\.json\s+text\s+eol=lf\s*$/m, '.gitattributes: JSON must be LF text');
+assert.match(raw, /^\*\.gitignore\s+text\s+eol=lf\s*$/m, '.gitattributes: .gitignore must be LF text');
 assert.match(raw, /^\*\.mjs\s+text\s+eol=lf\s*$/m, '.gitattributes: ESM scripts (CI) must be LF text');
 assert.match(raw, /^\*\.cjs\s+text\s+eol=lf\s*$/m, '.gitattributes: CJS tests must be LF text');
 assert.match(raw, /^\*\.yml\s+text\s+eol=lf\s*$/m, '.gitattributes: *.yml must be LF text');

@@ -2,6 +2,7 @@
 # - Never commit Shopify CLI auth/state, API tokens, .env material, or private keys/SSH identities (supply-chain + account takeover).
 # - add-to-cart concurrency, fetch timeouts, Liquid null-safety, CLS: enforced in theme source, not here.
 # - Do not add broad ignores (e.g. /assets, /config) that would drop theme files from version control.
+# - Do not commit assets/*.map: large CDN payloads + easier reverse-engineering of bundled theme JS; generate maps locally when debugging.
 
 # OS
 .DS_Store
@@ -53,3 +54,6 @@ coverage/
 *.zip
 *.tar
 *.tar.gz
+
+# Theme JS source maps (see invariant header above)
+assets/*.map

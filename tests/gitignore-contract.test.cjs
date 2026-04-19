@@ -19,6 +19,7 @@ assert.match(raw, /^\*\.pem\s*$/m, '.gitignore: must ignore *.pem (key material)
 assert.match(raw, /^\*\.crt\s*$/m, '.gitignore: must ignore *.crt (cert material)');
 assert.match(raw, /^id_rsa\s*$/m, '.gitignore: must ignore default SSH private key filename id_rsa');
 assert.match(raw, /^id_ed25519\s*$/m, '.gitignore: must ignore default SSH private key filename id_ed25519');
+assert.match(raw, /^assets\/\*\.map\s*$/m, '.gitignore: must ignore assets/*.map (do not ship theme source maps)');
 
 ['assets', 'config', 'layout', 'locales', 'sections', 'snippets', 'templates'].forEach(function (dir) {
   assert.doesNotMatch(

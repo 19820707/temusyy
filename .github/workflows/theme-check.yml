@@ -4,9 +4,14 @@
 # - PRs cancel superseded runs (concurrency) to cut queue time and flaky overlaps.
 # - Contract tests run before Theme Check (cheaper failures first).
 # - Token permissions stay least-privilege (read on repo tree; no broad mutating scopes).
+# - Node LTS on setup-node must track GitHub runner deprecation (avoid default EOL Node 20-only paths).
+# - Checkout stays shallow (fetch-depth: 1) to bound clone time and reduce supply-chain noise from deep history.
+# - Checkout must not persist credentials in local git config (read-only job; least residual token surface).
+# - Steps must not mask failures with YAML continue-on-error set to true (no silent green CI).
 name: Theme Check
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
@@ -25,11 +30,16 @@ jobs:
   theme-check:
     name: Shopify Theme Check
     runs-on: ubuntu-latest
+    env:
+      CI: 'true'
     # Never burn runner minutes indefinitely if the action or CLI hangs.
     timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Verify CI invariants (workflow contract)
         run: node .github/scripts/verify-ci-invariants.mjs
@@ -37,7 +47,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '22'
 
       # Regression / contract: no network; npm test = CI invariants + empire ATC + assets prefetch contracts.
       - name: Regression tests (theme contracts)

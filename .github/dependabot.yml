@@ -1,8 +1,26 @@
-# Keep GitHub Actions and future npm deps patched on a predictable cadence.
+# Dependabot supply-chain hygiene for CI (not storefront runtime).
+# Invariants:
+# - github-actions only at repo root (/.github/workflows).
+# - Weekly cadence + fixed weekday/time (UTC) = predictable load, fewer surprise merges.
+# - open-pull-requests-limit caps parallel Dependabot PR noise.
+# - Single "groups" bucket for all Actions = one batched PR per cycle (less CI stampede than N atomic PRs).
+# - commit-message prefix keeps history grep-friendly for CI-only bumps.
 version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
     open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(ci)"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    groups:
+      actions:
+        patterns:
+          - "*"

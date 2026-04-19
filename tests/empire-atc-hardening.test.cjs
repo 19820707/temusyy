@@ -34,7 +34,21 @@ assert.doesNotMatch(
 assert.match(src, /timeout: CART_AJAX_TIMEOUT_MS/, 'expected jQuery cart AJAX timeout');
 assert.match(src, /CART_FETCH_TIMEOUT_MS/, 'expected fetch timeout for order reorder flow');
 
+assert.match(src, /_createTimeoutSignal\(timeoutMs\)/, 'order reorder flow must centralize timeout signal creation');
+assert.match(src, /typeof AbortController === 'undefined'/, 'order reorder flow must degrade when AbortController is unavailable');
+
+// T6 - Order reorder fail-closed: no empty payloads or brittle JSON crash on customer order page
+assert.match(src, /_readJsonNode\(selector, fallback\)/, 'order page JSON payloads must parse through a safe fallback');
+assert.match(src, /if \(!this\.itemsToAddToCart\.length\)/, 'order reorder must not send an empty cart mutation');
+assert.match(
+  src,
+  /item\.selling_plan_allocation && item\.selling_plan_allocation\.selling_plan/,
+  'order reorder selling_plan access must be guarded'
+);
+assert.doesNotMatch(src, /sourceMappingURL=empire\.js\.map/, 'empire.js must not point at stale generated source maps');
+
 // Minified bundle must stay in sync (production when settings.minify_scripts)
 assert.match(min, /_tryAcquireAddLock/, 'empire.min.js should include add-lock (rebuild if this fails)');
+assert.match(min, /_createTimeoutSignal/, 'empire.min.js should include order timeout fallback (rebuild if this fails)');
 
 console.log('empire-atc-hardening: ok');
