@@ -108,6 +108,66 @@
         "slideshow_text_below_image": false
       }
     },
+    "smart_homepage_hub": {
+      "type": "dynamic-smart-homepage-hub",
+      "blocks": {
+        "smart_path_watches": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "watches",
+            "link": "",
+            "badge": "Trending",
+            "title": "Watches that finish the look",
+            "text": "Start with refined everyday styles."
+          }
+        },
+        "smart_path_audio": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "headphones",
+            "link": "",
+            "badge": "Tech",
+            "title": "Audio for work and travel",
+            "text": "Earbuds, headsets and useful accessories."
+          }
+        },
+        "smart_path_home": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "home-and-decoration",
+            "link": "",
+            "badge": "Home",
+            "title": "Upgrade everyday spaces",
+            "text": "Practical finds for rooms, kitchen and storage."
+          }
+        },
+        "smart_trust_support": {
+          "type": "trust_point",
+          "settings": {
+            "title": "Support stays close",
+            "text": "Delivery, order status and customer help are one click away."
+          }
+        }
+      },
+      "block_order": [
+        "smart_path_watches",
+        "smart_path_audio",
+        "smart_path_home",
+        "smart_trust_support"
+      ],
+      "settings": {
+        "kicker": "Temusy finder",
+        "title": "Find the right product faster",
+        "text": "<p>Search directly, follow popular shopping paths, or move into trusted departments without scrolling through the whole marketplace.</p>",
+        "search_placeholder": "Search watches, earbuds, beauty, home...",
+        "search_button": "Search",
+        "primary_label": "Explore all products",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Customer support",
+        "secondary_link": "shopify://pages/temusy-customer-support",
+        "panel_label": "Popular shopping paths"
+      }
+    },
     "dynamic_collection_list": {
       "type": "dynamic-collection-list",
       "blocks": {
@@ -556,6 +616,7 @@
   },
   "order": [
     "dynamic_slideshow",
+    "smart_homepage_hub",
     "dynamic_collection_list",
     "pxs_image_with_text_overlay_8fFPN3",
     "dynamic_featured_collection-2",

@@ -1,0 +1,403 @@
+{% comment %}
+  Invariants:
+  - Homepage guidance must remain usable without JavaScript or app embeds.
+  - Search and collection links must be explicit, crawlable, and keyboard-friendly.
+  - Copy must guide shopping intent without claiming unavailable inventory or delivery promises.
+{% endcomment %}
+{% liquid
+  assign title = section.settings.title | default: 'Shop with a smarter path'
+  assign text = section.settings.text | default: 'Start with what you need, then move straight into the right aisle.'
+  assign search_placeholder = section.settings.search_placeholder | default: 'Search watches, earbuds, home finds...'
+  assign search_button = section.settings.search_button | default: 'Search'
+  assign primary_label = section.settings.primary_label | default: 'Explore all products'
+  assign primary_link = section.settings.primary_link | default: routes.all_products_collection_url
+  assign secondary_label = section.settings.secondary_label | default: 'Customer support'
+  assign secondary_link = section.settings.secondary_link | default: routes.search_url
+%}
+
+<section class="smart-homepage-hub" aria-labelledby="smart-homepage-hub-title-{{ section.id }}">
+  <div class="smart-homepage-hub__inner">
+    <div class="smart-homepage-hub__content">
+      {% if section.settings.kicker != blank %}
+        <p class="smart-homepage-hub__kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+
+      <h2 class="smart-homepage-hub__title" id="smart-homepage-hub-title-{{ section.id }}">
+        {{ title }}
+      </h2>
+
+      {% if text != blank %}
+        <div class="smart-homepage-hub__text rte">
+          {{ text }}
+        </div>
+      {% endif %}
+
+      <form class="smart-homepage-hub__search" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="visually-hidden" for="smart-homepage-search-{{ section.id }}">
+          {{ 'general.search.placeholder' | t }}
+        </label>
+        <input
+          class="smart-homepage-hub__search-input"
+          id="smart-homepage-search-{{ section.id }}"
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{{ search_placeholder | escape }}"
+          autocomplete="off"
+        >
+        <button class="smart-homepage-hub__search-button" type="submit">
+          {{ search_button }}
+        </button>
+      </form>
+
+      <div class="smart-homepage-hub__actions">
+        {% if primary_label != blank and primary_link != blank %}
+          <a class="smart-homepage-hub__button smart-homepage-hub__button--primary" href="{{ primary_link }}">
+            {{ primary_label }}
+          </a>
+        {% endif %}
+        {% if secondary_label != blank and secondary_link != blank %}
+          <a class="smart-homepage-hub__button smart-homepage-hub__button--secondary" href="{{ secondary_link }}">
+            {{ secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="smart-homepage-hub__panel" aria-label="{{ section.settings.panel_label | escape }}">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'collection_link' %}
+              {% assign collection = collections[block.settings.collection] %}
+              {% assign block_title = block.settings.title %}
+              {% assign block_url = block.settings.link %}
+              {% if block_url == blank and collection != blank %}
+                {% assign block_url = collection.url %}
+              {% endif %}
+              {% if block_title == blank and collection != blank %}
+                {% assign block_title = collection.title %}
+              {% endif %}
+              {% if block_url != blank and block_title != blank %}
+                <a class="smart-homepage-hub__card" href="{{ block_url }}" {{ block.shopify_attributes }}>
+                  {% if block.settings.badge != blank %}
+                    <span class="smart-homepage-hub__badge">{{ block.settings.badge }}</span>
+                  {% endif %}
+                  <span class="smart-homepage-hub__card-title">{{ block_title }}</span>
+                  {% if block.settings.text != blank %}
+                    <span class="smart-homepage-hub__card-text">{{ block.settings.text }}</span>
+                  {% endif %}
+                </a>
+              {% endif %}
+            {% when 'trust_point' %}
+              <div class="smart-homepage-hub__trust" {{ block.shopify_attributes }}>
+                {% if block.settings.title != blank %}
+                  <strong>{{ block.settings.title }}</strong>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <span>{{ block.settings.text }}</span>
+                {% endif %}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .smart-homepage-hub {
+    background: #f5f7f4;
+    color: #171b1f;
+    padding: 32px 16px;
+  }
+
+  .smart-homepage-hub__inner {
+    display: grid;
+    gap: 24px;
+    margin: 0 auto;
+    max-width: 1280px;
+  }
+
+  .smart-homepage-hub__content,
+  .smart-homepage-hub__panel {
+    min-width: 0;
+  }
+
+  .smart-homepage-hub__kicker {
+    color: #046e82;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+
+  .smart-homepage-hub__title {
+    font-size: 2rem;
+    line-height: 1.12;
+    margin: 0;
+  }
+
+  .smart-homepage-hub__text {
+    font-size: 1rem;
+    margin-top: 12px;
+    max-width: 58ch;
+  }
+
+  .smart-homepage-hub__search {
+    display: grid;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .smart-homepage-hub__search-input {
+    background: #ffffff;
+    border: 1px solid #c8d1d3;
+    border-radius: 6px;
+    min-height: 48px;
+    padding: 0 14px;
+    width: 100%;
+  }
+
+  .smart-homepage-hub__search-button,
+  .smart-homepage-hub__button {
+    align-items: center;
+    border-radius: 6px;
+    display: inline-flex;
+    font-weight: 700;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 16px;
+    text-decoration: none;
+  }
+
+  .smart-homepage-hub__search-button,
+  .smart-homepage-hub__button--primary {
+    background: #046e82;
+    border: 1px solid #046e82;
+    color: #ffffff;
+  }
+
+  .smart-homepage-hub__button--secondary {
+    background: #ffffff;
+    border: 1px solid #b8c3c6;
+    color: #171b1f;
+  }
+
+  .smart-homepage-hub__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .smart-homepage-hub__panel {
+    display: grid;
+    gap: 10px;
+  }
+
+  .smart-homepage-hub__card,
+  .smart-homepage-hub__trust {
+    background: #ffffff;
+    border: 1px solid #d7dee0;
+    border-radius: 6px;
+    display: grid;
+    gap: 6px;
+    padding: 14px;
+    text-decoration: none;
+  }
+
+  .smart-homepage-hub__badge {
+    color: #046e82;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .smart-homepage-hub__card-title,
+  .smart-homepage-hub__trust strong {
+    color: #171b1f;
+    font-weight: 800;
+  }
+
+  .smart-homepage-hub__card-text,
+  .smart-homepage-hub__trust span {
+    color: #4c565a;
+    font-size: 0.92rem;
+  }
+
+  @media screen and (min-width: 720px) {
+    .smart-homepage-hub {
+      padding: 44px 24px;
+    }
+
+    .smart-homepage-hub__inner {
+      align-items: center;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+    }
+
+    .smart-homepage-hub__search {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .smart-homepage-hub__panel {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Smart homepage hub",
+  "class": "smart-homepage-hub-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Kicker",
+      "default": "Temusy finder"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Find the right product faster"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Browse by intent, search directly, or jump into curated departments without losing momentum.</p>"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search watches, earbuds, home finds..."
+    },
+    {
+      "type": "text",
+      "id": "search_button",
+      "label": "Search button",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Explore all products"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Customer support"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "panel_label",
+      "label": "Panel accessibility label",
+      "default": "Popular shopping paths"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_link",
+      "name": "Collection link",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Fallback link"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "trust_point",
+      "name": "Trust point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smart homepage hub",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "collection_link",
+          "settings": {
+            "collection": "watches",
+            "badge": "Trending",
+            "title": "Watches",
+            "text": "Styles selected for everyday wear."
+          }
+        },
+        {
+          "type": "collection_link",
+          "settings": {
+            "collection": "headphones",
+            "badge": "Tech",
+            "title": "Audio and accessories",
+            "text": "Useful finds for work, travel and play."
+          }
+        },
+        {
+          "type": "trust_point",
+          "settings": {
+            "title": "Secure shopping",
+            "text": "Clear paths to support, delivery and order status."
+          }
+        },
+        {
+          "type": "trust_point",
+          "settings": {
+            "title": "Curated departments",
+            "text": "Move from inspiration to product pages with fewer clicks."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
