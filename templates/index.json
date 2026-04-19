@@ -6,9 +6,9 @@
         "slide-2": {
           "type": "slide",
           "settings": {
-            "background_image": "shopify://shop_images/Gray_Elegant_Beauty_Brand_Make_Up_Promotion_Banner_2.png",
+            "background_image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
             "title": "Beauty & care",
-            "text": "Skincare and makeup—tap Shop beauty or scroll for search and popular categories.",
+            "text": "Skincare, makeup and essentials. Start here or explore popular categories below.",
             "color": "#333333",
             "link": "shopify://collections/health-and-beauty",
             "text_alignment": "left",
@@ -33,7 +33,7 @@
         "slideshow_width": "full",
         "slideshow_height": "original",
         "slideshow_height_mobile": "original",
-        "slideshow_text_below_image": false
+        "slideshow_text_below_image": true
       }
     },
     "homepage_smart_hub": {
@@ -142,10 +142,10 @@
       "settings": {
         "kicker": "Temusy finder",
         "title": "Start here—then shop",
-        "text": "<p>Search, shortcuts, or view all products—then browse popular categories and shop by department, review shipping and support, before deeper product spotlights.</p>",
+        "text": "<p>Search, shortcuts, or browse all products—then popular categories, trust and policies, shop by department, and curated product picks.</p>",
         "search_placeholder": "Search watches, earbuds, beauty, home...",
         "search_button": "Search",
-        "primary_label": "View All products",
+        "primary_label": "Browse all products",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Customer support",
         "secondary_link": "shopify://pages/temusy-customer-support",
@@ -218,24 +218,9 @@
         "thumbnail_columns_desktop": 6,
         "thumbnail_columns_mobile": 3,
         "image-crop": "circle",
-        "cta_label": "View All",
+        "cta_label": "Browse all products",
         "cta_link": "shopify://collections/all",
         "cta_button_style": "primary"
-      }
-    },
-    "homepage_editorial_watches_banner": {
-      "type": "pxs-image-with-text-overlay",
-      "settings": {
-        "section_height": "original",
-        "image": "shopify://shop_images/Watch_Collection_sale_banners_1.png",
-        "title": "Category spotlight · Watches",
-        "text": "",
-        "content_position": "center-center",
-        "color": "#ffffff",
-        "overlay_background": "#000000",
-        "overlay_opacity": 0,
-        "link": "shopify://collections/watches",
-        "button_text": "Shop watches"
       }
     },
     "homepage_editorial_watches": {
@@ -256,9 +241,9 @@
         "collection_a9MeJz": {
           "type": "collection",
           "settings": {
-            "collection": "action-figures",
-            "image": "shopify://shop_images/metallic-liquid-in-action.jpg",
-            "title": "Action figures"
+            "collection": "accessories",
+            "image": "shopify://shop_images/laughter-in-the-sun.jpg",
+            "title": "Accessories"
           }
         },
         "collection_CnaUQM": {
@@ -272,25 +257,25 @@
         "collection_gaaLR9": {
           "type": "collection",
           "settings": {
-            "collection": "makeup",
+            "collection": "health-and-beauty",
             "image": "shopify://shop_images/pink-lip-gloss.jpg",
-            "title": "Makeup"
+            "title": "Beauty"
           }
         },
         "collection_mJJfNj": {
           "type": "collection",
           "settings": {
-            "collection": "sports-shoes",
-            "image": "shopify://shop_images/pair-of-all-black-sneakers.jpg",
-            "title": "Sports shoes"
+            "collection": "toys-and-games",
+            "image": "shopify://shop_images/toy-drive-donation-box.jpg",
+            "title": "Toys"
           }
         },
         "collection_REFgFB": {
           "type": "collection",
           "settings": {
-            "collection": "utensils",
+            "collection": "home-and-decoration",
             "image": "shopify://shop_images/kitchen-utensils-on-counter.jpg",
-            "title": "Utensils"
+            "title": "Home"
           }
         },
         "collection_c9UN9X": {
@@ -303,36 +288,21 @@
         }
       },
       "block_order": [
+        "collection_gaaLR9",
+        "collection_c9UN9X",
         "collection_a9MeJz",
         "collection_CnaUQM",
-        "collection_gaaLR9",
-        "collection_mJJfNj",
         "collection_REFgFB",
-        "collection_c9UN9X"
+        "collection_mJJfNj"
       ],
       "settings": {
-        "title": "Popular categories now",
+        "title": "Shop popular categories",
         "thumbnail_columns_desktop": 6,
         "thumbnail_columns_mobile": 2,
-        "image-crop": "round",
-        "cta_label": "View All",
+        "image-crop": "circle",
+        "cta_label": "Browse all products",
         "cta_link": "shopify://collections/all",
         "cta_button_style": "primary"
-      }
-    },
-    "homepage_editorial_jewelry_banner": {
-      "type": "pxs-image-with-text-overlay",
-      "settings": {
-        "section_height": "original",
-        "image": "shopify://shop_images/White_Simple_Photocentric_Jewelry_Promo_Banner_Landscape_1.png",
-        "title": "Category spotlight · Jewelry",
-        "text": "",
-        "content_position": "bottom-center",
-        "color": "#ffffff",
-        "overlay_background": "#000000",
-        "overlay_opacity": 0,
-        "link": "shopify://collections/jewelry-and-fashion-accessories",
-        "button_text": "Shop jewelry"
       }
     },
     "homepage_editorial_jewelry": {
@@ -355,7 +325,7 @@
           "settings": {
             "icon": "icon-delivery",
             "title": "Fast Shipping",
-            "text": "<p>Fast dispatch and smooth delivery across supported regions.</p>",
+            "text": "<p>Open shipping policy for regions, timelines, and dispatch details.</p>",
             "link": "/policies/shipping-policy"
           }
         },
@@ -364,7 +334,7 @@
           "settings": {
             "icon": "icon-cell-phone",
             "title": "Customer support",
-            "text": "<p>Need help with an order or product? We are here to help.</p>",
+            "text": "<p>Go to support for order issues, product questions, and contact options.</p>",
             "link": "shopify://pages/temusy-customer-support"
           }
         },
@@ -373,7 +343,7 @@
           "settings": {
             "icon": "icon-label-tag",
             "title": "Returns & exchanges",
-            "text": "<p>Read how returns, refunds and exchanges work before you buy.</p>",
+            "text": "<p>Open returns policy to see eligibility, timelines, and how to start a return.</p>",
             "link": "/policies/refund-policy"
           }
         },
@@ -382,7 +352,7 @@
           "settings": {
             "icon": "icon-discount",
             "title": "Special offers",
-            "text": "<p>Discover selected deals and seasonal product highlights.</p>",
+            "text": "<p>Browse current offers and seasonal highlights in one place.</p>",
             "link": "shopify://collections/all"
           }
         }
@@ -401,30 +371,6 @@
         "icon_color": "#046e82",
         "background_color": "#e5e4e2",
         "mobile_layout": "grid"
-      }
-    },
-    "homepage_editorial_dress_shirts": {
-      "type": "dynamic-featured-collection",
-      "settings": {
-        "title": "Category spotlight · Dress shirts",
-        "layout": "grid",
-        "mobile_layout": "grid",
-        "collection": "dress-shirts",
-        "product_count": 6,
-        "cta_label": "Shop dress shirts",
-        "cta_button_style": "secondary"
-      }
-    },
-    "homepage_editorial_dress_pants": {
-      "type": "dynamic-featured-collection",
-      "settings": {
-        "title": "Category spotlight · Dress pants",
-        "layout": "grid",
-        "mobile_layout": "grid",
-        "collection": "dress-pants",
-        "product_count": 6,
-        "cta_label": "Shop dress pants",
-        "cta_button_style": "primary"
       }
     },
     "homepage_testimonials": {
@@ -498,14 +444,10 @@
     "homepage_hero",
     "homepage_smart_hub",
     "homepage_trending_categories",
-    "homepage_department_grid",
     "homepage_trust_bar",
-    "homepage_editorial_watches_banner",
+    "homepage_department_grid",
     "homepage_editorial_watches",
-    "homepage_editorial_jewelry_banner",
     "homepage_editorial_jewelry",
-    "homepage_editorial_dress_shirts",
-    "homepage_editorial_dress_pants",
     "homepage_testimonials"
   ]
 }

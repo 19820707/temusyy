@@ -41,16 +41,71 @@ const idxHub = indexTemplate.order.indexOf('homepage_smart_hub');
 const idxTrending = indexTemplate.order.indexOf('homepage_trending_categories');
 const idxDepartments = indexTemplate.order.indexOf('homepage_department_grid');
 const idxTrust = indexTemplate.order.indexOf('homepage_trust_bar');
-const idxFirstEditorial = indexTemplate.order.indexOf('homepage_editorial_watches_banner');
+const idxWatches = indexTemplate.order.indexOf('homepage_editorial_watches');
+const idxJewelry = indexTemplate.order.indexOf('homepage_editorial_jewelry');
 assert.ok(
   idxHub !== -1 &&
     idxTrending === idxHub + 1 &&
-    idxDepartments === idxHub + 2 &&
-    idxTrust !== -1 &&
-    idxFirstEditorial !== -1,
-  'index.json: after hub, best-sellers row then departments, then trust before editorial showcases'
+    idxTrust === idxHub + 2 &&
+    idxDepartments === idxHub + 3 &&
+    idxWatches === idxHub + 4 &&
+    idxJewelry === idxHub + 5,
+  'index.json: after hub, popular categories, trust bar, departments, then watches and jewelry product rows, then testimonials'
 );
-assert.ok(idxTrust < idxFirstEditorial, 'index.json: homepage_trust_bar must sit before deep editorial showcases');
+assert.ok(idxTrending < idxTrust, 'index.json: homepage_trending_categories must appear before homepage_trust_bar');
+assert.ok(idxTrust < idxDepartments, 'index.json: homepage_trust_bar must appear before homepage_department_grid');
+assert.ok(idxDepartments < idxWatches, 'index.json: homepage_department_grid must appear before homepage_editorial_watches');
+assert.ok(idxWatches < idxJewelry, 'index.json: homepage_editorial_watches must appear before homepage_editorial_jewelry');
+assert.ok(idxTrending < idxWatches, 'index.json: trending categories must sit before product editorial rows');
+assert.ok(idxTrust < idxWatches, 'index.json: homepage_trust_bar must sit before product editorial rows');
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_best_sellers_products'),
+  -1,
+  'index.json: minimal homepage must not include homepage_best_sellers_products in order'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_editorial_watches_banner'),
+  -1,
+  'index.json: minimal homepage must not include decorative watch banner in order'
+);
+assert.ok(
+  !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_best_sellers_products'),
+  'index.json: homepage_best_sellers_products section must be removed (single category funnel + two product rows)'
+);
+assert.ok(
+  !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_editorial_watches_banner'),
+  'index.json: decorative watch banner section removed'
+);
+assert.ok(
+  !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_editorial_jewelry_banner'),
+  'index.json: decorative jewelry banner section removed'
+);
+assert.ok(
+  !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_editorial_dress_shirts'),
+  'index.json: dress shirts editorial removed from minimal homepage'
+);
+assert.ok(
+  !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_editorial_dress_pants'),
+  'index.json: dress pants editorial removed from minimal homepage'
+);
+
+// T3 — Redundancy: two collection-list sections must not share the same consumer-facing title (distinct jobs).
+const trendingTitle = (indexTemplate.sections.homepage_trending_categories.settings.title || '').trim().toLowerCase();
+const departmentTitle = (indexTemplate.sections.homepage_department_grid.settings.title || '').trim().toLowerCase();
+assert.notStrictEqual(
+  trendingTitle,
+  departmentTitle,
+  'index.json: trending vs department collection rows must use different section titles'
+);
+
+// T4 — Hero clarity: one intent; no decorative duplicate headings in slide copy.
+const heroSlide = indexTemplate.sections.homepage_hero.blocks['slide-2'].settings;
+assert.strictEqual(heroSlide.title, 'Beauty & care', 'index.json: hero slide title must stay a single clear H1-style line');
+assert.ok(
+  typeof heroSlide.text === 'string' && heroSlide.text.indexOf('Skincare, makeup and essentials') !== -1,
+  'index.json: hero slide body must use the single-intent beauty copy'
+);
+assert.ok(!/\bBRAND\b|\bMAKE-UP\b/i.test(heroSlide.title + ' ' + heroSlide.text), 'index.json: hero must not ship BRAND / MAKE-UP decorative copy in title or text');
 assert.strictEqual(
   indexTemplate.order[indexTemplate.order.length - 1],
   'homepage_testimonials',
@@ -66,12 +121,7 @@ assert.ok(
 );
 
 // T8 — Featured collection rows should expose a primary CTA label (conversion + screen-reader context on section chrome).
-[
-  'homepage_editorial_watches',
-  'homepage_editorial_jewelry',
-  'homepage_editorial_dress_shirts',
-  'homepage_editorial_dress_pants',
-].forEach(
+['homepage_editorial_watches', 'homepage_editorial_jewelry'].forEach(
   function (sid) {
     const sec = indexTemplate.sections[sid];
     if (!sec || sec.type !== 'dynamic-featured-collection') {
