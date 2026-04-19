@@ -1,166 +1,9 @@
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.934accbf9f5987aa89334210e6c1e9151f37d3b6.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=e4205309ad50688936ce92bc846b024563360a4e0ca11b624dc313fac2aa0f76") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.ee28d4489eaf5de9cf6e17e696991b5e9148c716.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=039028b195e2277021f03bf6e51bddc1834eabbec5aec68404a194ae888361ae") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.a7e8d886e15d5fb9bc964a53b3278effbf270e9c.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=66ca3f90b159f12b1673f607e26bbca20ac81090d239b2de63cba0aca8bcec50") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.e87de252199e27825a41bf81646996685d86452d.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=f85e4b697501d45f3193f702a3cbc0d5becc2ffcdfd4c8f88e93cb8b9783a042") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n7.58aca33913fc6666cc9e8a53f6b16ec5c3c05a3f.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=87c4fbb1d56a85c9e5eb0d738fe26306d85cfefca290e144fd1b35d37e5027ed") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n7.59016f931f3f39434d2e458fba083eb7db7a07d9.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=41acf84dbe9823dc63f752f29d2436fd08add5b6eab417bbd790455e2127e71e") format("woff");
-}
-
-  @font-face {
-  font-family: Poppins;
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i7.4f85a5d51a1aecf426eea47ac4570ef7341bfdc1.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=b37c7811327654d04dbaa8920e803e0ce13a307ac4f85469b1eff0d6fac17936") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i7.aff3a08a92d1c136586c611b9fc43d357dfbbefe.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=7b3abe1bfe987a5c4b063b1fda0e8a40b75f37422f3db091be329b82aada8464") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.934accbf9f5987aa89334210e6c1e9151f37d3b6.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=e4205309ad50688936ce92bc846b024563360a4e0ca11b624dc313fac2aa0f76") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.ee28d4489eaf5de9cf6e17e696991b5e9148c716.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=039028b195e2277021f03bf6e51bddc1834eabbec5aec68404a194ae888361ae") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.a7e8d886e15d5fb9bc964a53b3278effbf270e9c.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=66ca3f90b159f12b1673f607e26bbca20ac81090d239b2de63cba0aca8bcec50") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.e87de252199e27825a41bf81646996685d86452d.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=f85e4b697501d45f3193f702a3cbc0d5becc2ffcdfd4c8f88e93cb8b9783a042") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n7.58aca33913fc6666cc9e8a53f6b16ec5c3c05a3f.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=87c4fbb1d56a85c9e5eb0d738fe26306d85cfefca290e144fd1b35d37e5027ed") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n7.59016f931f3f39434d2e458fba083eb7db7a07d9.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=41acf84dbe9823dc63f752f29d2436fd08add5b6eab417bbd790455e2127e71e") format("woff");
-}
-
-  @font-face {
-  font-family: Poppins;
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i7.4f85a5d51a1aecf426eea47ac4570ef7341bfdc1.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=b37c7811327654d04dbaa8920e803e0ce13a307ac4f85469b1eff0d6fac17936") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i7.aff3a08a92d1c136586c611b9fc43d357dfbbefe.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=7b3abe1bfe987a5c4b063b1fda0e8a40b75f37422f3db091be329b82aada8464") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n1.c38651fae6617112e598a3eae6e304966bb50d9c.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=4b3f375f39016acc82ddb67d5f58eb641ad371d38c3f9142aa69e92b6ef8d215") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n1.8a253dc332ef999bbf9099ed24f14b637f0d424d.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=f5d14322c445b3529122faabbf4639a368d795a48f5ad60ec8a33909bb73c3c0") format("woff");
-}
-
-  @font-face {
-  font-family: Poppins;
-  font-weight: 100;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i1.6e61c2d68c7500b3f05a3b9a5327a9261fca3a33.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=6d99490bdb64f0cd432f632aec059ffac8cf12f203d805619debdad6255f3714") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i1.8ae1c939b949ac3a7fdd38c842c9f513f152ce42.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=43baf9b77cd78f1216366439f561aa8f06c2282954b858b253a4ba8d8ef0a652") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.934accbf9f5987aa89334210e6c1e9151f37d3b6.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=e4205309ad50688936ce92bc846b024563360a4e0ca11b624dc313fac2aa0f76") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.ee28d4489eaf5de9cf6e17e696991b5e9148c716.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=039028b195e2277021f03bf6e51bddc1834eabbec5aec68404a194ae888361ae") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.a7e8d886e15d5fb9bc964a53b3278effbf270e9c.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=66ca3f90b159f12b1673f607e26bbca20ac81090d239b2de63cba0aca8bcec50") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.e87de252199e27825a41bf81646996685d86452d.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=f85e4b697501d45f3193f702a3cbc0d5becc2ffcdfd4c8f88e93cb8b9783a042") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.934accbf9f5987aa89334210e6c1e9151f37d3b6.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=e4205309ad50688936ce92bc846b024563360a4e0ca11b624dc313fac2aa0f76") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n4.ee28d4489eaf5de9cf6e17e696991b5e9148c716.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=039028b195e2277021f03bf6e51bddc1834eabbec5aec68404a194ae888361ae") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.a7e8d886e15d5fb9bc964a53b3278effbf270e9c.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=66ca3f90b159f12b1673f607e26bbca20ac81090d239b2de63cba0aca8bcec50") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i4.e87de252199e27825a41bf81646996685d86452d.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=f85e4b697501d45f3193f702a3cbc0d5becc2ffcdfd4c8f88e93cb8b9783a042") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_n6.e2fdd168541a5add2d1a8d6f2b89b09c9c9e690d.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=846738831f80b02aab29f8ab793a50b1a681bd570a06c089465b3c8037514260") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_n6.6d62d2d0f11a9ff578d200ad2154f9860db165c1.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=19a307f8a1d67bdc0312d29d0e99822f16c27c31d15d92f4e3324495a1d06001") format("woff");
-}
-
-@font-face {
-  font-family: Poppins;
-  font-weight: 600;
-  font-style: italic;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/poppins/poppins_i6.672e5321078e70c7e1abdba4d92995c37fb35eae.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=3b72eb7c24f17a22708ba9b23e5faa8c999cb898ded6ea58aed9ac8d4ccf6998") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/poppins/poppins_i6.b932b853e07d22eecd5ccfe6f9e0137b21b64d5b.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=e6f7b87fe179b4ddfac3b83588db2b153fc1dfe573674049d57faa72ed48df78") format("woff");
-}
-
-@font-face {
-  font-family: Futura;
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/futura/futura_n6.bbe2e25d5b96d13ff36b242171a3d07cf5a60170.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=b83c125f3dfb1848578c2dd5fd9bca8f200da4580e7cf3d9b3d7418351e6118e") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/futura/futura_n6.66fa8f5c3c4b2c7c04809ecefe751450fa59d995.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=c369557473e24d1904fdd51a5671ec3b078fbb8eaf019c0f9f1d1cbf1b785ee1") format("woff");
-}
-
-@font-face {
-  font-family: Futura;
-  font-weight: 600;
-  font-style: oblique;
-  font-display: swap;
-  src: url("//www.temusy.com/cdn/fonts/futura/futura_o6.2978dbd38bd9b3e8b72ee3299cd940da2900eb72.woff2?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=c7cdf3f1e7c87d9407970fb0c8efdc5870e5fc02bd8074d31ed079f6be19d490") format("woff2"),
-       url("//www.temusy.com/cdn/fonts/futura/futura_o6.bbc5bc6e7a675b3182e4866da9f9643bb3821261.woff?h1=ZHUxamhkLXlwLmFjY291bnQubXlzaG9waWZ5LmNvbQ&h2=dGVtdXN5LmNvbQ&hmac=d015bc18331312c4477297e128c997f4572e5cc398d0f7c36edf6a566c7433ba") format("woff");
-}
-
-
+/*!
+ * invariant: storefront @font-face rules are emitted in snippets/theme-font-faces.liquid (before theme.css in layout).
+ * invariant: never hardcode shop-specific font CDN URLs here (multi-tenant breakage, URL drift).
+ * invariant: --theme-font-body|heading|button|menu are defined only in theme-font-faces.liquid; theme.css must not redefine them (single source of truth).
+ * invariant: conversion-critical focus must remain perceptible in forced-colors / high-contrast modes (box-shadow alone is insufficient; see end-of-file block).
+ */
 
     :root {--font-size-heading-large: 2.390625rem;
   
@@ -1114,10 +957,10 @@ noscript .disclosure-list {
 
 
 .subcollections-list__content[data-subcollections-layout=menu] .subcollections-menu__menu-items h2, h6, .highlights-banner__heading, h5, h4, .featured-collection__title-card-heading, h3, h2, .slideshow-slide__heading, h1, .age-gate__heading {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-heading), sans-serif;
   font-style: normal;
   font-weight: 400;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05em
 }.subcollections-list__content[data-subcollections-layout=menu] .subcollections-menu__menu-items h2, h6, .highlights-banner__heading, h5, h4, .featured-collection__title-card-heading, h3, h2, .slideshow-slide__heading, h1, .age-gate__heading {
     text-transform: none;
   }.subcollections-list__content[data-subcollections-layout=menu] .subcollections-menu__menu-items h2 b, h6 b, .highlights-banner__heading b, h5 b, h4 b, .featured-collection__title-card-heading b, h3 b, h2 b, .slideshow-slide__heading b, h1 b, .age-gate__heading b,
@@ -1201,7 +1044,7 @@ h4 {
 .mobile-nav-content .navmenu-depth-1 > .navmenu-item > .navmenu-link,
 .mobile-nav-primary-content .navmenu-depth-1 > .navmenu-item > .navmenu-link, .navmenu-meganav.navmenu-meganav--desktop .navmenu-item-text, .site-navigation .navmenu-depth-1 > li > a, .site-navigation a,
 .site-navigation summary, .site-header-actions {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-menu), sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 11px;
@@ -1212,7 +1055,7 @@ h4 {
     text-transform: none;
   }.spr-header-title, .product-recently-viewed__heading, .product-section--title, .home-section--title, .shoppable-image__section-heading, .image-with-text__section-heading, .custom-html--container .home-section--title,
 .custom-liquid--container .home-section--title, .faq__section-heading {
-  font-family: Futura,sans-serif;
+  font-family: var(--theme-font-heading), sans-serif;
   font-style: normal;
   font-weight: 600;
   text-transform: none;
@@ -1225,7 +1068,7 @@ h4 {
   font-size: var(--font-size-button-small);
   padding: 0.625rem 1rem;
   letter-spacing: 0.07em;
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-button), sans-serif;
   font-style: normal;
   font-weight: 400;
   display: inline-block;
@@ -1456,7 +1299,7 @@ rgb(255, 255, 255)
 
 .product-gallery--media-thumbnail, .utils-sortby-button,
 .utils-filter-button, .productgrid--search-button, .modal-close, .message-banner--close, .search-flydown__continue, .live-search-takeover-cancel, .atc-banner--close, .cart-shipping .cart-shipping-toggle, .cart-update, .flickity-prev-next-button {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   padding: 0;
@@ -1576,7 +1419,7 @@ rgb(255, 255, 255)
 }
 
 .productgrid--no-results-title, .blog--no-results-title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-heading-4);
@@ -1872,7 +1715,7 @@ rgb(255, 255, 255)
 .pxs-newsletter-text table th,
 .shoppable-image__text-box-subheading table th,
 .image-with-text__text table th {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -1914,7 +1757,7 @@ rgb(255, 255, 255)
 .form-field-select,
 .options-selection__input-select,
 .age-gate__select {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -2826,7 +2669,7 @@ html::after {
 }
 
 body {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -3246,7 +3089,7 @@ rgb(255, 255, 255)
 }
 
 .site-logo-text {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: var(--font-size-body);
@@ -5038,7 +4881,7 @@ rgb(255, 255, 255)
 }
 
 .product-compare__table-cell-heading {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   color: #1d1d1d;
@@ -5082,7 +4925,7 @@ rgb(255, 255, 255)
 }
 
 .product-compare__clear-all {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   cursor: pointer;
@@ -5508,7 +5351,7 @@ rgb(255, 255, 255)
 }
 
 .utility-bar__menu-link {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   margin-right: 1.25rem;
@@ -7192,7 +7035,7 @@ rgb(255, 255, 255)
 }
 
 .faq__categories-view-all {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   align-self: center;
@@ -7288,7 +7131,7 @@ rgb(255, 255, 255)
 }
 
 .faq__summary {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   position: relative;
@@ -7718,7 +7561,7 @@ rgb(255, 255, 255)
 }
 
 .featured-collection__title-card-pre-heading {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-smaller);
@@ -8457,7 +8300,7 @@ rgb(255, 255, 255)
 }
 
 .menulist-item__title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-size: var(--font-size-heading-5);
   position: relative;
   padding: 1.5rem 1.25rem;
@@ -9759,7 +9602,7 @@ rgb(255, 255, 255)
 }
 
 .hotspot__tooltip-title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-medium);
@@ -9777,7 +9620,7 @@ rgb(255, 255, 255)
 }
 
 .hotspot__tooltip-vendor {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   margin: 0.28125rem 0 0;
@@ -9836,7 +9679,7 @@ rgb(255, 255, 255)
 }
 
 .hotspot__modal-sidebar-title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   margin: 0 auto 1.40625rem;
@@ -11744,7 +11587,7 @@ rgb(255, 255, 255)
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 .account-table th {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -12083,7 +11926,7 @@ rgb(255, 255, 255)
 }
 .account-order .order-item--cell-label,
 .order-footer .order-item--cell-label {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-small);
@@ -12141,7 +11984,7 @@ rgb(255, 255, 255)
 }
 .account-order .order-item-title,
 .order-footer .order-item-title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-heading-5);
@@ -12160,7 +12003,7 @@ rgb(255, 255, 255)
 }
 .account-order .order-item-options,
 .order-footer .order-item-options {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-smaller);
@@ -12968,7 +12811,7 @@ rgb(255, 255, 255)
 }
 
 .back-to-top__button-label {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
 }
@@ -13181,7 +13024,7 @@ rgb(255, 255, 255)
 }
 
 .atc--product-details--title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -13436,7 +13279,7 @@ rgb(255, 255, 255)
   display: none;
 }
 .cart-item-vendor a {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-smaller);
@@ -13680,7 +13523,7 @@ rgb(255, 255, 255)
 }
 
 .disclosure__toggle {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   padding: 8px 29px 8px 10px;
@@ -15543,7 +15386,7 @@ rgb(255, 255, 255)
   cursor: pointer;
   background: none;
   color: #191970;
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-small);
@@ -15739,7 +15582,7 @@ rgb(255, 255, 255)
 }
 
 .productitem--title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -15751,7 +15594,7 @@ rgb(255, 255, 255)
   white-space: normal;
 }
 .productitem--vendor a {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-smallest);
@@ -15960,7 +15803,7 @@ rgb(255, 255, 255)
 
 .productitem--swatches-count-wrapper {
   font-size: var(--font-size-body-smaller);
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   position: absolute;
@@ -16575,7 +16418,7 @@ rgb(255, 255, 255)
   }
 }
 .filter-item--grid-simple .filter-item-clear-all {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-small);
@@ -16656,7 +16499,7 @@ rgb(255, 255, 255)
 }
 
 .collection-filters__filter-title {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   margin: 0;
@@ -16861,7 +16704,7 @@ rgb(255, 255, 255)
   border-radius: 3px;
 }
 .active-filter-group__item-wrapper .active-filter-text {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   display: inline-block;
@@ -16937,7 +16780,7 @@ rgb(255, 255, 255)
 }
 
 .filter-item-clear-all {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   padding: 0.3125rem;
@@ -17620,7 +17463,7 @@ rgb(255, 255, 255)
 }
 
 .productgrid--sidebar-title-as-tags {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   padding-bottom: 0;
@@ -17721,7 +17564,7 @@ body:not(.user-is-tabbing) .productgrid--sidebar-button {
 }
 
 .productgrid--sidebar-title--small {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   margin: 0;
@@ -18235,7 +18078,7 @@ quantity-selector {
 }
 
 .quantity-selector__input {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   text-align: center;
@@ -19040,7 +18883,7 @@ rgb(255, 255, 255)
 }
 
 .complementary-product__name {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -19630,7 +19473,7 @@ rgb(255, 255, 255)
   border-radius: 3px;
 }
 .shopify-payment-button .shopify-payment-button__more-options {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-small);
@@ -20080,7 +19923,7 @@ rgb(255, 255, 255)
 }
 
 .product-gallery--viewinyourspace {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   display: flex;
@@ -20870,7 +20713,7 @@ a.pswp__share--download:hover {
 }
 
 .product-gallery--expand {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body-smaller);
@@ -21336,7 +21179,7 @@ rgb(255, 255, 255)
 }
 
 .product-recently-viewed__clear {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   padding: 0;
@@ -22394,7 +22237,7 @@ rgb(255, 255, 255)
 }
 
 .show-more__toggle-more {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   z-index: 1;
@@ -22612,7 +22455,7 @@ rgb(255, 255, 255)
 ;
 }
 .site-navigation .navmenu-depth-2 .navmenu-link {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -23080,7 +22923,7 @@ rgb(255, 255, 255)
 }
 
 .site-navigation .navmenu-meganav-standard__image-link {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: var(--font-size-body);
@@ -23572,7 +23415,7 @@ rgb(255, 255, 255)
   border-bottom: 2px solid rgba(29, 29, 29, 0.15);
 }
 .rte .tabs .grouped-content-trigger {
-  font-family: Poppins,sans-serif;
+  font-family: var(--theme-font-body), sans-serif;
   font-style: normal;
   font-weight: 700;
   position: relative;
@@ -23900,4 +23743,16 @@ rgb(255, 255, 255)
 }
 .age-gate__confirm_btn.mdc-ripple-surface::after {
   background-color: #333333;
+}
+
+/* invariant: Windows forced-colors / high-contrast themes suppress decorative box-shadow; outline must carry focus for checkout-adjacent controls (WCAG 2.4.7). */
+@media (forced-colors: active) {
+  .product-form--atc-button:focus-visible,
+  .button-primary:focus-visible,
+  .button-secondary:focus-visible,
+  .live-search-button:focus-visible,
+  .shopify-challenge__container .btn:focus-visible {
+    outline: 2px solid CanvasText;
+    outline-offset: 2px;
+  }
 }

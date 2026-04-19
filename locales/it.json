@@ -84,7 +84,8 @@
     "newsletter": {
       "subscribe": "Registrati",
       "placeholder": "Indirizzo email",
-      "success": "Grazie per la registrazione!"
+      "success": "Grazie per la registrazione!",
+      "consent": "Accetto di ricevere email di marketing."
     },
     "share_buttons": {
       "title": "Condividi questo:",

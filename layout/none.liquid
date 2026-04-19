@@ -1,4 +1,9 @@
 <!doctype html>
+{% comment %}
+  Layout invariants (minimal shell — align with theme.liquid where applicable):
+  - invariant: favicon uses image_url width 32 (not img_url).
+  - invariant: x_handle defaults empty before splitting social_x.
+{% endcomment %}
 <html class="no-js" lang="{{ request.locale.iso_code }}">
   <head>
   <script>
@@ -17,7 +22,7 @@
     {% endif %}
 
     {% if settings.favicon != blank %}
-      <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ settings.favicon | image_url: width: 32 }}">
     {% endif %}
 
     <link rel="canonical" href="{{ canonical_url }}">
@@ -27,13 +32,19 @@
       <meta name="format-detection" content="telephone=no">
     {% endif %}
 
-    {% assign x_handle = settings.social_x | split: 'x.com/' | last | split: 'twitter.com/' | last %}
+    {% assign x_handle = '' %}
+    {% if settings.social_x != blank %}
+      {% assign x_handle = settings.social_x | split: 'x.com/' | last | split: 'twitter.com/' | last %}
+    {% endif %}
     {%
       render 'social-meta-tags',
       twitter_handle: x_handle,
     %}
 
     {{ content_for_header }}
+
+    {%- comment -%} invariant: theme-font-faces before theme.css (see layout/theme.liquid). {%- endcomment -%}
+    {% render 'theme-font-faces' %}
 
     <script>
       document.documentElement.className=document.documentElement.className.replace(/\bno-js\b/,'js');

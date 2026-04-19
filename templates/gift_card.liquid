@@ -4,6 +4,7 @@
   - Never read image.presentation without guarding the image drop (gift card logo).
   - Gift card hero image must declare width/height to avoid CLS (Theme Check ImgWidthAndHeight).
   - Favicon must use image_url (img_url is deprecated).
+  - Typography: gift-card-font-faces.liquid (font_picker) must load before giftcard.css; no hardcoded shop font URLs in CSS.
 {% endcomment %}
 
 <!doctype html>
@@ -39,6 +40,7 @@
         document.documentElement.className = document.documentElement.className.replace(/\bno-touch\b/,'has-touch');
       }
     </script>
+    {% render 'gift-card-font-faces' %}
     {{ 'giftcard.css' | asset_url | stylesheet_tag }}
   </head>
 

@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "サインアップ",
       "placeholder": "Eメールアドレス",
-      "success": "サインアップしていただき有難うございます。"
+      "success": "サインアップしていただき有難うございます。",
+      "consent": "マーケティングメールの受信に同意します。"
     },
     "share_buttons": {
       "title": "これを共有：",

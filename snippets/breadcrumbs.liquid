@@ -19,16 +19,16 @@
     {% if template contains 'page' %}
 
       {{ delimiter }}
-      <span>{{ page.title }}</span>
+      <span>{{ page.title | escape }}</span>
 
     {% elsif template contains 'product' %}
 
       {% if collection.url %}
         {{ delimiter }}
-        {{ collection.title | link_to: collection.url }}
+        {{ collection.title | escape | link_to: collection.url }}
       {% endif %}
       {{ delimiter }}
-      <span>{{ product.title }}</span>
+      <span>{{ product.title | escape }}</span>
 
     {% elsif template contains 'list-collections' %}
 
@@ -40,7 +40,7 @@
       {{ delimiter }}
       {% if current_tags %}
         {% capture url %}{{ routes.collections_url }}/{{ collection.handle }}{% endcapture %}
-        {{ collection.title | link_to: url }}
+        {{ collection.title | escape | link_to: url }}
         {{ delimiter }}
 
         {% for tag in current_tags %}
@@ -51,13 +51,13 @@
             {% if cat_array contains cat %}
               {% assign is_advanced_tag = true %}
               <span class="breadcrumbs-tag">
-                {{ tag | remove_first: cat | remove_first: '_' }}
+                {{ tag | remove_first: cat | remove_first: '_' | escape }}
               </span>
             {% endif %}
           {% endunless %}
 
           {% unless is_advanced_tag %}
-            <span class="breadcrumbs-tag">{{ tag }}</span>
+            <span class="breadcrumbs-tag">{{ tag | escape }}</span>
           {% endunless %}
 
           {% unless forloop.last %}
@@ -65,26 +65,26 @@
           {% endunless %}
         {% endfor %}
       {% else %}
-        <span>{{ collection.title }}</span>
+        <span>{{ collection.title | escape }}</span>
       {% endif %}
 
     {% elsif template == 'blog' %}
 
       {{ delimiter }}
       {% if current_tags %}
-        {{ blog.title | link_to: blog.url }}
+        {{ blog.title | escape | link_to: blog.url }}
         {{ delimiter }}
-        <span>{{ current_tags | join: " + " }}</span>
+        <span>{{ current_tags | join: " + " | escape }}</span>
       {% else %}
-      <span>{{ blog.title }}</span>
+      <span>{{ blog.title | escape }}</span>
       {% endif %}
 
     {% elsif template == 'article' %}
 
       {{ delimiter }}
-      {{ blog.title | link_to: blog.url }}
+      {{ blog.title | escape | link_to: blog.url }}
       {{ delimiter }}
-      <span>{{ article.title }}</span>
+      <span>{{ article.title | escape }}</span>
 
     {% elsif template contains 'search' and search.performed %}
       {% capture sanitized_terms %}
@@ -112,7 +112,7 @@
     {% else %}
 
       {{ delimiter }}
-       <span>{{ page_title }}</span>
+       <span>{{ page_title | escape }}</span>
 
     {% endif %}
   </nav>

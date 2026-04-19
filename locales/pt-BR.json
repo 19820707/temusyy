@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "Cadastre-se",
       "placeholder": "Endereço de email",
-      "success": "Obrigado por se cadastrarem!"
+      "success": "Obrigado por se cadastrarem!",
+      "consent": "Aceito receber emails de marketing."
     },
     "share_buttons": {
       "title": "Compartilhar isso:",

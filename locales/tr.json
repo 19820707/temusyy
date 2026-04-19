@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "Kaydol",
       "placeholder": "E-posta adresi",
-      "success": "Üye olduğunuz için teşekkürler!"
+      "success": "Üye olduğunuz için teşekkürler!",
+      "consent": "Pazarlama e-postaları almayı kabul ediyorum."
     },
     "share_buttons": {
       "title": "Bunu Paylaş:",

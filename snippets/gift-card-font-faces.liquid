@@ -1,0 +1,48 @@
+{% comment %}
+  invariant: Gift card typography must use Shopify font_picker + font_face (shop CDN), not hardcoded @font-face URLs in giftcard.css.
+  Mirrors snippets/theme-font-faces.liquid body/heading/button coverage used by giftcard.css (weights 400 + italic + bolder).
+{% endcomment %}
+<style id="gift-card-font-faces">
+  {%- assign fonts_display = 'swap' -%}
+
+  {%- comment -%} type_body {%- endcomment -%}
+  {%- assign fonts_type_body_weight = settings.type_body.weight | times: 1 -%}
+  {{ settings.type_body | font_face: font_display: fonts_display }}
+  {{ settings.type_body | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- assign fonts_weight_adjustment_default = 700 -%}
+  {%- if fonts_type_body_weight > 700 -%}
+    {%- assign fonts_weight_adjustment_default = fonts_type_body_weight -%}
+  {%- endif -%}
+  {%- assign fonts_type_body_bolder = settings.type_body | font_modify: 'weight', 'bolder' -%}
+  {{ fonts_type_body_bolder | font_face: font_display: fonts_display }}
+  {{ fonts_type_body_bolder | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+
+  {%- comment -%} type_heading {%- endcomment -%}
+  {%- assign fonts_type_heading_weight = settings.type_heading.weight | times: 1 -%}
+  {{ settings.type_heading | font_face: font_display: fonts_display }}
+  {{ settings.type_heading | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- assign fonts_weight_adjustment_default = 700 -%}
+  {%- if fonts_type_heading_weight > 700 -%}
+    {%- assign fonts_weight_adjustment_default = fonts_type_heading_weight -%}
+  {%- endif -%}
+  {%- assign fonts_type_heading_bolder = settings.type_heading | font_modify: 'weight', 'bolder' -%}
+  {{ fonts_type_heading_bolder | font_face: font_display: fonts_display }}
+  {{ fonts_type_heading_bolder | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- assign fonts_weight_adjustment_default = 300 -%}
+  {%- if fonts_type_heading_weight < 300 -%}
+    {%- assign fonts_weight_adjustment_default = fonts_type_heading_weight -%}
+  {%- endif -%}
+  {%- assign fonts_type_heading_lighter = settings.type_heading | font_modify: 'weight', 'lighter' -%}
+  {{ fonts_type_heading_lighter | font_face: font_display: fonts_display }}
+  {{ fonts_type_heading_lighter | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+
+  {%- comment -%} type_button {%- endcomment -%}
+  {{ settings.type_button | font_face: font_display: fonts_display }}
+  {{ settings.type_button | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+
+  :root {
+    --giftcard-font-body: {{ settings.type_body.family }}, {{ settings.type_body.fallback_families }};
+    --giftcard-font-heading: {{ settings.type_heading.family }}, {{ settings.type_heading.fallback_families }};
+    --giftcard-font-button: {{ settings.type_button.family }}, {{ settings.type_button.fallback_families }};
+  }
+</style>

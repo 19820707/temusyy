@@ -247,12 +247,13 @@
             }
           }
           {% if search.performed %}
+          {%- assign structured_search_terms = search.terms | url_encode -%}
           ,
             {
               "@type": "ListItem",
               "position": 2,
               "item": {
-                "@id": "{{ shop.url }}/search?q={{ search.terms }}",
+                "@id": "{{ shop.url }}/search?q={{ structured_search_terms }}",
                 "name": {{ search.terms | json }}
               }
             }
@@ -262,7 +263,7 @@
                 "@type": "ListItem",
                 "position": 3,
                 "item": {
-                  "@id": "{{ shop.url }}/search?page={{ current_page }}&q={{ search.terms }}",
+                  "@id": "{{ shop.url }}/search?page={{ current_page }}&q={{ structured_search_terms }}",
                   "name": {{ 'structured_data.breadcrumbs.page' | t: page: current_page | json }}
                 }
               }
@@ -318,7 +319,7 @@
     "name": {{ product_name | strip_newlines | json }},
     "image": {{ product_image | img_url: '1024x1024' | prepend: 'https:' | json }},
     {% if product.description != blank %}
-      "description": {{ product.description | json }},
+      "description": {{ product.description | strip_html | json }},
     {% endif %}
     {% if product.vendor %}
       "brand": {
@@ -371,7 +372,7 @@
   {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "{{ shop.name }}",
-    "url": "{{ shop.url }}"
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }}
   }
 </script>

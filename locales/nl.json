@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "Inschrijven",
       "placeholder": "Emailadres",
-      "success": "Bedankt voor het inschrijven!"
+      "success": "Bedankt voor het inschrijven!",
+      "consent": "Ik ga akkoord met het ontvangen van marketing-e-mails."
     },
     "share_buttons": {
       "title": "Deel dit:",

@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "Registrieren",
       "placeholder": "Email-Adresse",
-      "success": "Danke für Ihre Registrierung!"
+      "success": "Danke für Ihre Registrierung!",
+      "consent": "Ich stimme zu, Marketing-E-Mails zu erhalten."
     },
     "share_buttons": {
       "title": "Das hier teilen:",
@@ -631,7 +632,7 @@
     "description": "Beschreibung",
     "rating": "Produktrezensionen",
     "breadcrumb": "Zurück zu {{ location }}",
-    "breadcrumb_generic": "Der Rücken",
+    "breadcrumb_generic": "Zurück",
     "remove": "Entfernen"
   }
 }

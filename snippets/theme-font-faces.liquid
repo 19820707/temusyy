@@ -1,0 +1,77 @@
+{% comment %}
+  invariant: Storefront @font-face must come from Shopify font_picker + font_face (shop CDN), not hardcoded URLs in assets/theme.css.
+  invariant: :root --theme-font-* stacks must stay aligned with theme.css rules (var(--theme-font-body|heading|button|menu)).
+{% endcomment %}
+<style id="theme-font-faces">
+  {%- assign fonts_display = 'swap' -%}
+
+  {%- comment -%} type_body {%- endcomment -%}
+  {%- if settings.type_body != blank -%}
+    {%- assign fonts_type_body_weight = settings.type_body.weight | times: 1 -%}
+    {{ settings.type_body | font_face: font_display: fonts_display }}
+    {{ settings.type_body | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+    {%- assign fonts_weight_adjustment_default = 700 -%}
+    {%- if fonts_type_body_weight > 700 -%}
+      {%- assign fonts_weight_adjustment_default = fonts_type_body_weight -%}
+    {%- endif -%}
+    {%- assign fonts_type_body_bolder = settings.type_body | font_modify: 'weight', 'bolder' -%}
+    {{ fonts_type_body_bolder | font_face: font_display: fonts_display }}
+    {{ fonts_type_body_bolder | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- endif -%}
+
+  {%- comment -%} type_heading {%- endcomment -%}
+  {%- if settings.type_heading != blank -%}
+    {%- assign fonts_type_heading_weight = settings.type_heading.weight | times: 1 -%}
+    {{ settings.type_heading | font_face: font_display: fonts_display }}
+    {{ settings.type_heading | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+    {%- assign fonts_weight_adjustment_default = 700 -%}
+    {%- if fonts_type_heading_weight > 700 -%}
+      {%- assign fonts_weight_adjustment_default = fonts_type_heading_weight -%}
+    {%- endif -%}
+    {%- assign fonts_type_heading_bolder = settings.type_heading | font_modify: 'weight', 'bolder' -%}
+    {{ fonts_type_heading_bolder | font_face: font_display: fonts_display }}
+    {{ fonts_type_heading_bolder | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+    {%- assign fonts_weight_adjustment_default = 300 -%}
+    {%- if fonts_type_heading_weight < 300 -%}
+      {%- assign fonts_weight_adjustment_default = fonts_type_heading_weight -%}
+    {%- endif -%}
+    {%- assign fonts_type_heading_lighter = settings.type_heading | font_modify: 'weight', 'lighter' -%}
+    {{ fonts_type_heading_lighter | font_face: font_display: fonts_display }}
+    {{ fonts_type_heading_lighter | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- endif -%}
+
+  {%- comment -%} type_button {%- endcomment -%}
+  {%- if settings.type_button != blank -%}
+    {{ settings.type_button | font_face: font_display: fonts_display }}
+    {{ settings.type_button | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- endif -%}
+
+  {%- comment -%} type_menu (nav / header) {%- endcomment -%}
+  {%- if settings.type_menu != blank -%}
+    {{ settings.type_menu | font_face: font_display: fonts_display }}
+    {{ settings.type_menu | font_modify: 'style', 'italic' | font_face: font_display: fonts_display }}
+  {%- endif -%}
+
+  :root {
+    {%- if settings.type_body != blank -%}
+      --theme-font-body: {{ settings.type_body.family }}, {{ settings.type_body.fallback_families }};
+    {%- else -%}
+      --theme-font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    {%- endif -%}
+    {%- if settings.type_heading != blank -%}
+      --theme-font-heading: {{ settings.type_heading.family }}, {{ settings.type_heading.fallback_families }};
+    {%- else -%}
+      --theme-font-heading: var(--theme-font-body);
+    {%- endif -%}
+    {%- if settings.type_button != blank -%}
+      --theme-font-button: {{ settings.type_button.family }}, {{ settings.type_button.fallback_families }};
+    {%- else -%}
+      --theme-font-button: var(--theme-font-body);
+    {%- endif -%}
+    {%- if settings.type_menu != blank -%}
+      --theme-font-menu: {{ settings.type_menu.family }}, {{ settings.type_menu.fallback_families }};
+    {%- else -%}
+      --theme-font-menu: var(--theme-font-body);
+    {%- endif -%}
+  }
+</style>

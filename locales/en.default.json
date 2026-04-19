@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "Sign up",
       "placeholder": "Email address",
-      "success": "Thanks for signing up!"
+      "success": "Thanks for signing up!",
+      "consent": "I agree to receive marketing emails."
     },
     "share_buttons": {
       "title": "Share this:",

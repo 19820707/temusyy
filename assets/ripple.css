@@ -4,6 +4,10 @@
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://github.com/material-components/material-components-web/blob/master/LICENSE
+ *
+ * Theme hardening (keep minimal — upstream is vendor MDC):
+ * - invariant: .mdc-ripple-surface sets outline:none; keyboard users must get :focus-visible ring (WCAG 2.4.7).
+ * - invariant: ripple motion must respect prefers-reduced-motion (vestibular / motion sensitivity).
  */
 @keyframes mdc-ripple-fg-radius-in {
   from {
@@ -43,6 +47,12 @@
   position: relative;
   outline: none;
   overflow: hidden;
+}
+
+.mdc-ripple-surface:focus-visible {
+  outline: 2px solid Highlight;
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: 2px;
 }
 
 .mdc-ripple-surface::before, .mdc-ripple-surface::after {
@@ -203,4 +213,12 @@
 
 .mdc-ripple-surface--accent.mdc-ripple-upgraded {
   --mdc-ripple-fg-opacity: 0.12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mdc-ripple-surface::before,
+  .mdc-ripple-surface::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
 }

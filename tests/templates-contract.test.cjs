@@ -37,6 +37,26 @@ jsonFiles.forEach(function (f) {
 const cart = JSON.parse(fs.readFileSync(path.join(templatesDir, 'cart.json'), 'utf8'));
 assert.strictEqual(cart.sections.main.type, 'static-cart', 'cart.json: main section must be static-cart');
 
+const indexTemplate = JSON.parse(stripLeadingBlockComment(fs.readFileSync(path.join(templatesDir, 'index.json'), 'utf8')));
+assert.ok(
+  indexTemplate.sections.smart_homepage_hub,
+  'index.json: homepage must include smart_homepage_hub guidance section'
+);
+assert.strictEqual(
+  indexTemplate.sections.smart_homepage_hub.type,
+  'dynamic-smart-homepage-hub',
+  'index.json: smart_homepage_hub must use dynamic-smart-homepage-hub section'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('smart_homepage_hub'),
+  indexTemplate.order.indexOf('dynamic_slideshow') + 1,
+  'index.json: smart_homepage_hub should appear immediately after hero slideshow'
+);
+assert.ok(
+  indexTemplate.sections.smart_homepage_hub.settings.primary_link,
+  'index.json: smart_homepage_hub primary CTA must be configured'
+);
+
 // --- gift_card.liquid (T2 CLS, T4 no console, favicon modern) ---
 const gift = fs.readFileSync(path.join(templatesDir, 'gift_card.liquid'), 'utf8');
 assert.doesNotMatch(
@@ -57,6 +77,67 @@ assert.match(
   gift,
   /aria-label="\{\{\s*'general\.accessibility\.nav_main'\s*\|\s*t\s*\|\s*escape\s*\}\}"/,
   'gift_card.liquid: main landmark must use translated nav_main label'
+);
+{
+  const idxFonts = gift.indexOf("render 'gift-card-font-faces'");
+  const idxSheet = gift.indexOf("'giftcard.css'");
+  assert.ok(idxFonts !== -1, "gift_card.liquid: must render snippet 'gift-card-font-faces'");
+  assert.ok(idxSheet !== -1, "gift_card.liquid: must load giftcard.css");
+  assert.ok(idxFonts < idxSheet, 'gift_card.liquid: font faces must load before giftcard.css (CSS variables + @font-face)');
+}
+const giftcardCss = fs.readFileSync(path.join(__dirname, '..', 'assets', 'giftcard.css'), 'utf8');
+assert.doesNotMatch(
+  giftcardCss,
+  /www\.temusy\.com/i,
+  'giftcard.css: must not hardcode legacy shop font host (portable theme + smaller file)'
+);
+assert.doesNotMatch(giftcardCss, /@font-face\s*\{/, 'giftcard.css: @font-face must come from Liquid font_face, not static CSS');
+assert.match(
+  giftcardCss,
+  /var\(\s*--giftcard-font-body\b/,
+  'giftcard.css: body must use theme-driven font stack variable'
+);
+assert.match(
+  giftcardCss,
+  /html::before[\s\S]{0,400}XXXS,XXS,XS,S,M,L,XL,XXL,XXXL/,
+  'giftcard.css: html::before breakpoint list required for empire.js Layout'
+);
+assert.match(
+  giftcardCss,
+  /\.giftcard-header-logo:focus-visible/,
+  'giftcard.css: header logo link must declare :focus-visible ring (keyboard UX)'
+);
+{
+  const printBlocks = giftcardCss.match(/@media print\s*\{/g);
+  assert.strictEqual(
+    printBlocks ? printBlocks.length : 0,
+    1,
+    'giftcard.css: must have exactly one @media print { ... } block'
+  );
+}
+const giftFonts = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'gift-card-font-faces.liquid'), 'utf8');
+assert.match(giftFonts, /\|\s*font_face:/, 'snippets/gift-card-font-faces.liquid: must call font_face filter');
+assert.match(giftFonts, /--giftcard-font-body:/, 'snippets/gift-card-font-faces.liquid: must define --giftcard-font-body');
+
+const giftcardCssLiquid = fs.readFileSync(path.join(__dirname, '..', 'assets', 'giftcard.css.liquid'), 'utf8');
+assert.ok(
+  giftcardCssLiquid.length < 1200,
+  'assets/giftcard.css.liquid: must stay a thin shim (avoid duplicating full gift card / theme CSS)'
+);
+assert.match(
+  giftcardCssLiquid,
+  /@import\s+url\s*\(\s*['"]\{\{\s*["']giftcard\.css["']\s*\|\s*asset_url\s*\}\}\s*['"]\s*\)\s*;/,
+  'assets/giftcard.css.liquid: must @import giftcard.css only (single source of truth)'
+);
+assert.doesNotMatch(
+  giftcardCssLiquid,
+  /@font-face\s*\{/,
+  'assets/giftcard.css.liquid: must not embed @font-face blocks (fonts via snippet + giftcard.css variables)'
+);
+assert.doesNotMatch(
+  giftcardCssLiquid,
+  /www\.temusy\.com/i,
+  'assets/giftcard.css.liquid: must not hardcode legacy shop font URLs'
 );
 
 console.log('templates-contract: ok');

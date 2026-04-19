@@ -7,8 +7,11 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  *
- * Invariant: "markets" must remain a JSON object (possibly empty). Liquid must
- * not assume market entries exist without checking keys first.
+ * invariant: Root JSON must contain only the "markets" key (stray keys can break theme upload / admin merge).
+ * invariant: "markets" must be a JSON object, never an array; values may be an empty object {}.
+ * invariant: When populated, each market id maps to a plain object (Shopify Markets shape); never an array/primitive at the id slot.
+ * invariant: This file is JSON-only after this block comment; malformed JSON fails theme upload (CI: config-theme-contract.test.cjs).
+ * invariant: Liquid must not assume specific market ids exist — always guard before iterating keys.
  * ------------------------------------------------------------
  */
 {

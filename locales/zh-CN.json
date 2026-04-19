@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "注册",
       "placeholder": "邮箱地址",
-      "success": "感谢您的注册！"
+      "success": "感谢您的注册！",
+      "consent": "我同意接收营销电子邮件。"
     },
     "share_buttons": {
       "title": "分享这个：",

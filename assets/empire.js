@@ -1999,7 +1999,8 @@ class OptionsSelection extends HTMLElement {
           const optionNameValueSpan = optionsNameEl.querySelector('span');
 
           if (optionNameValueSpan) {
-            optionNameValueSpan.innerHTML = optionsEl.dataset.variantOptionChosenValue;
+            // invariant: variant values are merchant/customer data and must remain text-only.
+            optionNameValueSpan.textContent = optionsEl.dataset.variantOptionChosenValue;
           }
         } else {
           optionsNameEl.innerHTML = optionsNameEl.dataset.variantOptionChooseName;
@@ -2009,13 +2010,13 @@ class OptionsSelection extends HTMLElement {
       if (!this.hasAttribute('disable-unavailable')) {
         const selectOptions = optionsEl.querySelectorAll('option');
         selectOptions.forEach(option => {
-          let optionLabel = option.innerHTML.replace(`- ${unavailableText}`, '');
+          let optionLabel = option.textContent.replace(`- ${unavailableText}`, '');
 
           if (option.dataset.variantOptionAvailable === 'false' && option.value !== unselectedValue) {
             optionLabel = `${optionLabel} - ${unavailableText}`;
           }
 
-          option.innerHTML = optionLabel;
+          option.textContent = optionLabel;
         });
       }
     }
@@ -5939,7 +5940,6 @@ function _index2(rule) {
 var isbot = new Isbot();
 
 module.exports = isbot;
-//# sourceMappingURL=index.js.map
 
 
 /***/ }),
@@ -16772,7 +16772,7 @@ var PhotoSwipeUI_Default =
 					captionEl.children[0].innerHTML = '';
 					return false;
 				}
-				captionEl.children[0].innerHTML = item.title;
+				captionEl.children[0].textContent = item.title;
 				return true;
 			},
 
@@ -29278,7 +29278,6 @@ var MDCFoundation = /** @class */ (function () {
 
 // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
 /* harmony default export */ const foundation = ((/* unused pure expression or super */ null && (MDCFoundation)));
-//# sourceMappingURL=foundation.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/base/component.js
 /**
  * @license
@@ -29381,7 +29380,6 @@ var MDCComponent = /** @class */ (function () {
 
 // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
 /* harmony default export */ const component = ((/* unused pure expression or super */ null && (MDCComponent)));
-//# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/dom/events.js
 /**
  * @license
@@ -29438,7 +29436,6 @@ function supportsPassiveOption(globalObj) {
     }
     return passiveSupported;
 }
-//# sourceMappingURL=events.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/dom/ponyfill.js
 /**
  * @license
@@ -29510,7 +29507,6 @@ function estimateScrollWidth(element) {
     document.documentElement.removeChild(clone);
     return scrollWidth;
 }
-//# sourceMappingURL=ponyfill.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/ripple/constants.js
 /**
  * @license
@@ -29559,7 +29555,6 @@ var numbers = {
     PADDING: 10,
     TAP_DELAY_MS: 300,
 };
-//# sourceMappingURL=constants.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/ripple/util.js
 /**
  * Stores result from supportsCssVariables to avoid redundant processing to
@@ -29611,7 +29606,6 @@ function getNormalizedEventCoords(evt, pageOffset, clientRect) {
     }
     return { x: normalizedX, y: normalizedY };
 }
-//# sourceMappingURL=util.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/ripple/foundation.js
 /**
  * @license
@@ -30080,7 +30074,6 @@ var MDCRippleFoundation = /** @class */ (function (_super) {
 
 // tslint:disable-next-line:no-default-export Needed for backward compatibility with MDC Web v0.44.0 and earlier.
 /* harmony default export */ const ripple_foundation = ((/* unused pure expression or super */ null && (MDCRippleFoundation)));
-//# sourceMappingURL=foundation.js.map
 ;// CONCATENATED MODULE: ./node_modules/@material/ripple/component.js
 /**
  * @license
@@ -30193,7 +30186,6 @@ var MDCRipple = /** @class */ (function (_super) {
     return MDCRipple;
 }(MDCComponent));
 
-//# sourceMappingURL=component.js.map
 ;// CONCATENATED MODULE: ./source/scripts/helpers/Ripple.js
 
 
@@ -30656,7 +30648,6 @@ function removeClasses(el, classNames) {
     el.classList.remove(className);
   });
 }
-//# sourceMappingURL=dom.js.map
 ;// CONCATENATED MODULE: ./node_modules/drift-zoom/es/injectBaseStylesheet.js
 /* UNMINIFIED RULES
 
@@ -30719,12 +30710,10 @@ function injectBaseStylesheet() {
   var head = document.head;
   head.insertBefore(styleEl, head.firstChild);
 }
-//# sourceMappingURL=injectBaseStylesheet.js.map
 ;// CONCATENATED MODULE: ./node_modules/drift-zoom/es/util/throwIfMissing.js
 function throwIfMissing() {
   throw new Error("Missing parameter");
 }
-//# sourceMappingURL=throwIfMissing.js.map
 ;// CONCATENATED MODULE: ./node_modules/drift-zoom/es/BoundingBox.js
 function BoundingBox_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30823,7 +30812,6 @@ var BoundingBox = /*#__PURE__*/function () {
 }();
 
 
-//# sourceMappingURL=BoundingBox.js.map
 ;// CONCATENATED MODULE: ./node_modules/drift-zoom/es/Trigger.js
 function Trigger_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31070,7 +31058,6 @@ var Trigger = /*#__PURE__*/function () {
 }();
 
 
-//# sourceMappingURL=Trigger.js.map
 ;// CONCATENATED MODULE: ./node_modules/drift-zoom/es/ZoomPane.js
 function ZoomPane_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31351,7 +31338,6 @@ var ZoomPane = /*#__PURE__*/function () {
 }();
 
 
-//# sourceMappingURL=ZoomPane.js.map
 ;// CONCATENATED MODULE: ./node_modules/drift-zoom/es/Drift.js
 function Drift_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31577,7 +31563,6 @@ Drift.prototype["disable"] = Drift.prototype.disable;
 Drift.prototype["enable"] = Drift.prototype.enable;
 Drift.prototype["destroy"] = Drift.prototype.destroy;
 /* eslint-enable no-self-assign */
-//# sourceMappingURL=Drift.js.map
 ;// CONCATENATED MODULE: ./source/scripts/components/Youtube.js
 
 const api = 'https://www.youtube.com/iframe_api';
@@ -32691,10 +32676,17 @@ class ProductDetails {
       this.surfacePickUp.onModalRequest(contents => {
         let container = this.$formArea[0].querySelector('[data-surface-pick-up-modal-contents]');
         this.variantSelection.getVariant().then(variant => {
-          const variantTitle = !this.isDefaultVariant ? `<div class="surface-pick-up-modal__variant">${variant.title}</div>` : '';
+          const escapeModalText = value => String(value || '').replace(/[&<>"']/g, char => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+          })[char]);
+          const variantTitle = !this.isDefaultVariant ? `<div class="surface-pick-up-modal__variant">${escapeModalText(variant && variant.title)}</div>` : '';
           const modalContents = `
             <div class="surface-pick-up-modal__header">
-              <h2 class="surface-pick-up-modal__title">${this.product.title}</h2>
+              <h2 class="surface-pick-up-modal__title">${escapeModalText(this.product && this.product.title)}</h2>
               ${variantTitle}
             </div>
             ${contents}
@@ -35906,11 +35898,11 @@ class SearchForm {
           } = e.target;
           if (value) {
             const newValue = sanitizeCategory(value);
-            this.filterLabel.innerHTML = newValue;
+            this.filterLabel.textContent = newValue;
             this.setCategory(newValue);
             this.form.classList.add('live-search-filter-active');
           } else {
-            this.filterLabel.innerHTML = e.target.dataset.filterAll;
+            this.filterLabel.textContent = e.target.dataset.filterAll;
             this.form.classList.remove('live-search-filter-active');
             this.setCategory('');
           }
@@ -35921,7 +35913,7 @@ class SearchForm {
           this.filter.value = '';
           this.form.classList.remove('live-search-filter-active');
           if (this.filterLabel) {
-            this.filterLabel.innerHTML = this.filter.dataset.filterAll;
+            this.filterLabel.textContent = this.filter.dataset.filterAll;
           }
         }
       };

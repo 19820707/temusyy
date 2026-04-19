@@ -37,6 +37,11 @@
             id="{{ input_id }}"
             name="contact[email]"
             aria-label="{{ 'general.newsletter.placeholder' | t }}"
+            autocomplete="email"
+            autocapitalize="off"
+            spellcheck="false"
+            maxlength="254"
+            required
           >
 
           <label
@@ -48,6 +53,16 @@
         </div>
 
         <div class="form-field newsletter-submit">
+          <label class="newsletter-consent">
+            <input
+              type="checkbox"
+              name="contact[accepts_marketing]"
+              value="true"
+              required
+            >
+            <span>{{ 'general.newsletter.consent' | t }}</span>
+          </label>
+
           <button
             class="button-primary"
             name="subscribe"

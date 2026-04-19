@@ -51,7 +51,7 @@
         "group_1": "Außerhalb",
         "group_2": "Overlay",
         "option_1": "Links oben",
-        "option_2": "Mitte links",
+        "option_2": "Links Mitte",
         "option_3": "Links unten",
         "option_4": "Rechts oben",
         "option_5": "Mitte rechts",
@@ -64,7 +64,7 @@
         "option_12": "Mitte rechts",
         "option_13": "Unten links",
         "option_14": "Unten Mitte",
-        "option_15": "Oben rechts"
+        "option_15": "Unten rechts"
       },
       "layout_mobile": {
         "label": "Mobiles Layout",

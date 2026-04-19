@@ -4,7 +4,7 @@
  * Mapping to regression matrix:
  * - T1 (cart copy surface): product.buttons.add_to_cart present in every storefront locale.
  * - T2 (CLS / layout copy): not asserted here (handled in layout/CSS); locale strings must stay JSON-safe.
- * - T3 (null safety / missing keys): required paths must exist for layout + compare drawer + primary ATC label.
+ * - T3 (null safety / missing keys): required paths must exist for layout + compare drawer + primary ATC label + newsletter marketing consent (snippets/newsletter.liquid).
  * - T4 (JS stability): no literal "console." inside translation payloads (prevents accidental script injection).
  * - T5 (payload hygiene): valid JSON only; *.schema.json excluded from storefront key matrix.
  */
@@ -21,6 +21,7 @@ assert.ok(files.includes('en.default.json'), 'locales: en.default.json must exis
 const requiredPaths = [
   ['general', 'accessibility', 'skip_to_content'],
   ['general', 'accessibility', 'close'],
+  ['general', 'newsletter', 'consent'],
   ['product', 'buttons', 'add_to_cart'],
   ['product_compare', 'drawer_notification', 'one'],
   ['product_compare', 'drawer_notification', 'other'],

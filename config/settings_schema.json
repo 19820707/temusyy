@@ -405,7 +405,8 @@
         "type": "checkbox",
         "id": "reduce_animations",
         "label": "t:settings_schema.animations.reduce_animations.label",
-        "info": "t:settings_schema.animations.reduce_animations.info"
+        "info": "t:settings_schema.animations.reduce_animations.info",
+        "default": false
       }
     ]
   },
@@ -988,7 +989,8 @@
       {
         "type": "checkbox",
         "id": "enable_orders_atc",
-        "label": "t:settings_schema.orders.enable_orders_atc.label"
+        "label": "t:settings_schema.orders.enable_orders_atc.label",
+        "default": true
       }
     ]
   },

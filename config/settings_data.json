@@ -10,6 +10,13 @@
  * Invariants (manual governance — keep aligned with settings_schema.json):
  * - age_gate_site_wide_min_age must never be below the schema "min" (default 18).
  * - Theme JSON is not Liquid: never assume keys exist in Liquid without defaults | default / unless checks.
+ * - invariant: current.minify_scripts and current.reduce_animations must remain JSON booleans (layout/theme.liquid branches on them without | default).
+ * - invariant: current.enable_age_gate_site_wide, enable_product_compare, enable_back_to_top_button, enable_checkout_lock_icon, product_grid_image_crop must remain JSON booleans (layout/theme.liquid uses truthy branches without | default on several of these).
+ * - invariant: current.select_first_available_variant and enable_cart_redirection must remain JSON booleans (variant selection + post-add-to-cart navigation; type drift breaks predictable PDP/cart UX).
+ * - invariant: current.color_background must remain a hex color string (theme.liquid sets inline --background-color from this value).
+ * - invariant: current.product_grid_image_style must stay one of natural|small|medium|large (settings_schema select values; drives collection grid classnames).
+ * - invariant: current.layout_max_width must stay within schema range 1200–1600 px (layout container max-width contract).
+ * - invariant: root JSON must contain only "current" and "presets" keys (CI: config-theme-contract); stray keys indicate a corrupted theme export merge.
  * - add-to-cart / fetch timeouts are enforced in JS (assets), not in this file.
  * ------------------------------------------------------------
  */

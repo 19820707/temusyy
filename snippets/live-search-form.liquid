@@ -66,10 +66,10 @@
                 {%- if type == filter -%}
                   {%- assign search_filter_selected = type -%}
                   {%- capture search_filter_content_first -%}
-                    <option value="{{ filter_search_by }}:{{ type | escape }}" selected>{{ type }}</option>
+                    <option value="{{ filter_search_by }}:{{ type | escape }}" selected>{{ type | escape }}</option>
                   {%- endcapture -%}
                 {%- else -%}
-                  <option value="{{ filter_search_by }}:{{ type | escape }}">{{ type }}</option>
+                  <option value="{{ filter_search_by }}:{{ type | escape }}">{{ type | escape }}</option>
                 {%- endif -%}
               {% endfor %}
             {% endcapture %}
@@ -81,10 +81,10 @@
                   {%- if tag == filter or collection.title == split_tag[1] -%}
                     {%- assign search_filter_selected = split_tag[1] -%}
                     {%- capture search_filter_content_first -%}
-                      <option value="{{ filter_search_by }}:{{ tag | escape }}" selected>{{ split_tag[1] }}</option>
+                      <option value="{{ filter_search_by }}:{{ tag | escape }}" selected>{{ split_tag[1] | escape }}</option>
                     {%- endcapture -%}
                   {%- else -%}
-                    <option value="{{ filter_search_by }}:{{ tag | escape }}">{{ split_tag[1] }}</option>
+                    <option value="{{ filter_search_by }}:{{ tag | escape }}">{{ split_tag[1] | escape }}</option>
                   {%- endif -%}
                 {%- endif -%}
               {%- endfor -%}
@@ -96,7 +96,7 @@
             class="live-search-filter"
             id="live-search-filter"
             data-live-search-filter
-            data-filter-all="{{ 'search.form.filter_all' | t }}"
+            data-filter-all="{{ 'search.form.filter_all' | t | escape }}"
           >
             {{ search_filter_content_first }}
             <option value="" {% if search_filter_selected == blank %}selected{% endif %}>{{ 'search.form.filter_all' | t }}</option>
@@ -113,7 +113,7 @@
             data-live-search-filter-label
           >
             {%- if search_filter_selected != blank -%}
-              {{ search_filter_selected }}
+              {{ search_filter_selected | escape }}
             {%- else -%}
               {{ 'search.form.filter_all' | t }}
             {%- endif -%}

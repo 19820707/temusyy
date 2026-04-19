@@ -38,4 +38,31 @@ assert.match(
   'expected mouseoverTimer cleared when starting a new hover intent'
 );
 
+// T6 — Lifecycle: duplicate script include must not stack document listeners
+assert.match(
+  src,
+  /tinyImgLinkPrefetcherInit/,
+  'expected documentElement dataset sentinel for single init'
+);
+assert.match(
+  src,
+  /dataset\.tinyImgLinkPrefetcherInit\s*===\s*['"]1['"]/,
+  'expected init guard to compare sentinel before registering listeners'
+);
+
+// T7 — DOM safety: Text-node targets must not call closest on non-Elements
+assert.match(src, /closestAnchorFromEventTarget/, 'expected text-node-safe anchor resolver');
+assert.match(
+  src,
+  /nodeType\s*===\s*3/,
+  'expected Text node (nodeType 3) handling before closest'
+);
+
+// T8 — document.body must be guarded before dataset reads (execution-order safety)
+assert.match(
+  src,
+  /var\s+body\s*=\s*document\.body/,
+  'expected document.body bound to a variable before dataset use'
+);
+
 console.log('assets-tiny-preloader-contract: ok');

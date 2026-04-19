@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "Zaregistrovat se",
       "placeholder": "Emailová adresa",
-      "success": "Děkujeme za registraci!"
+      "success": "Děkujeme za registraci!",
+      "consent": "Souhlasím se zasíláním marketingových e-mailů."
     },
     "share_buttons": {
       "title": "Sdílejte toto: ",
@@ -630,7 +631,7 @@
     "description": "Popis",
     "rating": "Recenze produktu",
     "breadcrumb": "Zpět na {{ location }}",
-    "breadcrumb_generic": "Zadní",
+    "breadcrumb_generic": "Zpět",
     "remove": "Odstranit"
   }
 }

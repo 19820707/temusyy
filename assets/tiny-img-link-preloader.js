@@ -8,9 +8,16 @@
  * - Invalid href / URL parsing must never throw into the page (safe try/catch at boundaries).
  * - Never stack duplicate gesture listeners on the same <a> (touchend/touchcancel use { once: true }).
  * - Never stack duplicate mouseout handlers (single delegated document listener).
+ * - invariant: if this file is included twice, document-level listeners must not double-register (prefetch storm + main-thread waste).
+ * - invariant: event.target may be a Text node; never call Element#closest on a Text node (TypeError in strict mode).
  */
 (function () {
   'use strict';
+
+  var html = document.documentElement;
+  if (html && html.dataset.tinyImgLinkPrefetcherInit === '1') {
+    return;
+  }
 
   var prefetcher = document.createElement('link');
   var isSupported =
@@ -18,8 +25,12 @@
     prefetcher.relList.supports &&
     prefetcher.relList.supports('prefetch');
   var isDataSaverEnabled = navigator.connection && navigator.connection.saveData;
-  var allowQueryString = 'instantAllowQueryString' in document.body.dataset;
-  var allowExternalLinks = 'instantAllowExternalLinks' in document.body.dataset;
+  var body = document.body;
+  if (!body) {
+    return;
+  }
+  var allowQueryString = 'instantAllowQueryString' in body.dataset;
+  var allowExternalLinks = 'instantAllowExternalLinks' in body.dataset;
 
   var urlToPreload;
   var mouseoverTimer;
@@ -27,6 +38,11 @@
 
   if (!isSupported || isDataSaverEnabled) {
     return;
+  }
+
+  /* invariant: set only after permanent eligibility checks (avoid blocking a later legitimate include) */
+  if (html) {
+    html.dataset.tinyImgLinkPrefetcherInit = '1';
   }
 
   prefetcher.rel = 'prefetch';
@@ -38,9 +54,26 @@
   document.addEventListener('mouseover', mouseoverListener, capturePassive);
   document.addEventListener('mouseout', documentMouseoutListener, capturePassive);
 
+  /**
+   * Text-node safe anchor resolution (mirrors documentMouseoutListener).
+   * invariant: callers must not assume e.target is an Element.
+   */
+  function closestAnchorFromEventTarget(node) {
+    if (!node) {
+      return null;
+    }
+    if (node.nodeType === 3 && node.parentElement) {
+      node = node.parentElement;
+    }
+    if (!node || node.nodeType !== 1 || typeof node.closest !== 'function') {
+      return null;
+    }
+    return node.closest('a');
+  }
+
   function touchstartListener(e) {
     lastTouchTimestamp = performance.now();
-    var anchor = e.target && e.target.closest('a');
+    var anchor = closestAnchorFromEventTarget(e.target);
     if (!isPreloadable(anchor)) {
       return;
     }
@@ -62,7 +95,7 @@
       clearTimeout(mouseoverTimer);
       mouseoverTimer = void 0;
     }
-    var anchor = e.target && e.target.closest('a');
+    var anchor = closestAnchorFromEventTarget(e.target);
     if (!isPreloadable(anchor)) {
       return;
     }
@@ -78,17 +111,7 @@
    * Mirrors legacy behaviour: ignore moves that stay inside the same <a> subtree.
    */
   function documentMouseoutListener(e) {
-    var fromNode = e.target;
-    if (!fromNode) {
-      return;
-    }
-    if (fromNode.nodeType === 3 && fromNode.parentElement) {
-      fromNode = fromNode.parentElement;
-    }
-    if (typeof fromNode.closest !== 'function') {
-      return;
-    }
-    var fromA = fromNode.closest('a');
+    var fromA = closestAnchorFromEventTarget(e.target);
     if (!fromA) {
       return;
     }

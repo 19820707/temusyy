@@ -137,6 +137,7 @@
         name="id"
         type="hidden"
         value="{{ product.variants.first.id }}"
+        required
         data-variants
       >
     {% else %}
@@ -151,6 +152,7 @@
         class="variant-selection__variants"
         name="id"
         style="display: none"
+        required
         data-variants
       >
         <option

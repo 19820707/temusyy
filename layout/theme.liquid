@@ -4,6 +4,8 @@
   - Liquid must never assume settings / handles exist — use blank checks before string splits and preloads.
   - add-to-cart concurrency + fetch timeouts live in assets (empire.js), not here.
   - Critical above-the-fold images should set width/height in sections/snippets; favicon uses fixed width URL.
+  - Animation mapping JSON: validate object shape before forEach — avoid throw-driven control flow; partial payloads degrade gracefully.
+  - Third-party / vendor inline beacons must never assume optional globals (e.g. BOOMR, Shopify.shop) exist in design mode.
 {% endcomment %}
 <html class="no-js no-touch" lang="{{ request.locale.iso_code }}">
   <head>
@@ -23,7 +25,6 @@
         {% capture cat_array %}{%- render 'advanced-tag-loop' -%}{% endcapture %}
         {% assign cat_array = cat_array | split: '|' %}
         {% assign title_tags = '' %}
-        {% assign meta_tags = current_tags | join: ', ' %}
         {%- for tag in current_tags -%}
           {% assign is_advanced_tag = false %}
           {% assign cat = tag | split: '_' | first %}
@@ -84,6 +85,8 @@
 
     {%- if tinyscript -%}{{ content_for_header }}{%- else -%}{% render 'tiny-script-control' %}{%- endif -%}
 
+    {%- comment -%} invariant: theme-font-faces must load before theme.css (defines @font-face + --theme-font-* consumed by theme.css). {%- endcomment -%}
+    {% render 'theme-font-faces' %}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
 
     {% unless settings.reduce_animations %}
@@ -537,6 +540,7 @@
       {{ 'customer_area.js' | shopify_asset_url | script_tag }}
     {%- endif -%}
 
+    {%- comment -%} invariant: pxu animation bootstrap must tolerate absent keys / non-object JSON without throwing past JSON.parse. {%- endcomment -%}
     {% unless settings.reduce_animations %}
       <script>
         (
@@ -552,21 +556,27 @@
                 const section = mappingEl.parentNode;
                 try {
                   const mapping = JSON.parse(mappingEl.innerHTML);
-                  mapping.elements.forEach(function (elementSelector) {
-                    section
-                      .querySelectorAll(elementSelector)
-                      .forEach(function (element) { element.classList.add(classes.element); });
-                  });
-
-                  mapping.blocks.forEach(function (blockSelector) {
-                    section
-                      .querySelectorAll(blockSelector)
-                      .forEach(function (block) { block.classList.add(classes.block); });
-                  });
+                  if (!mapping || typeof mapping !== 'object' || Array.isArray(mapping)) {
+                    return;
+                  }
+                  if (Array.isArray(mapping.elements)) {
+                    mapping.elements.forEach(function (elementSelector) {
+                      section
+                        .querySelectorAll(elementSelector)
+                        .forEach(function (element) { element.classList.add(classes.element); });
+                    });
+                  }
+                  if (Array.isArray(mapping.blocks)) {
+                    mapping.blocks.forEach(function (blockSelector) {
+                      section
+                        .querySelectorAll(blockSelector)
+                        .forEach(function (block) { block.classList.add(classes.block); });
+                    });
+                  }
                 } catch (error) {
                   /* Invalid JSON mapping: fail closed (no console noise in production storefronts). */
                 }
-            });
+              });
           }
         )()
       </script>
@@ -601,6 +611,7 @@
     <script>
     (function () {
       function handleFirstTab(e) {
+        // invariant: detect Tab without relying only on deprecated keyCode.
         if (e.key === 'Tab' || e.keyCode === 9) {
           document.body.classList.add('user-is-tabbing');
           window.removeEventListener('keydown', handleFirstTab);
@@ -616,7 +627,8 @@
       defer
     >
     </script>
-    <script>(function(n, v) {/* eslint-disable-next-line max-len */if (window.Shopify && window.Shopify.theme && navigator && navigator.sendBeacon && window.Shopify.designMode) {if (sessionStorage.getItem('oots_beacon')) return;navigator.sendBeacon('https://app.outofthesandbox.com/beacon', new URLSearchParams({shop_domain: window.Shopify.shop.toLowerCase(),shop_id: window.BOOMR.shopId,shop_email: '{{ shop.email }}',theme_name: n.toLowerCase(),theme_version: v.toLowerCase(),theme_store_id: window.Shopify.theme.theme_store_id,theme_id: window.Shopify.theme.id,theme_role: window.Shopify.theme.role,}));sessionStorage.setItem('oots_beacon', '');}}('empire','11.1.3'))</script>
+    {%- comment -%} invariant: OOTS design beacon must not assume window.BOOMR or Shopify.shop; missing values must not throw. {%- endcomment -%}
+    <script>(function(n, v) {/* eslint-disable-next-line max-len */if (window.Shopify && window.Shopify.theme && navigator && navigator.sendBeacon && window.Shopify.designMode) {if (sessionStorage.getItem('oots_beacon')) return;navigator.sendBeacon('https://app.outofthesandbox.com/beacon', new URLSearchParams({shop_domain:(window.Shopify.shop && window.Shopify.shop.toLowerCase()) || '',shop_id:(window.BOOMR && window.BOOMR.shopId) || '',shop_email: '{{ shop.email }}',theme_name: n.toLowerCase(),theme_version: v.toLowerCase(),theme_store_id: window.Shopify.theme.theme_store_id,theme_id: window.Shopify.theme.id,theme_role: window.Shopify.theme.role,}));sessionStorage.setItem('oots_beacon', '');}}('empire','11.1.3'))</script>
     <script src="{{ 'tiny-img-link-preloader.js' | asset_url }}" defer></script>
   </body>
 </html>

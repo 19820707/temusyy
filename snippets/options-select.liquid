@@ -13,11 +13,11 @@
     <label
       class="options-selection__select-label"
       for="{{ id }}-{{ section.id }}"
-      data-variant-option-name="{{ option.name }}"
-      data-variant-option-choose-name="{{ 'product.variants.choose_option' | t: option: option.name }}"
+      data-variant-option-name="{{ option.name | escape }}"
+      data-variant-option-choose-name="{{ 'product.variants.choose_option' | t: option: option.name | escape }}"
     >
       {% if selected_variant %}
-        {{ option.name }}
+        {{ option.name | escape }}
       {% else %}
         {{ 'product.variants.choose_option' | t: option: option.name }}
       {% endif %}

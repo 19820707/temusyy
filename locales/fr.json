@@ -153,7 +153,8 @@
     "newsletter": {
       "subscribe": "S'inscrire",
       "placeholder": "Adresse email",
-      "success": "Merci pour votre inscription !"
+      "success": "Merci pour votre inscription !",
+      "consent": "J'accepte de recevoir des e-mails marketing."
     },
     "share_buttons": {
       "title": "Partager ceci :",
