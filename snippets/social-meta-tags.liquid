@@ -59,6 +59,12 @@
 <meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:description" content="{{ og_description | escape }}">
+<meta property="og:locale" content="{{ request.locale.iso_code | replace: '-', '_' | escape }}">
+{% for language in localization.available_languages %}
+  {% unless language.iso_code == request.locale.iso_code %}
+    <meta property="og:locale:alternate" content="{{ language.iso_code | replace: '-', '_' | escape }}">
+  {% endunless %}
+{% endfor %}
 
 {% if template.name == 'article' %}
   <meta property="article:published_time" content="{{ article.published_at }}">
@@ -128,4 +134,3 @@
 <meta name="twitter:description" content="{{ twitter_description | escape }}">
 
 {{ twitter_image_tags }}
-

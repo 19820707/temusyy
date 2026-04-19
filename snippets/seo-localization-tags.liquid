@@ -1,0 +1,19 @@
+{% comment %}
+  invariant: alternate language URLs must not depend on JavaScript localization forms.
+  Build each URL from the target language root plus the current path without the current locale root.
+{% endcomment %}
+{%- liquid
+  assign current_locale_root = routes.root_url | default: '/'
+  assign localized_path = request.path | remove_first: current_locale_root
+  assign default_language = localization.available_languages | first
+-%}
+
+{%- if localization.available_languages.size > 1 -%}
+  {%- for language in localization.available_languages -%}
+    {%- assign language_root = language.root_url | default: routes.root_url -%}
+    <link rel="alternate" hreflang="{{ language.iso_code | escape }}" href="{{ shop.url }}{{ language_root }}{{ localized_path | escape }}" />
+  {%- endfor -%}
+  {%- if default_language.root_url != blank -%}
+    <link rel="alternate" hreflang="x-default" href="{{ shop.url }}{{ default_language.root_url }}{{ localized_path | escape }}" />
+  {%- endif -%}
+{%- endif -%}

@@ -107,7 +107,7 @@
                   <details class="disclosure">
                     <summary>
                       <span class="disclosure__toggle">
-                        {{ form.current_locale.endonym_name | capitalize }}
+                        {{ form.current_locale.endonym_name | capitalize | escape }}
                       </span>
                     </summary>
                     <div class="disclosure-list disclosure-list--visible">
@@ -115,12 +115,12 @@
                         <div class="disclosure-list__item-wrapper disclosure-list__item">
                           <input
                             type="radio"
-                            id="{{ locale.iso_code }}"
+                            id="{{ locale.iso_code | escape }}"
                             name="locale_code"
-                            value="{{ locale.iso_code }}"
+                            value="{{ locale.iso_code | escape }}"
                             {% if locale.iso_code == form.current_locale.iso_code %}checked{% endif %}
                           >
-                          <label class="disclosure-list__item--label" for="{{ locale.iso_code }}">{{ locale.endonym_name | capitalize }}</label>
+                          <label class="disclosure-list__item--label" for="{{ locale.iso_code | escape }}">{{ locale.endonym_name | capitalize | escape }}</label>
                         </div>
                       {% endfor %}
                       <button class="disclosure__submit" type="submit">{{ 'general.language.submit_button_label' | t }}</button>
@@ -144,18 +144,18 @@
                       aria-describedby="lang-heading-{{ unique_id }}"
                       data-disclosure-toggle
                     >
-                      {{ form.current_locale.endonym_name | capitalize }}
+                      {{ form.current_locale.endonym_name | capitalize | escape }}
                     </button>
                     <ul id="lang-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
                       {% for locale in form.available_locales %}
                         <li>
-                          <a class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}" href="#" lang="{{ locale.iso_code }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code }}" data-disclosure-option>
-                            <span class="disclosure-list__option">{{ locale.endonym_name | capitalize }}</span>
+                          <a class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}" href="{{ locale.root_url | default: routes.root_url }}{{ request.path | remove_first: routes.root_url | escape }}" lang="{{ locale.iso_code | escape }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code | escape }}" data-disclosure-option>
+                            <span class="disclosure-list__option">{{ locale.endonym_name | capitalize | escape }}</span>
                           </a>
                         </li>
                       {%- endfor -%}
                     </ul>
-                    <input type="hidden" name="locale_code" id="LocaleSelector-{{ unique_id }}" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
+                    <input type="hidden" name="locale_code" id="LocaleSelector-{{ unique_id }}" value="{{ form.current_locale.iso_code | escape }}" data-disclosure-input/>
                   </div>
                 </div>
               {%- endform -%}
@@ -172,7 +172,7 @@
                   <details class="disclosure">
                     <summary>
                       <span class="disclosure__toggle">
-                        {{ localization.country.name }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{% endif %})
+                        {{ localization.country.name | escape }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{% endif %})
                       </span>
                     </summary>
                     <div class="disclosure-list disclosure-list--visible">
@@ -180,12 +180,12 @@
                         <div class="disclosure-list__item-wrapper disclosure-list__item">
                           <input
                             type="radio"
-                            id="{{ country.iso_code }}"
+                            id="{{ country.iso_code | escape }}"
                             name="country_code"
-                            value="{{ country.iso_code }}"
+                            value="{{ country.iso_code | escape }}"
                             {% if country.iso_code == localization.country.iso_code %}checked{% endif %}
                           >
-                          <label class="disclosure-list__item--label" for="{{ country.iso_code }}">{{ country.name }} ({{ country.currency.iso_code }}{%- if country.currency.symbol -%} {{ country.currency.symbol }}{%- endif -%})</label>
+                          <label class="disclosure-list__item--label" for="{{ country.iso_code | escape }}">{{ country.name | escape }} ({{ country.currency.iso_code }}{%- if country.currency.symbol -%} {{ country.currency.symbol }}{%- endif -%})</label>
                         </div>
                       {% endfor %}
                       <button class="disclosure__submit" type="submit">{{ 'general.country.submit_button_label' | t }}</button>
@@ -209,7 +209,7 @@
                       aria-describedby="country-heading-{{ unique_id }}"
                       data-disclosure-toggle
                     >
-                      {{ localization.country.name }}
+                      {{ localization.country.name | escape }}
                       <span class="disclosure-list__option-code"> 
                         ({{ localization.country.currency.iso_code }}
                         {% if localization.country.currency.symbol %} {{ localization.country.currency.symbol }}{% endif %})
@@ -218,8 +218,8 @@
                     <ul id="country-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
                       {% for country in localization.available_countries %}
                         <li>
-                          <a class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
-                            <span class="disclosure-list__option">{{ country.name }}</span>
+                          <a class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code | escape }}" data-disclosure-option>
+                            <span class="disclosure-list__option">{{ country.name | escape }}</span>
                             <span class="disclosure-list__option-code">
                               ({{ country.currency.iso_code }}
                               {% if country.currency.symbol %} {{ country.currency.symbol }}{%- endif -%})
@@ -228,7 +228,7 @@
                         </li>
                       {%- endfor -%}
                     </ul>
-                    <input type="hidden" name="country_code" id="CountrySelector-{{ unique_id }}" value="{{ localization.country.iso_code }}" data-disclosure-input/>
+                    <input type="hidden" name="country_code" id="CountrySelector-{{ unique_id }}" value="{{ localization.country.iso_code | escape }}" data-disclosure-input/>
                   </div>
                 </div>
               {%- endform -%}
@@ -292,7 +292,7 @@
                 <details class="disclosure">
                   <summary>
                     <span class="disclosure__toggle">
-                      {{ form.current_locale.endonym_name | capitalize }}
+                      {{ form.current_locale.endonym_name | capitalize | escape }}
                     </span>
                   </summary>
                   <div class="disclosure-list disclosure-list--visible">
@@ -300,12 +300,12 @@
                       <div class="disclosure-list__item-wrapper disclosure-list__item">
                         <input
                           type="radio"
-                          id="{{ locale.iso_code }}"
+                          id="{{ locale.iso_code | escape }}"
                           name="locale_code"
-                          value="{{ locale.iso_code }}"
+                          value="{{ locale.iso_code | escape }}"
                           {% if locale.iso_code == form.current_locale.iso_code %}checked{% endif %}
                         >
-                        <label class="disclosure-list__item--label" for="{{ locale.iso_code }}">{{ locale.endonym_name | capitalize }}</label>
+                        <label class="disclosure-list__item--label" for="{{ locale.iso_code | escape }}">{{ locale.endonym_name | capitalize | escape }}</label>
                       </div>
                     {% endfor %}
                     <button class="disclosure__submit" type="submit">{{ 'general.language.submit_button_label' | t }}</button>
@@ -329,18 +329,18 @@
                     aria-describedby="lang-heading-{{ unique_id }}"
                     data-disclosure-toggle
                   >
-                    {{ form.current_locale.endonym_name | capitalize }}
+                    {{ form.current_locale.endonym_name | capitalize | escape }}
                   </button>
                   <ul id="lang-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
                     {% for locale in form.available_locales %}
                       <li>
-                        <a class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}" href="#" lang="{{ locale.iso_code }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code }}" data-disclosure-option>
-                          <span class="disclosure-list__option">{{ locale.endonym_name | capitalize }}</span>
+                        <a class="disclosure-list__item {% if locale.iso_code == form.current_locale.iso_code %}disclosure-list__item--current{% endif %}" href="{{ locale.root_url | default: routes.root_url }}{{ request.path | remove_first: routes.root_url | escape }}" lang="{{ locale.iso_code | escape }}" {% if locale.iso_code == form.current_locale.iso_code %}aria-current="true"{% endif %} data-value="{{ locale.iso_code | escape }}" data-disclosure-option>
+                          <span class="disclosure-list__option">{{ locale.endonym_name | capitalize | escape }}</span>
                         </a>
                       </li>
                     {%- endfor -%}
                   </ul>
-                  <input type="hidden" name="locale_code" id="LocaleSelector-{{ unique_id }}" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
+                  <input type="hidden" name="locale_code" id="LocaleSelector-{{ unique_id }}" value="{{ form.current_locale.iso_code | escape }}" data-disclosure-input/>
                 </div>
               </div>
             {%- endform -%}
@@ -357,7 +357,7 @@
                 <details class="disclosure">
                   <summary>
                     <span class="disclosure__toggle">
-                      {{ localization.country.name }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{% endif %})
+                      {{ localization.country.name | escape }} ({{ localization.country.currency.iso_code }}{% if localization.country.currency.symbol %}{{ localization.country.currency.symbol }}{% endif %})
                     </span>
                   </summary>
                   <div class="disclosure-list disclosure-list--visible">
@@ -365,12 +365,12 @@
                       <div class="disclosure-list__item-wrapper disclosure-list__item">
                         <input
                           type="radio"
-                          id="{{ country.iso_code }}"
+                          id="{{ country.iso_code | escape }}"
                           name="country_code"
-                          value="{{ country.iso_code }}"
+                          value="{{ country.iso_code | escape }}"
                           {% if country.iso_code == localization.country.iso_code %}checked{% endif %}
                         >
-                        <label class="disclosure-list__item--label" for="{{ country.iso_code }}">{{ country.name }} ({{ country.currency.iso_code }}{%- if country.currency.symbol -%} {{ country.currency.symbol }}{%- endif -%})</label>
+                        <label class="disclosure-list__item--label" for="{{ country.iso_code | escape }}">{{ country.name | escape }} ({{ country.currency.iso_code }}{%- if country.currency.symbol -%} {{ country.currency.symbol }}{%- endif -%})</label>
                       </div>
                     {% endfor %}
                     <button class="disclosure__submit" type="submit">{{ 'general.country.submit_button_label' | t }}</button>
@@ -394,7 +394,7 @@
                     aria-describedby="country-heading-{{ unique_id }}"
                     data-disclosure-toggle
                   >
-                    {{ localization.country.name }}
+                    {{ localization.country.name | escape }}
                     <span class="disclosure-list__option-code"> 
                       ({{ localization.country.currency.iso_code }}
                       {% if localization.country.currency.symbol %} {{ localization.country.currency.symbol }}{% endif %})
@@ -403,8 +403,8 @@
                   <ul id="country-list-{{ unique_id }}" class="disclosure-list" data-disclosure-list>
                     {% for country in localization.available_countries %}
                       <li>
-                        <a class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
-                          <span class="disclosure-list__option">{{ country.name }}</span>
+                        <a class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code | escape }}" data-disclosure-option>
+                          <span class="disclosure-list__option">{{ country.name | escape }}</span>
                           <span class="disclosure-list__option-code">
                             ({{ country.currency.iso_code }}
                             {% if country.currency.symbol %} {{ country.currency.symbol }}{%- endif -%})
@@ -413,7 +413,7 @@
                       </li>
                     {%- endfor -%}
                   </ul>
-                  <input type="hidden" name="country_code" id="CountrySelector-{{ unique_id }}" value="{{ localization.country.iso_code }}" data-disclosure-input/>
+                  <input type="hidden" name="country_code" id="CountrySelector-{{ unique_id }}" value="{{ localization.country.iso_code | escape }}" data-disclosure-input/>
                 </div>
               </div>
             {%- endform -%}

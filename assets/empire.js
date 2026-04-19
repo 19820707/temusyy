@@ -34960,6 +34960,7 @@ var Disclosure = /*#__PURE__*/function () {
       for (var i = 0; i < options.length; i++) {
         var option = options[i];
         this.events.register(option, 'click', function (e) {
+          e.preventDefault();
           return _this2._submitForm(e.currentTarget.dataset.value);
         });
       }
@@ -35009,8 +35010,15 @@ var Disclosure = /*#__PURE__*/function () {
   }, {
     key: "_submitForm",
     value: function _submitForm(value) {
+      if (!value || !this.cache.disclosureInput) return;
       this.cache.disclosureInput.value = value;
-      this.el.closest('form').submit();
+      const form = this.el.closest('form');
+      if (!form) return;
+      if (form.requestSubmit) {
+        form.requestSubmit();
+      } else {
+        form.submit();
+      }
     }
   }, {
     key: "_hideList",

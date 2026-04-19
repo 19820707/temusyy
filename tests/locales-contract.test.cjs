@@ -4,9 +4,10 @@
  * Mapping to regression matrix:
  * - T1 (cart copy surface): product.buttons.add_to_cart present in every storefront locale.
  * - T2 (CLS / layout copy): not asserted here (handled in layout/CSS); locale strings must stay JSON-safe.
- * - T3 (null safety / missing keys): required paths must exist for layout + compare drawer + primary ATC label + newsletter marketing consent (snippets/newsletter.liquid).
+ * - T3 (null safety / missing keys): required paths must exist for layout + compare drawer + primary ATC label + newsletter strings used by snippets/newsletter.liquid (consent, subscribe, placeholder).
  * - T4 (JS stability): no literal "console." inside translation payloads (prevents accidental script injection).
  * - T5 (payload hygiene): valid JSON only; *.schema.json excluded from storefront key matrix.
+ * - T6 (editor schema): en.default.schema.json map layout option semantics stay canonical (regression guard for translated schemas).
  */
 const assert = require('assert');
 const fs = require('fs');
@@ -22,6 +23,8 @@ const requiredPaths = [
   ['general', 'accessibility', 'skip_to_content'],
   ['general', 'accessibility', 'close'],
   ['general', 'newsletter', 'consent'],
+  ['general', 'newsletter', 'subscribe'],
+  ['general', 'newsletter', 'placeholder'],
   ['product', 'buttons', 'add_to_cart'],
   ['product_compare', 'drawer_notification', 'one'],
   ['product_compare', 'drawer_notification', 'other'],
@@ -124,6 +127,21 @@ assert.doesNotMatch(
   deRaw,
   /\{\{terms\s*\}\}/,
   'de.json: must not use {{terms }} (missing space); use {{ terms }} for Liquid interpolation'
+);
+
+// T6 — en.default.schema.json: Map desktop layout labels remain canonical (editor UX; other locale schemas should mirror semantics).
+const enSchemaPath = path.join(localesDir, 'en.default.schema.json');
+const enSchema = JSON.parse(fs.readFileSync(enSchemaPath, 'utf8'));
+const mapLayout = enSchema.sections.map.layout;
+assert.strictEqual(
+  mapLayout.option_15,
+  'Bottom right',
+  'en.default.schema.json: sections.map.layout.option_15 must remain Bottom right'
+);
+assert.notStrictEqual(
+  mapLayout.option_2,
+  mapLayout.option_10,
+  'en.default.schema.json: map layout option_2 (Left center) must differ from option_10 (Center left)'
 );
 
 console.log('locales-contract: ok');
