@@ -3068,7 +3068,7 @@ rgb(255, 255, 255)
 }
 @media screen and (min-width: 680px) {
   .site-logo {
-    max-height: none;
+    max-height: 4.5rem;
   }
 }
 @media screen and (min-width: 1024px) {
@@ -3080,9 +3080,13 @@ rgb(255, 255, 255)
 
 .site-logo-image {
   display: block;
-  max-width: 100%;
+  max-width: min(240px, 100%);
+  max-height: clamp(2rem, 11vw, 4.25rem);
+  width: auto;
+  height: auto;
   margin-right: auto;
   margin-left: auto;
+  object-fit: contain;
 }
 @media screen and (min-width: 1024px) {
   .site-logo-image {
@@ -9970,6 +9974,10 @@ rgb(255, 255, 255)
 }
 .slideshow--height-original .slideshow-slide__image, .slideshow--height-original-mobile .slideshow-slide__image {
   width: 100%;
+  max-height: min(78vh, 680px);
+  height: auto;
+  object-fit: cover;
+  object-position: center center;
 }
 .user-is-tabbing .slideshow-slide__background-link:focus .slideshow-slide__image {
   border: 5px solid var(--slide-text-color);
@@ -10061,7 +10069,7 @@ rgb(255, 255, 255)
 }
 @media screen and (min-width: 720px) {
   .slideshow-slide__heading {
-    font-size: var(--font-size-heading-slideshow);
+    font-size: min(var(--font-size-heading-slideshow), 7vw);
   }
 }
 
