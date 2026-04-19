@@ -12,7 +12,10 @@
   assign countdown_timer_complete = section.settings.countdown_timer_complete
   assign countdown_timer_message = section.settings.countdown_timer_message
 
-  assign product = all_products[section.settings.product]
+  assign product = blank
+  if section.settings.product != blank
+    assign product = all_products[section.settings.product]
+  endif
 
   assign heading = section.settings.title
   assign text = section.settings.text
@@ -946,10 +949,7 @@
       "name": "t:sections.countdown_timer.presets.countdown_timer.name",
       "category": "Image"
     }
-  ],
-  "disabled_on": {
-    "groups": ["*"]
-  }
+  ]
 }
 
 {% endschema %}

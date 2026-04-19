@@ -24,9 +24,14 @@ assert.strictEqual(
   'index.json: homepage_smart_hub must use dynamic-smart-homepage-hub'
 );
 assert.strictEqual(
-  indexTemplate.order.indexOf('homepage_smart_hub'),
+  indexTemplate.order.indexOf('homepage_deal_countdown'),
   indexTemplate.order.indexOf('homepage_hero') + 1,
-  'index.json: smart hub must follow hero (one-screen commerce stack)'
+  'index.json: deal countdown must follow hero (time urgency near the fold)'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_smart_hub'),
+  indexTemplate.order.indexOf('homepage_deal_countdown') + 1,
+  'index.json: smart hub must follow deal countdown'
 );
 assert.strictEqual(
   indexTemplate.order.indexOf('homepage_best_sellers_products'),
@@ -88,6 +93,22 @@ assert.ok(
   );
 })();
 
+(function homepageDealCountdown() {
+  const cd = indexTemplate.sections.homepage_deal_countdown;
+  assert.ok(cd, 'index.json: must include homepage_deal_countdown');
+  assert.strictEqual(cd.type, 'dynamic-countdown-timer', 'index.json: deal strip must use dynamic-countdown-timer');
+  const st = cd.settings;
+  assert.strictEqual(st.countdown_timer_complete, true, 'index.json: countdown should hide when offer window ends');
+  assert.ok(
+    ((st.title || '') + '').toLowerCase().indexOf('ends') !== -1,
+    'index.json: countdown title must signal time pressure (Ends in…)'
+  );
+  assert.ok(
+    ((st.button_link || '') + '').indexOf('best-sellers') !== -1,
+    'index.json: countdown CTA should deep-link into bestsellers collection'
+  );
+})();
+
 // Featured collection sections: cap choice density (6–8 SKUs per row).
 ['homepage_best_sellers_products', 'homepage_featured_products'].forEach(function (sid) {
   const sec = indexTemplate.sections[sid];
@@ -102,6 +123,7 @@ assert.deepStrictEqual(
   indexTemplate.order,
   [
     'homepage_hero',
+    'homepage_deal_countdown',
     'homepage_smart_hub',
     'homepage_best_sellers_products',
     'homepage_trust_bar',
@@ -110,9 +132,10 @@ assert.deepStrictEqual(
     'homepage_featured_products',
     'homepage_testimonials',
   ],
-  'index.json: canonical homepage stack (hero → hub → bestsellers → trust → adaptive → categories → featured → reviews)'
+  'index.json: canonical homepage stack (hero → countdown → hub → bestsellers → trust → adaptive → categories → featured → reviews)'
 );
 
+const idxCountdown = indexTemplate.order.indexOf('homepage_deal_countdown');
 const idxHub = indexTemplate.order.indexOf('homepage_smart_hub');
 const idxBest = indexTemplate.order.indexOf('homepage_best_sellers_products');
 const idxAdapt = indexTemplate.order.indexOf('homepage_adaptive_priority');
@@ -141,7 +164,7 @@ assert.strictEqual(
   );
 })();
 
-// T2 — One-screen commerce: hero → hub → bestsellers → trust (decide without scrolling past the primary stack).
+// T2 — One-screen commerce: hero → countdown → hub → bestsellers → trust (urgency then guided paths).
 assert.strictEqual(
   indexTemplate.order[0],
   'homepage_hero',
@@ -149,30 +172,35 @@ assert.strictEqual(
 );
 assert.strictEqual(
   indexTemplate.order[1],
-  'homepage_smart_hub',
-  'index.json: second section must be smart hub (search + shopping paths)'
+  'homepage_deal_countdown',
+  'index.json: second section must be deal countdown (urgency + time)'
 );
 assert.strictEqual(
   indexTemplate.order[2],
-  'homepage_best_sellers_products',
-  'index.json: third section must be best-sellers grid (main SKU decision surface near the fold)'
+  'homepage_smart_hub',
+  'index.json: third section must be smart hub (search + shopping paths)'
 );
 assert.strictEqual(
   indexTemplate.order[3],
-  'homepage_trust_bar',
-  'index.json: fourth section must be trust bar (proof immediately after bestsellers)'
+  'homepage_best_sellers_products',
+  'index.json: fourth section must be best-sellers grid (main SKU decision surface near the fold)'
 );
 assert.strictEqual(
   indexTemplate.order[4],
+  'homepage_trust_bar',
+  'index.json: fifth section must be trust bar (proof immediately after bestsellers)'
+);
+assert.strictEqual(
+  indexTemplate.order[5],
   'homepage_adaptive_priority',
-  'index.json: fifth section must be adaptive priority (cookie-driven; empty until interest is set)'
+  'index.json: sixth section must be adaptive priority (cookie-driven; empty until interest is set)'
 );
 (function decisionEngineFeaturedCollection() {
   const sec = indexTemplate.sections.homepage_best_sellers_products;
   const st = sec.settings;
   assert.strictEqual(st.collection, 'best-sellers', 'index.json: decision row must use best-sellers collection');
   assert.strictEqual(st.layout, 'grid', 'index.json: decision row must use grid layout');
-  assert.strictEqual(st.product_count, 6, 'index.json: decision row must surface six products (dense first scroll)');
+  assert.strictEqual(st.product_count, 8, 'index.json: decision row must surface eight products (max density within 6–8 contract)');
   assert.strictEqual(
     st.temusy_intent_zone,
     'buy',
@@ -197,13 +225,14 @@ assert.strictEqual(
   'index.json: featured products row must use dynamic-featured-collection'
 );
 assert.ok(
-  idxHub !== -1 &&
+  idxCountdown !== -1 &&
+    idxHub === idxCountdown + 1 &&
     idxBest === idxHub + 1 &&
     idxTrust === idxHub + 2 &&
     idxAdapt === idxHub + 3 &&
     idxTrending === idxHub + 4 &&
     idxFeatured === idxHub + 5,
-  'index.json: hub → bestsellers → trust → adaptive → categories → featured grid'
+  'index.json: countdown → hub → bestsellers → trust → adaptive → categories → featured grid'
 );
 assert.ok(idxBest < idxAdapt, 'index.json: best sellers before adaptive strip');
 assert.ok(idxAdapt < idxTrending, 'index.json: adaptive strip before category thumbnails');
@@ -226,11 +255,35 @@ assert.ok(idxTrust < idxFeatured, 'index.json: trust before final featured produ
     (proof.text || '').indexOf('Trusted by customers worldwide') !== -1,
     'index.json: trust proof must include worldwide social proof line'
   );
-  assert.strictEqual((ship.title || '').trim(), 'Fast shipping', 'index.json: shipping highlight title');
+  assert.ok(
+    (proof.text || '').toLowerCase().indexOf('anxiety') !== -1,
+    'index.json: trust proof should name reduced purchase anxiety (psychological economy)'
+  );
+  assert.strictEqual(
+    (ship.title || '').trim(),
+    'Shipping costs & timelines—up front',
+    'index.json: shipping highlight title (psychological risk reduction)'
+  );
   assert.strictEqual((ship.link || '').trim(), '/policies/shipping-policy', 'index.json: shipping highlight link');
-  assert.strictEqual((ret.title || '').trim(), 'Easy returns', 'index.json: returns highlight title');
+  assert.ok(
+    (ship.text || '').toLowerCase().indexOf('policy') !== -1,
+    'index.json: shipping highlight must point shoppers to written policy'
+  );
+  assert.strictEqual(
+    (ret.title || '').trim(),
+    'Returns you can read before you buy',
+    'index.json: returns highlight title (psychological risk reduction)'
+  );
   assert.strictEqual((ret.link || '').trim(), '/policies/refund-policy', 'index.json: returns highlight link');
-  assert.strictEqual((sup.title || '').trim(), 'Customer support', 'index.json: support highlight title');
+  assert.ok(
+    (ret.text || '').toLowerCase().indexOf('policy') !== -1,
+    'index.json: returns highlight must reference policy clarity'
+  );
+  assert.strictEqual(
+    (sup.title || '').trim(),
+    'Support when an order matters',
+    'index.json: support highlight title (psychological risk reduction)'
+  );
   assert.strictEqual((sup.link || '').trim(), 'shopify://pages/support', 'index.json: support highlight link');
 })();
 
@@ -294,8 +347,8 @@ assert.ok(
 );
 assert.strictEqual(
   (heroSlide.button_one_label || '').trim(),
-  'Shop now',
-  'index.json: hero must expose exactly one primary CTA label'
+  'See Beauty offers',
+  'index.json: hero must use a reward-lane CTA (not generic Shop now) while staying collection-honest'
 );
 assert.ok(
   (heroSlide.button_one_link || '').indexOf('collections/health-and-beauty') !== -1 ||

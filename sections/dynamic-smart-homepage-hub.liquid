@@ -8,9 +8,9 @@
     If you remove it, replace the section in the Theme Editor (see docs/homepage-section-dependencies.md).
 {% endcomment %}
 {% liquid
-  assign title = section.settings.title | default: 'Shop with a smarter path'
-  assign text = section.settings.text | default: 'Start with what you need, then move straight into the right aisle.'
-  assign search_placeholder = section.settings.search_placeholder | default: 'Search watches, earbuds, home finds...'
+  assign title = section.settings.title | default: 'Looking for a gift, under $50, or trending picks?'
+  assign text = section.settings.text | default: '<p>Tap one lane—we narrow the store. Search only when you already know the exact item.</p>'
+  assign search_placeholder = section.settings.search_placeholder | default: 'Know what you want? Search here.'
   assign search_button = section.settings.search_button | default: 'Search'
   assign primary_label = section.settings.primary_label | default: 'Explore all products'
   assign primary_link = section.settings.primary_link | default: routes.all_products_collection_url
@@ -87,11 +87,11 @@
             class="smart-homepage-hub__search-intents"
             role="region"
             aria-live="polite"
-            aria-label="{{ section.settings.search_intents_heading | default: 'Quick paths' | escape }}"
+            aria-label="{{ section.settings.search_intents_heading | default: 'Buying a watch? Jump ahead' | escape }}"
             hidden
           >
             <p class="smart-homepage-hub__search-intents-kicker">
-              {{ section.settings.search_intents_heading | default: 'Quick paths' | escape }}
+              {{ section.settings.search_intents_heading | default: 'Buying a watch? Jump ahead' | escape }}
             </p>
             <ul class="smart-homepage-hub__search-intents-list" data-temusy-search-intents-list></ul>
           </div>
@@ -202,18 +202,22 @@
                   {% assign block_title = collection.title %}
                 {% endif %}
                 {% assign chip_label = block.settings.chip_label | default: block_title %}
+                {% assign chip_badge = block.settings.badge | default: '' | strip %}
                 {% if block_url != blank and chip_label != blank %}
                   {% liquid
                     assign chip_aria = chip_label
+                    if chip_badge != blank
+                      assign chip_aria = chip_aria | append: ' — ' | append: chip_badge
+                    endif
                     if block.settings.text != blank
                       assign chip_desc = block.settings.text | strip_html | strip
                       if chip_desc != blank
-                        assign chip_aria = chip_label | append: ' — ' | append: chip_desc
+                        assign chip_aria = chip_aria | append: ' — ' | append: chip_desc
                       endif
                     endif
                   %}
                   <a
-                    class="smart-homepage-hub__path-chip"
+                    class="smart-homepage-hub__path-chip{% if chip_badge != blank %} smart-homepage-hub__path-chip--badged{% endif %}"
                     href="{{ block_url }}"
                     data-temusy-interest="{{ block.settings.collection | escape }}"
                     role="listitem"
@@ -223,7 +227,12 @@
                     {% if block.settings.path_emoji != blank %}
                       <span class="smart-homepage-hub__path-chip-emoji" aria-hidden="true">{{ block.settings.path_emoji }}</span>
                     {% endif %}
-                    <span class="smart-homepage-hub__path-chip-label">{{ chip_label | escape }}</span>
+                    <span class="smart-homepage-hub__path-chip-stack">
+                      {% if chip_badge != blank %}
+                        <span class="smart-homepage-hub__path-chip-badge">{{ chip_badge | escape }}</span>
+                      {% endif %}
+                      <span class="smart-homepage-hub__path-chip-label">{{ chip_label | escape }}</span>
+                    </span>
                   </a>
                 {% endif %}
               {% endif %}
@@ -295,12 +304,12 @@
     background: var(--th-page-bg);
     color: var(--th-heading);
     font-family: var(--theme-font-body), sans-serif;
-    padding: 32px 16px;
+    padding: 22px 14px;
   }
 
   .smart-homepage-hub__inner {
     display: grid;
-    gap: 24px;
+    gap: 18px;
     margin: 0 auto;
     max-width: 1280px;
   }
@@ -322,22 +331,23 @@
   .smart-homepage-hub__title {
     color: var(--th-heading);
     font-family: var(--theme-font-heading), sans-serif;
-    font-size: 2rem;
+    font-size: clamp(1.55rem, 2.5vw, 1.9rem);
     line-height: 1.12;
     margin: 0;
   }
 
   .smart-homepage-hub__text {
     color: var(--th-body);
-    font-size: 1rem;
-    margin-top: 12px;
-    max-width: 58ch;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    margin-top: 10px;
+    max-width: 72ch;
   }
 
   .smart-homepage-hub__search-wrap {
     display: grid;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 8px;
+    margin-top: 16px;
   }
 
   .smart-homepage-hub__search {
@@ -497,19 +507,19 @@
 
   .smart-homepage-hub__panel {
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   .smart-homepage-hub__panel--chips {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 10px;
   }
 
   .smart-homepage-hub__paths-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px;
   }
 
   .smart-homepage-hub__path-chip {
@@ -523,8 +533,8 @@
     font-weight: 800;
     gap: 8px;
     line-height: 1.2;
-    min-height: 48px;
-    padding: 10px 18px;
+    min-height: 44px;
+    padding: 8px 16px;
     text-decoration: none;
   }
 
@@ -533,8 +543,30 @@
     line-height: 1;
   }
 
+  .smart-homepage-hub__path-chip-stack {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  .smart-homepage-hub__path-chip-badge {
+    color: var(--th-accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
   .smart-homepage-hub__path-chip-label {
     white-space: nowrap;
+  }
+
+  .smart-homepage-hub__path-chip--badged {
+    padding-top: 7px;
+    padding-bottom: 7px;
   }
 
   .smart-homepage-hub__path-chip:hover,
@@ -560,8 +592,8 @@
     border: 1px solid var(--th-border);
     border-radius: 6px;
     display: grid;
-    gap: 6px;
-    padding: 14px;
+    gap: 5px;
+    padding: 11px 12px;
     text-decoration: none;
   }
 
@@ -585,12 +617,12 @@
 
   @media screen and (min-width: 720px) {
     .smart-homepage-hub {
-      padding: 44px 24px;
+      padding: 34px 20px;
     }
 
     .smart-homepage-hub__inner {
       align-items: center;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.85fr);
+      grid-template-columns: minmax(0, 1fr) minmax(300px, 0.88fr);
     }
 
     .smart-homepage-hub__search {
@@ -612,25 +644,26 @@
       "type": "text",
       "id": "kicker",
       "label": "Kicker",
-      "default": "Temusy finder"
+      "default": "",
+      "info": "Optional. Leave blank to keep the fold decisive—open-ended kickers (“where to start”) add mental load."
     },
     {
       "type": "text",
       "id": "title",
       "label": "Title",
-      "default": "Find the right product faster"
+      "default": "Looking for a gift, under $50, or trending picks?"
     },
     {
       "type": "richtext",
       "id": "text",
       "label": "Text",
-      "default": "<p>Lead with how the product fits real life—materials, rhythm of use, care—not generic claims. Keep the same tone as your PDP descriptions.</p>"
+      "default": "<p>Tap one lane—we narrow the store. Search only when you already know the exact item.</p>"
     },
     {
       "type": "text",
       "id": "search_placeholder",
       "label": "Search placeholder",
-      "default": "Search by product, material, or use case…"
+      "default": "Know what you want? Search here."
     },
     {
       "type": "text",
@@ -680,7 +713,7 @@
       "type": "text",
       "id": "panel_label",
       "label": "Panel accessibility label",
-      "default": "Popular shopping paths"
+      "default": "Shortcuts—gifts, trending, budget, bestsellers"
     },
     {
       "type": "text",
@@ -692,7 +725,7 @@
       "type": "text",
       "id": "search_intents_heading",
       "label": "Smart search suggestions heading",
-      "default": "Quick paths",
+      "default": "Buying a watch? Jump ahead",
       "info": "Shown above live suggestions while shoppers type in the hub search field (keywords are configured per block below)."
     }
   ],
@@ -726,7 +759,8 @@
         {
           "type": "text",
           "id": "badge",
-          "label": "Badge"
+          "label": "Badge",
+          "info": "Optional reward-style tag (e.g. Offer, Bundle). Shown on path chips and cards—keep it true to what the collection actually emphasizes."
         },
         {
           "type": "text",

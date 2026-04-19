@@ -48,9 +48,14 @@ assert.strictEqual(
   'index.json: homepage_smart_hub must use dynamic-smart-homepage-hub section'
 );
 assert.strictEqual(
-  indexTemplate.order.indexOf('homepage_smart_hub'),
+  indexTemplate.order.indexOf('homepage_deal_countdown'),
   indexTemplate.order.indexOf('homepage_hero') + 1,
-  'index.json: smart hub must follow hero (one-screen commerce: decide without scrolling past orientation)'
+  'index.json: deal countdown must follow hero (urgency + time)'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_smart_hub'),
+  indexTemplate.order.indexOf('homepage_deal_countdown') + 1,
+  'index.json: smart hub must follow deal countdown'
 );
 assert.strictEqual(
   indexTemplate.order.indexOf('homepage_best_sellers_products'),

@@ -25,6 +25,7 @@ Stable keys for automation and contracts. Section **`type`** is the Shopify sect
 | Instance id | Role |
 |-------------|------|
 | `homepage_hero` | Single-slide hero (compact height, one CTA) |
+| `homepage_deal_countdown` | `dynamic-countdown-timer`: time-bound offer strip (“Ends in…”) — update end date/time in Theme Editor for real promos |
 | `homepage_smart_hub` | Search + intent lanes (collection links + support) |
 | `homepage_best_sellers_products` | Primary SKU grid (`best-sellers`) — stacked right after the hub for one-screen commerce |
 | `homepage_trust_bar` | Highlights strip (proof + policies + support) — immediately after bestsellers |

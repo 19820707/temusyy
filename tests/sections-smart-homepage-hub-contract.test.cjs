@@ -26,6 +26,7 @@ assert.match(src, /data-temusy-intent-zone="guides"/, 'smart hub: must tag guide
 assert.match(src, /aria-label="\{\{\s*section\.settings\.panel_label\s*\|\s*escape\s*\}\}"/, 'smart hub: panel must expose accessible label');
 assert.match(src, /\.smart-homepage-hub__card:focus-visible/, 'smart hub: intent lane links must have visible keyboard focus');
 assert.match(src, /smart-homepage-hub__path-chip/, 'smart hub: must support path chip layout (shopping path engine)');
+assert.match(src, /smart-homepage-hub__path-chip-badge/, 'smart hub: path chips must support optional reward-style badges');
 assert.match(src, /paths_layout/, 'smart hub: paths_layout setting must exist for chip vs card modes');
 assert.match(src, /\.smart-homepage-hub__search-button:focus-visible/, 'smart hub: search submit must have visible keyboard focus');
 assert.doesNotMatch(src, /<script\b/i, 'smart hub: must not add JS to homepage');

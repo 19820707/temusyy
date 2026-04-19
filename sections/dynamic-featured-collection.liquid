@@ -113,6 +113,12 @@
 
 {% render 'quick-shop' %}
 
+{% style %}
+  #shopify-section-{{ section.id }} .featured-collection__content {
+    --card-min-height: 300px;
+  }
+{% endstyle %}
+
 {% schema %}
 {
   "name": "t:sections.featured_collection.name",

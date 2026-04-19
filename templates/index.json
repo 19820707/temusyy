@@ -12,7 +12,7 @@
             "color": "#222222",
             "link": "",
             "text_alignment": "left",
-            "button_one_label": "Shop now",
+            "button_one_label": "See Beauty offers",
             "button_one_link": "shopify://collections/health-and-beauty",
             "button_one_style": "primary",
             "button_two_label": "",
@@ -36,6 +36,29 @@
         "slideshow_text_below_image": true
       }
     },
+    "homepage_deal_countdown": {
+      "type": "dynamic-countdown-timer",
+      "settings": {
+        "section_height": "small",
+        "countdown_year": "2026",
+        "countdown_month": "04",
+        "countdown_day": "27",
+        "countdown_hour": "23",
+        "countdown_minute": "59",
+        "countdown_timer_background": true,
+        "countdown_timer_complete": true,
+        "countdown_timer_message": "<p>That weekly window closed—use the paths above for what is live now.</p>",
+        "title": "Ends in — weekly spotlight",
+        "text": "<p>Each week we spotlight a tight edit. When time is up, the strip refreshes—deadlines stay real, set in the theme editor.</p>",
+        "button_label": "Unlock bestseller offers",
+        "button_link": "shopify://collections/best-sellers",
+        "button_style": "primary",
+        "text_color": "#FFFFFF",
+        "overlay_color": "#000000",
+        "overlay_opacity": 22,
+        "product_card_background_color": "#F5F3ED"
+      }
+    },
     "homepage_smart_hub": {
       "type": "dynamic-smart-homepage-hub",
       "blocks": {
@@ -46,7 +69,7 @@
             "link": "shopify://collections/best-sellers",
             "path_emoji": "⭐",
             "chip_label": "Best sellers",
-            "badge": "",
+            "badge": "Top picks",
             "title": "I want proven best sellers",
             "text": "What shoppers buy again—less trial and error."
           }
@@ -58,7 +81,7 @@
             "link": "shopify://collections/toys-and-games",
             "path_emoji": "🎁",
             "chip_label": "Gifts",
-            "badge": "",
+            "badge": "Bundles",
             "title": "I want a gift",
             "text": "Gift-ready picks without wandering every aisle."
           }
@@ -70,7 +93,7 @@
             "link": "shopify://collections/under-50",
             "path_emoji": "💸",
             "chip_label": "Under $50",
-            "badge": "",
+            "badge": "Value offers",
             "title": "I want something under $50",
             "text": "A tight value edit—clear price ceiling."
           }
@@ -82,7 +105,7 @@
             "link": "shopify://collections/new-arrivals",
             "path_emoji": "🔥",
             "chip_label": "Trending",
-            "badge": "",
+            "badge": "Fresh offers",
             "title": "I want trending products",
             "text": "Fresh momentum—what is landing and selling now."
           }
@@ -130,19 +153,19 @@
         "intent_watch_bestsellers"
       ],
       "settings": {
-        "kicker": "Guided shopping—not a flat catalog",
-        "title": "What are you trying to do?",
-        "text": "<p>Typical sites stop at showing products. Here we <strong>suggest the next step</strong>, <strong>remember what you tapped or viewed</strong>, and <strong>cut comparison load</strong>—paths stay concrete (gift, trending, budget, bestsellers), and search stays open when you already know what you want.</p><p><strong>What that aims for:</strong> less browse-to-nowhere, more confident clicks, an easier path from intent to cart, and a storefront that feels <strong>intelligent</strong>—because options are framed for you, not dumped in a grid.</p>",
-        "search_placeholder": "Search or pick a path below…",
+        "kicker": "",
+        "title": "Looking for a gift, under $50, or trending picks?",
+        "text": "<p>Tap one lane—we narrow the store. Search only when you already know the exact item.</p>",
+        "search_placeholder": "Know what you want? Search here.",
         "search_button": "Search",
-        "primary_label": "Shop all products",
+        "primary_label": "See offers & full catalog",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Customer support",
         "secondary_link": "shopify://pages/support",
         "paths_layout": "path_chips",
-        "panel_label": "Guided paths—pick a job, not a maze",
+        "panel_label": "Shortcuts—gifts, trending, under $50, bestsellers",
         "search_shortcuts_a11y_label": "Optional category chips",
-        "search_intents_heading": "Quick paths"
+        "search_intents_heading": "Buying a watch? Jump ahead"
       }
     },
     "homepage_best_sellers_products": {
@@ -152,8 +175,8 @@
         "layout": "grid",
         "mobile_layout": "grid",
         "collection": "best-sellers",
-        "product_count": 6,
-        "cta_label": "See what's selling",
+        "product_count": 8,
+        "cta_label": "See offer picks in this row",
         "cta_button_style": "primary",
         "temusy_intent_zone": "buy"
       }
@@ -161,8 +184,8 @@
     "homepage_adaptive_priority": {
       "type": "dynamic-adaptive-homepage-priority",
       "settings": {
-        "heading": "We saved this lane for you",
-        "subheading": "From your last tap, view, or add to cart—so you do not have to re-decide from scratch when you come back.",
+        "heading": "Pick up where you left off",
+        "subheading": "Same collection you last tapped or viewed—skip hunting the full catalog again.",
         "cta_label": "View full [[collection]]",
         "product_limit": 4,
         "products_per_row": 4,
@@ -234,7 +257,7 @@
         "thumbnail_columns_desktop": 6,
         "thumbnail_columns_mobile": 2,
         "image-crop": "circle",
-        "cta_label": "Shop all categories",
+        "cta_label": "Browse offers by category",
         "cta_link": "shopify://collections/all",
         "cta_button_style": "primary"
       }
@@ -247,7 +270,7 @@
           "settings": {
             "icon": "icon-award-trophy",
             "title": "+12,000 orders delivered",
-            "text": "<p>Trusted by customers worldwide.</p>",
+            "text": "<p>Trusted by customers worldwide.</p><p>Real fulfilment history lowers “will this ship?” anxiety before you commit.</p>",
             "link": ""
           }
         },
@@ -255,8 +278,8 @@
           "type": "highlight",
           "settings": {
             "icon": "icon-delivery",
-            "title": "Fast shipping",
-            "text": "",
+            "title": "Shipping costs & timelines—up front",
+            "text": "<p>Policy spells rates, regions, and delivery expectations so checkout is not a guessing game.</p>",
             "link": "/policies/shipping-policy"
           }
         },
@@ -264,8 +287,8 @@
           "type": "highlight",
           "settings": {
             "icon": "icon-label-tag",
-            "title": "Easy returns",
-            "text": "",
+            "title": "Returns you can read before you buy",
+            "text": "<p>Clear eligibility and windows in policy—less fear of being stuck with the wrong item.</p>",
             "link": "/policies/refund-policy"
           }
         },
@@ -273,8 +296,8 @@
           "type": "highlight",
           "settings": {
             "icon": "icon-chat",
-            "title": "Customer support",
-            "text": "",
+            "title": "Support when an order matters",
+            "text": "<p>A visible path for order issues—reduces “what if something goes wrong?” in the cart.</p>",
             "link": "shopify://pages/support"
           }
         }
@@ -302,9 +325,10 @@
         "layout": "grid",
         "mobile_layout": "grid",
         "collection": "jewelry-and-fashion-accessories",
-        "product_count": 6,
-        "cta_label": "Shop this edit",
-        "cta_button_style": "secondary"
+        "product_count": 8,
+        "cta_label": "See offer picks in this edit",
+        "cta_button_style": "secondary",
+        "temusy_intent_zone": "buy"
       }
     },
     "homepage_testimonials": {
@@ -362,6 +386,7 @@
   },
   "order": [
     "homepage_hero",
+    "homepage_deal_countdown",
     "homepage_smart_hub",
     "homepage_best_sellers_products",
     "homepage_trust_bar",
