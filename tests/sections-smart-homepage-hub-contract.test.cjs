@@ -14,6 +14,8 @@ assert.match(src, /<form[\s\S]{0,200}action="\{\{\s*routes\.search_url\s*\}\}"/,
 assert.match(src, /method="get"/, 'smart hub: search form must use GET');
 assert.match(src, /name="q"/, 'smart hub: search input must use q parameter');
 assert.match(src, /collections\[block\.settings\.collection\]/, 'smart hub: collection blocks must resolve Shopify collections');
+assert.match(src, /search_shortcut/, 'smart hub: must support search shortcut blocks');
+assert.match(src, /smart-homepage-hub__shortcuts/, 'smart hub: must render search shortcut navigation');
 assert.match(src, /block\.shopify_attributes/, 'smart hub: blocks must keep theme editor attributes');
 assert.match(src, /aria-labelledby="smart-homepage-hub-title-/, 'smart hub: section must expose labelled region');
 assert.match(src, /aria-label="\{\{\s*section\.settings\.panel_label\s*\|\s*escape\s*\}\}"/, 'smart hub: panel must expose accessible label');

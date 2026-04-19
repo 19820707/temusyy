@@ -3,6 +3,8 @@
   - Homepage guidance must remain usable without JavaScript or app embeds.
   - Search and collection links must be explicit, crawlable, and keyboard-friendly.
   - Copy must guide shopping intent without claiming unavailable inventory or delivery promises.
+  - This file must ship with the theme: templates/index.json uses section id "homepage_smart_hub" with type "dynamic-smart-homepage-hub".
+    If you remove it, replace the section in the Theme Editor (see docs/homepage-section-dependencies.md).
 {% endcomment %}
 {% liquid
   assign title = section.settings.title | default: 'Shop with a smarter path'
@@ -50,6 +52,51 @@
         </button>
       </form>
 
+      {% liquid
+        assign shortcut_count = 0
+        for block in section.blocks
+          if block.type == 'search_shortcut'
+            assign sc = collections[block.settings.collection]
+            assign surl = block.settings.link
+            if surl == blank and sc != blank
+              assign surl = sc.url
+            endif
+            assign slab = block.settings.label
+            if slab == blank and sc != blank
+              assign slab = sc.title
+            endif
+            if surl != blank and slab != blank
+              assign shortcut_count = shortcut_count | plus: 1
+            endif
+          endif
+        endfor
+      %}
+      {% if shortcut_count > 0 %}
+        <nav
+          class="smart-homepage-hub__shortcuts"
+          aria-label="{{ section.settings.search_shortcuts_a11y_label | default: 'Jump to a category' | escape }}"
+        >
+          {% for block in section.blocks %}
+            {% if block.type == 'search_shortcut' %}
+              {% assign sc = collections[block.settings.collection] %}
+              {% assign surl = block.settings.link %}
+              {% if surl == blank and sc != blank %}
+                {% assign surl = sc.url %}
+              {% endif %}
+              {% assign slab = block.settings.label %}
+              {% if slab == blank and sc != blank %}
+                {% assign slab = sc.title %}
+              {% endif %}
+              {% if surl != blank and slab != blank %}
+                <a class="smart-homepage-hub__shortcut" href="{{ surl }}" {{ block.shopify_attributes }}>
+                  {{- slab | escape -}}
+                </a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </nav>
+      {% endif %}
+
       <div class="smart-homepage-hub__actions">
         {% if primary_label != blank and primary_link != blank %}
           <a class="smart-homepage-hub__button smart-homepage-hub__button--primary" href="{{ primary_link }}">
@@ -64,7 +111,15 @@
       </div>
     </div>
 
-    {% if section.blocks.size > 0 %}
+    {% liquid
+      assign panel_block_count = 0
+      for block in section.blocks
+        if block.type == 'collection_link' or block.type == 'trust_point'
+          assign panel_block_count = panel_block_count | plus: 1
+        endif
+      endfor
+    %}
+    {% if panel_block_count > 0 %}
       <div class="smart-homepage-hub__panel" aria-label="{{ section.settings.panel_label | escape }}">
         {% for block in section.blocks %}
           {% case block.type %}
@@ -98,6 +153,7 @@
                   <span>{{ block.settings.text }}</span>
                 {% endif %}
               </div>
+            {% when 'search_shortcut' %}
           {% endcase %}
         {% endfor %}
       </div>
@@ -149,6 +205,32 @@
     display: grid;
     gap: 8px;
     margin-top: 20px;
+  }
+
+  .smart-homepage-hub__shortcuts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .smart-homepage-hub__shortcut {
+    background: #ffffff;
+    border: 1px solid #b8c3c6;
+    border-radius: 999px;
+    color: #171b1f;
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 7px 14px;
+    text-decoration: none;
+  }
+
+  .smart-homepage-hub__shortcut:hover,
+  .smart-homepage-hub__shortcut:focus-visible {
+    border-color: #046e82;
+    color: #046e82;
+    outline: none;
   }
 
   .smart-homepage-hub__search-input {
@@ -308,6 +390,12 @@
       "id": "panel_label",
       "label": "Panel accessibility label",
       "default": "Popular shopping paths"
+    },
+    {
+      "type": "text",
+      "id": "search_shortcuts_a11y_label",
+      "label": "Search shortcuts label (screen readers)",
+      "default": "Jump to a category"
     }
   ],
   "blocks": [
@@ -355,6 +443,27 @@
           "type": "text",
           "id": "text",
           "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "search_shortcut",
+      "name": "Search shortcut",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Fallback link"
         }
       ]
     }

@@ -39,22 +39,22 @@ assert.strictEqual(cart.sections.main.type, 'static-cart', 'cart.json: main sect
 
 const indexTemplate = JSON.parse(stripLeadingBlockComment(fs.readFileSync(path.join(templatesDir, 'index.json'), 'utf8')));
 assert.ok(
-  indexTemplate.sections.smart_homepage_hub,
-  'index.json: homepage must include smart_homepage_hub guidance section'
+  indexTemplate.sections.homepage_smart_hub,
+  'index.json: homepage must include homepage_smart_hub guidance section'
 );
 assert.strictEqual(
-  indexTemplate.sections.smart_homepage_hub.type,
+  indexTemplate.sections.homepage_smart_hub.type,
   'dynamic-smart-homepage-hub',
-  'index.json: smart_homepage_hub must use dynamic-smart-homepage-hub section'
+  'index.json: homepage_smart_hub must use dynamic-smart-homepage-hub section'
 );
 assert.strictEqual(
-  indexTemplate.order.indexOf('smart_homepage_hub'),
-  indexTemplate.order.indexOf('dynamic_slideshow') + 1,
-  'index.json: smart_homepage_hub should appear immediately after hero slideshow'
+  indexTemplate.order.indexOf('homepage_smart_hub'),
+  indexTemplate.order.indexOf('homepage_hero') + 1,
+  'index.json: homepage_smart_hub should appear immediately after hero slideshow'
 );
 assert.ok(
-  indexTemplate.sections.smart_homepage_hub.settings.primary_link,
-  'index.json: smart_homepage_hub primary CTA must be configured'
+  indexTemplate.sections.homepage_smart_hub.settings.primary_link,
+  'index.json: homepage_smart_hub primary CTA must be configured'
 );
 
 // --- gift_card.liquid (T2 CLS, T4 no console, favicon modern) ---

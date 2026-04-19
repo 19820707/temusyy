@@ -1,79 +1,19 @@
 {
   "sections": {
-    "dynamic_slideshow": {
+    "homepage_hero": {
       "type": "dynamic-slideshow",
       "blocks": {
         "slide-2": {
           "type": "slide",
           "settings": {
             "background_image": "shopify://shop_images/Gray_Elegant_Beauty_Brand_Make_Up_Promotion_Banner_2.png",
-            "title": "",
-            "text": "",
+            "title": "Beauty & care",
+            "text": "Skincare and makeup—tap Shop beauty or scroll for search and popular categories.",
             "color": "#333333",
-            "link": "",
+            "link": "shopify://collections/health-and-beauty",
             "text_alignment": "left",
-            "button_one_label": "",
-            "button_one_link": "shopify://collections/casual-sneakers",
-            "button_one_style": "primary",
-            "button_two_label": "",
-            "button_two_link": "",
-            "button_two_style": "primary",
-            "show_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 1
-          }
-        },
-        "slide-3": {
-          "type": "slide",
-          "settings": {
-            "background_image": "shopify://shop_images/Gray_and_Black_Minimalist_Fashion_Style_Banner_4.png",
-            "title": "",
-            "text": "",
-            "color": "#333333",
-            "link": "",
-            "text_alignment": "left",
-            "button_one_label": "",
-            "button_one_link": "shopify://collections/pumps",
-            "button_one_style": "primary",
-            "button_two_label": "",
-            "button_two_link": "",
-            "button_two_style": "secondary",
-            "show_overlay": false,
-            "overlay_color": "#e5e4e2",
-            "overlay_opacity": 1
-          }
-        },
-        "slide-4": {
-          "type": "slide",
-          "settings": {
-            "background_image": "shopify://shop_images/Orange_and_Green_Playful_Illustrative_Kids_Fashion_Apparel_Banner_2.png",
-            "title": "",
-            "text": "",
-            "color": "#333333",
-            "link": "",
-            "text_alignment": "left",
-            "button_one_label": "",
-            "button_one_link": "shopify://collections/kids-sneakers",
-            "button_one_style": "primary",
-            "button_two_label": "",
-            "button_two_link": "",
-            "button_two_style": "secondary",
-            "show_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 1
-          }
-        },
-        "slide_wQ3R4Y": {
-          "type": "slide",
-          "settings": {
-            "background_image": "shopify://shop_images/Shoes_sale_Banner_Landscape_2.png",
-            "title": "",
-            "text": "",
-            "color": "#333333",
-            "link": "",
-            "text_alignment": "left",
-            "button_one_label": "",
-            "button_one_link": "shopify://collections/bags-and-backpacks",
+            "button_one_label": "Shop beauty",
+            "button_one_link": "shopify://collections/health-and-beauty",
             "button_one_style": "primary",
             "button_two_label": "",
             "button_two_link": "",
@@ -85,10 +25,7 @@
         }
       },
       "block_order": [
-        "slide-2",
-        "slide-3",
-        "slide-4",
-        "slide_wQ3R4Y"
+        "slide-2"
       ],
       "settings": {
         "enable_autoplay": false,
@@ -99,15 +36,55 @@
         "slideshow_text_below_image": false
       }
     },
-    "smart_homepage_hub": {
+    "homepage_smart_hub": {
       "type": "dynamic-smart-homepage-hub",
       "blocks": {
+        "shortcut_watches": {
+          "type": "search_shortcut",
+          "settings": {
+            "label": "Watches",
+            "collection": "watches",
+            "link": "shopify://collections/watches"
+          }
+        },
+        "shortcut_headphones": {
+          "type": "search_shortcut",
+          "settings": {
+            "label": "Headphones",
+            "collection": "headphones",
+            "link": "shopify://collections/headphones"
+          }
+        },
+        "shortcut_jewelry": {
+          "type": "search_shortcut",
+          "settings": {
+            "label": "Jewelry",
+            "collection": "jewelry-and-fashion-accessories",
+            "link": "shopify://collections/jewelry-and-fashion-accessories"
+          }
+        },
+        "shortcut_beauty": {
+          "type": "search_shortcut",
+          "settings": {
+            "label": "Beauty",
+            "collection": "health-and-beauty",
+            "link": "shopify://collections/health-and-beauty"
+          }
+        },
+        "shortcut_home": {
+          "type": "search_shortcut",
+          "settings": {
+            "label": "Home",
+            "collection": "home-and-decoration",
+            "link": "shopify://collections/home-and-decoration"
+          }
+        },
         "smart_path_watches": {
           "type": "collection_link",
           "settings": {
             "collection": "watches",
-            "link": "",
-            "badge": "Trending",
+            "link": "shopify://collections/watches",
+            "badge": "Popular",
             "title": "Watches that finish the look",
             "text": "Start with refined everyday styles."
           }
@@ -116,7 +93,7 @@
           "type": "collection_link",
           "settings": {
             "collection": "headphones",
-            "link": "",
+            "link": "shopify://collections/headphones",
             "badge": "Tech",
             "title": "Audio for work and travel",
             "text": "Earbuds, headsets and useful accessories."
@@ -126,40 +103,57 @@
           "type": "collection_link",
           "settings": {
             "collection": "home-and-decoration",
-            "link": "",
+            "link": "shopify://collections/home-and-decoration",
             "badge": "Home",
             "title": "Upgrade everyday spaces",
             "text": "Practical finds for rooms, kitchen and storage."
           }
         },
+        "smart_path_gifts": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "toys-and-games",
+            "link": "shopify://collections/toys-and-games",
+            "badge": "Gifts",
+            "title": "Toys, games and celebration picks",
+            "text": "A focused lane when you are shopping for kids, hobbies or a present."
+          }
+        },
         "smart_trust_support": {
           "type": "trust_point",
           "settings": {
-            "title": "Support stays close",
-            "text": "Delivery, order status and customer help are one click away."
+            "title": "Orders and help",
+            "text": "Track shipments, fix an order issue, or reach support without hunting the footer."
           }
         }
       },
       "block_order": [
+        "shortcut_watches",
+        "shortcut_headphones",
+        "shortcut_jewelry",
+        "shortcut_beauty",
+        "shortcut_home",
+        "smart_trust_support",
         "smart_path_watches",
         "smart_path_audio",
         "smart_path_home",
-        "smart_trust_support"
+        "smart_path_gifts"
       ],
       "settings": {
         "kicker": "Temusy finder",
-        "title": "Find the right product faster",
-        "text": "<p>Search directly, follow popular shopping paths, or move into trusted departments without scrolling through the whole marketplace.</p>",
+        "title": "Start here—then shop",
+        "text": "<p>Search, shortcuts, or view all products—then browse popular categories and shop by department, review shipping and support, before deeper product spotlights.</p>",
         "search_placeholder": "Search watches, earbuds, beauty, home...",
         "search_button": "Search",
-        "primary_label": "Explore all products",
+        "primary_label": "View All products",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Customer support",
         "secondary_link": "shopify://pages/temusy-customer-support",
-        "panel_label": "Popular shopping paths"
+        "panel_label": "Popular shopping paths",
+        "search_shortcuts_a11y_label": "Quick category jumps"
       }
     },
-    "dynamic_collection_list": {
+    "homepage_department_grid": {
       "type": "dynamic-collection-list",
       "blocks": {
         "collection-1": {
@@ -220,7 +214,7 @@
         "collection-6"
       ],
       "settings": {
-        "title": "Crafted for distinction",
+        "title": "Shop by category",
         "thumbnail_columns_desktop": 6,
         "thumbnail_columns_mobile": 3,
         "image-crop": "circle",
@@ -229,12 +223,12 @@
         "cta_button_style": "primary"
       }
     },
-    "pxs_image_with_text_overlay_8fFPN3": {
+    "homepage_editorial_watches_banner": {
       "type": "pxs-image-with-text-overlay",
       "settings": {
         "section_height": "original",
         "image": "shopify://shop_images/Watch_Collection_sale_banners_1.png",
-        "title": "Watches",
+        "title": "Category spotlight · Watches",
         "text": "",
         "content_position": "center-center",
         "color": "#ffffff",
@@ -244,19 +238,19 @@
         "button_text": "Shop watches"
       }
     },
-    "dynamic_featured_collection-2": {
+    "homepage_editorial_watches": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "Watches",
+        "title": "Customers are buying · Watches",
         "layout": "grid",
-        "mobile_layout": "slideshow",
+        "mobile_layout": "grid",
         "collection": "watches",
         "product_count": 6,
         "cta_label": "Shop watches",
         "cta_button_style": "secondary"
       }
     },
-    "dynamic_collection_list_VgVDyd": {
+    "homepage_trending_categories": {
       "type": "dynamic-collection-list",
       "blocks": {
         "collection_a9MeJz": {
@@ -317,7 +311,7 @@
         "collection_c9UN9X"
       ],
       "settings": {
-        "title": "BEST SELLING",
+        "title": "Popular categories now",
         "thumbnail_columns_desktop": 6,
         "thumbnail_columns_mobile": 2,
         "image-crop": "round",
@@ -326,34 +320,34 @@
         "cta_button_style": "primary"
       }
     },
-    "pxs_image_with_text_overlay_AHYwbH": {
+    "homepage_editorial_jewelry_banner": {
       "type": "pxs-image-with-text-overlay",
       "settings": {
         "section_height": "original",
         "image": "shopify://shop_images/White_Simple_Photocentric_Jewelry_Promo_Banner_Landscape_1.png",
-        "title": "Jewelry",
+        "title": "Category spotlight · Jewelry",
         "text": "",
         "content_position": "bottom-center",
         "color": "#ffffff",
         "overlay_background": "#000000",
         "overlay_opacity": 0,
         "link": "shopify://collections/jewelry-and-fashion-accessories",
-        "button_text": "Shop Now"
+        "button_text": "Shop jewelry"
       }
     },
-    "dynamic_featured_collection_Tc6fXq": {
+    "homepage_editorial_jewelry": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "Jewelry & accessories",
+        "title": "Customers are buying · Jewelry",
         "layout": "grid",
-        "mobile_layout": "slideshow",
+        "mobile_layout": "grid",
         "collection": "jewelry-and-fashion-accessories",
         "product_count": 5,
         "cta_label": "Shop jewelry",
         "cta_button_style": "primary"
       }
     },
-    "dynamic_highlights_banner_WqNKDx": {
+    "homepage_trust_bar": {
       "type": "dynamic-highlights-banner",
       "blocks": {
         "highlight_qVfTeb": {
@@ -361,35 +355,35 @@
           "settings": {
             "icon": "icon-delivery",
             "title": "Fast Shipping",
-            "text": "<p>Swift shipping guaranteed.</p>",
-            "link": ""
+            "text": "<p>Fast dispatch and smooth delivery across supported regions.</p>",
+            "link": "/policies/shipping-policy"
           }
         },
         "highlight_EjpTGH": {
           "type": "highlight",
           "settings": {
             "icon": "icon-cell-phone",
-            "title": "Give Us A Call",
-            "text": "<p>+41766344982</p>",
-            "link": ""
+            "title": "Customer support",
+            "text": "<p>Need help with an order or product? We are here to help.</p>",
+            "link": "shopify://pages/temusy-customer-support"
           }
         },
         "highlight_zfgA7r": {
           "type": "highlight",
           "settings": {
-            "icon": "icon-chat-alternate",
-            "title": "Chat With Us",
-            "text": "<p>Quick chat support.</p>",
-            "link": ""
+            "icon": "icon-label-tag",
+            "title": "Returns & exchanges",
+            "text": "<p>Read how returns, refunds and exchanges work before you buy.</p>",
+            "link": "/policies/refund-policy"
           }
         },
         "highlight_rm3Jmt": {
           "type": "highlight",
           "settings": {
             "icon": "icon-discount",
-            "title": "Discount",
-            "text": "<p>Get discounts on your favorite products.</p>",
-            "link": ""
+            "title": "Special offers",
+            "text": "<p>Discover selected deals and seasonal product highlights.</p>",
+            "link": "shopify://collections/all"
           }
         }
       },
@@ -409,47 +403,11 @@
         "mobile_layout": "grid"
       }
     },
-    "dynamic_slideshow_HU6PyP": {
-      "type": "dynamic-slideshow",
-      "blocks": {
-        "slide_Vj9pMt": {
-          "type": "slide",
-          "settings": {
-            "background_image": "shopify://shop_images/Black_and_White_Vintage_Illustration_Men_s_Fashion_Banner.png",
-            "title": "",
-            "text": "",
-            "color": "#ffffff",
-            "link": "",
-            "text_alignment": "center",
-            "button_one_label": "Shop menswear",
-            "button_one_link": "shopify://collections/polos",
-            "button_one_style": "primary",
-            "button_two_label": "",
-            "button_two_link": "",
-            "button_two_style": "primary",
-            "show_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 1
-          }
-        }
-      },
-      "block_order": [
-        "slide_Vj9pMt"
-      ],
-      "settings": {
-        "enable_autoplay": false,
-        "autoplay_duration": 8,
-        "slideshow_width": "full",
-        "slideshow_height": "original",
-        "slideshow_height_mobile": "original",
-        "slideshow_text_below_image": true
-      }
-    },
-    "dynamic_featured_collection": {
+    "homepage_editorial_dress_shirts": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "Dress Shirts",
-        "layout": "slideshow",
+        "title": "Category spotlight · Dress shirts",
+        "layout": "grid",
         "mobile_layout": "grid",
         "collection": "dress-shirts",
         "product_count": 6,
@@ -457,19 +415,19 @@
         "cta_button_style": "secondary"
       }
     },
-    "dynamic_featured_collection_ppMTgJ": {
+    "homepage_editorial_dress_pants": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "Dress Pants",
-        "layout": "slideshow",
-        "mobile_layout": "slideshow",
+        "title": "Category spotlight · Dress pants",
+        "layout": "grid",
+        "mobile_layout": "grid",
         "collection": "dress-pants",
         "product_count": 6,
         "cta_label": "Shop dress pants",
         "cta_button_style": "primary"
       }
     },
-    "dynamic_testimonials": {
+    "homepage_testimonials": {
       "type": "dynamic-testimonials",
       "blocks": {
         "testimonial-1": {
@@ -530,25 +488,24 @@
         "testimonial-6"
       ],
       "settings": {
-        "title": "See why customers choose us!",
+        "title": "Customer reviews",
         "image_crop": "circle",
         "text_size": "small"
       }
     }
   },
   "order": [
-    "dynamic_slideshow",
-    "smart_homepage_hub",
-    "dynamic_collection_list",
-    "pxs_image_with_text_overlay_8fFPN3",
-    "dynamic_featured_collection-2",
-    "dynamic_collection_list_VgVDyd",
-    "pxs_image_with_text_overlay_AHYwbH",
-    "dynamic_featured_collection_Tc6fXq",
-    "dynamic_highlights_banner_WqNKDx",
-    "dynamic_slideshow_HU6PyP",
-    "dynamic_featured_collection",
-    "dynamic_featured_collection_ppMTgJ",
-    "dynamic_testimonials"
+    "homepage_hero",
+    "homepage_smart_hub",
+    "homepage_trending_categories",
+    "homepage_department_grid",
+    "homepage_trust_bar",
+    "homepage_editorial_watches_banner",
+    "homepage_editorial_watches",
+    "homepage_editorial_jewelry_banner",
+    "homepage_editorial_jewelry",
+    "homepage_editorial_dress_shirts",
+    "homepage_editorial_dress_pants",
+    "homepage_testimonials"
   ]
 }
