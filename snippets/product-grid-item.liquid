@@ -390,6 +390,14 @@
               include_range: true,
             %}
 
+            {%
+              render 'product-merchandising-labels',
+              product: product,
+              recently_viewed: recently_viewed,
+              countdown_timer: countdown_timer,
+              product_compare: product_compare,
+            %}
+
             <span class="visually-hidden">
               {{- product_title -}}
             </span>
@@ -456,6 +464,7 @@
           {% endif %}
 
           {% unless countdown_timer %}
+            {% comment %} Judge.me / Loox (and Shopify-compatible apps) sync into `product.metafields.reviews.*` — keep app installed so grids show stars. {% endcomment %}
             {% if settings.product_ratings_star_display and product.metafields.reviews.rating.value != blank %}
               <div class="product__rating rating">
                 {%

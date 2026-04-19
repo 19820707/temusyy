@@ -137,6 +137,12 @@ Object.keys(data.presets).forEach(function (presetName) {
   assert.strictEqual(typeof data.current[k], 'boolean', 'settings_data: current.' + k + ' must be a JSON boolean');
 });
 
+assert.strictEqual(
+  data.current.product_grid_enable_quickshop,
+  false,
+  'settings_data: quick shop disabled so grids prioritize one Add to cart path (slim quickshop still opens for multi-variant)'
+);
+
 // T10 — Inline CSS variable: root background color must be hex (theme.liquid --background-color)
 assert.match(
   data.current.color_background,

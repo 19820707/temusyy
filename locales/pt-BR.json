@@ -28,6 +28,14 @@
     "media": {
       "view_in_your_space": "Ver no seu espaço"
     },
+    "merch": {
+      "popular": "Popular",
+      "trending": "Em alta",
+      "bestseller": "Mais vendido",
+      "last_units": "Stock limitado",
+      "flow_interest": "Alta procura",
+      "flow_sales": "A subir nas vendas"
+    },
     "buttons": {
       "quick_shop": "Comprar rápido",
       "add_to_cart": "Adicionar ao carrinho",
@@ -193,8 +201,8 @@
       "decrease_quantity": "Diminuir a quantidade por {{ increment }}"
     },
     "time": {
-      "clear": "Apagar vistos recentemente",
-      "previous": "Vistos recentemente por você",
+      "clear": "Limpar histórico",
+      "previous": "Com base no que viste",
       "second": "segundo",
       "seconds": "segundos",
       "minute": "minuto",

@@ -30,12 +30,6 @@
             "menu": "about-temusy"
           }
         },
-        "menu_3": {
-          "type": "menu",
-          "settings": {
-            "menu": "shop"
-          }
-        },
         "newsletter": {
           "type": "newsletter",
           "settings": {
@@ -48,7 +42,6 @@
         "social_accounts",
         "menu",
         "menu_2",
-        "menu_3",
         "newsletter"
       ],
       "settings": {

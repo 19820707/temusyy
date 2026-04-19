@@ -1,4 +1,12 @@
 {% liquid
+  assign block_index = block_index | default: 0
+  assign hero_desktop_size = hero_desktop_size | default: '2000x'
+  assign hero_mobile_size = hero_mobile_size | default: '800x'
+  assign slide_lazy = lazyload
+  if lazyload == false and block_index > 0
+    assign slide_lazy = true
+  endif
+
   assign block_slide_image = block.settings.background_image
   assign block_slide_image_mobile = block.settings.mobile_background_image
   assign block_slide_title = block.settings.title | escape
@@ -132,9 +140,9 @@
           render 'rimg',
           img: block_slide_image,
           class: 'slideshow-slide__image slideshow-slide__image--desktop',
-          size: '2000x',
-          lazy: lazyload,
-          canvas: lazyload,
+          size: hero_desktop_size,
+          lazy: slide_lazy,
+          canvas: slide_lazy,
           focal_point: block_slide_image.presentation.focal_point,
         %}
       {%- else -%}
@@ -146,9 +154,9 @@
           render 'rimg',
           img: block_slide_image_mobile,
           class: 'slideshow-slide__image slideshow-slide__image--mobile',
-          size: '800x',
-          lazy: lazyload,
-          canvas: lazyload,
+          size: hero_mobile_size,
+          lazy: slide_lazy,
+          canvas: slide_lazy,
           focal_point: block_slide_image_mobile.presentation.focal_point,
         %}
       {%- endif -%}

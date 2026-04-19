@@ -1,7 +1,7 @@
 {% comment %}
   Invariants:
   - Homepage guidance must remain usable without JavaScript or app embeds.
-  - Search and collection links must be explicit, crawlable, and keyboard-friendly.
+  - Search and collection links must be explicit, crawlable, and keyboard-friendly (focus-visible rings on cards + buttons).
   - Copy must guide shopping intent without claiming unavailable inventory or delivery promises.
   - This file must ship with the theme: templates/index.json uses section id "homepage_smart_hub" with type "dynamic-smart-homepage-hub".
     If you remove it, replace the section in the Theme Editor (see docs/homepage-section-dependencies.md).
@@ -230,7 +230,11 @@
   .smart-homepage-hub__shortcut:focus-visible {
     border-color: #046e82;
     color: #046e82;
-    outline: none;
+  }
+
+  .smart-homepage-hub__shortcut:focus-visible {
+    outline: 2px solid #046e82;
+    outline-offset: 2px;
   }
 
   .smart-homepage-hub__search-input {
@@ -265,6 +269,24 @@
     background: #ffffff;
     border: 1px solid #b8c3c6;
     color: #171b1f;
+  }
+
+  .smart-homepage-hub__search-input:focus-visible {
+    border-color: #046e82;
+    outline: 2px solid #046e82;
+    outline-offset: 2px;
+  }
+
+  .smart-homepage-hub__search-button:focus-visible,
+  .smart-homepage-hub__button:focus-visible {
+    outline: 2px solid #034e5f;
+    outline-offset: 2px;
+  }
+
+  .smart-homepage-hub__card:focus-visible {
+    border-color: #046e82;
+    outline: 2px solid #046e82;
+    outline-offset: 2px;
   }
 
   .smart-homepage-hub__actions {

@@ -14,9 +14,9 @@
     "announcement-bar": {
       "type": "static-announcement",
       "settings": {
-        "show_announcement": true,
+        "show_announcement": false,
         "homepage_announcement": false,
-        "announcement_text": "Exceptional Quality, Thoughtfully Curated.",
+        "announcement_text": "",
         "announcement_text_mobile": "",
         "announcement_link": "shopify://collections/all",
         "announcement_color": "#ffffff",

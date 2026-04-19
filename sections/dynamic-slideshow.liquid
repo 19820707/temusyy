@@ -15,10 +15,22 @@
     assign slide_height_mobile = 100 | divided_by: min_aspect_ratio_mobile
   endif
 
+  comment
+    Performance: single-slide above-the-fold heroes stay eager (LCP). Multi-slide
+    carousels lazy-load non-visible slides. Compact heights use smaller rimg caps (see render vars).
+  endcomment
   assign performance_lazyload = false
-
-  if section.index > 3 or slideshow_height == 'original'
+  if section.blocks.size > 1
     assign performance_lazyload = true
+  elsif section.index > 3 or slideshow_height == 'original'
+    assign performance_lazyload = true
+  endif
+
+  assign slideshow_rimg_desktop = '2000x'
+  assign slideshow_rimg_mobile = '800x'
+  if slideshow_height == 'small' or slideshow_height == 'medium'
+    assign slideshow_rimg_desktop = '1280x'
+    assign slideshow_rimg_mobile = '640x'
   endif
 %}
 
@@ -174,6 +186,8 @@
         lazyload: lazyload,
         block: block,
         block_index: forloop.index0,
+        hero_desktop_size: slideshow_rimg_desktop,
+        hero_mobile_size: slideshow_rimg_mobile,
       %}
     {%- endfor -%}
   </div>

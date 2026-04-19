@@ -32,6 +32,14 @@
     "media": {
       "view_in_your_space": "View in your space"
     },
+    "merch": {
+      "popular": "Popular",
+      "trending": "Trending",
+      "bestseller": "Best seller",
+      "last_units": "Limited stock",
+      "flow_interest": "High demand",
+      "flow_sales": "Selling fast"
+    },
     "buttons": {
       "quick_shop": "Quick shop",
       "add_to_cart": "Add to cart",
@@ -194,7 +202,7 @@
     },
     "time": {
       "clear": "Clear recently viewed",
-      "previous": "You recently viewed",
+      "previous": "Based on what you viewed",
       "second": "second",
       "seconds": "seconds",
       "minute": "minute",

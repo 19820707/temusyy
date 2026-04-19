@@ -1,0 +1,47 @@
+{% comment %}
+  Frictionless merchandising (tags + inventory). Flow tags map into the same three lanes:
+  - Trending: `trending`, `tendencia`, `popular`, `destaque`, `temusy-interesse`, `flow-interesse`
+  - Best seller: `bestseller`, `mais-vendido`, `mais vendido`, `temusy-vendas`, `flow-vendas`
+  - Limited stock: Shopify inventory when qty ≤ low_stock_threshold (no tag)
+  See docs/shopify-flow-fase-8.md.
+{% endcomment %}
+{% liquid
+  assign recently_viewed = recently_viewed | default: nil
+  assign countdown_timer = countdown_timer | default: nil
+  assign product_compare = product_compare | default: false
+  assign show_merch = true
+  if recently_viewed or countdown_timer or product_compare
+    assign show_merch = false
+  endif
+%}
+{% if product and show_merch %}
+  {% assign tags_joined = product.tags | join: ' ' | downcase %}
+  {% assign v = product.selected_or_first_available_variant %}
+  {% assign low_ok = false %}
+  {% if v.inventory_management == 'shopify' and v.inventory_quantity != nil %}
+    {% if v.inventory_quantity > 0 and v.inventory_quantity <= settings.low_stock_threshold %}
+      {% assign low_ok = true %}
+    {% endif %}
+  {% endif %}
+  {% assign show_trending = false %}
+  {% if tags_joined contains 'trending' or tags_joined contains 'tendencia' or tags_joined contains 'popular' or tags_joined contains 'destaque' or tags_joined contains 'temusy-interesse' or tags_joined contains 'flow-interesse' %}
+    {% assign show_trending = true %}
+  {% endif %}
+  {% assign show_bestseller = false %}
+  {% if tags_joined contains 'bestseller' or tags_joined contains 'mais-vendido' or tags_joined contains 'mais vendido' or tags_joined contains 'temusy-vendas' or tags_joined contains 'flow-vendas' %}
+    {% assign show_bestseller = true %}
+  {% endif %}
+  {% if show_trending or show_bestseller or low_ok %}
+    <div class="productitem__merch-labels">
+      {% if show_trending %}
+        <span class="productitem__merch-label productitem__merch-label--trending">🔥 {{ 'product.merch.trending' | t }}</span>
+      {% endif %}
+      {% if show_bestseller %}
+        <span class="productitem__merch-label productitem__merch-label--bestseller">⭐ {{ 'product.merch.bestseller' | t }}</span>
+      {% endif %}
+      {% if low_ok %}
+        <span class="productitem__merch-label productitem__merch-label--scarcity">⚡ {{ 'product.merch.last_units' | t }}</span>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endif %}

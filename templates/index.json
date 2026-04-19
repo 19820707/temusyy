@@ -8,11 +8,11 @@
           "settings": {
             "background_image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
             "title": "Beauty & care",
-            "text": "Skincare, makeup and essentials. Start here or explore popular categories below.",
-            "color": "#333333",
-            "link": "shopify://collections/health-and-beauty",
+            "text": "Skincare, makeup and essentials.",
+            "color": "#222222",
+            "link": "",
             "text_alignment": "left",
-            "button_one_label": "Shop beauty",
+            "button_one_label": "Shop now",
             "button_one_link": "shopify://collections/health-and-beauty",
             "button_one_style": "primary",
             "button_two_label": "",
@@ -30,209 +30,94 @@
       "settings": {
         "enable_autoplay": false,
         "autoplay_duration": 5,
-        "slideshow_width": "full",
-        "slideshow_height": "original",
-        "slideshow_height_mobile": "original",
+        "slideshow_width": "content",
+        "slideshow_height": "small",
+        "slideshow_height_mobile": "small",
         "slideshow_text_below_image": true
       }
     },
     "homepage_smart_hub": {
       "type": "dynamic-smart-homepage-hub",
       "blocks": {
-        "shortcut_watches": {
-          "type": "search_shortcut",
-          "settings": {
-            "label": "Watches",
-            "collection": "watches",
-            "link": "shopify://collections/watches"
-          }
-        },
-        "shortcut_headphones": {
-          "type": "search_shortcut",
-          "settings": {
-            "label": "Headphones",
-            "collection": "headphones",
-            "link": "shopify://collections/headphones"
-          }
-        },
-        "shortcut_jewelry": {
-          "type": "search_shortcut",
-          "settings": {
-            "label": "Jewelry",
-            "collection": "jewelry-and-fashion-accessories",
-            "link": "shopify://collections/jewelry-and-fashion-accessories"
-          }
-        },
-        "shortcut_beauty": {
-          "type": "search_shortcut",
-          "settings": {
-            "label": "Beauty",
-            "collection": "health-and-beauty",
-            "link": "shopify://collections/health-and-beauty"
-          }
-        },
-        "shortcut_home": {
-          "type": "search_shortcut",
-          "settings": {
-            "label": "Home",
-            "collection": "home-and-decoration",
-            "link": "shopify://collections/home-and-decoration"
-          }
-        },
-        "smart_path_watches": {
+        "lane_best_sellers": {
           "type": "collection_link",
           "settings": {
-            "collection": "watches",
-            "link": "shopify://collections/watches",
-            "badge": "Popular",
-            "title": "Watches that finish the look",
-            "text": "Start with refined everyday styles."
+            "collection": "best-sellers",
+            "link": "shopify://collections/best-sellers",
+            "badge": "Staff pick",
+            "title": "Best sellers",
+            "text": "SKUs we restock because they sell through."
           }
         },
-        "smart_path_audio": {
-          "type": "collection_link",
-          "settings": {
-            "collection": "headphones",
-            "link": "shopify://collections/headphones",
-            "badge": "Tech",
-            "title": "Audio for work and travel",
-            "text": "Earbuds, headsets and useful accessories."
-          }
-        },
-        "smart_path_home": {
-          "type": "collection_link",
-          "settings": {
-            "collection": "home-and-decoration",
-            "link": "shopify://collections/home-and-decoration",
-            "badge": "Home",
-            "title": "Upgrade everyday spaces",
-            "text": "Practical finds for rooms, kitchen and storage."
-          }
-        },
-        "smart_path_gifts": {
+        "lane_gifts": {
           "type": "collection_link",
           "settings": {
             "collection": "toys-and-games",
             "link": "shopify://collections/toys-and-games",
-            "badge": "Gifts",
-            "title": "Toys, games and celebration picks",
-            "text": "A focused lane when you are shopping for kids, hobbies or a present."
+            "badge": "Gift-ready",
+            "title": "Gifts",
+            "text": "Ready-to-wrap picks with clear delivery windows."
           }
         },
-        "smart_trust_support": {
+        "lane_under_50": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "under-50",
+            "link": "shopify://collections/under-50",
+            "badge": "Value",
+            "title": "Under $50",
+            "text": "Tight edit: strong value without filler SKUs."
+          }
+        },
+        "lane_new_arrivals": {
+          "type": "collection_link",
+          "settings": {
+            "collection": "new-arrivals",
+            "link": "shopify://collections/new-arrivals",
+            "badge": "Just in",
+            "title": "New arrivals",
+            "text": "What landed on shelves most recently."
+          }
+        },
+        "lane_support": {
           "type": "trust_point",
           "settings": {
-            "title": "Orders and help",
-            "text": "Track shipments, fix an order issue, or reach support without hunting the footer."
+            "title": "Support",
+            "text": "Talk to us about an order—no ticket black hole."
           }
         }
       },
       "block_order": [
-        "shortcut_watches",
-        "shortcut_headphones",
-        "shortcut_jewelry",
-        "shortcut_beauty",
-        "shortcut_home",
-        "smart_trust_support",
-        "smart_path_watches",
-        "smart_path_audio",
-        "smart_path_home",
-        "smart_path_gifts"
+        "lane_best_sellers",
+        "lane_gifts",
+        "lane_under_50",
+        "lane_new_arrivals",
+        "lane_support"
       ],
       "settings": {
-        "kicker": "Temusy finder",
-        "title": "Start here—then shop",
-        "text": "<p>Search, shortcuts, or browse all products—then popular categories, trust and policies, shop by department, and curated product picks.</p>",
-        "search_placeholder": "Search watches, earbuds, beauty, home...",
+        "kicker": "",
+        "title": "Temusy — where to start",
+        "text": "<p>Search or choose a lane—each one is a real buying job, not a random category dump.</p>",
+        "search_placeholder": "Search products…",
         "search_button": "Search",
-        "primary_label": "Browse all products",
+        "primary_label": "Shop all products",
         "primary_link": "shopify://collections/all",
         "secondary_label": "Customer support",
-        "secondary_link": "shopify://pages/temusy-customer-support",
-        "panel_label": "Popular shopping paths",
-        "search_shortcuts_a11y_label": "Quick category jumps"
+        "secondary_link": "shopify://pages/support",
+        "panel_label": "Curated shopping paths",
+        "search_shortcuts_a11y_label": "Optional category chips"
       }
     },
-    "homepage_department_grid": {
-      "type": "dynamic-collection-list",
-      "blocks": {
-        "collection-1": {
-          "type": "collection",
-          "settings": {
-            "collection": "dresses",
-            "image": "shopify://shop_images/woman-in-summer-floral-fashion.jpg",
-            "title": "Women's Fashion"
-          }
-        },
-        "collection-2": {
-          "type": "collection",
-          "settings": {
-            "collection": "polos",
-            "image": "shopify://shop_images/man-reaches-inside-his-jacket.jpg",
-            "title": "Men's Fashion"
-          }
-        },
-        "collection-3": {
-          "type": "collection",
-          "settings": {
-            "collection": "teen-clothing",
-            "image": "shopify://shop_images/little-boy-ready-for-school-looking-up.jpg",
-            "title": "Kids' Fashion"
-          }
-        },
-        "collection-4": {
-          "type": "collection",
-          "settings": {
-            "collection": "health-and-beauty",
-            "image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
-            "title": "Health and Beauty"
-          }
-        },
-        "collection-5": {
-          "type": "collection",
-          "settings": {
-            "collection": "accessories",
-            "image": "shopify://shop_images/laughter-in-the-sun.jpg",
-            "title": "Accessories"
-          }
-        },
-        "collection-6": {
-          "type": "collection",
-          "settings": {
-            "collection": "toys-and-games",
-            "image": "shopify://shop_images/toy-drive-donation-box.jpg",
-            "title": "Toys and Games"
-          }
-        }
-      },
-      "block_order": [
-        "collection-1",
-        "collection-2",
-        "collection-3",
-        "collection-4",
-        "collection-5",
-        "collection-6"
-      ],
-      "settings": {
-        "title": "Shop by category",
-        "thumbnail_columns_desktop": 6,
-        "thumbnail_columns_mobile": 3,
-        "image-crop": "circle",
-        "cta_label": "Browse all products",
-        "cta_link": "shopify://collections/all",
-        "cta_button_style": "primary"
-      }
-    },
-    "homepage_editorial_watches": {
+    "homepage_best_sellers_products": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "Customers are buying · Watches",
+        "title": "This week's top sellers",
         "layout": "grid",
         "mobile_layout": "grid",
-        "collection": "watches",
+        "collection": "best-sellers",
         "product_count": 6,
-        "cta_label": "Shop watches",
-        "cta_button_style": "secondary"
+        "cta_label": "See what's selling",
+        "cta_button_style": "primary"
       }
     },
     "homepage_trending_categories": {
@@ -243,7 +128,7 @@
           "settings": {
             "collection": "accessories",
             "image": "shopify://shop_images/laughter-in-the-sun.jpg",
-            "title": "Accessories"
+            "title": "Everyday accessories"
           }
         },
         "collection_CnaUQM": {
@@ -251,7 +136,7 @@
           "settings": {
             "collection": "headphones",
             "image": "shopify://shop_images/woman-listening-to-music.jpg",
-            "title": "Headphones"
+            "title": "Headphones & audio"
           }
         },
         "collection_gaaLR9": {
@@ -259,7 +144,7 @@
           "settings": {
             "collection": "health-and-beauty",
             "image": "shopify://shop_images/pink-lip-gloss.jpg",
-            "title": "Beauty"
+            "title": "Beauty & care"
           }
         },
         "collection_mJJfNj": {
@@ -267,7 +152,7 @@
           "settings": {
             "collection": "toys-and-games",
             "image": "shopify://shop_images/toy-drive-donation-box.jpg",
-            "title": "Toys"
+            "title": "Toys & family gifts"
           }
         },
         "collection_REFgFB": {
@@ -275,7 +160,7 @@
           "settings": {
             "collection": "home-and-decoration",
             "image": "shopify://shop_images/kitchen-utensils-on-counter.jpg",
-            "title": "Home"
+            "title": "Home & kitchen"
           }
         },
         "collection_c9UN9X": {
@@ -283,7 +168,7 @@
           "settings": {
             "collection": "footwear",
             "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
-            "title": "Footwear"
+            "title": "Shoes & footwear"
           }
         }
       },
@@ -296,72 +181,60 @@
         "collection_mJJfNj"
       ],
       "settings": {
-        "title": "Shop popular categories",
+        "title": "Browse by use case",
         "thumbnail_columns_desktop": 6,
         "thumbnail_columns_mobile": 2,
         "image-crop": "circle",
-        "cta_label": "Browse all products",
+        "cta_label": "Shop all categories",
         "cta_link": "shopify://collections/all",
-        "cta_button_style": "primary"
-      }
-    },
-    "homepage_editorial_jewelry": {
-      "type": "dynamic-featured-collection",
-      "settings": {
-        "title": "Customers are buying · Jewelry",
-        "layout": "grid",
-        "mobile_layout": "grid",
-        "collection": "jewelry-and-fashion-accessories",
-        "product_count": 5,
-        "cta_label": "Shop jewelry",
         "cta_button_style": "primary"
       }
     },
     "homepage_trust_bar": {
       "type": "dynamic-highlights-banner",
       "blocks": {
+        "highlight_proof_12k": {
+          "type": "highlight",
+          "settings": {
+            "icon": "icon-award-trophy",
+            "title": "+12,000 orders delivered",
+            "text": "<p>Trusted by customers worldwide.</p>",
+            "link": ""
+          }
+        },
         "highlight_qVfTeb": {
           "type": "highlight",
           "settings": {
             "icon": "icon-delivery",
-            "title": "Fast Shipping",
-            "text": "<p>Open shipping policy for regions, timelines, and dispatch details.</p>",
+            "title": "Fast shipping",
+            "text": "",
             "link": "/policies/shipping-policy"
-          }
-        },
-        "highlight_EjpTGH": {
-          "type": "highlight",
-          "settings": {
-            "icon": "icon-cell-phone",
-            "title": "Customer support",
-            "text": "<p>Go to support for order issues, product questions, and contact options.</p>",
-            "link": "shopify://pages/temusy-customer-support"
           }
         },
         "highlight_zfgA7r": {
           "type": "highlight",
           "settings": {
             "icon": "icon-label-tag",
-            "title": "Returns & exchanges",
-            "text": "<p>Open returns policy to see eligibility, timelines, and how to start a return.</p>",
+            "title": "Easy returns",
+            "text": "",
             "link": "/policies/refund-policy"
           }
         },
-        "highlight_rm3Jmt": {
+        "highlight_EjpTGH": {
           "type": "highlight",
           "settings": {
-            "icon": "icon-discount",
-            "title": "Special offers",
-            "text": "<p>Browse current offers and seasonal highlights in one place.</p>",
-            "link": "shopify://collections/all"
+            "icon": "icon-chat",
+            "title": "Customer support",
+            "text": "",
+            "link": "shopify://pages/support"
           }
         }
       },
       "block_order": [
+        "highlight_proof_12k",
         "highlight_qVfTeb",
-        "highlight_EjpTGH",
         "highlight_zfgA7r",
-        "highlight_rm3Jmt"
+        "highlight_EjpTGH"
       ],
       "settings": {
         "section_spacing": true,
@@ -373,12 +246,25 @@
         "mobile_layout": "grid"
       }
     },
+    "homepage_featured_products": {
+      "type": "dynamic-featured-collection",
+      "settings": {
+        "title": "Jewelry our team wears",
+        "layout": "grid",
+        "mobile_layout": "grid",
+        "collection": "jewelry-and-fashion-accessories",
+        "product_count": 6,
+        "cta_label": "Shop this edit",
+        "cta_button_style": "secondary"
+      }
+    },
     "homepage_testimonials": {
       "type": "dynamic-testimonials",
       "blocks": {
         "testimonial-1": {
           "type": "testimonial",
           "settings": {
+            "image": "shopify://shop_images/man-reaches-inside-his-jacket.jpg",
             "star_rating": "5",
             "text": "<p><strong>An elegant and reliable watch, clearly crafted to last. Prompt delivery and refined packaging added to a smooth, premium experience. Highly recommended for those who appreciate quality and style.</strong></p>",
             "author": "<p><em><strong>Jonathan Reed</strong></em></p>"
@@ -387,6 +273,7 @@
         "testimonial-2": {
           "type": "testimonial",
           "settings": {
+            "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
             "star_rating": "5",
             "text": "<p><strong>Impressive quality and classic design. These loafers are as comfortable as they are stylish. The unboxing experience matched the premium look and feel.</strong></p>",
             "author": "<p><em><strong>Oliver Grant</strong></em></p>"
@@ -395,6 +282,7 @@
         "testimonial-3": {
           "type": "testimonial",
           "settings": {
+            "image": "shopify://shop_images/woman-listening-to-music.jpg",
             "star_rating": "5",
             "text": "<p><strong>Crisp sound, seamless Bluetooth connection, and a comfortable fit. These earbuds exceeded expectations. Delivery was prompt and packaging felt premium.</strong></p>",
             "author": "<p><em><strong>Sophia Lane</strong></em></p>"
@@ -403,25 +291,10 @@
         "testimonial-4": {
           "type": "testimonial",
           "settings": {
+            "image": "shopify://shop_images/pink-lip-gloss.jpg",
             "star_rating": "5",
             "text": "<p><strong>A modern, refined scent that works perfectly for day or evening. The fragrance has depth and longevity. Excellent customer care and presentation.</strong></p>",
             "author": "<p><em><strong>Alex Whitmore</strong></em></p>"
-          }
-        },
-        "testimonial-5": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "5",
-            "text": "<p><strong>Beautifully designed and surprisingly lightweight. This bracelet adds a touch of elegance to every outfit. Arrived in a lovely box and felt like a gift to myself.</strong></p>",
-            "author": "<p><em><strong>Emily Rhodes</strong></em></p>"
-          }
-        },
-        "testimonial-6": {
-          "type": "testimonial",
-          "settings": {
-            "star_rating": "5",
-            "text": "<p><strong>Stylish, sturdy, and incredibly functional. This kitchen organizer helped streamline my space instantly. A well-thought-out design with quality materials—very satisfied.</strong></p>",
-            "author": "<p><em><strong>Chloe Bennett</strong></em></p>"
           }
         }
       },
@@ -429,12 +302,10 @@
         "testimonial-1",
         "testimonial-2",
         "testimonial-3",
-        "testimonial-4",
-        "testimonial-5",
-        "testimonial-6"
+        "testimonial-4"
       ],
       "settings": {
-        "title": "Customer reviews",
+        "title": "What buyers said (with photos)",
         "image_crop": "circle",
         "text_size": "small"
       }
@@ -443,11 +314,10 @@
   "order": [
     "homepage_hero",
     "homepage_smart_hub",
+    "homepage_best_sellers_products",
     "homepage_trending_categories",
     "homepage_trust_bar",
-    "homepage_department_grid",
-    "homepage_editorial_watches",
-    "homepage_editorial_jewelry",
+    "homepage_featured_products",
     "homepage_testimonials"
   ]
 }

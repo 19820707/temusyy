@@ -15,10 +15,12 @@ assert.match(src, /method="get"/, 'smart hub: search form must use GET');
 assert.match(src, /name="q"/, 'smart hub: search input must use q parameter');
 assert.match(src, /collections\[block\.settings\.collection\]/, 'smart hub: collection blocks must resolve Shopify collections');
 assert.match(src, /search_shortcut/, 'smart hub: must support search shortcut blocks');
-assert.match(src, /smart-homepage-hub__shortcuts/, 'smart hub: must render search shortcut navigation');
+assert.match(src, /smart-homepage-hub__panel/, 'smart hub: must render intent lanes panel (collection_link + trust_point)');
 assert.match(src, /block\.shopify_attributes/, 'smart hub: blocks must keep theme editor attributes');
 assert.match(src, /aria-labelledby="smart-homepage-hub-title-/, 'smart hub: section must expose labelled region');
 assert.match(src, /aria-label="\{\{\s*section\.settings\.panel_label\s*\|\s*escape\s*\}\}"/, 'smart hub: panel must expose accessible label');
+assert.match(src, /\.smart-homepage-hub__card:focus-visible/, 'smart hub: intent lane links must have visible keyboard focus');
+assert.match(src, /\.smart-homepage-hub__search-button:focus-visible/, 'smart hub: search submit must have visible keyboard focus');
 assert.doesNotMatch(src, /<script\b/i, 'smart hub: must not add JS to homepage');
 assert.doesNotMatch(src, /console\./, 'smart hub: must not log to console');
 
