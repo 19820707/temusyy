@@ -36,8 +36,18 @@ assert.match(
   'static-header: must default blank setting to marketplace in Liquid'
 );
 assert.match(staticHeader, /marketplace_header/, 'static-header: must branch on marketplace_header');
+assert.match(
+  staticHeader,
+  /site-header--marketplace/,
+  'static-header: marketplace mode must add the CSS activation class to the header element'
+);
 assert.match(staticHeader, /"header_visual_style"\s*:/, 'static-header: section JSON must expose header_visual_style for scripts');
 assert.match(staticHeader, /header-marketplace\.css/, 'static-header: must load header-marketplace.css when marketplace');
+assert.match(
+  staticHeader,
+  /marketplace_chrome:\s*marketplace_header/,
+  'static-header: must pass marketplace_chrome into live-search-form for AliExpress-style search row'
+);
 
 const extras = fs.readFileSync(path.join(root, 'snippets', 'header-marketplace-extras.liquid'), 'utf8');
 assert.match(extras, /mp_app_safe/, 'header-marketplace-extras: must gate app link on safety flag');
@@ -51,6 +61,9 @@ assert.match(
   'header-marketplace.css: must define forced-colors fallbacks for marketplace controls'
 );
 assert.match(mpCss, /focus-visible/, 'header-marketplace.css: must define focus-visible affordances');
+assert.match(mpCss, /max-width:\s*1660px/, 'header-marketplace.css: desktop header must use a centered marketplace max-width shell');
+assert.match(mpCss, /border:\s*1px solid #111827/, 'header-marketplace.css: search must use a strong marketplace search outline');
+assert.match(mpCss, /width:\s*min\(16\.5rem,\s*22vw\)/, 'header-marketplace.css: all-categories control must read as a real nav rail control');
 
 const navmenu = fs.readFileSync(path.join(root, 'snippets', 'navmenu.liquid'), 'utf8');
 assert.match(

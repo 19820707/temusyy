@@ -148,6 +148,7 @@
         render 'live-search-form',
         quick_links: linklists[section.settings.quick_links],
         enable_images: section.settings.enable_live_search_images,
+        marketplace_chrome: marketplace_header
       %}
 
       {% if section.settings.small_promo_text != blank or section.settings.small_promo_heading != blank %}
@@ -221,10 +222,18 @@
           class="site-header-cart--button{% if marketplace_header %} site-header-cart--button--marketplace{% endif %}"
           href="{{ routes.cart_url }}"
         >
-          <span
-            class="site-header-cart--count {% if cart.item_count > 0 %}visible{% endif %}"
-            data-header-cart-count="{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}">
-          </span>
+          {% if marketplace_header %}
+            <span
+              class="site-header-cart--count site-header-cart--count--always visible"
+              data-header-cart-count="{{ cart.item_count }}"
+            >
+            </span>
+          {% else %}
+            <span
+              class="site-header-cart--count {% if cart.item_count > 0 %}visible{% endif %}"
+              data-header-cart-count="{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}">
+            </span>
+          {% endif %}
           <span class="site-header-cart-icon site-header-cart-icon--svg">
             {% if section.settings.cart_icon == 'icon-bag' %}
               {% render 'icon-library', id: 'icon-bag' %}

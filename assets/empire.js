@@ -36468,7 +36468,11 @@ class StaticHeader {
     }
     this.events.register(window, 'cartcount:update', event => {
       this.cartCount.dataset.headerCartCount = event.detail.item_count;
+      const marketplaceHeader = this.el.classList.contains('site-header--marketplace');
+      const alwaysCount = this.cartCount.classList.contains('site-header-cart--count--always');
       if (event.detail.item_count > 0) {
+        this.cartCount.classList.add('visible');
+      } else if (marketplaceHeader && alwaysCount) {
         this.cartCount.classList.add('visible');
       } else {
         this.cartCount.classList.remove('visible');

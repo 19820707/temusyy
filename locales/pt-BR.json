@@ -343,7 +343,8 @@
       "sign_in_register": "Entrar / Registar",
       "cart": "Carrinho",
       "app_default": "Obter a app",
-      "locale_hint": "Idioma e moeda atuais"
+      "locale_hint": "Idioma e moeda atuais",
+      "visual_search_hint": "Pesquisa por imagem não está disponível nesta loja"
     }
   },
   "footer": {

@@ -7,9 +7,17 @@
 
   @param placeholder {String|Nil}
     Add a custom placeholder string
+
+  @param marketplace_chrome {Bool}
+    Optional AliExpress-style search row (camera hint + classes); uses header section settings.
 {% endcomment %}
 
 {% assign placeholder = placeholder | default: nil %}
+{% assign marketplace_chrome = marketplace_chrome | default: false %}
+{% assign mp_search_camera = false %}
+{% if marketplace_chrome and section.settings.filter_search_by == 'disabled' %}
+  {% assign mp_search_camera = true %}
+{% endif %}
 
 {% assign has_quick_links = false %}
 {% if quick_links.links.size > 0 %}
@@ -141,6 +149,15 @@
         autocomplete="off"
         data-live-search-input
       >
+      {% if mp_search_camera %}
+        <span
+          class="live-search-visual-hint"
+          aria-hidden="true"
+          title="{{ 'header.marketplace.visual_search_hint' | t | escape }}"
+        >
+          {% render 'icon-library', id: 'icon-camera-search' %}
+        </span>
+      {% endif %}
       <button
         class="live-search-takeover-cancel"
         type="button"

@@ -495,6 +495,18 @@
       <path fill-rule="evenodd" clip-rule="evenodd" d="M4 6L4 10H6V6H10V4H6V0H4L4 4H0V6H4Z" fill="currentColor"/>
     </svg>
   {% endif %}
+
+  {% if id == 'icon-camera-search' %}
+    <svg {{ shared_svg_attrs }} width="22" height="18" viewBox="0 0 22 18" fill="none">
+      <path
+        d="M3.25 5.5h2.2L6.6 3.65A1.1 1.1 0 0 1 7.65 3h4.7a1.1 1.1 0 0 1 1.05.65L11.55 5.5h2.2A1.75 1.75 0 0 1 15.5 7.25v6.5A1.75 1.75 0 0 1 13.75 15.5h-9.5A1.75 1.75 0 0 1 2.5 13.75v-6.5A1.75 1.75 0 0 1 4.25 5.5Z"
+        stroke="currentColor"
+        stroke-width="1.35"
+        stroke-linejoin="round"
+      />
+      <circle cx="9" cy="10.25" r="2.35" stroke="currentColor" stroke-width="1.35" />
+    </svg>
+  {% endif %}
 {%- endcapture -%}
 
 {{ icon | strip_newlines }}

@@ -343,7 +343,8 @@
       "sign_in_register": "Sign in / Register",
       "cart": "Cart",
       "app_default": "Get the app",
-      "locale_hint": "Current language and currency"
+      "locale_hint": "Current language and currency",
+      "visual_search_hint": "Search by image is not available on this store"
     }
   },
   "footer": {
