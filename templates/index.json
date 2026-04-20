@@ -179,20 +179,20 @@
       ],
       "settings": {
         "kicker": "",
-        "title": "Shop flow — faster by need",
+        "title": "",
         "text": "",
-        "search_placeholder": "Search products",
-        "search_button": "Go",
-        "primary_label": "Best sellers",
+        "search_placeholder": "",
+        "search_button": "",
+        "primary_label": "",
         "primary_link": "shopify://collections/all",
-        "secondary_label": "Under $50",
+        "secondary_label": "",
         "secondary_link": "shopify://collections/under-50",
-        "tertiary_label": "Trending now",
+        "tertiary_label": "",
         "tertiary_link": "shopify://collections/new-arrivals",
         "paths_layout": "path_chips",
-        "panel_label": "Shop paths",
-        "search_shortcuts_a11y_label": "Categories",
-        "search_intents_heading": "Quick picks"
+        "panel_label": "",
+        "search_shortcuts_a11y_label": "",
+        "search_intents_heading": ""
       }
     },
     "homepage_best_sellers_products": {

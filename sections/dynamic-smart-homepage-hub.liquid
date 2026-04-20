@@ -8,16 +8,46 @@
     If you remove it, replace the section in the Theme Editor (see docs/homepage-section-dependencies.md).
 {% endcomment %}
 {% liquid
-  assign title = section.settings.title | default: 'Shop flow automático'
+  assign title = section.settings.title | strip
+  if title == blank
+    assign title = 'sections.smart_homepage_hub.default_title' | t
+  endif
   assign text = section.settings.text | default: ''
-  assign search_placeholder = section.settings.search_placeholder | default: 'Search products'
-  assign search_button = section.settings.search_button | default: 'Go'
-  assign primary_label = section.settings.primary_label | default: 'Best sellers'
+  assign search_placeholder = section.settings.search_placeholder | strip
+  if search_placeholder == blank
+    assign search_placeholder = 'sections.smart_homepage_hub.search_placeholder' | t
+  endif
+  assign search_button = section.settings.search_button | strip
+  if search_button == blank
+    assign search_button = 'sections.smart_homepage_hub.search_button' | t
+  endif
+  assign primary_label = section.settings.primary_label | strip
+  if primary_label == blank
+    assign primary_label = 'sections.smart_homepage_hub.primary_label' | t
+  endif
   assign primary_link = section.settings.primary_link | default: ''
-  assign secondary_label = section.settings.secondary_label | default: 'Under $50'
+  assign secondary_label = section.settings.secondary_label | strip
+  if secondary_label == blank
+    assign secondary_label = 'sections.smart_homepage_hub.secondary_label' | t
+  endif
   assign secondary_link = section.settings.secondary_link | default: ''
-  assign tertiary_label = section.settings.tertiary_label | default: 'Trending now'
+  assign tertiary_label = section.settings.tertiary_label | strip
+  if tertiary_label == blank
+    assign tertiary_label = 'sections.smart_homepage_hub.tertiary_label' | t
+  endif
   assign tertiary_link = section.settings.tertiary_link | default: ''
+  assign panel_label_resolved = section.settings.panel_label | strip
+  if panel_label_resolved == blank
+    assign panel_label_resolved = 'sections.smart_homepage_hub.panel_label' | t
+  endif
+  assign search_shortcuts_a11y_resolved = section.settings.search_shortcuts_a11y_label | strip
+  if search_shortcuts_a11y_resolved == blank
+    assign search_shortcuts_a11y_resolved = 'sections.smart_homepage_hub.search_shortcuts_a11y_label' | t
+  endif
+  assign search_intents_heading_resolved = section.settings.search_intents_heading | strip
+  if search_intents_heading_resolved == blank
+    assign search_intents_heading_resolved = 'sections.smart_homepage_hub.search_intents_heading' | t
+  endif
 %}
 
 <section
@@ -35,18 +65,18 @@
         {{ title }}
       </h2>
 
-      <ul class="smart-homepage-hub__market-signals" aria-label="Shopping signals">
+      <ul class="smart-homepage-hub__market-signals" aria-label="{{ 'sections.smart_homepage_hub.market_signals_aria' | t | escape }}">
         <li>
-          <strong>Deals</strong>
-          <span>Timed picks</span>
+          <strong>{{ 'sections.smart_homepage_hub.signal_deals_title' | t }}</strong>
+          <span>{{ 'sections.smart_homepage_hub.signal_deals_sub' | t }}</span>
         </li>
         <li>
-          <strong>Paths</strong>
-          <span>Fewer taps</span>
+          <strong>{{ 'sections.smart_homepage_hub.signal_paths_title' | t }}</strong>
+          <span>{{ 'sections.smart_homepage_hub.signal_paths_sub' | t }}</span>
         </li>
         <li>
-          <strong>Support</strong>
-          <span>Order help</span>
+          <strong>{{ 'sections.smart_homepage_hub.signal_support_title' | t }}</strong>
+          <span>{{ 'sections.smart_homepage_hub.signal_support_sub' | t }}</span>
         </li>
       </ul>
 
@@ -104,11 +134,11 @@
             class="smart-homepage-hub__search-intents"
             role="region"
             aria-live="polite"
-            aria-label="{{ section.settings.search_intents_heading | default: 'Quick picks' | escape }}"
+            aria-label="{{ search_intents_heading_resolved | escape }}"
             hidden
           >
             <p class="smart-homepage-hub__search-intents-kicker">
-              {{ section.settings.search_intents_heading | default: 'Quick picks' | escape }}
+              {{ search_intents_heading_resolved | escape }}
             </p>
             <ul class="smart-homepage-hub__search-intents-list" data-temusy-search-intents-list></ul>
           </div>
@@ -155,7 +185,7 @@
       {% if shortcut_count > 0 %}
         <nav
           class="smart-homepage-hub__shortcuts"
-          aria-label="{{ section.settings.search_shortcuts_a11y_label | default: 'Jump to a category' | escape }}"
+          aria-label="{{ search_shortcuts_a11y_resolved | escape }}"
         >
           {% for block in section.blocks %}
             {% if block.type == 'search_shortcut' %}
@@ -208,7 +238,7 @@
     {% if panel_block_count > 0 %}
       <div
         class="smart-homepage-hub__panel{% if section.settings.paths_layout == 'path_chips' %} smart-homepage-hub__panel--chips{% endif %}"
-        aria-label="{{ section.settings.panel_label | escape }}"
+        aria-label="{{ panel_label_resolved | escape }}"
       >
         {% if section.settings.paths_layout == 'path_chips' %}
           <div class="smart-homepage-hub__paths-row" role="list" data-temusy-hub-paths>

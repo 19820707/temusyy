@@ -179,13 +179,15 @@ assert.ok(
   const st = hub.settings;
   const plain = (st.text || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
   assert.ok(plain.length === 0, 'index.json: hub body text must be empty (no long fold explanations)');
+  const titleTrim = (st.title || '').trim();
   assert.ok(
-    /shop flow/i.test((st.title || '').trim()),
-    'index.json: hub title must read as automatic shop flow (Shop flow automático / shop flow)'
+    titleTrim.length === 0 || /shop flow/i.test(titleTrim),
+    'index.json: hub title blank (locale default_title) or explicit shop-flow copy'
   );
+  const ph = (st.search_placeholder || '').trim();
   assert.ok(
-    ((st.search_placeholder || '').trim().length > 0 && (st.search_placeholder || '').trim().length <= 40),
-    'index.json: hub search placeholder stays short'
+    ph.length === 0 || (ph.length > 0 && ph.length <= 40),
+    'index.json: hub search placeholder blank (locale) or short'
   );
 })();
 

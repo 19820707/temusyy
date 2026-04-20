@@ -288,6 +288,24 @@
       "scroll_previous": "Scroll deals left",
       "scroll_next": "Scroll deals right"
     },
+    "smart_homepage_hub": {
+      "default_title": "Shop flow — faster by need",
+      "search_placeholder": "Search products",
+      "search_button": "Go",
+      "primary_label": "Best sellers",
+      "secondary_label": "Under $50",
+      "tertiary_label": "Trending now",
+      "panel_label": "Shop paths",
+      "search_shortcuts_a11y_label": "Categories",
+      "search_intents_heading": "Quick picks",
+      "market_signals_aria": "Shopping signals",
+      "signal_deals_title": "Deals",
+      "signal_deals_sub": "Timed picks",
+      "signal_paths_title": "Paths",
+      "signal_paths_sub": "Fewer taps",
+      "signal_support_title": "Support",
+      "signal_support_sub": "Order help"
+    },
     "complementary_product_block": {
       "from": "from",
       "now": "now",

@@ -25,7 +25,7 @@ assert.match(src, /smart-homepage-hub__button--tertiary/, 'smart hub: must style
 assert.match(src, /block\.shopify_attributes/, 'smart hub: blocks must keep theme editor attributes');
 assert.match(src, /aria-labelledby="smart-homepage-hub-title-/, 'smart hub: section must expose labelled region');
 assert.match(src, /data-temusy-intent-zone="guides"/, 'smart hub: must tag guides zone for homepage intent detection');
-assert.match(src, /aria-label="\{\{\s*section\.settings\.panel_label\s*\|\s*escape\s*\}\}"/, 'smart hub: panel must expose accessible label');
+assert.match(src, /aria-label="\{\{\s*panel_label_resolved\s*\|\s*escape\s*\}\}"/, 'smart hub: panel must expose accessible label (locale-resolved)');
 assert.match(src, /\.smart-homepage-hub__card:focus-visible/, 'smart hub: intent lane links must have visible keyboard focus');
 assert.match(src, /smart-homepage-hub__path-chip/, 'smart hub: must support path chip layout (shopping path engine)');
 assert.match(src, /smart-homepage-hub__path-chip-badge/, 'smart hub: path chips must support optional reward-style badges');
