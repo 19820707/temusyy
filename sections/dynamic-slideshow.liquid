@@ -122,18 +122,25 @@
     gap: 0.45rem;
     max-width: min(100%, 220px);
     min-width: 0;
-    padding: 0.35rem 0.45rem 0.35rem 0.35rem;
-    border-radius: 10px;
+    padding: 0.38rem 0.5rem 0.38rem 0.4rem;
+    border-radius: 8px;
     text-decoration: none;
-    color: #ffffff;
-    background: rgba(15, 23, 42, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(6px);
+    color: #f8fafc;
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(248, 250, 252, 0.18);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-font-smoothing: antialiased;
+    transition: border-color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__cell:hover {
-    border-color: rgba(255, 255, 255, 0.45);
-    background: rgba(15, 23, 42, 0.82);
+    border-color: rgba(248, 250, 252, 0.32);
+    background: rgba(15, 23, 42, 0.88);
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.28);
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__cell:focus-visible {
+    outline: 2px solid #f8fafc;
+    outline-offset: 2px;
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__media {
     flex-shrink: 0;
@@ -190,10 +197,11 @@
     font-size: 0.88rem;
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__pct-inline {
-    font-size: 0.68rem;
-    font-weight: 900;
-    color: #fecaca;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #fecdd3;
     margin-left: 0.15rem;
+    letter-spacing: 0.02em;
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid {
     gap: 0.35rem;
@@ -201,27 +209,37 @@
     align-items: flex-end;
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__cell--polaroid {
-    width: 5.85rem;
-    min-width: 5.85rem;
-    max-width: 5.85rem;
-    padding: 0.32rem 0.32rem 0.42rem;
-    border-radius: 7px;
+    width: 5.75rem;
+    min-width: 5.75rem;
+    max-width: 5.75rem;
+    padding: 0.34rem 0.34rem 0.44rem;
+    border-radius: 8px;
     background: #ffffff;
     color: #0f172a;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 0.2rem;
-    border: 1px solid rgba(15, 23, 42, 0.1);
+    gap: 0.22rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    -webkit-font-smoothing: antialiased;
+    transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__cell--polaroid:hover {
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.18);
+    border-color: rgba(15, 23, 42, 0.12);
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__cell--polaroid:focus-visible {
+    outline: 2px solid #0f172a;
+    outline-offset: 2px;
   }
   @media (prefers-reduced-motion: no-preference) {
     #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid .temusy-hero-price-strip__cell--polaroid:nth-child(odd) {
-      transform: rotate(-2.5deg);
+      transform: rotate(-0.8deg);
     }
     #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid .temusy-hero-price-strip__cell--polaroid:nth-child(even) {
-      transform: rotate(2deg);
+      transform: rotate(0.6deg);
     }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -251,19 +269,19 @@
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__pct-badge {
     position: absolute;
-    top: 0.2rem;
-    right: 0.2rem;
-    min-width: 2rem;
-    height: 2rem;
-    padding: 0 0.28rem;
+    top: 0.22rem;
+    right: 0.22rem;
+    min-width: 1.85rem;
+    height: 1.85rem;
+    padding: 0 0.26rem;
     border-radius: 999px;
-    background: #e11d48;
+    background: #be123c;
     color: #fff;
-    font-size: 0.62rem;
-    font-weight: 900;
-    line-height: 2rem;
+    font-size: 0.58rem;
+    font-weight: 800;
+    line-height: 1.85rem;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.55);
+    box-shadow: 0 2px 6px rgba(190, 18, 60, 0.35);
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-meta {
     display: flex;
@@ -272,11 +290,11 @@
     padding: 0 0.05rem;
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-label {
-    font-size: 0.58rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(15, 23, 42, 0.55);
+    color: rgba(15, 23, 42, 0.48);
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-prices {
     display: flex;
@@ -291,9 +309,10 @@
     color: rgba(15, 23, 42, 0.45);
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-now {
-    font-size: 0.82rem;
-    font-weight: 900;
-    color: #e11d48;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.01em;
   }
 {% endstyle %}
 
@@ -705,8 +724,8 @@
           "label": "Price strip style",
           "default": "dark_rail",
           "options": [
-            { "value": "dark_rail", "label": "Dark glass rail" },
-            { "value": "polaroid", "label": "White deal cards (polaroid)" }
+            { "value": "dark_rail", "label": "Glass rail (refined)" },
+            { "value": "polaroid", "label": "Stacked product cards" }
           ]
         },
         {

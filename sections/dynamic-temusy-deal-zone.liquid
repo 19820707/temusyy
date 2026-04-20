@@ -517,29 +517,35 @@
   }
   {% if commerce_intense %}
     #shopify-section-{{ section.id }} .temusy-deal-zone.temusy-deal-zone--commerce-intense {
-      background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 42%, #f8fafc 100%);
-      border-color: rgba(225, 29, 72, 0.18);
-      box-shadow: 0 14px 44px rgba(225, 29, 72, 0.09);
+      background: linear-gradient(180deg, #fafafa 0%, #f4f4f5 48%, #ffffff 100%);
+      border-color: rgba(15, 23, 42, 0.1);
+      box-shadow: 0 16px 48px rgba(15, 23, 42, 0.07);
+      border-inline-start: 3px solid var(--temusy-deal-accent);
     }
     #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__inner {
-      padding-top: 0.85rem;
-      padding-bottom: 1rem;
+      padding-top: 0.95rem;
+      padding-bottom: 1.05rem;
     }
     #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__title {
-      font-size: 1.22rem;
-      letter-spacing: 0.03em;
+      font-size: 1.18rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
     }
     #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense a.temusy-deal-zone__rail--bundle {
-      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-      border-color: rgba(234, 88, 12, 0.28);
+      background: #ffffff;
+      border-color: rgba(15, 23, 42, 0.1);
+      box-shadow: 0 2px 14px rgba(15, 23, 42, 0.06);
+      border-inline-start: 3px solid rgba(234, 88, 12, 0.65);
     }
     #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__rail--deals {
-      background: linear-gradient(180deg, #ffffff 0%, #fff1f2 100%);
-      border-color: rgba(225, 29, 72, 0.14);
+      background: #ffffff;
+      border-color: rgba(15, 23, 42, 0.1);
+      box-shadow: 0 2px 14px rgba(15, 23, 42, 0.06);
     }
     #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__clock {
-      font-size: 1.18rem;
-      padding: 0.32rem 0.62rem;
+      font-size: 1.12rem;
+      padding: 0.3rem 0.58rem;
+      letter-spacing: 0.06em;
     }
     #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__scroller {
       gap: 0.5rem;
@@ -992,9 +998,9 @@
     {
       "type": "checkbox",
       "id": "commerce_intense_surface",
-      "label": "High-impact marketplace shell",
+      "label": "Elevated commerce styling",
       "default": false,
-      "info": "Warmer gradient, stronger bundle/super-deals rails, slightly denser SKU scroller (AliExpress-style pressure)."
+      "info": "Adds accent rails, refined shadows, and slightly stronger countdown typography. Keeps a premium retail tone—enable when you want extra emphasis without loud gradients."
     },
     {
       "type": "header",

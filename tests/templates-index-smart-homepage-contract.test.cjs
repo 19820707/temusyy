@@ -81,8 +81,8 @@ assert.strictEqual(
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_deal_zone.settings.commerce_intense_surface,
-  true,
-  'index.json: deal zone must opt into high-impact marketplace shell'
+  false,
+  'index.json: deal zone defaults to restrained surface (enable elevated styling in Theme Editor when needed)'
 );
 
 (function dealZoneMarketplaceChrome() {
@@ -428,8 +428,8 @@ assert.strictEqual(
 );
 assert.strictEqual(
   heroSlide.temusy_strip_product_limit,
-  4,
-  'index.json: hero price strip must ship four SKUs for marketplace density'
+  3,
+  'index.json: hero price strip stays tight (three SKUs) for a calmer, premium layout'
 );
 assert.strictEqual(
   (heroSlide.temusy_strip_layout || '').toString().trim(),
@@ -438,8 +438,8 @@ assert.strictEqual(
 );
 assert.strictEqual(
   (heroSlide.temusy_strip_visual || '').toString().trim(),
-  'polaroid',
-  'index.json: hero strip must use polaroid deal cards (white price tiles)'
+  'dark_rail',
+  'index.json: hero strip must use the refined glass rail (professional default)'
 );
 assert.ok(
   typeof heroSlide.text === 'string' &&
