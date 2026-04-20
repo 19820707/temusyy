@@ -2,7 +2,7 @@
  * Homepage stack — system concept → section instance id:
  *   hero                 → homepage_hero
  *   deal_zone            → homepage_deal_zone
- *   trending_products    → homepage_best_sellers_products
+ *   trending_products    → homepage_best_sellers_products (collection `all` = real SKUs on every shop)
  *   decision_shortcuts   → homepage_smart_hub
  *   trust_bar            → homepage_trust_bar
  *   category_grid        → homepage_trending_categories
@@ -61,9 +61,9 @@
         "heading": "Today's deals",
         "signal_nav_label": "Why shop with us",
         "signal_one_label": "Choice picks",
-        "signal_one_link": "shopify://collections/best-sellers",
+        "signal_one_link": "shopify://collections/all",
         "signal_two_label": "Bundle savings",
-        "signal_two_link": "shopify://collections/best-sellers",
+        "signal_two_link": "shopify://collections/all",
         "signal_three_label": "Secure checkout",
         "signal_three_link": "",
         "signal_four_label": "Support ready",
@@ -71,11 +71,11 @@
         "show_bundle_lane": true,
         "bundle_title": "Bundle deals",
         "bundle_line": "Add 3+ items—stacked savings at checkout when your promotion applies.",
-        "bundle_link": "shopify://collections/best-sellers",
+        "bundle_link": "shopify://collections/all",
         "deals_rail_title": "Super deals",
         "show_countdown": true,
         "deadline_iso": "",
-        "collection": "best-sellers",
+        "collection": "all",
         "product_count": 8,
         "cta_label": "View all deals",
         "cta_style": "primary",
@@ -184,7 +184,7 @@
         "search_placeholder": "Search products",
         "search_button": "Go",
         "primary_label": "Best sellers",
-        "primary_link": "shopify://collections/best-sellers",
+        "primary_link": "shopify://collections/all",
         "secondary_label": "Under $50",
         "secondary_link": "shopify://collections/under-50",
         "tertiary_label": "Trending now",
@@ -201,9 +201,9 @@
         "title": "This week's top sellers",
         "layout": "grid",
         "mobile_layout": "grid",
-        "collection": "best-sellers",
+        "collection": "all",
         "product_count": 8,
-        "cta_label": "Shop all top sellers",
+        "cta_label": "Shop all products",
         "cta_button_style": "primary",
         "temusy_intent_zone": "buy"
       }
@@ -313,9 +313,9 @@
         "title": "Jewelry our team wears",
         "layout": "grid",
         "mobile_layout": "grid",
-        "collection": "jewelry-and-fashion-accessories",
+        "collection": "all",
         "product_count": 8,
-        "cta_label": "Shop the jewelry edit",
+        "cta_label": "Shop the catalog",
         "cta_button_style": "secondary",
         "temusy_intent_zone": "buy"
       }

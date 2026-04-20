@@ -1,7 +1,7 @@
 /**
  * Contract tests for templates/index.json homepage merchandising.
  *
- * Canonical stack: hero → deal_zone → trending_products (best-sellers grid) → decision_shortcuts (hub) →
+ * Canonical stack: hero → deal_zone → trending_products (catalog grid) → decision_shortcuts (hub) →
  * trust_bar → category_grid → featured_products → recently_viewed → testimonials (exactly nine sections).
  */
 const assert = require('assert');
@@ -61,8 +61,8 @@ assert.strictEqual(
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_deal_zone.settings.collection,
-  'best-sellers',
-  'index.json: deal zone collection must align with bestsellers lane'
+  'all',
+  'index.json: deal zone must use the all-products collection so rails always have real SKUs'
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_deal_zone.settings.product_count,
@@ -233,7 +233,7 @@ CANONICAL_HOMEPAGE_ORDER.forEach(function (expectedId, i) {
 (function decisionEngineFeaturedCollection() {
   const sec = indexTemplate.sections.homepage_best_sellers_products;
   const st = sec.settings;
-  assert.strictEqual(st.collection, 'best-sellers', 'index.json: decision row must use best-sellers collection');
+  assert.strictEqual(st.collection, 'all', 'index.json: decision row must use all-products collection (avoids empty custom handles)');
   assert.strictEqual(st.layout, 'grid', 'index.json: decision row must use grid layout');
   assert.strictEqual(st.product_count, 8, 'index.json: decision row must surface eight products (max density within 6–8 contract)');
   assert.strictEqual(

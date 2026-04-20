@@ -47,6 +47,10 @@
   %}
 
   <div class="header-mp-extras" data-header-marketplace-extras>
+    {%- assign mp_app_lbl = section.settings.marketplace_app_label | strip -%}
+    {%- if mp_app_lbl == blank -%}
+      {%- assign mp_app_lbl = 'header.marketplace.app_default' | t -%}
+    {%- endif -%}
     {% if mp_app_safe %}
       <a
         class="header-mp-app"
@@ -59,15 +63,15 @@
         <span class="header-mp-extras__icon" aria-hidden="true">
           {% render 'icon-library', id: 'icon-cell-phone' %}
         </span>
-        <span>
-          {%- assign mp_app_lbl = section.settings.marketplace_app_label | strip -%}
-          {%- if mp_app_lbl == blank -%}
-            {{- 'header.marketplace.app_default' | t -}}
-          {%- else -%}
-            {{- mp_app_lbl | escape -}}
-          {%- endif -%}
-        </span>
+        <span>{{- mp_app_lbl | escape -}}</span>
       </a>
+    {% else %}
+      <span class="header-mp-app" aria-hidden="true">
+        <span class="header-mp-extras__icon">
+          {% render 'icon-library', id: 'icon-cell-phone' %}
+        </span>
+        <span>{{- mp_app_lbl | escape -}}</span>
+      </span>
     {% endif %}
 
     {% if mp_lang != blank or mp_cur != blank %}

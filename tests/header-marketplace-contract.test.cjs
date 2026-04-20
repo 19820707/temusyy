@@ -53,6 +53,11 @@ const extras = fs.readFileSync(path.join(root, 'snippets', 'header-marketplace-e
 assert.match(extras, /mp_app_safe/, 'header-marketplace-extras: must gate app link on safety flag');
 assert.match(extras, /javascript:/, 'header-marketplace-extras: must reject javascript: URLs');
 assert.match(extras, /mp_app_raw\s*\|\s*escape/, 'header-marketplace-extras: must escape app href attribute');
+assert.match(
+  extras,
+  /else\s*%\}\s*<span class="header-mp-app"/,
+  'header-marketplace-extras: app affordance must still render safely when no app URL is configured'
+);
 
 const mpCss = fs.readFileSync(path.join(root, 'assets', 'header-marketplace.css'), 'utf8');
 assert.match(
@@ -63,7 +68,8 @@ assert.match(
 assert.match(mpCss, /focus-visible/, 'header-marketplace.css: must define focus-visible affordances');
 assert.match(mpCss, /max-width:\s*1660px/, 'header-marketplace.css: desktop header must use a centered marketplace max-width shell');
 assert.match(mpCss, /border:\s*1px solid #111827/, 'header-marketplace.css: search must use a strong marketplace search outline');
-assert.match(mpCss, /width:\s*min\(16\.5rem,\s*22vw\)/, 'header-marketplace.css: all-categories control must read as a real nav rail control');
+assert.match(mpCss, /grid-template-columns:\s*minmax\(10\.5rem,\s*14rem\)\s*minmax\(26rem,\s*44rem\)/, 'header-marketplace.css: desktop shell must reserve AliExpress-style logo/search proportions');
+assert.match(mpCss, /width:\s*min\(19rem,\s*24vw\)/, 'header-marketplace.css: all-categories control must read as a real nav rail control');
 
 const navmenu = fs.readFileSync(path.join(root, 'snippets', 'navmenu.liquid'), 'utf8');
 assert.match(
