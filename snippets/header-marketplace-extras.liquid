@@ -3,7 +3,10 @@
   @param section {section} Header section object
 {% endcomment %}
 
-{% if section.settings.header_visual_style == 'marketplace' %}
+{% liquid
+  assign header_style_extras = section.settings.header_visual_style | default: 'marketplace' | strip
+%}
+{% if header_style_extras == 'marketplace' %}
   {% liquid
     assign mp_app_raw = section.settings.marketplace_app_url | strip
     assign mp_app_lc = mp_app_raw | downcase

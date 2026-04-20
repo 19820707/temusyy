@@ -4,8 +4,9 @@
 {% endif %}
 
 {% liquid
+  assign header_style = section.settings.header_visual_style | default: 'marketplace' | strip
   assign marketplace_header = false
-  if section.settings.header_visual_style == 'marketplace'
+  if header_style == 'marketplace'
     assign marketplace_header = true
   endif
 %}
@@ -21,7 +22,7 @@
   data-section-data>
   {
     "settings": {
-      "header_visual_style": {{ section.settings.header_visual_style | json }},
+      "header_visual_style": {{ header_style | json }},
       "sticky_header": {{ section.settings.sticky_header | json }},
       "has_box_shadow": {{ has_box_shadow | json }},
       "live_search": {
@@ -48,7 +49,7 @@
 {% endstyle %}
 
 <header
-  class="site-header site-header-nav--open"
+  class="site-header site-header-nav--open{% if marketplace_header %} site-header--marketplace{% endif %}"
   role="banner"
   data-site-header
 >
@@ -302,7 +303,7 @@
       "type": "select",
       "id": "header_visual_style",
       "label": "Header style",
-      "default": "theme",
+      "default": "marketplace",
       "options": [
         { "value": "theme", "label": "Theme default" },
         { "value": "marketplace", "label": "Marketplace (wide search + category bar)" }

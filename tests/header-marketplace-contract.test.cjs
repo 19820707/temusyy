@@ -25,6 +25,16 @@ assert.ok('marketplace_accent_nav_handle' in headerSettings, 'header-group: mark
 
 const staticHeader = fs.readFileSync(path.join(root, 'sections', 'static-header.liquid'), 'utf8');
 assert.match(staticHeader, /header_visual_style/, 'static-header: schema must expose header_visual_style');
+assert.match(
+  staticHeader,
+  /"id"\s*:\s*"header_visual_style"[\s\S]*?"default"\s*:\s*"marketplace"/,
+  'static-header: header_visual_style schema default must be marketplace so deploys opt-in without editor saves'
+);
+assert.match(
+  staticHeader,
+  /section\.settings\.header_visual_style\s*\|\s*default:\s*'marketplace'/,
+  'static-header: must default blank setting to marketplace in Liquid'
+);
 assert.match(staticHeader, /marketplace_header/, 'static-header: must branch on marketplace_header');
 assert.match(staticHeader, /"header_visual_style"\s*:/, 'static-header: section JSON must expose header_visual_style for scripts');
 assert.match(staticHeader, /header-marketplace\.css/, 'static-header: must load header-marketplace.css when marketplace');
