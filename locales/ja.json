@@ -256,7 +256,9 @@
       "slide_index": "スライド{{カウント}}",
       "slide_counter": "{{合計}}の{{カウント}}をスライドします",
       "next_slide": "次のスライド",
-      "previous_slide": "前のスライド"
+      "previous_slide": "前のスライド",
+      "price_strip_region": "ライブ価格付きの人気ピック",
+      "price_strip_deal_label": "注目"
     },
     "shoppable-image": {
       "onboarding": {

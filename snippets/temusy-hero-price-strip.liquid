@@ -1,8 +1,10 @@
 {% comment %}
-  Transactional SKU strip for hero slides (AliExpress-style density).
+  Transactional SKU strip for hero slides.
   @param collection {Collection} required
   @param limit {Number} max products (2–4)
   @param visual {String} optional — "dark_rail" (default) | "polaroid" (white deal cards on image)
+  invariant: render only a bounded product subset so the hero stays LCP-safe.
+  invariant: price state comes from selected_or_first_available_variant; never hardcode deal claims.
 {% endcomment %}
 {% liquid
   assign lim = limit | default: 3
@@ -30,7 +32,7 @@
     {% endif %}
 
     {% if vis == 'polaroid' %}
-      <a class="temusy-hero-price-strip__cell temusy-hero-price-strip__cell--polaroid" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}">
+      <a class="temusy-hero-price-strip__cell temusy-hero-price-strip__cell--polaroid" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}" aria-label="{{ p.title | escape }} - {{ v.price | money | strip_html | escape }}">
         <span class="temusy-hero-price-strip__polaroid-visual">
           {% if img != blank %}
             {{
@@ -61,7 +63,7 @@
         </span>
       </a>
     {% else %}
-      <a class="temusy-hero-price-strip__cell" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}">
+      <a class="temusy-hero-price-strip__cell" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}" aria-label="{{ p.title | escape }} - {{ v.price | money | strip_html | escape }}">
         <span class="temusy-hero-price-strip__media">
           {% if img != blank %}
             {{

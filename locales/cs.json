@@ -256,7 +256,9 @@
       "slide_index": "Snímek {{ count }}",
       "slide_counter": "Snímek {{ count }} z {{ total }}",
       "next_slide": "Další snímek",
-      "previous_slide": "Předchozí snímek"
+      "previous_slide": "Předchozí snímek",
+      "price_strip_region": "Oblibene vybery s aktualnimi cenami",
+      "price_strip_deal_label": "Doporuceno"
     },
     "shoppable-image": {
       "onboarding": {

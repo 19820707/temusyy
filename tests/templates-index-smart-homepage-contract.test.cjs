@@ -434,12 +434,12 @@ assert.strictEqual(
 assert.strictEqual(
   (heroSlide.temusy_strip_layout || '').toString().trim(),
   'on_image',
-  'index.json: hero price strip must sit on the hero image (marketplace ticks)'
+  'index.json: hero price strip must sit on the hero image (campaign rail)'
 );
 assert.strictEqual(
   (heroSlide.temusy_strip_visual || '').toString().trim(),
-  'dark_rail',
-  'index.json: hero strip must use the refined glass rail (professional default)'
+  'polaroid',
+  'index.json: hero strip must use campaign cards, not the basic compact rail'
 );
 assert.ok(
   typeof heroSlide.text === 'string' &&

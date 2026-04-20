@@ -23,6 +23,16 @@ assert.match(slide, /slide_lazy/, 'slideshow-slide: must support per-slide lazy 
 assert.match(slide, /block_index\s*>\s*0/, 'slideshow-slide: must lazy-load after first slide when parent is eager');
 assert.match(slide, /temusy_show_price_strip/, 'slideshow-slide: must support transactional hero price strip toggle');
 assert.match(slide, /temusy-hero-price-strip/, 'slideshow-slide: must render transactional SKU strip markup');
-assert.match(slide, /temusy_strip_layout/, 'slideshow-slide: must support marketplace strip placement (on image vs below CTA)');
+assert.match(slide, /temusy_strip_layout/, 'slideshow-slide: must support campaign strip placement (on image vs below CTA)');
+assert.match(slide, /temusy_strip_visual/, 'slideshow-slide: must pass the configured visual style to the strip');
+assert.match(slide, /slideshow-slide__visual--with-strip/, 'slideshow-slide: must expose a stable visual hook for image-overlay deal cards');
+assert.match(slideshow, /temusy_strip_layout/, 'slideshow schema: must expose price strip placement in the Theme Editor');
+assert.match(slideshow, /temusy_strip_visual/, 'slideshow schema: must expose price strip visual style in the Theme Editor');
+assert.match(slideshow, /temusy-hero-price-strip__cell--polaroid/, 'slideshow css: must include campaign card styling for hero deal rail');
+
+const heroStrip = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'temusy-hero-price-strip.liquid'), 'utf8');
+assert.match(heroStrip, /if lim > 4/, 'hero price strip: must hard-cap product count to protect LCP');
+assert.match(heroStrip, /selected_or_first_available_variant/, 'hero price strip: must derive live prices from variant data');
+assert.match(heroStrip, /aria-label=/, 'hero price strip: product links must expose accessible product + price context');
 
 console.log('slideshow-hero-performance-contract: ok');

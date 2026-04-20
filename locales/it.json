@@ -182,7 +182,9 @@
       "slide_index": "Diapositiva {{ count }}",
       "slide_counter": "Diapositiva {{ count }} di {{ total }}",
       "next_slide": "Diapositiva successiva",
-      "previous_slide": "Diapositiva precedente"
+      "previous_slide": "Diapositiva precedente",
+      "price_strip_region": "Scelte popolari con prezzi live",
+      "price_strip_deal_label": "In evidenza"
     },
     "shoppable-image": {
       "onboarding": {

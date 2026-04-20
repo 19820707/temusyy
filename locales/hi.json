@@ -256,7 +256,9 @@
       "slide_index": "स्लाइड {{गिनती}}",
       "slide_counter": "{{कुल}} का {{गिनती}} स्लाइड",
       "next_slide": "अगली स्लाइड",
-      "previous_slide": "पिछली स्लाइड"
+      "previous_slide": "पिछली स्लाइड",
+      "price_strip_region": "Live prices ke saath popular picks",
+      "price_strip_deal_label": "Featured"
     },
     "shoppable-image": {
       "onboarding": {

@@ -256,7 +256,9 @@
       "slide_index": "幻灯片{{ count }}",
       "slide_counter": "第{{ total }}个幻灯片，{{ count }}个",
       "next_slide": "下一张幻灯片",
-      "previous_slide": "上一张幻灯片"
+      "previous_slide": "上一张幻灯片",
+      "price_strip_region": "热门精选与实时价格",
+      "price_strip_deal_label": "精选"
     },
     "shoppable-image": {
       "onboarding": {

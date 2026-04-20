@@ -256,7 +256,9 @@
       "slide_index": "Folie {{ count }}",
       "slide_counter": "Folie {{ count }} von {{ total }}",
       "next_slide": "Nächste Folie",
-      "previous_slide": "Vorherige Folie"
+      "previous_slide": "Vorherige Folie",
+      "price_strip_region": "Beliebte Picks mit Live-Preisen",
+      "price_strip_deal_label": "Empfohlen"
     },
     "shoppable-image": {
       "onboarding": {

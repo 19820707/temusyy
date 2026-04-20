@@ -256,7 +256,9 @@
       "slide_index": "Diapositiva {{ count }}",
       "slide_counter": "Diapositiva {{ count }} de {{ total }}",
       "next_slide": "La siguiente diapositiva",
-      "previous_slide": "Diapositiva anterior"
+      "previous_slide": "Diapositiva anterior",
+      "price_strip_region": "Selecciones populares con precios en directo",
+      "price_strip_deal_label": "Destacado"
     },
     "shoppable-image": {
       "onboarding": {

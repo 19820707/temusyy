@@ -256,7 +256,9 @@
       "slide_index": "Dia {{ count }}",
       "slide_counter": "Dia {{ count }} van {{ total }}",
       "next_slide": "Volgende dia",
-      "previous_slide": "Vorige dia"
+      "previous_slide": "Vorige dia",
+      "price_strip_region": "Populaire keuzes met live prijzen",
+      "price_strip_deal_label": "Uitgelicht"
     },
     "shoppable-image": {
       "onboarding": {

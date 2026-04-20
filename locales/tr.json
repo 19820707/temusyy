@@ -256,7 +256,9 @@
       "slide_index": "Slayt {{ count }}",
       "slide_counter": "Slayt {{ count }} / {{ total }}",
       "next_slide": "Sonraki slayt",
-      "previous_slide": "Bir onceki slayt"
+      "previous_slide": "Bir onceki slayt",
+      "price_strip_region": "Canli fiyatli populer secimler",
+      "price_strip_deal_label": "One cikan"
     },
     "shoppable-image": {
       "onboarding": {
