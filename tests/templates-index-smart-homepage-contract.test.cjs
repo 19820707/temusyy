@@ -66,14 +66,47 @@ assert.strictEqual(
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_deal_zone.settings.product_count,
-  6,
-  'index.json: deal zone product_count stays compact (six SKUs)'
+  8,
+  'index.json: deal zone product_count stays dense for marketplace-style rail (eight SKUs)'
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_deal_zone.settings.show_countdown,
   true,
   'index.json: deal zone must ship the live countdown strip'
 );
+assert.strictEqual(
+  indexTemplate.sections.homepage_deal_zone.settings.show_bundle_lane,
+  true,
+  'index.json: deal zone must ship the bundle lane (AliExpress-style dual rail)'
+);
+
+(function dealZoneMarketplaceChrome() {
+  const dz = fs.readFileSync(path.join(__dirname, '..', 'sections', 'dynamic-temusy-deal-zone.liquid'), 'utf8');
+  assert.match(dz, /temusy-deal-zone__rails--split/, 'deal zone: must support split rails when bundle lane is on');
+  assert.match(dz, /temusy-deal-zone__scroller/, 'deal zone: must ship horizontal SKU scroller');
+  assert.match(dz, /temusy-deal-zone__scroller-shell/, 'deal zone: must wrap scroller with chrome (nav + region)');
+  assert.match(dz, /data-initial-remaining-sec=/, 'deal zone: must expose server-computed window for progress + timer');
+  assert.match(dz, /data-temusy-deal-progress/, 'deal zone: must render temporal progress affordance');
+  assert.match(dz, /shopify:section:unload/, 'deal zone: must tear down listeners/timers on section unload');
+  assert.match(dz, /visibilitychange/, 'deal zone: must sync countdown with tab visibility');
+  assert.ok(
+    !/render\s+'product-grid-item'/.test(dz),
+    'deal zone: must not render heavy product-grid-item in the horizontal rail (use lightweight card)'
+  );
+  assert.match(
+    dz,
+    /render\s+'temusy-deal-zone-card'/,
+    'deal zone: must render lightweight temusy-deal-zone-card in the SKU rail'
+  );
+  const dealCard = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'temusy-deal-zone-card.liquid'), 'utf8');
+  assert.match(
+    dealCard,
+    /data-temusy-feedback-collection/,
+    'temusy-deal-zone-card: must expose data-temusy-feedback-collection for personalization clicks'
+  );
+  assert.match(dealCard, /image_url:\s*width:\s*480/, 'temusy-deal-zone-card: must cap image src width');
+  assert.match(dealCard, /widths:\s*'200,\s*280,\s*400,\s*480'/, 'temusy-deal-zone-card: must ship responsive srcset widths');
+})();
 
 assert.ok(indexTemplate.sections.homepage_smart_hub, 'index.json: must include homepage_smart_hub');
 assert.strictEqual(

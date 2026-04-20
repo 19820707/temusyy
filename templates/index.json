@@ -53,15 +53,20 @@
       "type": "dynamic-temusy-deal-zone",
       "settings": {
         "heading": "🔥 Today's deals",
+        "show_bundle_lane": true,
+        "bundle_title": "Bundle deals",
+        "bundle_line": "3+ items — stack savings at checkout when your discount applies.",
+        "bundle_link": "shopify://collections/best-sellers",
+        "deals_rail_title": "Super deals",
         "show_countdown": true,
         "deadline_iso": "",
         "collection": "best-sellers",
-        "product_count": 6,
+        "product_count": 8,
         "cta_label": "View all deals",
         "cta_style": "primary",
-        "background_color": "#fff7ed",
+        "background_color": "#f1f5f9",
         "text_color": "#0f172a",
-        "accent_color": "#c2410c"
+        "accent_color": "#e11d48"
       }
     },
     "homepage_smart_hub": {

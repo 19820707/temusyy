@@ -1,0 +1,90 @@
+{% comment %}
+  Lightweight product tile for the deal-zone horizontal rail (minimal DOM vs `product-grid-item`).
+  @param product {Object} required
+  @param collection {Object} optional — used with `within:` for collection-context product URLs
+  @param temusy_feedback_collection {String} optional — collection handle for `data-temusy-feedback-collection` (personalization)
+  @param index {Number} optional — 1-based; first tiles use eager image loading hints
+{% endcomment %}
+{% liquid
+  assign v = product.selected_or_first_available_variant
+  assign img = blank
+  if product.featured_media != blank
+    assign img = product.featured_media.preview_image
+  endif
+  assign product_url = product.url
+  if collection != blank and collection.handle != blank
+    assign product_url = product.url | within: collection
+  endif
+  assign temusy_fc = temusy_feedback_collection | default: ''
+  if temusy_fc == blank and collection != blank and collection.handle != blank
+    assign temusy_fc = collection.handle
+  endif
+  assign deal_on_sale = false
+  for variant in product.variants limit: 48
+    if variant.compare_at_price != blank and variant.compare_at_price > variant.price
+      assign deal_on_sale = true
+      break
+    endif
+  endfor
+  assign loading_mode = 'lazy'
+  if index != blank and index <= 2
+    assign loading_mode = 'eager'
+  endif
+  assign img_alt = product.title
+  if img != blank
+    assign img_alt = img.alt | default: product.title
+  endif
+%}
+{% if product %}
+  <a
+    href="{{ product_url }}"
+    class="temusy-deal-card{% if deal_on_sale %} temusy-deal-card--sale{% endif %}{% unless v.available %} temusy-deal-card--sold-out{% endunless %}"
+    data-temusy-deal-card
+    {% if temusy_fc != blank %}
+      data-temusy-feedback-collection="{{ temusy_fc | escape }}"
+    {% endif %}
+  >
+    <div class="temusy-deal-card__media">
+      {% if deal_on_sale %}
+        <span class="temusy-deal-card__badge">{{ 'product_price.badge.sale' | t }}</span>
+      {% endif %}
+      {% if img != blank %}
+        {{
+          img
+          | image_url: width: 480
+          | image_tag:
+            class: 'temusy-deal-card__img',
+            loading: loading_mode,
+            sizes: '(max-width:719px) 42vw, 200px',
+            widths: '200, 280, 400, 480',
+            alt: img_alt
+        }}
+      {% else %}
+        {{ 'image' | placeholder_svg_tag: 'temusy-deal-card__img temusy-deal-card__img--placeholder' }}
+      {% endif %}
+    </div>
+    <div class="temusy-deal-card__body">
+      <span class="temusy-deal-card__title">{{ product.title | escape }}</span>
+      <div class="temusy-deal-card__price-row">
+        {% if deal_on_sale %}
+          {% if product.compare_at_price_varies == false and product.compare_at_price != blank and product.compare_at_price > product.price %}
+            <span class="temusy-deal-card__compare">{{ product.compare_at_price | money }}</span>
+          {% elsif v.compare_at_price != blank and v.compare_at_price > v.price %}
+            <span class="temusy-deal-card__compare">{{ v.compare_at_price | money }}</span>
+          {% endif %}
+        {% endif %}
+        <span class="temusy-deal-card__price">
+          {% if product.price_varies %}
+            <span class="temusy-deal-card__from">{{ 'sections.complementary_product_block.from' | t }}</span>
+            {{ product.price_min | money }}
+          {% else %}
+            {{ v.price | money }}
+          {% endif %}
+        </span>
+      </div>
+      {% unless v.available %}
+        <span class="temusy-deal-card__soldout">{{ 'product_price.badge.sold_out' | t }}</span>
+      {% endunless %}
+    </div>
+  </a>
+{% endif %}

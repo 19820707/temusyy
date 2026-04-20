@@ -280,7 +280,11 @@
     },
     "temusy_deal_zone": {
       "ends_in": "Ends in",
-      "expired": "Ended"
+      "expired": "Ended",
+      "super_deals": "Super deals",
+      "scroller_region": "Deal products carousel",
+      "scroll_previous": "Scroll deals left",
+      "scroll_next": "Scroll deals right"
     },
     "complementary_product_block": {
       "from": "from",

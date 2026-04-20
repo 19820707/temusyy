@@ -280,7 +280,11 @@
     },
     "temusy_deal_zone": {
       "ends_in": "Termina em",
-      "expired": "Terminado"
+      "expired": "Terminado",
+      "super_deals": "Super ofertas",
+      "scroller_region": "Carrossel de ofertas",
+      "scroll_previous": "Deslizar ofertas para a esquerda",
+      "scroll_next": "Deslizar ofertas para a direita"
     },
     "complementary_product_block": {
       "from": "A partir de",

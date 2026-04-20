@@ -8,7 +8,7 @@ Este ficheiro define o **modelo mental** por detrás das camadas Temusy: **press
 
 | Eixo | O que o cérebro precisa | Como o tema ajuda (sem mentir) |
 |------|-------------------------|--------------------------------|
-| **Pressão suave** | “Há movimento / escassez / tempo” sem pânico | Urgência real (`product-urgency-badges`), faixa de oferta com contador quando há fim definido (`dynamic-temusy-deal-zone`), micro-reward no topo (`static-announcement` + presets), smart entry com oferta de sessão (`temusy-smart-entry-popup`). |
+| **Pressão suave** | “Há movimento / escassez / tempo” sem pânico | Urgência real (`product-urgency-badges`), faixa **dual-rail** (bundle + super deals + contador + carrossel horizontal de SKUs) em `dynamic-temusy-deal-zone`, micro-reward no topo (`static-announcement` + presets), smart entry com oferta de sessão (`temusy-smart-entry-popup`). |
 | **Orientação** | “Para onde vou?” com poucas escolhas boas | Homepage: hero → **deal zone** → grelha de SKUs → **hub** com CTAs de decisão (Best sellers / Under $50 / Trending) → trust → **3** quick paths → featured → recentes → prova social. Hub e chips reduzem forks. |
 | **Recompensa** | “O que ganho se avançar?” | Entrada: desconto + envio (copy alinhada a links reais). Bundle tiers no PDP (`temusy-bundle-tiers`) + descontos automáticos na Shopify. Trust bar liga a políticas reais. |
 
