@@ -21,5 +21,7 @@ assert.match(slideshow, /1280x/, 'slideshow: compact hero must cap desktop decod
 assert.match(slide, /hero_desktop_size/, 'slideshow-slide: must accept hero_desktop_size from section');
 assert.match(slide, /slide_lazy/, 'slideshow-slide: must support per-slide lazy override for slide index > 0');
 assert.match(slide, /block_index\s*>\s*0/, 'slideshow-slide: must lazy-load after first slide when parent is eager');
+assert.match(slide, /temusy_show_price_strip/, 'slideshow-slide: must support transactional hero price strip toggle');
+assert.match(slide, /temusy-hero-price-strip/, 'slideshow-slide: must render transactional SKU strip markup');
 
 console.log('slideshow-hero-performance-contract: ok');

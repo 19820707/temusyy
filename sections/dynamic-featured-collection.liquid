@@ -117,6 +117,19 @@
   #shopify-section-{{ section.id }} .featured-collection__content {
     --card-min-height: 300px;
   }
+  {% if template.name == 'index' %}
+    #shopify-section-{{ section.id }} .featured-collection__content {
+      --card-min-height: 248px;
+    }
+    #shopify-section-{{ section.id }} .home-section--title {
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.35rem;
+    }
+    #shopify-section-{{ section.id }} .featured-collection__container {
+      margin-top: 0.15rem;
+    }
+  {% endif %}
 {% endstyle %}
 
 {% schema %}

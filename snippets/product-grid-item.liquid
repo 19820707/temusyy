@@ -57,6 +57,10 @@
       assign performance_lazyload = false
     endif
   endif
+  assign temusy_eager_tile = temusy_eager_tile | default: false
+  if temusy_eager_tile
+    assign performance_lazyload = false
+  endif
 %}
 
 {% if product %}

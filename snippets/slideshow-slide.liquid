@@ -269,6 +269,20 @@
         </span>
       {% endif %}
     {%- endif -%}
+
+    {% liquid
+      assign temusy_strip_col = block.settings.temusy_strip_collection
+      assign temusy_strip_lim = block.settings.temusy_strip_product_limit | default: 3
+    %}
+    {% if block.settings.temusy_show_price_strip and temusy_strip_col != blank and temusy_strip_col.products_count > 0 %}
+      <div
+        class="temusy-hero-price-strip-outer"
+        role="region"
+        aria-label="{{ 'sections.slideshow.price_strip_region' | t }}"
+      >
+        {% render 'temusy-hero-price-strip', collection: temusy_strip_col, limit: temusy_strip_lim %}
+      </div>
+    {% endif %}
   </div>
 </div>
 {% comment %}Inject @pixelunion/pxs-slideshow/slideshow-slide end{% endcomment %}

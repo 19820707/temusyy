@@ -230,12 +230,17 @@
       if selected_collection != blank and selected_collection.handle != blank
         assign temusy_fc = selected_collection.handle
       endif
+      assign temusy_index_eager = false
+      if template.name == 'index'
+        assign temusy_index_eager = true
+      endif
     %}
     {% for p in products limit: product_count %}
       {%
         render 'product-grid-item',
         product: p,
         temusy_feedback_collection: temusy_fc,
+        temusy_eager_tile: temusy_index_eager and forloop.index <= 8,
       %}
     {% else %}
       {% for i in (1..product_count) %}

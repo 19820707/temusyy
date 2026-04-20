@@ -410,6 +410,16 @@ assert.strictEqual(
   '🔥 Best-selling beauty products',
   'index.json: hero title must lead with proof-of-demand (best-selling), not category branding'
 );
+assert.strictEqual(
+  heroSlide.temusy_show_price_strip,
+  true,
+  'index.json: hero must ship transactional price strip (marketplace-style proof)'
+);
+assert.strictEqual(
+  (heroSlide.temusy_strip_collection || '').toString().trim(),
+  'health-and-beauty',
+  'index.json: hero price strip must pull from beauty lane (matches primary CTA collection)'
+);
 assert.ok(
   typeof heroSlide.text === 'string' &&
     heroSlide.text.indexOf('4.8') !== -1 &&

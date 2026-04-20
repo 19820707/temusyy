@@ -1,0 +1,52 @@
+{% comment %}
+  Compact transactional SKU row for hero slides (image + price + optional compare-at).
+  @param collection {Collection} required
+  @param limit {Number} max products (2–4)
+{% endcomment %}
+{% liquid
+  assign lim = limit | default: 3
+  if lim < 2
+    assign lim = 2
+  endif
+  if lim > 4
+    assign lim = 4
+  endif
+%}
+<div class="temusy-hero-price-strip" data-temusy-hero-price-strip>
+  {% for p in collection.products limit: lim %}
+    {% assign v = p.selected_or_first_available_variant %}
+    {% assign img = blank %}
+    {% if p.featured_media != blank %}
+      {% assign img = p.featured_media.preview_image %}
+    {% endif %}
+    {% assign url = p.url | within: collection %}
+    {% assign strip_img_alt = p.title | escape %}
+    <a class="temusy-hero-price-strip__cell" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}">
+      <span class="temusy-hero-price-strip__media">
+        {% if img != blank %}
+          {{
+            img
+            | image_url: width: 120
+            | image_tag:
+              class: 'temusy-hero-price-strip__img',
+              loading: 'eager',
+              sizes: '48px',
+              widths: '80, 120',
+              alt: strip_img_alt
+          }}
+        {% else %}
+          <span class="temusy-hero-price-strip__img temusy-hero-price-strip__img--empty" aria-hidden="true"></span>
+        {% endif %}
+      </span>
+      <span class="temusy-hero-price-strip__text">
+        <span class="temusy-hero-price-strip__title">{{ p.title | truncate: 34 | escape }}</span>
+        <span class="temusy-hero-price-strip__prices">
+          {% if v.compare_at_price != blank and v.compare_at_price > v.price %}
+            <span class="temusy-hero-price-strip__was">{{ v.compare_at_price | money }}</span>
+          {% endif %}
+          <span class="temusy-hero-price-strip__now">{{ v.price | money }}</span>
+        </span>
+      </span>
+    </a>
+  {% endfor %}
+</div>

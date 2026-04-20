@@ -21,7 +21,10 @@
           "settings": {
             "background_image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
             "title": "🔥 Best-selling beauty products",
-            "text": "Rated 4.8 by customers",
+            "text": "Rated 4.8 · Live prices on picks below",
+            "temusy_show_price_strip": true,
+            "temusy_strip_collection": "health-and-beauty",
+            "temusy_strip_product_limit": 3,
             "color": "#222222",
             "link": "",
             "text_alignment": "left",
