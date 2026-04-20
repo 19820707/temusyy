@@ -19,9 +19,9 @@
         "slide-2": {
           "type": "slide",
           "settings": {
-            "background_image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
-            "title": "🔥 Best-selling beauty products",
-            "text": "Rated 4.8 · Prices update live on the picks below",
+            "background_image": "shopify://shop_images/woman-listening-to-music.jpg",
+            "title": "🔥 Flash deals & top-rated picks",
+            "text": "Rated 4.8 · Live prices on the strip—shop the full catalog below",
             "temusy_show_price_strip": true,
             "temusy_strip_collection": "all",
             "temusy_strip_product_limit": 4,
@@ -142,27 +142,27 @@
             "text": ""
           }
         },
-        "intent_watch_under50": {
+        "intent_deals_value": {
           "type": "search_intent_hint",
           "settings": {
-            "keywords": "watch, watches, relogio",
-            "label": "Watches under $50",
+            "keywords": "deal, sale, cheap, save, discount, oferta, desconto, barato, promo",
+            "label": "Deals under $50",
             "link": "shopify://collections/under-50"
           }
         },
-        "intent_watch_premium": {
+        "intent_new_arrivals_search": {
           "type": "search_intent_hint",
           "settings": {
-            "keywords": "watch, watches, relogio",
-            "label": "Premium watches",
-            "link": "shopify://collections/watches"
+            "keywords": "new, latest, fresh, drop, novo, novidade, recém, chegou",
+            "label": "New arrivals",
+            "link": "shopify://collections/new-arrivals"
           }
         },
-        "intent_watch_bestsellers": {
+        "intent_catalog_breadth": {
           "type": "search_intent_hint",
           "settings": {
-            "keywords": "watch, watches, relogio",
-            "label": "Best sellers",
+            "keywords": "all, shop, catalog, catalogue, catalogo, tudo, mais vendidos, best, popular",
+            "label": "Full catalog",
             "link": "shopify://collections/all"
           }
         }
@@ -173,9 +173,9 @@
         "lane_under_50",
         "lane_best_sellers",
         "lane_support",
-        "intent_watch_under50",
-        "intent_watch_premium",
-        "intent_watch_bestsellers"
+        "intent_deals_value",
+        "intent_new_arrivals_search",
+        "intent_catalog_breadth"
       ],
       "settings": {
         "kicker": "",
@@ -198,7 +198,7 @@
     "homepage_best_sellers_products": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "This week's top sellers",
+        "title": "Fast movers this week",
         "layout": "grid",
         "mobile_layout": "grid",
         "collection": "all",
@@ -310,12 +310,12 @@
     "homepage_featured_products": {
       "type": "dynamic-featured-collection",
       "settings": {
-        "title": "Jewelry our team wears",
+        "title": "New drops we're tracking",
         "layout": "grid",
         "mobile_layout": "grid",
-        "collection": "all",
+        "collection": "new-arrivals",
         "product_count": 8,
-        "cta_label": "Shop the catalog",
+        "cta_label": "See what's new",
         "cta_button_style": "secondary",
         "temusy_intent_zone": "buy"
       }

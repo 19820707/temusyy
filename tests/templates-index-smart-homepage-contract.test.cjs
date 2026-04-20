@@ -157,20 +157,31 @@ assert.ok(
   assert.strictEqual(hub.blocks[bo[5]].type, 'search_intent_hint', 'index.json: intent block 1 type');
   assert.strictEqual(
     (hub.blocks[bo[5]].settings.label || '').trim(),
-    'Watches under $50',
-    'index.json: intent under $50 label'
+    'Deals under $50',
+    'index.json: intent value deals label'
   );
   assert.strictEqual(hub.blocks[bo[6]].type, 'search_intent_hint', 'index.json: intent block 2 type');
   assert.strictEqual(
     (hub.blocks[bo[6]].settings.label || '').trim(),
-    'Premium watches',
-    'index.json: intent premium label'
+    'New arrivals',
+    'index.json: intent new arrivals label'
   );
   assert.strictEqual(hub.blocks[bo[7]].type, 'search_intent_hint', 'index.json: intent block 3 type');
-  assert.strictEqual((hub.blocks[bo[7]].settings.label || '').trim(), 'Best sellers', 'index.json: intent bestsellers label');
+  assert.strictEqual((hub.blocks[bo[7]].settings.label || '').trim(), 'Full catalog', 'index.json: intent catalog label');
+  const kw5 = ((hub.blocks[bo[5]].settings.keywords || '') + '').toLowerCase();
+  const kw6 = ((hub.blocks[bo[6]].settings.keywords || '') + '').toLowerCase();
+  const kw7 = ((hub.blocks[bo[7]].settings.keywords || '') + '').toLowerCase();
   assert.ok(
-    ((hub.blocks[bo[5]].settings.keywords || '') + '').toLowerCase().indexOf('watch') !== -1,
-    'index.json: intent hints must trigger on watch-related typing'
+    kw5.indexOf('deal') !== -1 || kw5.indexOf('sale') !== -1 || kw5.indexOf('oferta') !== -1,
+    'index.json: intent 1 keywords must cover deal/value queries'
+  );
+  assert.ok(
+    kw6.indexOf('new') !== -1 || kw6.indexOf('novo') !== -1,
+    'index.json: intent 2 keywords must cover new-arrivals queries'
+  );
+  assert.ok(
+    kw7.indexOf('catalog') !== -1 || kw7.indexOf('shop') !== -1 || kw7.indexOf('all') !== -1,
+    'index.json: intent 3 keywords must cover broad catalog intent'
   );
 })();
 
@@ -245,8 +256,8 @@ CANONICAL_HOMEPAGE_ORDER.forEach(function (expectedId, i) {
   );
   assert.strictEqual(
     (st.title || '').trim(),
-    "This week's top sellers",
-    'index.json: decision row title must stay a specific, non-generic bestsellers line'
+    'Fast movers this week',
+    'index.json: decision row title must read as velocity bestsellers (distinct from featured row)'
   );
 })();
 assert.ok(indexTemplate.sections.homepage_trending_categories, 'index.json: must include homepage_trending_categories');
@@ -283,6 +294,16 @@ assert.strictEqual(
     st.temusy_intent_zone,
     'buy',
     'index.json: featured collection row must opt into buy-intent zone (intent detection + consistency with bestsellers row)'
+  );
+  assert.strictEqual(
+    (st.collection || '').toString().trim(),
+    'new-arrivals',
+    'index.json: featured row must differ from bestsellers grid (new arrivals SKUs, not duplicate all)'
+  );
+  assert.strictEqual(
+    (st.title || '').trim(),
+    "New drops we're tracking",
+    'index.json: featured row title must read editorial + distinct from fast movers row'
   );
 })();
 assert.ok(
@@ -413,10 +434,13 @@ assert.ok(
 
 // T4 — Hero: what is this + what do I do next (minimal copy, single CTA, no full-slide link duplicate).
 const heroSlide = indexTemplate.sections.homepage_hero.blocks['slide-2'].settings;
-assert.strictEqual(
-  heroSlide.title,
-  '🔥 Best-selling beauty products',
-  'index.json: hero title must lead with proof-of-demand (best-selling), not category branding'
+assert.ok(
+  typeof heroSlide.title === 'string' && heroSlide.title.indexOf('🔥') !== -1,
+  'index.json: hero title must keep a single heat cue (emoji) for marketplace urgency'
+);
+assert.ok(
+  /(deal|rated|flash|top|live|pick)/i.test((heroSlide.title || '') + ' ' + (heroSlide.text || '')),
+  'index.json: hero headline stack must telegraph deals or social proof (not narrow category branding)'
 );
 assert.strictEqual(
   heroSlide.temusy_show_price_strip,
