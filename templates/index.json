@@ -23,22 +23,22 @@
             "title": "🔥 Best-selling beauty products",
             "text": "Rated 4.8 · Prices update live on the picks below",
             "temusy_show_price_strip": true,
-            "temusy_strip_collection": "health-and-beauty",
-            "temusy_strip_product_limit": 3,
+            "temusy_strip_collection": "all",
+            "temusy_strip_product_limit": 4,
             "temusy_strip_layout": "on_image",
-            "temusy_strip_visual": "polaroid",
-            "color": "#222222",
+            "temusy_strip_visual": "dark_rail",
+            "color": "#ffffff",
             "link": "",
             "text_alignment": "left",
-            "button_one_label": "Shop best-selling beauty",
-            "button_one_link": "shopify://collections/health-and-beauty",
+            "button_one_label": "Shop deals",
+            "button_one_link": "shopify://collections/all",
             "button_one_style": "primary",
             "button_two_label": "",
             "button_two_link": "",
             "button_two_style": "primary",
-            "show_overlay": false,
-            "overlay_color": "#000000",
-            "overlay_opacity": 1
+            "show_overlay": true,
+            "overlay_color": "#e43225",
+            "overlay_opacity": 48
           }
         }
       },
@@ -48,18 +48,18 @@
       "settings": {
         "enable_autoplay": false,
         "autoplay_duration": 5,
-        "slideshow_width": "content",
-        "slideshow_height": "small",
-        "slideshow_height_mobile": "small",
-        "slideshow_text_below_image": true
+        "slideshow_width": "full",
+        "slideshow_height": "medium",
+        "slideshow_height_mobile": "medium",
+        "slideshow_text_below_image": false
       }
     },
     "homepage_deal_zone": {
       "type": "dynamic-temusy-deal-zone",
       "settings": {
-        "commerce_intense_surface": false,
-        "heading": "Today's deals",
-        "signal_nav_label": "Why shop with us",
+        "commerce_intense_surface": true,
+        "heading": "Flash deals",
+        "signal_nav_label": "Why shop here",
         "signal_one_label": "Choice picks",
         "signal_one_link": "shopify://collections/all",
         "signal_two_label": "Bundle savings",
@@ -79,9 +79,9 @@
         "product_count": 8,
         "cta_label": "View all deals",
         "cta_style": "primary",
-        "background_color": "#f1f5f9",
+        "background_color": "#ffffff",
         "text_color": "#0f172a",
-        "accent_color": "#e11d48"
+        "accent_color": "#ff4747"
       }
     },
     "homepage_smart_hub": {
@@ -90,8 +90,8 @@
         "lane_best_sellers": {
           "type": "collection_link",
           "settings": {
-            "collection": "best-sellers",
-            "link": "shopify://collections/best-sellers",
+            "collection": "all",
+            "link": "shopify://collections/all",
             "path_emoji": "",
             "chip_label": "Best sellers",
             "badge": "Hot",
@@ -163,7 +163,7 @@
           "settings": {
             "keywords": "watch, watches, relogio",
             "label": "Best sellers",
-            "link": "shopify://collections/best-sellers"
+            "link": "shopify://collections/all"
           }
         }
       },
@@ -222,7 +222,7 @@
         "intent_best_sellers": {
           "type": "collection",
           "settings": {
-            "collection": "best-sellers",
+            "collection": "all",
             "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
             "title": "Best sellers"
           }

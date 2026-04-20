@@ -14,15 +14,15 @@
     "announcement-bar": {
       "type": "static-announcement",
       "settings": {
-        "show_announcement": false,
+        "show_announcement": true,
         "homepage_announcement": false,
         "temusy_micro_reward_preset": "live_deal_today",
         "announcement_pinned_top": true,
-        "announcement_text": "",
-        "announcement_text_mobile": "",
+        "announcement_text": "<p>Flash deals · Free shipping on eligible orders</p>",
+        "announcement_text_mobile": "<p>Flash deals · Free shipping</p>",
         "announcement_link": "shopify://collections/all",
-        "announcement_color": "#fffbeb",
-        "announcement_background": "#c2410c"
+        "announcement_color": "#ffffff",
+        "announcement_background": "#e43225"
       }
     },
     "utility-bar": {

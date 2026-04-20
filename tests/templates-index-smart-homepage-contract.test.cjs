@@ -81,8 +81,8 @@ assert.strictEqual(
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_deal_zone.settings.commerce_intense_surface,
-  false,
-  'index.json: deal zone defaults to restrained surface (enable elevated styling in Theme Editor when needed)'
+  true,
+  'index.json: deal zone ships high-impact marketplace surface (AliExpress-style rails)'
 );
 
 (function dealZoneMarketplaceChrome() {
@@ -148,7 +148,7 @@ assert.ok(
   assert.strictEqual(hub.blocks[bo[2]].type, 'collection_link', 'index.json: lane 3 type');
   assert.strictEqual(hub.blocks[bo[2]].settings.collection, 'under-50', 'index.json: lane 3 under fifty');
   assert.strictEqual(hub.blocks[bo[3]].type, 'collection_link', 'index.json: lane 4 type');
-  assert.strictEqual(hub.blocks[bo[3]].settings.collection, 'best-sellers', 'index.json: lane 4 best sellers');
+  assert.strictEqual(hub.blocks[bo[3]].settings.collection, 'all', 'index.json: lane 4 best sellers → catalog (always populated)');
   assert.strictEqual(hub.blocks[bo[4]].type, 'trust_point', 'index.json: lane 5 support');
   assert.ok(
     ((hub.blocks[bo[4]].settings.title || '') + '').toLowerCase().indexOf('support') !== -1,
@@ -262,7 +262,7 @@ assert.strictEqual(
     'index.json: category row title must read as quick paths (no “shop by intent” tutorial framing)'
   );
   assert.strictEqual(sec.blocks[bo[0]].settings.collection, 'under-50', 'index.json: quick path 1 → under fifty');
-  assert.strictEqual(sec.blocks[bo[1]].settings.collection, 'best-sellers', 'index.json: quick path 2 → best sellers');
+  assert.strictEqual(sec.blocks[bo[1]].settings.collection, 'all', 'index.json: quick path 2 → catalog bestsellers tile');
   assert.strictEqual(sec.blocks[bo[2]].settings.collection, 'new-arrivals', 'index.json: quick path 3 → new arrivals');
   assert.ok(
     (sec.blocks[bo[0]].settings.title || '').toLowerCase().indexOf('50') !== -1,
@@ -423,13 +423,13 @@ assert.strictEqual(
 );
 assert.strictEqual(
   (heroSlide.temusy_strip_collection || '').toString().trim(),
-  'health-and-beauty',
-  'index.json: hero price strip must pull from beauty lane (matches primary CTA collection)'
+  'all',
+  'index.json: hero price strip must pull from all-products (marketplace default)'
 );
 assert.strictEqual(
   heroSlide.temusy_strip_product_limit,
-  3,
-  'index.json: hero price strip stays tight (three SKUs) for a calmer, premium layout'
+  4,
+  'index.json: hero price strip shows four SKUs (AliExpress-density rail)'
 );
 assert.strictEqual(
   (heroSlide.temusy_strip_layout || '').toString().trim(),
@@ -438,8 +438,8 @@ assert.strictEqual(
 );
 assert.strictEqual(
   (heroSlide.temusy_strip_visual || '').toString().trim(),
-  'polaroid',
-  'index.json: hero strip must use campaign cards, not the basic compact rail'
+  'dark_rail',
+  'index.json: hero strip must use dark glass rail (AliExpress-style price chips)'
 );
 assert.ok(
   typeof heroSlide.text === 'string' &&
@@ -449,13 +449,12 @@ assert.ok(
 );
 assert.strictEqual(
   (heroSlide.button_one_label || '').trim(),
-  'Shop best-selling beauty',
-  'index.json: hero CTA must read as direct commerce into the beauty lane'
+  'Shop deals',
+  'index.json: hero CTA must read as marketplace deal entry'
 );
 assert.ok(
-  (heroSlide.button_one_link || '').indexOf('collections/health-and-beauty') !== -1 ||
-    (heroSlide.button_one_link || '').indexOf('health-and-beauty') !== -1,
-  'index.json: hero CTA must deep-link into the beauty collection'
+  (heroSlide.button_one_link || '').indexOf('collections/all') !== -1 || (heroSlide.button_one_link || '').indexOf('/all') !== -1,
+  'index.json: hero CTA must deep-link into the all-products collection'
 );
 assert.strictEqual(
   (heroSlide.link || '').trim(),
@@ -467,23 +466,23 @@ assert.strictEqual((heroSlide.button_two_link || '').trim(), '', 'index.json: he
 assert.ok(!/\bBRAND\b|\bMAKE-UP\b/i.test(heroSlide.title + ' ' + heroSlide.text), 'index.json: hero must not ship BRAND / MAKE-UP decorative copy in title or text');
 assert.strictEqual(
   indexTemplate.sections.homepage_hero.settings.slideshow_height,
-  'small',
-  'index.json: hero uses compact slideshow height (less billboard, product-forward)'
+  'medium',
+  'index.json: hero uses taller slideshow (AliExpress-style banner presence)'
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_hero.settings.slideshow_height_mobile,
-  'small',
-  'index.json: hero mobile height matches compact preset for consistent framing on small screens'
+  'medium',
+  'index.json: hero mobile height matches marketplace banner framing'
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_hero.settings.slideshow_width,
-  'content',
-  'index.json: hero uses content width to reduce heavy full-bleed branding'
+  'full',
+  'index.json: hero uses full-bleed width (marketplace banner rail)'
 );
 assert.strictEqual(
   indexTemplate.sections.homepage_hero.settings.slideshow_text_below_image,
-  true,
-  'index.json: hero keeps text and CTA below the image (no headline stacked on the product photo)'
+  false,
+  'index.json: hero stacks headline on image (AliExpress-style hero)'
 );
 assert.strictEqual(
   indexTemplate.order[indexTemplate.order.length - 1],

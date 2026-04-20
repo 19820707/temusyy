@@ -301,6 +301,13 @@
     render 'site-mobile-nav',
     blocks: section.blocks,
   %}
+  {% if marketplace_header %}
+    {% style %}
+      body {
+        background-color: #f2f3f5;
+      }
+    {% endstyle %}
+  {% endif %}
 </header>
 
 {% schema %}
