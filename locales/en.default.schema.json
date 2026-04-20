@@ -1853,7 +1853,12 @@
         "info": "Ready-made “today” lines for a top-of-site nudge. Use Custom when your own text fields should win. Honor real offers—only promise discounts or shipping you actually provide.",
         "option_discount": "🎁 Get 10% off today",
         "option_shipping": "Free shipping today only",
+        "option_live_deal": "🔥 Today only: Free shipping + 10% off",
         "option_custom": "Custom (text fields below)"
+      },
+      "announcement_pinned_top": {
+        "label": "Pin strip to top while scrolling",
+        "info": "Keeps the bar fixed under the browser chrome. Adds top padding so the page does not jump under it. Turn off for a normal in-flow strip."
       },
       "announcement_text": {
         "label": "Text"

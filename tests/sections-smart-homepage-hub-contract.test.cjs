@@ -20,6 +20,8 @@ assert.match(src, /data-temusy-hub-search-wrap/, 'smart hub: must tag search wra
 assert.match(src, /data-temusy-hub-paths/, 'smart hub: must tag path chip row for personalization reordering');
 assert.match(src, /template data-temusy-hub-intents/, 'smart hub: must embed intent JSON via template (no section script)');
 assert.match(src, /smart-homepage-hub__panel/, 'smart hub: must render intent lanes panel (collection_link + trust_point)');
+assert.match(src, /tertiary_link/, 'smart hub: must support third decision CTA (tertiary link)');
+assert.match(src, /smart-homepage-hub__button--tertiary/, 'smart hub: must style tertiary decision button');
 assert.match(src, /block\.shopify_attributes/, 'smart hub: blocks must keep theme editor attributes');
 assert.match(src, /aria-labelledby="smart-homepage-hub-title-/, 'smart hub: section must expose labelled region');
 assert.match(src, /data-temusy-intent-zone="guides"/, 'smart hub: must tag guides zone for homepage intent detection');

@@ -516,9 +516,84 @@
       {
         "type": "checkbox",
         "id": "temusy_product_urgency_badges",
-        "label": "Compact urgency badges on product cards",
+        "label": "Compact urgency badges (cards + product page)",
         "default": true,
-        "info": "Honest pills: “Only N left” from Shopify inventory (≤ low-stock threshold); “Selling fast” from tags or metafield custom.selling_fast; “In N carts” only if metafield custom.active_carts (integer) is set (e.g. app)."
+        "info": "Honest pills on grids and under the product title: “Only N left” from Shopify inventory (≤ low-stock threshold); “In N carts” only if metafield custom.active_carts (integer); “Selling fast” from tags or metafield custom.selling_fast."
+      },
+      {
+        "type": "header",
+        "content": "Temusy — Smart entry popup"
+      },
+      {
+        "type": "checkbox",
+        "id": "temusy_smart_entry_popup_enable",
+        "label": "Show smart entry popup",
+        "default": true,
+        "info": "Once per browser session: headline + free shipping line, two CTAs. Set the discount URL to your real Shopify discount link (/discount/CODE) or offer page."
+      },
+      {
+        "type": "url",
+        "id": "temusy_smart_entry_discount_url",
+        "label": "“Apply discount” URL",
+        "info": "If empty, the primary button links to all products. Must match a discount or offer you actually run."
+      },
+      {
+        "type": "header",
+        "content": "Temusy — Location / context sheet"
+      },
+      {
+        "type": "checkbox",
+        "id": "temusy_location_context_popup_enable",
+        "label": "Show location & currency sheet",
+        "default": true,
+        "info": "Once per session: shipping country (Markets), currency, and language. Opens after the smart entry popup is dismissed (or after a short delay if that popup is off)."
+      },
+      {
+        "type": "header",
+        "content": "Temusy — Bundle tiers (AOV)"
+      },
+      {
+        "type": "checkbox",
+        "id": "temusy_bundle_tiers_enable",
+        "label": "Show bundle tier callouts on product form",
+        "default": true,
+        "info": "Displays quantity savings above Add to cart and highlights tiers as the shopper raises quantity. Pair with Shopify Automatic discounts or Functions so checkout matches these numbers (theme does not apply discounts)."
+      },
+      {
+        "type": "range",
+        "id": "temusy_bundle_tier_1_min",
+        "label": "Tier 1 — minimum quantity",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "temusy_bundle_tier_1_percent",
+        "label": "Tier 1 — save (%)",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "default": 10
+      },
+      {
+        "type": "range",
+        "id": "temusy_bundle_tier_2_min",
+        "label": "Tier 2 — minimum quantity",
+        "min": 3,
+        "max": 20,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "temusy_bundle_tier_2_percent",
+        "label": "Tier 2 — save (%)",
+        "min": 1,
+        "max": 50,
+        "step": 1,
+        "default": 20
       },
       {
         "type": "header",

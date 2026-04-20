@@ -164,6 +164,14 @@
                     </h2>
                 {%- endcase -%}
               {%- endif -%}
+              {%- unless onboarding -%}
+                {%
+                  render 'product-urgency-badges',
+                  product: product,
+                  variant: selected_variant,
+                  pdp: true
+                %}
+              {%- endunless -%}
 
             {% when 'vendor' %}
               {% if product.vendor != blank or onboarding %}

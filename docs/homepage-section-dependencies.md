@@ -2,20 +2,23 @@
 
 `templates/index.json` opens with a **block comment** mapping system concepts to instance ids (same order as `order[]`).
 
-## Canonical eight-step stack (concept → instance id)
+## Canonical nine-step stack (concept → instance id)
 
 | Concept | Instance id | Section type |
 |--------|----------------|---------------|
 | hero | `homepage_hero` | `dynamic-slideshow` |
+| deal_zone | `homepage_deal_zone` | `dynamic-temusy-deal-zone` |
 | trending_products | `homepage_best_sellers_products` | `dynamic-featured-collection` |
 | decision_shortcuts | `homepage_smart_hub` | `dynamic-smart-homepage-hub` |
 | trust_bar | `homepage_trust_bar` | `dynamic-highlights-banner` |
-| category_grid | `homepage_trending_categories` | `dynamic-collection-list` |
+| category_grid | `homepage_trending_categories` | `dynamic-collection-list` — **three** image tiles + short title (e.g. “Quick paths”; avoid category walls) |
 | featured_products | `homepage_featured_products` | `dynamic-featured-collection` |
 | recently_viewed | `homepage_recently_viewed` | `static-recently-viewed` |
 | testimonials | `homepage_testimonials` | `dynamic-testimonials` |
 
-Optional sections **not** in the default homepage JSON (re-add via Theme Editor when needed): compact trending strip (`dynamic-featured-product-inline`), countdown (`dynamic-countdown-timer`), adaptive cookie strip (`dynamic-adaptive-homepage-priority`), extra recommended row (`dynamic-featured-collection`).
+Optional sections **not** in the default homepage JSON (re-add via Theme Editor when needed): compact trending strip (`dynamic-featured-product-inline`), legacy full-bleed countdown (`dynamic-countdown-timer`), adaptive cookie strip (`dynamic-adaptive-homepage-priority`), extra recommended row (`dynamic-featured-collection`).
+
+**Psychological system (pressure + orientation + reward):** see [`docs/temusy-psychological-commerce-system.md`](./temusy-psychological-commerce-system.md).
 
 ## `dynamic-smart-homepage-hub`
 

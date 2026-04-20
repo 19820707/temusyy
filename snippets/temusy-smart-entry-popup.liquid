@@ -1,0 +1,249 @@
+{% comment %}
+  Smart entry popup — first paint per browser session (sessionStorage).
+  - Lines + CTAs from locales `general.temusy_smart_entry.*`
+  - Discount URL: `settings.temusy_smart_entry_discount_url` or fallback to all products collection
+  - Toggle: `settings.temusy_smart_entry_popup_enable`
+{% endcomment %}
+{% if settings.temusy_smart_entry_popup_enable and template.name != 'password' %}
+  {% liquid
+    assign discount_href = settings.temusy_smart_entry_discount_url | default: '' | strip
+    if discount_href == blank
+      assign discount_href = routes.all_products_collection_url
+    endif
+  %}
+  <div
+    id="temusy-smart-entry"
+    class="temusy-smart-entry"
+    hidden
+    data-temusy-smart-entry
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="temusy-smart-entry-title"
+    aria-describedby="temusy-smart-entry-desc"
+  >
+    <div class="temusy-smart-entry__scrim" data-temusy-smart-entry-dismiss tabindex="-1"></div>
+    <div class="temusy-smart-entry__panel">
+      <button
+        type="button"
+        class="temusy-smart-entry__close"
+        data-temusy-smart-entry-dismiss
+        aria-label="{{ 'general.accessibility.close' | t | escape }}"
+      >
+        {% render 'icon-menu-close' %}
+      </button>
+      <div class="temusy-smart-entry__icon" aria-hidden="true">🎁</div>
+      <h2 id="temusy-smart-entry-title" class="temusy-smart-entry__title">
+        {{ 'general.temusy_smart_entry.headline' | t }}
+      </h2>
+      <p id="temusy-smart-entry-desc" class="temusy-smart-entry__sub">
+        {{ 'general.temusy_smart_entry.subline' | t }}
+      </p>
+      <div class="temusy-smart-entry__actions">
+        <a
+          class="temusy-smart-entry__btn temusy-smart-entry__btn--primary"
+          href="{{ discount_href }}"
+          data-temusy-smart-entry-apply
+        >
+          {{- 'general.temusy_smart_entry.apply_discount' | t -}}
+        </a>
+        <button
+          type="button"
+          class="temusy-smart-entry__btn temusy-smart-entry__btn--secondary"
+          data-temusy-smart-entry-dismiss
+        >
+          {{- 'general.temusy_smart_entry.continue_shopping' | t -}}
+        </button>
+      </div>
+      <p class="temusy-smart-entry__fineprint">{{ 'general.temusy_smart_entry.fineprint' | t }}</p>
+    </div>
+  </div>
+  {% style %}
+    .temusy-smart-entry {
+      position: fixed;
+      inset: 0;
+      z-index: 99990;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      box-sizing: border-box;
+    }
+    .temusy-smart-entry[hidden] {
+      display: none !important;
+    }
+    .temusy-smart-entry__scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(2px);
+    }
+    .temusy-smart-entry__panel {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      background: #fffbeb;
+      color: #0f172a;
+      border-radius: 14px;
+      padding: 28px 22px 20px;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      border: 1px solid rgba(194, 65, 12, 0.35);
+    }
+    .temusy-smart-entry__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: transparent;
+      color: #0f172a;
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .temusy-smart-entry__close:focus-visible {
+      outline: 2px solid #c2410c;
+      outline-offset: 2px;
+    }
+    .temusy-smart-entry__icon {
+      font-size: 2.25rem;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .temusy-smart-entry__title {
+      font-size: clamp(1.25rem, 4vw, 1.45rem);
+      margin: 0 0 8px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .temusy-smart-entry__sub {
+      margin: 0 0 20px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #b45309;
+    }
+    .temusy-smart-entry__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    @media (min-width: 480px) {
+      .temusy-smart-entry__actions {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+    .temusy-smart-entry__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      border: 2px solid transparent;
+      box-sizing: border-box;
+    }
+    .temusy-smart-entry__btn--primary {
+      background: #c2410c;
+      color: #fffbeb;
+      border-color: #c2410c;
+    }
+    .temusy-smart-entry__btn--primary:hover {
+      filter: brightness(1.05);
+    }
+    .temusy-smart-entry__btn--secondary {
+      background: #fff;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+    .temusy-smart-entry__btn:focus-visible {
+      outline: 2px solid #0f172a;
+      outline-offset: 2px;
+    }
+    .temusy-smart-entry__fineprint {
+      margin: 14px 0 0;
+      font-size: 0.75rem;
+      line-height: 1.35;
+      color: #64748b;
+    }
+  {% endstyle %}
+  <script>
+    (function () {
+      function notifySmartEntryDone() {
+        try {
+          document.dispatchEvent(new CustomEvent('temusy-smart-entry-dismissed'));
+        } catch (e0) {}
+      }
+      var root = document.getElementById('temusy-smart-entry');
+      if (!root) return;
+      var KEY = 'temusy_smart_entry_session';
+      try {
+        if (sessionStorage.getItem(KEY) === '1') {
+          notifySmartEntryDone();
+          return;
+        }
+      } catch (e) {
+        return;
+      }
+      function onEscape(ev) {
+        if (ev.key === 'Escape' && !root.hidden) {
+          close();
+          document.removeEventListener('keydown', onEscape);
+        }
+      }
+      function open() {
+        root.hidden = false;
+        root.setAttribute('aria-hidden', 'false');
+        document.body.setAttribute('data-temusy-smart-entry-open', 'true');
+        document.body.style.overflow = 'hidden';
+        document.addEventListener('keydown', onEscape);
+        var a = root.querySelector('[data-temusy-smart-entry-apply]');
+        if (a && typeof a.focus === 'function') {
+          window.setTimeout(function () {
+            a.focus();
+          }, 0);
+        }
+      }
+      function close() {
+        root.hidden = true;
+        root.setAttribute('aria-hidden', 'true');
+        document.body.removeAttribute('data-temusy-smart-entry-open');
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', onEscape);
+        try {
+          sessionStorage.setItem(KEY, '1');
+        } catch (e2) {}
+        notifySmartEntryDone();
+      }
+      root.addEventListener('click', function (ev) {
+        var t = ev.target;
+        if (t && t.closest && t.closest('[data-temusy-smart-entry-dismiss]')) {
+          ev.preventDefault();
+          close();
+        }
+      });
+      var applyEl = root.querySelector('[data-temusy-smart-entry-apply]');
+      if (applyEl) {
+        applyEl.addEventListener('click', function () {
+          try {
+            sessionStorage.setItem(KEY, '1');
+          } catch (e3) {}
+          notifySmartEntryDone();
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', open);
+      } else {
+        open();
+      }
+    })();
+  </script>
+{% endif %}

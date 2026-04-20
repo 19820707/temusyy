@@ -1,0 +1,120 @@
+{% comment %}
+  Temusy — quantity bundle callouts (AOV nudge). Shows tier lines above ATC; highlights rows when quantity meets each tier.
+  Checkout must mirror these rules via Shopify Automatic discounts, Functions, or an app — the theme does not apply discounts.
+{% endcomment %}
+{% liquid
+  assign show_bundle = true
+  if settings.temusy_bundle_tiers_enable == false
+    assign show_bundle = false
+  endif
+  if product.type == 'Gift Card'
+    assign show_bundle = false
+  endif
+  if product.selling_plan_groups.size > 0
+    assign show_bundle = false
+  endif
+
+  assign q1 = settings.temusy_bundle_tier_1_min | default: 2
+  assign p1 = settings.temusy_bundle_tier_1_percent | default: 10
+  assign q2 = settings.temusy_bundle_tier_2_min | default: 3
+  assign p2 = settings.temusy_bundle_tier_2_percent | default: 20
+  if q1 < 2
+    assign q1 = 2
+  endif
+  if q2 <= q1
+    assign q2 = q1 | plus: 1
+  endif
+%}
+{% if show_bundle %}
+  {% style %}
+    #temusy-bundle-tiers-{{ section.id }} {
+      margin: 0 0 0.85rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      border: 1px solid rgba(15, 23, 42, 0.1);
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      color: #0f172a;
+    }
+    #temusy-bundle-tiers-{{ section.id }} .temusy-bundle-tiers__title {
+      margin: 0 0 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #9a3412;
+    }
+    #temusy-bundle-tiers-{{ section.id }} .temusy-bundle-tiers__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    #temusy-bundle-tiers-{{ section.id }} .temusy-bundle-tiers__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.35rem 0.45rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(180, 83, 9, 0.15);
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+    #temusy-bundle-tiers-{{ section.id }} .temusy-bundle-tiers__row--hit {
+      background: rgba(194, 65, 12, 0.12);
+      border-color: rgba(194, 65, 12, 0.45);
+      transform: translateY(-1px);
+    }
+    #temusy-bundle-tiers-{{ section.id }} .temusy-bundle-tiers__note {
+      margin: 0.5rem 0 0;
+      font-size: 0.68rem;
+      line-height: 1.35;
+      color: rgba(15, 23, 42, 0.62);
+    }
+  {% endstyle %}
+
+  <div
+    id="temusy-bundle-tiers-{{ section.id }}"
+    class="temusy-bundle-tiers"
+    data-temusy-bundle-tiers
+    data-tier1="{{ q1 }}"
+    data-tier2="{{ q2 }}"
+  >
+    <p class="temusy-bundle-tiers__title">{{ 'product.bundle.title' | t }}</p>
+    <ul class="temusy-bundle-tiers__list">
+      <li class="temusy-bundle-tiers__row" data-temusy-bundle-tier data-min-qty="{{ q1 }}">
+        <span>{{ 'product.bundle.buy_save' | t: qty: q1, pct: p1 }}</span>
+      </li>
+      <li class="temusy-bundle-tiers__row" data-temusy-bundle-tier data-min-qty="{{ q2 }}">
+        <span>{{ 'product.bundle.buy_save' | t: qty: q2, pct: p2 }}</span>
+      </li>
+    </ul>
+    <p class="temusy-bundle-tiers__note">{{ 'product.bundle.checkout_note' | t }}</p>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.getElementById('temusy-bundle-tiers-{{ section.id }}');
+      if (!root) return;
+      var form = root.closest('[data-product-form]');
+      if (!form) return;
+      var input = form.querySelector('[data-quantity-selector] .quantity-selector__input');
+      if (!input) return;
+      function sync() {
+        var q = parseInt(input.value, 10);
+        if (isNaN(q) || q < 1) q = 1;
+        root.querySelectorAll('[data-temusy-bundle-tier]').forEach(function (row) {
+          var need = parseInt(row.getAttribute('data-min-qty'), 10) || 0;
+          row.classList.toggle('temusy-bundle-tiers__row--hit', q >= need);
+        });
+      }
+      input.addEventListener('input', sync);
+      input.addEventListener('change', sync);
+      sync();
+    })();
+  </script>
+{% endif %}

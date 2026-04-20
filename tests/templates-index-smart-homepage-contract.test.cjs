@@ -1,8 +1,8 @@
 /**
  * Contract tests for templates/index.json homepage merchandising.
  *
- * Canonical stack: hero → trending_products (best-sellers grid) → decision_shortcuts (hub) →
- * trust_bar → category_grid → featured_products → recently_viewed → testimonials (exactly eight sections).
+ * Canonical stack: hero → deal_zone → trending_products (best-sellers grid) → decision_shortcuts (hub) →
+ * trust_bar → category_grid → featured_products → recently_viewed → testimonials (exactly nine sections).
  */
 const assert = require('assert');
 const fs = require('fs');
@@ -19,6 +19,7 @@ function stripLeadingBlockComment(src) {
 /** Single source of truth for homepage section order (keep in sync with index.json block comment). */
 const CANONICAL_HOMEPAGE_ORDER = [
   'homepage_hero',
+  'homepage_deal_zone',
   'homepage_best_sellers_products',
   'homepage_smart_hub',
   'homepage_trust_bar',
@@ -32,7 +33,7 @@ const indexTemplate = JSON.parse(
   stripLeadingBlockComment(fs.readFileSync(path.join(__dirname, '..', 'templates', 'index.json'), 'utf8'))
 );
 
-assert.strictEqual(indexTemplate.order.length, 8, 'index.json: homepage order must stay at eight sections');
+assert.strictEqual(indexTemplate.order.length, 9, 'index.json: homepage order must stay at nine sections');
 assert.strictEqual(
   new Set(indexTemplate.order).size,
   indexTemplate.order.length,
@@ -51,6 +52,28 @@ assert.deepStrictEqual(
 CANONICAL_HOMEPAGE_ORDER.forEach(function (id) {
   assert.ok(indexTemplate.sections[id], 'index.json: order references missing section: ' + id);
 });
+
+assert.ok(indexTemplate.sections.homepage_deal_zone, 'index.json: must include homepage_deal_zone');
+assert.strictEqual(
+  indexTemplate.sections.homepage_deal_zone.type,
+  'dynamic-temusy-deal-zone',
+  'index.json: deal zone must use dynamic-temusy-deal-zone'
+);
+assert.strictEqual(
+  indexTemplate.sections.homepage_deal_zone.settings.collection,
+  'best-sellers',
+  'index.json: deal zone collection must align with bestsellers lane'
+);
+assert.strictEqual(
+  indexTemplate.sections.homepage_deal_zone.settings.product_count,
+  6,
+  'index.json: deal zone product_count stays compact (six SKUs)'
+);
+assert.strictEqual(
+  indexTemplate.sections.homepage_deal_zone.settings.show_countdown,
+  true,
+  'index.json: deal zone must ship the live countdown strip'
+);
 
 assert.ok(indexTemplate.sections.homepage_smart_hub, 'index.json: must include homepage_smart_hub');
 assert.strictEqual(
@@ -136,17 +159,19 @@ assert.ok(
 assert.deepStrictEqual(
   indexTemplate.order,
   CANONICAL_HOMEPAGE_ORDER,
-  'index.json: canonical 8-step stack (hero → trending_products → decision_shortcuts → trust_bar → category_grid → featured_products → recently_viewed → testimonials)'
+  'index.json: canonical 9-step stack (hero → deal_zone → trending_products → decision_shortcuts → trust_bar → category_grid → featured_products → recently_viewed → testimonials)'
 );
 
 const idxHero = indexTemplate.order.indexOf('homepage_hero');
+const idxDeal = indexTemplate.order.indexOf('homepage_deal_zone');
 const idxBest = indexTemplate.order.indexOf('homepage_best_sellers_products');
 const idxHub = indexTemplate.order.indexOf('homepage_smart_hub');
 const idxTrust = indexTemplate.order.indexOf('homepage_trust_bar');
 const idxTrending = indexTemplate.order.indexOf('homepage_trending_categories');
 const idxFeatured = indexTemplate.order.indexOf('homepage_featured_products');
 const idxRecent = indexTemplate.order.indexOf('homepage_recently_viewed');
-assert.strictEqual(idxBest, idxHero + 1, 'index.json: product grid immediately after hero');
+assert.strictEqual(idxDeal, idxHero + 1, 'index.json: deal zone immediately after hero');
+assert.strictEqual(idxBest, idxHero + 2, 'index.json: product grid immediately after deal zone');
 assert.ok(indexTemplate.sections.homepage_best_sellers_products, 'index.json: must include homepage_best_sellers_products');
 assert.strictEqual(
   indexTemplate.sections.homepage_best_sellers_products.type,
@@ -154,7 +179,7 @@ assert.strictEqual(
   'index.json: homepage_best_sellers_products must use dynamic-featured-collection'
 );
 
-// T2 — Eight-step commerce: hero → SKUs → hub → trust → categories → featured → recent → reviews.
+// T2 — Nine-step commerce: hero → deal zone → SKUs → hub → trust → categories → featured → recent → reviews.
 CANONICAL_HOMEPAGE_ORDER.forEach(function (expectedId, i) {
   assert.strictEqual(
     indexTemplate.order[i],
@@ -188,18 +213,17 @@ assert.strictEqual(
 (function intentShortcutCollectionStrip() {
   const sec = indexTemplate.sections.homepage_trending_categories;
   const bo = sec.block_order;
-  assert.strictEqual(bo.length, 4, 'index.json: intent shortcut strip must ship exactly four collection tiles');
+  assert.strictEqual(bo.length, 3, 'index.json: category_grid ships three visual quick paths (anti-decision: fewer tiles)');
   assert.ok(
-    (sec.settings.title || '').trim().toLowerCase().indexOf('shop by intent') !== -1,
-    'index.json: row title must frame Amazon-style intent lanes (not generic departments)'
+    (sec.settings.title || '').trim().toLowerCase().indexOf('quick') !== -1,
+    'index.json: category row title must read as quick paths (no “shop by intent” tutorial framing)'
   );
-  assert.strictEqual(sec.blocks[bo[0]].settings.collection, 'under-50', 'index.json: intent lane 1 → gifts / value ceiling');
-  assert.strictEqual(sec.blocks[bo[1]].settings.collection, 'best-sellers', 'index.json: intent lane 2 → best sellers');
-  assert.strictEqual(sec.blocks[bo[2]].settings.collection, 'new-arrivals', 'index.json: intent lane 3 → new arrivals');
-  assert.strictEqual(sec.blocks[bo[3]].settings.collection, 'watches', 'index.json: intent lane 4 → weekly trending spotlight (swap handle in Theme Editor to your hot collection)');
+  assert.strictEqual(sec.blocks[bo[0]].settings.collection, 'under-50', 'index.json: quick path 1 → under fifty');
+  assert.strictEqual(sec.blocks[bo[1]].settings.collection, 'best-sellers', 'index.json: quick path 2 → best sellers');
+  assert.strictEqual(sec.blocks[bo[2]].settings.collection, 'new-arrivals', 'index.json: quick path 3 → new arrivals');
   assert.ok(
-    (sec.blocks[bo[0]].settings.title || '').toLowerCase().indexOf('gifts') !== -1,
-    'index.json: first tile label must read as gifts-under lane'
+    (sec.blocks[bo[0]].settings.title || '').toLowerCase().indexOf('50') !== -1,
+    'index.json: first tile label must signal the value ceiling'
   );
 })();
 assert.ok(indexTemplate.sections.homepage_featured_products, 'index.json: must include homepage_featured_products');
@@ -218,15 +242,17 @@ assert.strictEqual(
 })();
 assert.ok(
   idxHero !== -1 &&
-    idxBest === idxHero + 1 &&
+    idxDeal === idxHero + 1 &&
+    idxBest === idxHero + 2 &&
     idxHub === idxBest + 1 &&
     idxTrust === idxHub + 1 &&
     idxTrending === idxTrust + 1 &&
     idxFeatured === idxTrending + 1 &&
     idxRecent === idxFeatured + 1 &&
     indexTemplate.order.indexOf('homepage_testimonials') === idxRecent + 1,
-  'index.json: hero → trending_products → decision_shortcuts → trust_bar → category_grid → featured_products → recently_viewed → testimonials'
+  'index.json: hero → deal_zone → trending_products → decision_shortcuts → trust_bar → category_grid → featured_products → recently_viewed → testimonials'
 );
+assert.ok(idxDeal < idxBest, 'index.json: deal zone before first product grid');
 assert.ok(idxBest < idxHub, 'index.json: first product grid before hub');
 assert.ok(idxHub < idxTrust, 'index.json: hub before trust');
 assert.ok(idxTrust < idxTrending, 'index.json: trust before category grid');
@@ -329,7 +355,7 @@ assert.strictEqual(
 );
 assert.ok(
   !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_recommended_for_you'),
-  'index.json: eight-step stack omits recommended row (re-add via Theme Editor if needed)'
+  'index.json: nine-step stack omits recommended row (re-add via Theme Editor if needed)'
 );
 assert.ok(
   !Object.prototype.hasOwnProperty.call(indexTemplate.sections, 'homepage_editorial_watches'),
@@ -465,6 +491,12 @@ assert.ok(
     'utf8'
   );
   assert.match(themeLiquid, /render\s+'temusy-interest-bridge'/, 'theme.liquid: must load temusy-interest-bridge (feedback loop cookie)');
+  assert.match(themeLiquid, /render\s+'temusy-smart-entry-popup'/, 'theme.liquid: must load temusy-smart-entry-popup (session entry offer)');
+  assert.match(
+    themeLiquid,
+    /render\s+'temusy-location-context-popup'/,
+    'theme.liquid: must load temusy-location-context-popup (shipping/currency/language trust sheet)'
+  );
   assert.match(themeLiquid, /render\s+'temusy-personalization-engine'/, 'theme.liquid: must load temusy-personalization-engine (adaptive shell)');
   assert.match(
     themeLiquid,

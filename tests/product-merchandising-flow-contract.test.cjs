@@ -8,6 +8,8 @@ const path = require('path');
 const snippetPath = path.join(__dirname, '..', 'snippets', 'product-merchandising-labels.liquid');
 const snippet = fs.readFileSync(snippetPath, 'utf8');
 const urgencySnip = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'product-urgency-badges.liquid'), 'utf8');
+const bundleSnip = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'temusy-bundle-tiers.liquid'), 'utf8');
+const productFormSnip = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'product-form.liquid'), 'utf8');
 
 assert.match(snippet, /temusy-interesse/, 'merch labels: Flow interest tags fold into Trending lane');
 assert.match(snippet, /flow-interesse/, 'merch labels: must recognize flow-interesse alias');
@@ -36,6 +38,25 @@ assert.match(urgencySnip, /metafields\.custom\.active_carts/, 'urgency badges: m
 assert.match(urgencySnip, /productitem__urgency-badge--stock/, 'urgency badges: must style stock pill');
 assert.match(urgencySnip, /productitem__urgency-badge--velocity/, 'urgency badges: must style velocity pill');
 assert.match(urgencySnip, /productitem__urgency-badge--carts/, 'urgency badges: must style carts pill');
+assert.match(urgencySnip, /assign pdp = pdp/, 'urgency badges: must support PDP mode (param pdp)');
+assert.match(urgencySnip, /data-stock-level/, 'urgency badges: PDP must use data-stock-level for variant sync');
+
+assert.match(bundleSnip, /temusy-bundle-tiers/, 'bundle tiers: snippet must self-identify');
+assert.match(bundleSnip, /product\.bundle\.buy_save/, 'bundle tiers: must translate tier line');
+assert.match(bundleSnip, /temusy_bundle_tier_1_min/, 'bundle tiers: must read theme tier 1 min');
+assert.match(bundleSnip, /data-temusy-bundle-tier/, 'bundle tiers: must expose row hooks for quantity sync');
+assert.match(
+  productFormSnip,
+  /render\s+'temusy-bundle-tiers'/,
+  'product-form: must mount bundle tier callouts above ATC'
+);
+
+const productLiquid = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'product.liquid'), 'utf8');
+assert.match(
+  productLiquid,
+  /render\s+'product-urgency-badges'[\s\S]*?pdp:\s*true/,
+  'product.liquid: must mount urgency engine on PDP (under title block)'
+);
 
 function assertMerchKeys(file) {
   const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'locales', file), 'utf8'));
@@ -65,6 +86,7 @@ assert.match(css, /\.productitem__merch-label--scarcity\b/, 'theme.bundle.css: s
 assert.match(css, /\.productitem__urgency-badge--stock\b/, 'theme.bundle.css: urgency stock pill');
 assert.match(css, /\.productitem__urgency-badge--velocity\b/, 'theme.bundle.css: urgency velocity pill');
 assert.match(css, /\.productitem__urgency-badge--carts\b/, 'theme.bundle.css: urgency carts pill');
+assert.match(css, /\.product-urgency-engine--pdp\b/, 'theme.bundle.css: PDP urgency engine hook');
 assert.doesNotMatch(
   css,
   /\.productitem__merch-label--flow-interest\b/,

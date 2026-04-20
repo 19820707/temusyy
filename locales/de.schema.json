@@ -1853,7 +1853,12 @@
         "info": "Vorgefertigte „heute“-Texte. „Benutzerdefiniert“ nutzt die Felder unten. Nur echte Angebote versprechen.",
         "option_discount": "🎁 Heute 10 % Rabatt",
         "option_shipping": "Heute nur kostenloser Versand",
+        "option_live_deal": "🔥 Nur heute: Gratisversand + 10 % Rabatt",
         "option_custom": "Benutzerdefiniert (Textfelder unten)"
+      },
+      "announcement_pinned_top": {
+        "label": "Leiste oben fixieren (beim Scrollen)",
+        "info": "Hält die Leiste sichtbar. Setzt oben Innenabstand, damit nichts darunter verschwindet. Aus = normale Leiste im Fluss."
       },
       "announcement_text": {
         "label": "Text"

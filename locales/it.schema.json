@@ -1853,7 +1853,12 @@
         "info": "Messaggi «oggi» pronti. «Personalizzato» usa i campi sotto. Prometti solo offerte reali.",
         "option_discount": "🎁 -10% oggi",
         "option_shipping": "Spedizione gratuita solo oggi",
+        "option_live_deal": "🔥 Solo oggi: spedizione gratuita + 10%",
         "option_custom": "Personalizzato (campi testo sotto)"
+      },
+      "announcement_pinned_top": {
+        "label": "Fissa la fascia in alto durante lo scroll",
+        "info": "Mantiene l’annuncio visibile in alto e aggiunge padding superiore così il contenuto non finisce sotto. Disattiva per la fascia nel flusso normale."
       },
       "announcement_text": {
         "label": "Testo"

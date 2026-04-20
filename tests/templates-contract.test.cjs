@@ -40,8 +40,8 @@ assert.strictEqual(cart.sections.main.type, 'static-cart', 'cart.json: main sect
 const indexTemplate = JSON.parse(stripLeadingBlockComment(fs.readFileSync(path.join(templatesDir, 'index.json'), 'utf8')));
 assert.strictEqual(
   indexTemplate.order.length,
-  8,
-  'index.json: homepage ships the canonical eight-step stack (see templates-index-smart-homepage-contract)'
+  9,
+  'index.json: homepage ships the canonical nine-step stack (see templates-index-smart-homepage-contract)'
 );
 assert.ok(
   indexTemplate.sections.homepage_smart_hub,
@@ -53,9 +53,14 @@ assert.strictEqual(
   'index.json: homepage_smart_hub must use dynamic-smart-homepage-hub section'
 );
 assert.strictEqual(
-  indexTemplate.order.indexOf('homepage_best_sellers_products'),
+  indexTemplate.order.indexOf('homepage_deal_zone'),
   indexTemplate.order.indexOf('homepage_hero') + 1,
-  'index.json: primary product grid must follow hero (trending_products slot)'
+  'index.json: deal zone must follow hero'
+);
+assert.strictEqual(
+  indexTemplate.order.indexOf('homepage_best_sellers_products'),
+  indexTemplate.order.indexOf('homepage_hero') + 2,
+  'index.json: primary product grid must follow deal zone (trending_products slot)'
 );
 assert.strictEqual(
   indexTemplate.order.indexOf('homepage_smart_hub'),

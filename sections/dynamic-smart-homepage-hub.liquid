@@ -12,10 +12,12 @@
   assign text = section.settings.text | default: ''
   assign search_placeholder = section.settings.search_placeholder | default: 'Search products'
   assign search_button = section.settings.search_button | default: 'Go'
-  assign primary_label = section.settings.primary_label | default: 'All products'
-  assign primary_link = section.settings.primary_link | default: routes.all_products_collection_url
-  assign secondary_label = section.settings.secondary_label | default: 'Support'
-  assign secondary_link = section.settings.secondary_link | default: routes.search_url
+  assign primary_label = section.settings.primary_label | default: 'Best sellers'
+  assign primary_link = section.settings.primary_link | default: ''
+  assign secondary_label = section.settings.secondary_label | default: 'Under $50'
+  assign secondary_link = section.settings.secondary_link | default: ''
+  assign tertiary_label = section.settings.tertiary_label | default: 'Trending now'
+  assign tertiary_link = section.settings.tertiary_link | default: ''
 %}
 
 <section
@@ -170,6 +172,11 @@
         {% if secondary_label != blank and secondary_link != blank %}
           <a class="smart-homepage-hub__button smart-homepage-hub__button--secondary" href="{{ secondary_link }}">
             {{ secondary_label }}
+          </a>
+        {% endif %}
+        {% if tertiary_label != blank and tertiary_link != blank %}
+          <a class="smart-homepage-hub__button smart-homepage-hub__button--tertiary" href="{{ tertiary_link }}">
+            {{ tertiary_label }}
           </a>
         {% endif %}
       </div>
@@ -480,6 +487,17 @@
     color: var(--th-heading);
   }
 
+  .smart-homepage-hub__button--tertiary {
+    background: transparent;
+    border: 1px dashed var(--th-border);
+    color: var(--th-heading);
+  }
+
+  .smart-homepage-hub__button--tertiary:hover {
+    border-color: var(--th-accent);
+    color: var(--th-accent);
+  }
+
   .smart-homepage-hub__search-input:focus-visible {
     border-color: var(--th-accent);
     outline: 2px solid var(--th-accent);
@@ -675,7 +693,8 @@
       "type": "text",
       "id": "primary_label",
       "label": "Primary button label",
-      "default": "All products"
+      "default": "Best sellers",
+      "info": "Decision label (not “Shop now”). Link to a real collection."
     },
     {
       "type": "url",
@@ -686,12 +705,25 @@
       "type": "text",
       "id": "secondary_label",
       "label": "Secondary button label",
-      "default": "Support"
+      "default": "Under $50",
+      "info": "Second guided path (e.g. price ceiling or value edit)."
     },
     {
       "type": "url",
       "id": "secondary_link",
       "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "tertiary_label",
+      "label": "Third button label",
+      "default": "Trending now",
+      "info": "Optional third decision (e.g. new / trending collection). Leave link blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "tertiary_link",
+      "label": "Third button link"
     },
     {
       "type": "select",

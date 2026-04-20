@@ -1853,7 +1853,12 @@
         "info": "Messages « aujourd’hui » prêts à l’emploi. « Personnalisé » utilise les champs ci-dessous. Ne promettez que des offres réelles.",
         "option_discount": "🎁 -10 % aujourd’hui",
         "option_shipping": "Livraison gratuite aujourd’hui seulement",
+        "option_live_deal": "🔥 Aujourd’hui seulement : livraison gratuite + 10 %",
         "option_custom": "Personnalisé (champs texte ci-dessous)"
+      },
+      "announcement_pinned_top": {
+        "label": "Épingler la bande en haut au défilement",
+        "info": "Garde l’annonce visible en haut et ajoute un padding pour éviter que le contenu passe dessous. Désactiver pour une bande normale dans le flux."
       },
       "announcement_text": {
         "label": "Texte"

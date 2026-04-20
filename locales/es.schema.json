@@ -1853,7 +1853,12 @@
         "info": "Mensajes listos de «hoy». «Personalizado» usa los campos de abajo. Solo promete ofertas reales.",
         "option_discount": "🎁 10 % de descuento hoy",
         "option_shipping": "Envío gratis solo hoy",
+        "option_live_deal": "🔥 Solo hoy: envío gratis + 10 % dto.",
         "option_custom": "Personalizado (campos de texto abajo)"
+      },
+      "announcement_pinned_top": {
+        "label": "Fijar la franja arriba al hacer scroll",
+        "info": "Mantiene el anuncio visible arriba y añade margen superior para que el contenido no quede tapado. Desactívalo para la franja normal."
       },
       "announcement_text": {
         "label": "Texto"

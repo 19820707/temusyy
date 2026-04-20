@@ -16,7 +16,8 @@
       "settings": {
         "show_announcement": true,
         "homepage_announcement": false,
-        "temusy_micro_reward_preset": "discount_today",
+        "temusy_micro_reward_preset": "live_deal_today",
+        "announcement_pinned_top": true,
         "announcement_text": "",
         "announcement_text_mobile": "",
         "announcement_link": "shopify://collections/all",

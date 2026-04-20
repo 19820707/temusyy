@@ -14,6 +14,9 @@
   elsif micro_preset == 'free_shipping_today'
     assign announcement_desktop = 'general.temusy_micro_reward.shipping_desktop' | t
     assign announcement_mobile = 'general.temusy_micro_reward.shipping_mobile' | t
+  elsif micro_preset == 'live_deal_today'
+    assign announcement_desktop = 'general.temusy_micro_reward.live_deal_desktop' | t
+    assign announcement_mobile = 'general.temusy_micro_reward.live_deal_mobile' | t
   endif
 %}
 
@@ -37,6 +40,27 @@
 
 {% if show_everywhere or homepage_only %}
   {% if announcement_desktop != blank or announcement_mobile != blank %}
+    {% if section.settings.announcement_pinned_top %}
+      {% style %}
+        .temusy-announcement-root--pinned .announcement-bar {
+          position: fixed;
+          top: 0;
+          right: 0;
+          left: 0;
+          z-index: 1000;
+          box-shadow: 0 1px 0 rgba(15, 23, 42, 0.08);
+        }
+        body:has(.temusy-announcement-root--pinned) {
+          padding-top: 3.25rem;
+        }
+        html:has(.temusy-announcement-root--pinned) {
+          scroll-padding-top: 3.25rem;
+        }
+      {% endstyle %}
+    {% endif %}
+    <div
+      class="temusy-announcement-root{% if section.settings.announcement_pinned_top %} temusy-announcement-root--pinned{% endif %}"
+    >
     <div
       class="
         announcement-bar
@@ -71,6 +95,7 @@
         {% endif %}
       </div>
     </div>
+    </div>
   {% endif %}
 {% endif %}
 
@@ -100,7 +125,7 @@
       "id": "temusy_micro_reward_preset",
       "label": "t:sections.announcement_bar.temusy_micro_reward_preset.label",
       "info": "t:sections.announcement_bar.temusy_micro_reward_preset.info",
-      "default": "discount_today",
+      "default": "live_deal_today",
       "options": [
         {
           "value": "discount_today",
@@ -111,10 +136,21 @@
           "label": "t:sections.announcement_bar.temusy_micro_reward_preset.option_shipping"
         },
         {
+          "value": "live_deal_today",
+          "label": "t:sections.announcement_bar.temusy_micro_reward_preset.option_live_deal"
+        },
+        {
           "value": "custom",
           "label": "t:sections.announcement_bar.temusy_micro_reward_preset.option_custom"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_pinned_top",
+      "label": "t:sections.announcement_bar.announcement_pinned_top.label",
+      "default": true,
+      "info": "t:sections.announcement_bar.announcement_pinned_top.info"
     },
     {
       "id": "announcement_text",

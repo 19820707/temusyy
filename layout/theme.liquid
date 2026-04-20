@@ -169,6 +169,9 @@
 
     <a class="skip-to-main" href="#site-main">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
+    {% render 'temusy-smart-entry-popup' %}
+    {% render 'temusy-location-context-popup' %}
+
     {% sections 'header-group' %}
 
     <div style="--background-color: {{ settings.color_background }}">

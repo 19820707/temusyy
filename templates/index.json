@@ -1,6 +1,7 @@
 /*
  * Homepage stack — system concept → section instance id:
  *   hero                 → homepage_hero
+ *   deal_zone            → homepage_deal_zone
  *   trending_products    → homepage_best_sellers_products
  *   decision_shortcuts   → homepage_smart_hub
  *   trust_bar            → homepage_trust_bar
@@ -8,7 +9,7 @@
  *   featured_products    → homepage_featured_products
  *   recently_viewed      → homepage_recently_viewed
  *   testimonials         → homepage_testimonials
- * Optional (not in this file): buy-zone strip, countdown, adaptive strip, extra recommended row — add in Theme Editor.
+ * Optional (not in this file): buy-zone strip, adaptive strip, extra recommended row — add in Theme Editor.
  */
 {
   "sections": {
@@ -46,6 +47,21 @@
         "slideshow_height": "small",
         "slideshow_height_mobile": "small",
         "slideshow_text_below_image": true
+      }
+    },
+    "homepage_deal_zone": {
+      "type": "dynamic-temusy-deal-zone",
+      "settings": {
+        "heading": "🔥 Today's deals",
+        "show_countdown": true,
+        "deadline_iso": "",
+        "collection": "best-sellers",
+        "product_count": 6,
+        "cta_label": "View all deals",
+        "cta_style": "primary",
+        "background_color": "#fff7ed",
+        "text_color": "#0f172a",
+        "accent_color": "#c2410c"
       }
     },
     "homepage_smart_hub": {
@@ -147,10 +163,12 @@
         "text": "",
         "search_placeholder": "Search products",
         "search_button": "Go",
-        "primary_label": "All products",
-        "primary_link": "shopify://collections/all",
-        "secondary_label": "Support",
-        "secondary_link": "shopify://pages/support",
+        "primary_label": "Best sellers",
+        "primary_link": "shopify://collections/best-sellers",
+        "secondary_label": "Under $50",
+        "secondary_link": "shopify://collections/under-50",
+        "tertiary_label": "Trending now",
+        "tertiary_link": "shopify://collections/new-arrivals",
         "paths_layout": "path_chips",
         "panel_label": "Shop paths",
         "search_shortcuts_a11y_label": "Categories",
@@ -178,7 +196,7 @@
           "settings": {
             "collection": "under-50",
             "image": "shopify://shop_images/toy-drive-donation-box.jpg",
-            "title": "🎁 Gifts under $50"
+            "title": "🎁 Under $50"
           }
         },
         "intent_best_sellers": {
@@ -194,30 +212,21 @@
           "settings": {
             "collection": "new-arrivals",
             "image": "shopify://shop_images/woman-listening-to-music.jpg",
-            "title": "🆕 New arrivals"
-          }
-        },
-        "intent_trending_week": {
-          "type": "collection",
-          "settings": {
-            "collection": "watches",
-            "image": "shopify://shop_images/man-reaches-inside-his-jacket.jpg",
-            "title": "⚡ Trending this week"
+            "title": "🆕 New"
           }
         }
       },
       "block_order": [
         "intent_gifts_under_50",
         "intent_best_sellers",
-        "intent_new_arrivals",
-        "intent_trending_week"
+        "intent_new_arrivals"
       ],
       "settings": {
-        "title": "Shop by intent:",
-        "thumbnail_columns_desktop": 4,
+        "title": "Quick paths",
+        "thumbnail_columns_desktop": 3,
         "thumbnail_columns_mobile": 2,
         "image-crop": "circle",
-        "cta_label": "Shop full catalog",
+        "cta_label": "See all",
         "cta_link": "shopify://collections/all",
         "cta_button_style": "primary"
       }
@@ -230,7 +239,7 @@
           "settings": {
             "icon": "icon-delivery-package",
             "title": "✔ Free shipping",
-            "text": "<p>Qualifying orders ship on clear timelines—see the policy for regions and rates.</p>",
+            "text": "<p>Policy: shipping regions &amp; rates.</p>",
             "link": "/policies/shipping-policy"
           }
         },
@@ -239,7 +248,7 @@
           "settings": {
             "icon": "icon-label-tag",
             "title": "✔ Easy returns",
-            "text": "<p>Read return eligibility and time windows in the policy before you buy—no fine-print hide-and-seek.</p>",
+            "text": "<p>Policy: returns &amp; eligibility.</p>",
             "link": "/policies/refund-policy"
           }
         },
@@ -248,7 +257,7 @@
           "settings": {
             "icon": "icon-lock",
             "title": "✔ Secure checkout",
-            "text": "<p>Shopify-hosted checkout with encryption and trusted payment rails.</p>",
+            "text": "<p>Secure checkout &amp; encryption.</p>",
             "link": ""
           }
         },
@@ -257,7 +266,7 @@
           "settings": {
             "icon": "icon-chat-alternate",
             "title": "✔ 24/7 support",
-            "text": "<p>Reach us anytime for order questions—link below opens your support hub.</p>",
+            "text": "<p>Support link below.</p>",
             "link": "shopify://pages/support"
           }
         }
@@ -352,6 +361,7 @@
   },
   "order": [
     "homepage_hero",
+    "homepage_deal_zone",
     "homepage_best_sellers_products",
     "homepage_smart_hub",
     "homepage_trust_bar",

@@ -23839,6 +23839,19 @@ rgb(255, 255, 255)
   color: #046e82;
 }
 
+/* PDP urgency engine (product.liquid title → product-urgency-badges pdp: true) */
+.product-urgency-engine--pdp {
+  margin-top: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+.product-urgency-engine--pdp .productitem__urgency-badge {
+  font-size: 0.75rem;
+  padding: 0.28rem 0.55rem;
+}
+.product-urgency-engine--pdp [data-stock-level][data-stock-variant-selected="false"] {
+  display: none;
+}
+
 /* Smart product stack — one column for label / proof / urgency / shortcut (product-grid-item) */
 .productitem__smart-stack {
   display: flex;

@@ -43,6 +43,11 @@
       "selling_fast": "A vender rápido",
       "in_n_carts": "Em {{ count }} carrinhos"
     },
+    "bundle": {
+      "title": "Preço por quantidade",
+      "buy_save": "Compra {{ qty }} → poupa {{ pct }}%",
+      "checkout_note": "O desconto aplica-se no checkout quando a tua oferta Shopify corresponder a estas quantidades (desconto automático, Function ou app)."
+    },
     "buttons": {
       "quick_shop": "Comprar rápido",
       "add_to_cart": "Adicionar ao carrinho",
@@ -225,7 +230,24 @@
       "discount_desktop": "🎁 10% de desconto hoje",
       "discount_mobile": "🎁 10% hoje",
       "shipping_desktop": "Frete grátis só hoje",
-      "shipping_mobile": "Frete grátis hoje"
+      "shipping_mobile": "Frete grátis hoje",
+      "live_deal_desktop": "🔥 Só hoje: Frete grátis + 10% de desconto",
+      "live_deal_mobile": "🔥 Hoje: frete grátis + 10%"
+    },
+    "temusy_smart_entry": {
+      "headline": "🎁 10% de desconto hoje",
+      "subline": "+ Frete grátis em encomendas elegíveis",
+      "apply_discount": "Aplicar desconto",
+      "continue_shopping": "Continuar a comprar",
+      "fineprint": "Liga o botão a um desconto real no Shopify. Frete grátis conforme taxas e políticas."
+    },
+    "temusy_location": {
+      "title": "O teu contexto de compra",
+      "shipping_to": "Envio para",
+      "currency": "Moeda",
+      "language": "Idioma",
+      "confirm": "Está correto",
+      "change_hint": "Podes alterar país ou idioma a qualquer momento no rodapé ou no seletor do cabeçalho."
     }
   },
   "sections": {
@@ -255,6 +277,10 @@
       "hours": "Horas",
       "minutes": "Minutos",
       "seconds": "Segundos"
+    },
+    "temusy_deal_zone": {
+      "ends_in": "Termina em",
+      "expired": "Terminado"
     },
     "complementary_product_block": {
       "from": "A partir de",

@@ -1,0 +1,299 @@
+{% comment %}
+  Location / context trust sheet (Markets-aware, AliExpress-style but minimal).
+  - Rows: shipping country (when Markets), currency, language
+  - Flag emoji from ISO via small client script (Unicode regional indicators)
+  - Once per session; waits for smart entry to finish when that snippet is present
+  - Toggle: settings.temusy_location_context_popup_enable
+{% endcomment %}
+{% if settings.temusy_location_context_popup_enable and template.name != 'password' %}
+  {% liquid
+    assign has_country = false
+    if localization.country
+      assign has_country = true
+    endif
+    assign cur_code = cart.currency.iso_code | default: ''
+    assign cur_sym = cart.currency.symbol | default: ''
+    if has_country and localization.country.currency.iso_code != blank
+      assign cur_code = localization.country.currency.iso_code
+      assign cur_sym = localization.country.currency.symbol | default: cur_sym
+    endif
+    assign lang_label = request.locale.name
+    assign lang_iso = request.locale.iso_code | upcase
+    if localization.language and localization.language.endonym_name != blank
+      assign lang_label = localization.language.endonym_name
+    endif
+    if localization.language and localization.language.iso_code != blank
+      assign lang_iso = localization.language.iso_code | upcase
+    endif
+    assign country_iso = ''
+    if has_country
+      assign country_iso = localization.country.iso_code | upcase
+    endif
+  %}
+  <div
+    id="temusy-location-context"
+    class="temusy-locctx"
+    hidden
+    data-temusy-locctx
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="temusy-locctx-title"
+    {% if country_iso != blank %}
+      data-country-iso="{{ country_iso | escape }}"
+    {% endif %}
+  >
+    <div class="temusy-locctx__scrim" data-temusy-locctx-dismiss tabindex="-1"></div>
+    <div class="temusy-locctx__sheet">
+      <div class="temusy-locctx__handle" aria-hidden="true"></div>
+      <button
+        type="button"
+        class="temusy-locctx__close"
+        data-temusy-locctx-dismiss
+        aria-label="{{ 'general.accessibility.close' | t | escape }}"
+      >
+        {% render 'icon-menu-close' %}
+      </button>
+      <h2 id="temusy-locctx-title" class="temusy-locctx__title">
+        {{ 'general.temusy_location.title' | t }}
+      </h2>
+      <ul class="temusy-locctx__list">
+        {% if has_country %}
+          <li class="temusy-locctx__row">
+            <span class="temusy-locctx__label">{{ 'general.temusy_location.shipping_to' | t }}</span>
+            <span class="temusy-locctx__value">
+              <span class="temusy-locctx__flag" data-temusy-locctx-flag aria-hidden="true"></span>
+              <span data-temusy-locctx-country-name>{{ localization.country.name | escape }}</span>
+            </span>
+          </li>
+        {% endif %}
+        <li class="temusy-locctx__row">
+          <span class="temusy-locctx__label">{{ 'general.temusy_location.currency' | t }}</span>
+          <span class="temusy-locctx__value">
+            {{- cur_sym | escape }} · {{ cur_code | escape -}}
+          </span>
+        </li>
+        <li class="temusy-locctx__row">
+          <span class="temusy-locctx__label">{{ 'general.temusy_location.language' | t }}</span>
+          <span class="temusy-locctx__value">{{ lang_label | escape }} ({{ lang_iso | escape }})</span>
+        </li>
+      </ul>
+      <button type="button" class="temusy-locctx__btn" data-temusy-locctx-dismiss>
+        {{- 'general.temusy_location.confirm' | t -}}
+      </button>
+      {% if has_country and localization.available_countries.size > 1 %}
+        <p class="temusy-locctx__hint">{{ 'general.temusy_location.change_hint' | t }}</p>
+      {% endif %}
+    </div>
+  </div>
+  {% style %}
+    .temusy-locctx {
+      position: fixed;
+      inset: 0;
+      z-index: 99988;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+      box-sizing: border-box;
+      pointer-events: none;
+    }
+    .temusy-locctx[hidden] {
+      display: none !important;
+    }
+    .temusy-locctx:not([hidden]) {
+      pointer-events: auto;
+    }
+    .temusy-locctx__scrim {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.35);
+    }
+    .temusy-locctx__sheet {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 16px 16px 0 0;
+      padding: 12px 20px 22px;
+      box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e2e8f0;
+      border-bottom: 0;
+      transform: translateY(100%);
+      transition: transform 0.28s ease-out;
+    }
+    .temusy-locctx:not([hidden]) .temusy-locctx__sheet {
+      transform: translateY(0);
+    }
+    .temusy-locctx__handle {
+      width: 40px;
+      height: 4px;
+      border-radius: 999px;
+      background: #cbd5e1;
+      margin: 0 auto 12px;
+    }
+    .temusy-locctx__close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .temusy-locctx__close:focus-visible {
+      outline: 2px solid #046e82;
+      outline-offset: 2px;
+    }
+    .temusy-locctx__title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin: 0 0 14px;
+      text-align: center;
+    }
+    .temusy-locctx__list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .temusy-locctx__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+    }
+    .temusy-locctx__label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+    .temusy-locctx__value {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: right;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .temusy-locctx__flag {
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+    .temusy-locctx__btn {
+      width: 100%;
+      margin-top: 16px;
+      min-height: 46px;
+      border-radius: 10px;
+      border: 0;
+      background: #0f172a;
+      color: #f8fafc;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+    .temusy-locctx__btn:focus-visible {
+      outline: 2px solid #046e82;
+      outline-offset: 2px;
+    }
+    .temusy-locctx__hint {
+      margin: 10px 0 0;
+      font-size: 0.72rem;
+      line-height: 1.35;
+      color: #94a3b8;
+      text-align: center;
+    }
+  {% endstyle %}
+  <script>
+    (function () {
+      var root = document.getElementById('temusy-location-context');
+      if (!root) return;
+      var KEY = 'temusy_location_context_session';
+      try {
+        if (sessionStorage.getItem(KEY) === '1') return;
+      } catch (e) {
+        return;
+      }
+      function flagFromIso(cc) {
+        if (!cc || String(cc).length !== 2) return '';
+        var A = 0x1f1e6;
+        var u = String(cc).toUpperCase();
+        try {
+          return String.fromCodePoint(A + u.charCodeAt(0) - 65) + String.fromCodePoint(A + u.charCodeAt(1) - 65);
+        } catch (e2) {
+          return '';
+        }
+      }
+      var iso = root.getAttribute('data-country-iso');
+      var flagEl = root.querySelector('[data-temusy-locctx-flag]');
+      if (flagEl && iso) {
+        flagEl.textContent = flagFromIso(iso);
+      }
+      function onEscape(ev) {
+        if (ev.key === 'Escape' && !root.hidden) {
+          close();
+          document.removeEventListener('keydown', onEscape);
+        }
+      }
+      function open() {
+        if (!root.hidden) return;
+        root.hidden = false;
+        root.setAttribute('aria-hidden', 'false');
+        document.addEventListener('keydown', onEscape);
+        var btn = root.querySelector('.temusy-locctx__btn');
+        if (btn && btn.focus) btn.focus();
+      }
+      function close() {
+        root.hidden = true;
+        root.setAttribute('aria-hidden', 'true');
+        document.removeEventListener('keydown', onEscape);
+        try {
+          sessionStorage.setItem(KEY, '1');
+        } catch (e3) {}
+      }
+      root.addEventListener('click', function (ev) {
+        if (ev.target && ev.target.closest && ev.target.closest('[data-temusy-locctx-dismiss]')) {
+          ev.preventDefault();
+          close();
+        }
+      });
+      function schedule(ms) {
+        window.setTimeout(open, ms);
+      }
+      var smart = document.getElementById('temusy-smart-entry');
+      var fallbackId;
+      if (smart) {
+        document.addEventListener(
+          'temusy-smart-entry-dismissed',
+          function () {
+            if (fallbackId) window.clearTimeout(fallbackId);
+            schedule(420);
+          },
+          { once: true }
+        );
+        fallbackId = window.setTimeout(function () {
+          schedule(420);
+        }, 14000);
+      } else {
+        schedule(900);
+      }
+    })();
+  </script>
+{% endif %}

@@ -1,0 +1,278 @@
+{% comment %}
+  Temusy — Deal zone (AliExpress-style): headline + live HH:MM:SS countdown + optional deal collection grid.
+  Set "Deal end (ISO 8601)" to the real promotion end; if the date is missing or already past, the theme extends
+  the deadline by 8 hours from render time so the counter still demonstrates (change ISO for production).
+{% endcomment %}
+{% liquid
+  assign col = section.settings.collection
+  assign selected_collection = collections[col]
+  assign product_count = section.settings.product_count | default: 6
+  if selected_collection != blank
+    assign product_count = product_count | at_most: selected_collection.products_count
+  endif
+
+  assign now_ts = 'now' | date: '%s' | plus: 0
+  assign dl_raw = section.settings.deadline_iso | strip
+  if dl_raw == blank
+    assign deadline_ts = now_ts | plus: 32400
+  else
+    assign deadline_ts = dl_raw | date: '%s' | plus: 0
+    if deadline_ts == blank or deadline_ts <= now_ts
+      assign deadline_ts = now_ts | plus: 28800
+    endif
+  endif
+  assign deadline_ms = deadline_ts | times: 1000
+%}
+
+<script
+  type="application/json"
+  data-section-id="{{ section.id }}"
+  data-section-type="dynamic-temusy-deal-zone"
+></script>
+
+{% style %}
+  #shopify-section-{{ section.id }} .temusy-deal-zone {
+    --temusy-deal-bg: {{ section.settings.background_color }};
+    --temusy-deal-accent: {{ section.settings.accent_color }};
+    --temusy-deal-text: {{ section.settings.text_color }};
+    background: var(--temusy-deal-bg);
+    color: var(--temusy-deal-text);
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--layout-max-width, 1600px);
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__inner {
+    padding: 1.1rem 1rem 1.25rem;
+  }
+  @media screen and (min-width: 720px) {
+    #shopify-section-{{ section.id }} .temusy-deal-zone__inner {
+      padding: 1.25rem 1.35rem 1.5rem;
+    }
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.85rem;
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__countdown {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(15, 23, 42, 0.72);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__clock {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+    color: var(--temusy-deal-accent);
+    padding: 0.2rem 0.45rem;
+    border-radius: 6px;
+    background: rgba(15, 23, 42, 0.06);
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__expired {
+    margin: 0;
+    font-weight: 700;
+    color: var(--temusy-deal-accent);
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  @media screen and (min-width: 720px) {
+    #shopify-section-{{ section.id }} .temusy-deal-zone__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+  }
+  @media screen and (min-width: 1080px) {
+    #shopify-section-{{ section.id }} .temusy-deal-zone__grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__cta {
+    margin-top: 1rem;
+    text-align: center;
+  }
+{% endstyle %}
+
+<div
+  id="temusy-deal-zone-{{ section.id }}"
+  class="temusy-deal-zone"
+  data-temusy-deal-zone
+  data-deadline-ms="{{ deadline_ms }}"
+  data-section-key="{{ section.id }}"
+>
+  <div class="temusy-deal-zone__inner">
+    <div class="temusy-deal-zone__head">
+      {% if section.settings.heading != blank %}
+        <h2 class="temusy-deal-zone__title">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+      {% if section.settings.show_countdown %}
+        <p class="temusy-deal-zone__countdown" data-temusy-deal-countdown-row>
+          <span class="temusy-deal-zone__ends-label">{{ 'sections.temusy_deal_zone.ends_in' | t }}</span>
+          <strong class="temusy-deal-zone__clock" data-temusy-deal-clock>00:00:00</strong>
+        </p>
+        <p class="temusy-deal-zone__expired" hidden data-temusy-deal-expired>{{ 'sections.temusy_deal_zone.expired' | t }}</p>
+      {% endif %}
+    </div>
+
+    {% if selected_collection != blank and product_count > 0 %}
+      <div class="temusy-deal-zone__grid" data-temusy-deal-grid data-temusy-intent-zone="buy">
+        {% assign temusy_fc = selected_collection.handle %}
+        {% for p in selected_collection.products limit: product_count %}
+          {% render 'product-grid-item', product: p, temusy_feedback_collection: temusy_fc %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.cta_label != blank and selected_collection != blank and selected_collection.url != blank %}
+      <div class="temusy-deal-zone__cta">
+        <a class="button-{{ section.settings.cta_style }}" href="{{ selected_collection.url }}">
+          {{- section.settings.cta_label | escape -}}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if section.settings.show_countdown %}
+  <script>
+    (function () {
+      var root = document.getElementById('temusy-deal-zone-{{ section.id }}');
+      if (!root) return;
+      var endMs = Number(root.getAttribute('data-deadline-ms')) || 0;
+      var clockEl = root.querySelector('[data-temusy-deal-clock]');
+      var rowEl = root.querySelector('[data-temusy-deal-countdown-row]');
+      var expiredEl = root.querySelector('[data-temusy-deal-expired]');
+      if (!clockEl || !endMs) return;
+
+      function pad(n) {
+        return String(n).padStart(2, '0');
+      }
+
+      function tick() {
+        var now = Date.now();
+        var sec = Math.max(0, Math.floor((endMs - now) / 1000));
+        if (sec <= 0) {
+          clockEl.textContent = '00:00:00';
+          if (rowEl) rowEl.setAttribute('hidden', 'hidden');
+          if (expiredEl) expiredEl.removeAttribute('hidden');
+          return;
+        }
+        var h = Math.floor(sec / 3600);
+        var m = Math.floor((sec % 3600) / 60);
+        var s = sec % 60;
+        var hs = h < 100 ? pad(h) : String(h);
+        clockEl.textContent = hs + ':' + pad(m) + ':' + pad(s);
+        window.setTimeout(tick, 1000);
+      }
+      tick();
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Today's deals (countdown)",
+  "tag": "section",
+  "class": "shopify-section--temusy-deal-zone",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "🔥 Today's deals"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show live countdown",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "deadline_iso",
+      "label": "Deal end (ISO 8601)",
+      "default": "",
+      "info": "Leave empty for a rolling ~9h demo window from each page view. For production, set a real end, e.g. 2026-04-20T21:00:00 or 2026-04-20T21:00:00+01:00. If the date is in the past, the theme adds 8 hours from load as a fallback."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Deal products"
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "label": "Products to show",
+      "default": 6
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "View all deals"
+    },
+    {
+      "type": "select",
+      "id": "cta_style",
+      "label": "Button style",
+      "options": [
+        { "value": "primary", "label": "Primary" },
+        { "value": "secondary", "label": "Secondary" }
+      ],
+      "default": "primary"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#fff7ed"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0f172a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Countdown accent",
+      "default": "#c2410c"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Today's deals (countdown)"
+    }
+  ]
+}
+{% endschema %}
