@@ -1169,21 +1169,6 @@
         }
       }
     },
-    "custom_section_html": {
-      "name": "Benutzerdefiniertes HTML",
-      "title": {
-        "label": "Überschrift"
-      },
-      "html": {
-        "label": "HTML"
-      },
-      "presets": {
-        "custom_html": {
-          "name": "Benutzerdefiniertes HTML",
-          "category": "Erweitert"
-        }
-      }
-    },
     "image_with_text": {
       "name": "Bild mit Text",
       "section_heading": {

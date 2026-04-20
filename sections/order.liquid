@@ -298,11 +298,11 @@
                 <td class="order-item-price">
                   <p class="order-item--cell-label">{{ 'customers.order.price' | t }}</p>
                   {%- if line_item.line_level_discount_allocations.size > 0 -%}
-                    <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+                    <span class="visually-hidden">{{ 'product_price.price.original' | t }}</span>
                     <s class="money order-item-original-price">
                       {{ line_item.original_price | money }}
                     </s>
-                    <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+                    <span class="visually-hidden">{{ 'product_price.price.current' | t }}</span>
                     <span class="money order-item-discount-price">
                       {{ line_item.final_price | money }}
                     </span>
@@ -328,17 +328,19 @@
                 <td class="order-item-total">
                   <p class="order-item--cell-label">{{ 'customers.order.total' | t }}</p>
                   {%- if line_item.line_level_discount_allocations.size > 0 -%}
-                    <span class="visually-hidden">{{ 'product.item.price.original' | t }}</span>
+                    <span class="visually-hidden">{{ 'product_price.price.original' | t }}</span>
                     <s class="money order-item-original-price">
                       {{ line_item.original_line_price | money }}
                     </s>
-                    <span class="visually-hidden">{{ 'product.item.price.current' | t }}</span>
+                    <span class="visually-hidden">{{ 'product_price.price.current' | t }}</span>
                     <span class="money order-item-discount-price">
+                      {{ line_item.final_line_price | money }}
+                    </span>
                   {%- else -%}
                     <span class="money">
+                      {{ line_item.final_line_price | money }}
+                    </span>
                   {%- endif -%}
-                    {{ line_item.final_line_price | money }}
-                  </span>
                 </td>
               </tr>
             {% endfor %}

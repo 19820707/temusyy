@@ -76,24 +76,26 @@
           {% if has_subnav %}
             <details data-navmenu-details>
             <summary
+              class="
+                navmenu-item-text
+                navmenu-link
+                navmenu-link-parent
+                navmenu-meganav-sidenav__item-text
+              "
               data-href="{{ menu_item.url }}"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
           {% else %}
             <a
               href="{{ menu_item.url }}"
+              class="
+                navmenu-item-text
+                navmenu-link
+                navmenu-meganav-sidenav__item-text
+              "
+            >
           {% endif %}
-            class="
-              navmenu-item-text
-              navmenu-link
-              {% if has_subnav %}
-                navmenu-link-parent
-              {% endif %}
-              navmenu-meganav-sidenav__item-text
-            "
-            {% if has_subnav %}
-              aria-haspopup="true"
-              aria-expanded="false"
-          {% endif %}
-          >
             <span class="navmenu-meganav-sidenav__submenu-wrapper">
               <span>{{ menu_item.title }}</span>
               {% if has_subnav %}

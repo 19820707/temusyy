@@ -1169,21 +1169,6 @@
         }
       }
     },
-    "custom_section_html": {
-      "name": "HTML personalizado",
-      "title": {
-        "label": "Título"
-      },
-      "html": {
-        "label": "HTML"
-      },
-      "presets": {
-        "custom_html": {
-          "name": "HTML personalizado",
-          "category": "Avanzado"
-        }
-      }
-    },
     "image_with_text": {
       "name": "Imagen con texto",
       "section_heading": {

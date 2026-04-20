@@ -226,40 +226,48 @@
 
     {%- if block_button_label != blank -%}
       {% if block_button_link != blank %}
-        <a href="{{ block_button_link }}"
+        <a
+          href="{{ block_button_link }}"
+          class="
+            slideshow-slide__button
+            {{ block_button_1_class }}
+          "
+        >
+          {{ block_button_label | escape }}
+        </a>
       {% else %}
         <span
-      {% endif %}
-        class="
-          slideshow-slide__button
-          {{ block_button_1_class }}
-        "
-      >
-      {{ block_button_label | escape }}
-      {%- if block_button_link != blank -%}
-        </a>
-      {%- else -%}
+          class="
+            slideshow-slide__button
+            {{ block_button_1_class }}
+          "
+        >
+          {{ block_button_label | escape }}
         </span>
-      {%- endif -%}
+      {% endif %}
     {%- endif -%}
 
     {%- if block_button_label_2 != blank -%}
       {% if block_button_link_2 != blank %}
-        <a href="{{ block_button_link_2 }}"
+        <a
+          href="{{ block_button_link_2 }}"
+          class="
+            slideshow-slide__button
+            {{ block_button_2_class }}
+          "
+        >
+          {{ block_button_label_2 | escape }}
+        </a>
       {% else %}
         <span
-      {% endif %}
-        class="
-          slideshow-slide__button
-          {{ block_button_2_class }}
-        "
-      >
-        {{ block_button_label_2 | escape }}
-      {%- if block_button_link_2 != blank -%}
-        </a>
-      {%- else -%}
+          class="
+            slideshow-slide__button
+            {{ block_button_2_class }}
+          "
+        >
+          {{ block_button_label_2 | escape }}
         </span>
-      {%- endif -%}
+      {% endif %}
     {%- endif -%}
   </div>
 </div>

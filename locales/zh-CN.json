@@ -73,6 +73,26 @@
         "submit": "请求报价",
         "quantity": "数量"
       }
+    },
+    "merch": {
+      "popular": "Popular",
+      "selling_fast": "Selling fast",
+      "trending": "Trending",
+      "bestseller": "Best seller",
+      "last_units": "Limited stock",
+      "flow_interest": "High demand",
+      "flow_sales": "Selling fast"
+    },
+    "urgency": {
+      "group_label": "Availability signals",
+      "only_n_left": "Only {{ count }} left",
+      "selling_fast": "Selling fast",
+      "in_n_carts": "In {{ count }} carts"
+    },
+    "bundle": {
+      "title": "Bundle pricing",
+      "buy_save": "Buy {{ qty }} → save {{ pct }}%",
+      "checkout_note": "Discount applies at checkout when your Shopify offer matches these quantities (Automatic discount, Function, or app)."
     }
   },
   "store_availability": {
@@ -202,6 +222,32 @@
       "hour": "小时",
       "hours": "小时",
       "ago": "前"
+    },
+    "adaptive": {
+      "clear": "Reset personalized picks"
+    },
+    "temusy_micro_reward": {
+      "discount_desktop": "🎁 Get 10% off today",
+      "discount_mobile": "🎁 10% off today",
+      "shipping_desktop": "Free shipping today only",
+      "shipping_mobile": "Free shipping today",
+      "live_deal_desktop": "🔥 Today only: Free shipping + 10% off",
+      "live_deal_mobile": "🔥 Today: Free shipping + 10% off"
+    },
+    "temusy_smart_entry": {
+      "headline": "🎁 Get 10% off today",
+      "subline": "+ Free shipping on qualifying orders",
+      "apply_discount": "Apply discount",
+      "continue_shopping": "Continue shopping",
+      "fineprint": "Use a real Shopify discount link above. Free shipping must match your rates and policies."
+    },
+    "temusy_location": {
+      "title": "Your shopping context",
+      "shipping_to": "Shipping to",
+      "currency": "Currency",
+      "language": "Language",
+      "confirm": "Looks good",
+      "change_hint": "You can change country or language anytime from the footer or header selector."
     }
   },
   "sections": {
@@ -237,6 +283,14 @@
       "now": "现在",
       "price_per_unit_html": "{{ total_quantity }} | {{ unit_price }} / {{ unit_measure }}",
       "view_details": "查看产品"
+    },
+    "temusy_deal_zone": {
+      "ends_in": "Ends in",
+      "expired": "Ended",
+      "super_deals": "Super deals",
+      "scroller_region": "Deal products carousel",
+      "scroll_previous": "Scroll deals left",
+      "scroll_next": "Scroll deals right"
     }
   },
   "recipient": {
