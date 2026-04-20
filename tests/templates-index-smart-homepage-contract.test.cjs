@@ -98,6 +98,8 @@ assert.strictEqual(
     /render\s+'temusy-deal-zone-card'/,
     'deal zone: must render lightweight temusy-deal-zone-card in the SKU rail'
   );
+  assert.match(dz, /temusy-deal-zone__signal-strip/, 'deal zone: must render marketplace signal strip above rails');
+  assert.match(dz, /signal_one_label/, 'deal zone: signal strip must be configurable from schema');
   const dealCard = fs.readFileSync(path.join(__dirname, '..', 'snippets', 'temusy-deal-zone-card.liquid'), 'utf8');
   assert.match(
     dealCard,
@@ -106,6 +108,8 @@ assert.strictEqual(
   );
   assert.match(dealCard, /image_url:\s*width:\s*480/, 'temusy-deal-zone-card: must cap image src width');
   assert.match(dealCard, /widths:\s*'200,\s*280,\s*400,\s*480'/, 'temusy-deal-zone-card: must ship responsive srcset widths');
+  assert.match(dealCard, /deal_savings_percent/, 'temusy-deal-zone-card: must expose percent-off sale cue when compare-at exists');
+  assert.match(dealCard, /temusy-deal-card__vendor/, 'temusy-deal-zone-card: must show compact vendor context');
 })();
 
 assert.ok(indexTemplate.sections.homepage_smart_hub, 'index.json: must include homepage_smart_hub');

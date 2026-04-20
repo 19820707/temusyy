@@ -197,7 +197,7 @@
         "mobile_layout": "grid",
         "collection": "best-sellers",
         "product_count": 8,
-        "cta_label": "See offer picks in this row",
+        "cta_label": "Shop all top sellers",
         "cta_button_style": "primary",
         "temusy_intent_zone": "buy"
       }
@@ -309,7 +309,7 @@
         "mobile_layout": "grid",
         "collection": "jewelry-and-fashion-accessories",
         "product_count": 8,
-        "cta_label": "See offer picks in this edit",
+        "cta_label": "Shop the jewelry edit",
         "cta_button_style": "secondary",
         "temusy_intent_zone": "buy"
       }
