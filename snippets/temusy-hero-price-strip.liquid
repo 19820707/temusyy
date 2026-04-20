@@ -1,7 +1,8 @@
 {% comment %}
-  Compact transactional SKU row for hero slides (image + price + optional compare-at).
+  Transactional SKU strip for hero slides (AliExpress-style density).
   @param collection {Collection} required
   @param limit {Number} max products (2–4)
+  @param visual {String} optional — "dark_rail" (default) | "polaroid" (white deal cards on image)
 {% endcomment %}
 {% liquid
   assign lim = limit | default: 3
@@ -11,8 +12,9 @@
   if lim > 4
     assign lim = 4
   endif
+  assign vis = visual | default: 'dark_rail'
 %}
-<div class="temusy-hero-price-strip" data-temusy-hero-price-strip>
+<div class="temusy-hero-price-strip{% if vis == 'polaroid' %} temusy-hero-price-strip--polaroid{% endif %}" data-temusy-hero-price-strip data-visual="{{ vis | escape }}">
   {% for p in collection.products limit: lim %}
     {% assign v = p.selected_or_first_available_variant %}
     {% assign img = blank %}
@@ -21,32 +23,74 @@
     {% endif %}
     {% assign url = p.url | within: collection %}
     {% assign strip_img_alt = p.title | escape %}
-    <a class="temusy-hero-price-strip__cell" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}">
-      <span class="temusy-hero-price-strip__media">
-        {% if img != blank %}
-          {{
-            img
-            | image_url: width: 120
-            | image_tag:
-              class: 'temusy-hero-price-strip__img',
-              loading: 'eager',
-              sizes: '48px',
-              widths: '80, 120',
-              alt: strip_img_alt
-          }}
-        {% else %}
-          <span class="temusy-hero-price-strip__img temusy-hero-price-strip__img--empty" aria-hidden="true"></span>
-        {% endif %}
-      </span>
-      <span class="temusy-hero-price-strip__text">
-        <span class="temusy-hero-price-strip__title">{{ p.title | truncate: 34 | escape }}</span>
-        <span class="temusy-hero-price-strip__prices">
-          {% if v.compare_at_price != blank and v.compare_at_price > v.price %}
-            <span class="temusy-hero-price-strip__was">{{ v.compare_at_price | money }}</span>
+    {% assign hero_pct = 0 %}
+    {% if v.compare_at_price != blank and v.compare_at_price > v.price %}
+      {% assign hero_sv = v.compare_at_price | minus: v.price %}
+      {% assign hero_pct = hero_sv | times: 100 | divided_by: v.compare_at_price %}
+    {% endif %}
+
+    {% if vis == 'polaroid' %}
+      <a class="temusy-hero-price-strip__cell temusy-hero-price-strip__cell--polaroid" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}">
+        <span class="temusy-hero-price-strip__polaroid-visual">
+          {% if img != blank %}
+            {{
+              img
+              | image_url: width: 200
+              | image_tag:
+                class: 'temusy-hero-price-strip__polaroid-img',
+                loading: 'eager',
+                sizes: '96px',
+                widths: '120, 200',
+                alt: strip_img_alt
+            }}
+          {% else %}
+            <span class="temusy-hero-price-strip__polaroid-img temusy-hero-price-strip__polaroid-img--empty" aria-hidden="true"></span>
           {% endif %}
-          <span class="temusy-hero-price-strip__now">{{ v.price | money }}</span>
+          {% if hero_pct > 0 %}
+            <span class="temusy-hero-price-strip__pct-badge" aria-hidden="true">-{{ hero_pct }}%</span>
+          {% endif %}
         </span>
-      </span>
-    </a>
+        <span class="temusy-hero-price-strip__polaroid-meta">
+          <span class="temusy-hero-price-strip__polaroid-label">{{ 'sections.slideshow.price_strip_deal_label' | t }}</span>
+          <span class="temusy-hero-price-strip__polaroid-prices">
+            {% if v.compare_at_price != blank and v.compare_at_price > v.price %}
+              <span class="temusy-hero-price-strip__polaroid-was">{{ v.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="temusy-hero-price-strip__polaroid-now">{{ v.price | money }}</span>
+          </span>
+        </span>
+      </a>
+    {% else %}
+      <a class="temusy-hero-price-strip__cell" href="{{ url }}" data-temusy-feedback-collection="{{ collection.handle | escape }}">
+        <span class="temusy-hero-price-strip__media">
+          {% if img != blank %}
+            {{
+              img
+              | image_url: width: 120
+              | image_tag:
+                class: 'temusy-hero-price-strip__img',
+                loading: 'eager',
+                sizes: '48px',
+                widths: '80, 120',
+                alt: strip_img_alt
+            }}
+          {% else %}
+            <span class="temusy-hero-price-strip__img temusy-hero-price-strip__img--empty" aria-hidden="true"></span>
+          {% endif %}
+        </span>
+        <span class="temusy-hero-price-strip__text">
+          <span class="temusy-hero-price-strip__title">{{ p.title | truncate: 34 | escape }}</span>
+          <span class="temusy-hero-price-strip__prices">
+            {% if v.compare_at_price != blank and v.compare_at_price > v.price %}
+              <span class="temusy-hero-price-strip__was">{{ v.compare_at_price | money }}</span>
+              {% if hero_pct > 0 %}
+                <span class="temusy-hero-price-strip__pct-inline">-{{ hero_pct }}%</span>
+              {% endif %}
+            {% endif %}
+            <span class="temusy-hero-price-strip__now">{{ v.price | money }}</span>
+          </span>
+        </span>
+      </a>
+    {% endif %}
   {% endfor %}
 </div>

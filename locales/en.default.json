@@ -257,7 +257,8 @@
       "slide_counter": "Slide {{ count }} of {{ total }}",
       "next_slide": "Next slide",
       "previous_slide": "Previous slide",
-      "price_strip_region": "Popular picks with live prices"
+      "price_strip_region": "Popular picks with live prices",
+      "price_strip_deal_label": "Top deal"
     },
     "shoppable-image": {
       "onboarding": {

@@ -84,7 +84,23 @@
     }
   {% endif %}
 
-  #shopify-section-{{ section.id }} .temusy-hero-price-strip-outer {
+  #shopify-section-{{ section.id }} .slideshow-slide__visual {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .slideshow-slide__visual--with-strip .temusy-hero-price-strip-outer--on-image {
+    position: absolute;
+    left: 0.45rem;
+    right: 0.45rem;
+    bottom: 0.45rem;
+    z-index: 6;
+    margin-top: 0;
+    max-width: none;
+    pointer-events: none;
+  }
+  #shopify-section-{{ section.id }} .slideshow-slide__visual--with-strip .temusy-hero-price-strip-outer--on-image a {
+    pointer-events: auto;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip-outer--below-cta {
     margin-top: 0.65rem;
     max-width: 100%;
   }
@@ -172,6 +188,112 @@
   }
   #shopify-section-{{ section.id }} .temusy-hero-price-strip__now {
     font-size: 0.88rem;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__pct-inline {
+    font-size: 0.68rem;
+    font-weight: 900;
+    color: #fecaca;
+    margin-left: 0.15rem;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid {
+    gap: 0.35rem;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__cell--polaroid {
+    width: 5.85rem;
+    min-width: 5.85rem;
+    max-width: 5.85rem;
+    padding: 0.32rem 0.32rem 0.42rem;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.38);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid .temusy-hero-price-strip__cell--polaroid:nth-child(odd) {
+      transform: rotate(-2.5deg);
+    }
+    #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid .temusy-hero-price-strip__cell--polaroid:nth-child(even) {
+      transform: rotate(2deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} .temusy-hero-price-strip--polaroid .temusy-hero-price-strip__cell--polaroid {
+      transform: none;
+    }
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-visual {
+    position: relative;
+    display: block;
+    border-radius: 5px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: #f1f5f9;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-img--empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #e2e8f0;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__pct-badge {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.28rem;
+    border-radius: 999px;
+    background: #e11d48;
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 900;
+    line-height: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.55);
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.08rem;
+    padding: 0 0.05rem;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-label {
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.55);
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-prices {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem;
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-was {
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-decoration: line-through;
+    color: rgba(15, 23, 42, 0.45);
+  }
+  #shopify-section-{{ section.id }} .temusy-hero-price-strip__polaroid-now {
+    font-size: 0.82rem;
+    font-weight: 900;
+    color: #e11d48;
   }
 {% endstyle %}
 
@@ -545,7 +667,7 @@
         },
         {
           "type": "paragraph",
-          "content": "Show real SKUs with live prices under the slide CTAs (marketplace-style density). Uses collection products; hides automatically if the collection is empty."
+          "content": "Show real SKUs with live prices (dark rail or polaroid cards). Place on the hero image or below CTAs. Uses collection products; hides automatically if the collection is empty."
         },
         {
           "id": "temusy_show_price_strip",
@@ -566,6 +688,26 @@
           "step": 1,
           "label": "Products in strip",
           "default": 3
+        },
+        {
+          "id": "temusy_strip_layout",
+          "type": "select",
+          "label": "Price strip placement",
+          "default": "below_cta",
+          "options": [
+            { "value": "below_cta", "label": "Below buttons (text area)" },
+            { "value": "on_image", "label": "On hero image (marketplace)" }
+          ]
+        },
+        {
+          "id": "temusy_strip_visual",
+          "type": "select",
+          "label": "Price strip style",
+          "default": "dark_rail",
+          "options": [
+            { "value": "dark_rail", "label": "Dark glass rail" },
+            { "value": "polaroid", "label": "White deal cards (polaroid)" }
+          ]
         },
         {
           "type": "header",

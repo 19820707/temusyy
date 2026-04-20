@@ -79,6 +79,11 @@ assert.strictEqual(
   true,
   'index.json: deal zone must ship the bundle lane (AliExpress-style dual rail)'
 );
+assert.strictEqual(
+  indexTemplate.sections.homepage_deal_zone.settings.commerce_intense_surface,
+  true,
+  'index.json: deal zone must opt into high-impact marketplace shell'
+);
 
 (function dealZoneMarketplaceChrome() {
   const dz = fs.readFileSync(path.join(__dirname, '..', 'sections', 'dynamic-temusy-deal-zone.liquid'), 'utf8');
@@ -89,6 +94,7 @@ assert.strictEqual(
   assert.match(dz, /data-temusy-deal-progress/, 'deal zone: must render temporal progress affordance');
   assert.match(dz, /shopify:section:unload/, 'deal zone: must tear down listeners/timers on section unload');
   assert.match(dz, /visibilitychange/, 'deal zone: must sync countdown with tab visibility');
+  assert.match(dz, /commerce_intense_surface/, 'deal zone: must expose high-impact marketplace shell setting');
   assert.ok(
     !/render\s+'product-grid-item'/.test(dz),
     'deal zone: must not render heavy product-grid-item in the horizontal rail (use lightweight card)'
@@ -419,6 +425,21 @@ assert.strictEqual(
   (heroSlide.temusy_strip_collection || '').toString().trim(),
   'health-and-beauty',
   'index.json: hero price strip must pull from beauty lane (matches primary CTA collection)'
+);
+assert.strictEqual(
+  heroSlide.temusy_strip_product_limit,
+  4,
+  'index.json: hero price strip must ship four SKUs for marketplace density'
+);
+assert.strictEqual(
+  (heroSlide.temusy_strip_layout || '').toString().trim(),
+  'on_image',
+  'index.json: hero price strip must sit on the hero image (marketplace ticks)'
+);
+assert.strictEqual(
+  (heroSlide.temusy_strip_visual || '').toString().trim(),
+  'polaroid',
+  'index.json: hero strip must use polaroid deal cards (white price tiles)'
 );
 assert.ok(
   typeof heroSlide.text === 'string' &&

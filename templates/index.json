@@ -24,7 +24,9 @@
             "text": "Rated 4.8 · Live prices on picks below",
             "temusy_show_price_strip": true,
             "temusy_strip_collection": "health-and-beauty",
-            "temusy_strip_product_limit": 3,
+            "temusy_strip_product_limit": 4,
+            "temusy_strip_layout": "on_image",
+            "temusy_strip_visual": "polaroid",
             "color": "#222222",
             "link": "",
             "text_alignment": "left",
@@ -55,6 +57,7 @@
     "homepage_deal_zone": {
       "type": "dynamic-temusy-deal-zone",
       "settings": {
+        "commerce_intense_surface": true,
         "heading": "Today's deals",
         "signal_nav_label": "Shopping benefits",
         "signal_one_label": "Choice picks",

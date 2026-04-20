@@ -52,6 +52,7 @@
   assign signal_two_label = section.settings.signal_two_label | strip
   assign signal_three_label = section.settings.signal_three_label | strip
   assign signal_four_label = section.settings.signal_four_label | strip
+  assign commerce_intense = section.settings.commerce_intense_surface
 %}
 
 {% style %}
@@ -514,11 +515,44 @@
     margin-top: 0.85rem;
     text-align: center;
   }
+  {% if commerce_intense %}
+    #shopify-section-{{ section.id }} .temusy-deal-zone.temusy-deal-zone--commerce-intense {
+      background: linear-gradient(180deg, #fff1f2 0%, #ffe4e6 42%, #f8fafc 100%);
+      border-color: rgba(225, 29, 72, 0.18);
+      box-shadow: 0 14px 44px rgba(225, 29, 72, 0.09);
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__inner {
+      padding-top: 0.85rem;
+      padding-bottom: 1rem;
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__title {
+      font-size: 1.22rem;
+      letter-spacing: 0.03em;
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense a.temusy-deal-zone__rail--bundle {
+      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+      border-color: rgba(234, 88, 12, 0.28);
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__rail--deals {
+      background: linear-gradient(180deg, #ffffff 0%, #fff1f2 100%);
+      border-color: rgba(225, 29, 72, 0.14);
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__clock {
+      font-size: 1.18rem;
+      padding: 0.32rem 0.62rem;
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__scroller {
+      gap: 0.5rem;
+    }
+    #shopify-section-{{ section.id }} .temusy-deal-zone--commerce-intense .temusy-deal-zone__scroller-cell {
+      flex-basis: min(44vw, 200px);
+    }
+  {% endif %}
 {% endstyle %}
 
 <div
   id="temusy-deal-zone-{{ section.id }}"
-  class="temusy-deal-zone"
+  class="temusy-deal-zone{% if commerce_intense %} temusy-deal-zone--commerce-intense{% endif %}"
   data-section-type="dynamic-temusy-deal-zone"
   data-section-id="{{ section.id }}"
   data-temusy-deal-zone
@@ -954,6 +988,13 @@
       "id": "heading",
       "label": "Section heading",
       "default": "Today's deals"
+    },
+    {
+      "type": "checkbox",
+      "id": "commerce_intense_surface",
+      "label": "High-impact marketplace shell",
+      "default": false,
+      "info": "Warmer gradient, stronger bundle/super-deals rails, slightly denser SKU scroller (AliExpress-style pressure)."
     },
     {
       "type": "header",

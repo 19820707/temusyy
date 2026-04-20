@@ -257,7 +257,8 @@
       "slide_counter": "Diapositivo {{ count }} de {{ total }}",
       "next_slide": "Próximo slide",
       "previous_slide": "Slide anterior",
-      "price_strip_region": "Escolhas populares com preços em direto"
+      "price_strip_region": "Escolhas populares com preços em direto",
+      "price_strip_deal_label": "Top oferta"
     },
     "shoppable-image": {
       "onboarding": {

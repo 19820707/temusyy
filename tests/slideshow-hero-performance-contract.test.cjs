@@ -23,5 +23,6 @@ assert.match(slide, /slide_lazy/, 'slideshow-slide: must support per-slide lazy 
 assert.match(slide, /block_index\s*>\s*0/, 'slideshow-slide: must lazy-load after first slide when parent is eager');
 assert.match(slide, /temusy_show_price_strip/, 'slideshow-slide: must support transactional hero price strip toggle');
 assert.match(slide, /temusy-hero-price-strip/, 'slideshow-slide: must render transactional SKU strip markup');
+assert.match(slide, /temusy_strip_layout/, 'slideshow-slide: must support marketplace strip placement (on image vs below CTA)');
 
 console.log('slideshow-hero-performance-contract: ok');

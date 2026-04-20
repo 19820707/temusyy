@@ -31,6 +31,15 @@
 
   assign block_button_1_class = 'slideshow-slide__button--' | append: block.settings.button_one_style
   assign block_button_2_class = 'slideshow-slide__button--' | append: block.settings.button_two_style
+
+  assign temusy_strip_col = block.settings.temusy_strip_collection
+  assign temusy_strip_lim = block.settings.temusy_strip_product_limit | default: 3
+  assign temusy_strip_layout = block.settings.temusy_strip_layout | default: 'below_cta'
+  assign temusy_strip_on_image = false
+  if block.settings.temusy_show_price_strip and temusy_strip_layout == 'on_image'
+    assign temusy_strip_on_image = true
+  endif
+  assign temusy_strip_visual = block.settings.temusy_strip_visual | default: 'dark_rail'
 %}
 
 {% comment %}Inject @pixelunion/pxs-slideshow/slideshow-slide begin{% endcomment %}
@@ -111,7 +120,7 @@
 {%- endif -%}
 
 <div
-  class="slideshow-slide {% if block_slide_image_mobile != blank %}slideshow-slide--mobile{% endif %} {{ block_class }}"
+  class="slideshow-slide {% if block_slide_image_mobile != blank %}slideshow-slide--mobile{% endif %}{% if temusy_strip_on_image %} slideshow-slide--temusy-strip-on-image{% endif %} {{ block_class }}"
   aria-label="{{ 'sections.slideshow.slide_counter' | t: count: slide_number, total: section.blocks.size }}"
   {% if block_text_color != blank %}data-text-color="{{ block_text_color }}"{% endif %}
   tabindex="-1"
@@ -119,13 +128,14 @@
   data-slide-index="{{ block_index }}"
   {{ block.shopify_attributes }}
 >
-  {%- if block_background_link != blank -%}
-    <a
-      href="{{ block_background_link }}"
-      class="slideshow-slide__background-link"
-      aria-label="{{ block_slide_title }} {{ block_subheading }}"
-    >
-  {%- endif -%}
+  <div class="slideshow-slide__visual{% if temusy_strip_on_image %} slideshow-slide__visual--with-strip{% endif %}">
+    {%- if block_background_link != blank -%}
+      <a
+        href="{{ block_background_link }}"
+        class="slideshow-slide__background-link"
+        aria-label="{{ block_slide_title }} {{ block_subheading }}"
+      >
+    {%- endif -%}
     <div
       class="
         slideshow-slide__image-wrapper
@@ -178,9 +188,23 @@
         ></div>
       {%- endif -%}
     </div>
-  {%- if block_background_link != blank -%}
-    </a>
-  {%- endif -%}
+    {%- if block_background_link != blank -%}
+      </a>
+    {%- endif -%}
+    {% if temusy_strip_on_image and temusy_strip_col != blank and temusy_strip_col.products_count > 0 %}
+      <div
+        class="temusy-hero-price-strip-outer temusy-hero-price-strip-outer--on-image"
+        role="region"
+        aria-label="{{ 'sections.slideshow.price_strip_region' | t }}"
+      >
+        {% render 'temusy-hero-price-strip',
+          collection: temusy_strip_col,
+          limit: temusy_strip_lim,
+          visual: temusy_strip_visual
+        %}
+      </div>
+    {% endif %}
+  </div>
   <div
     class="
       slideshow-slide__content
@@ -270,17 +294,17 @@
       {% endif %}
     {%- endif -%}
 
-    {% liquid
-      assign temusy_strip_col = block.settings.temusy_strip_collection
-      assign temusy_strip_lim = block.settings.temusy_strip_product_limit | default: 3
-    %}
-    {% if block.settings.temusy_show_price_strip and temusy_strip_col != blank and temusy_strip_col.products_count > 0 %}
+    {% if block.settings.temusy_show_price_strip and temusy_strip_col != blank and temusy_strip_col.products_count > 0 and temusy_strip_on_image == false %}
       <div
-        class="temusy-hero-price-strip-outer"
+        class="temusy-hero-price-strip-outer temusy-hero-price-strip-outer--below-cta"
         role="region"
         aria-label="{{ 'sections.slideshow.price_strip_region' | t }}"
       >
-        {% render 'temusy-hero-price-strip', collection: temusy_strip_col, limit: temusy_strip_lim %}
+        {% render 'temusy-hero-price-strip',
+          collection: temusy_strip_col,
+          limit: temusy_strip_lim,
+          visual: temusy_strip_visual
+        %}
       </div>
     {% endif %}
   </div>
