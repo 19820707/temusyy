@@ -336,6 +336,15 @@
       "title": "Mi cuenta",
       "login": "Ingresar",
       "logout": "Cerrar sesión"
+    },
+    "marketplace": {
+      "all_categories": "Todas las categorias",
+      "welcome": "Bienvenido",
+      "sign_in_register": "Iniciar sesion / Registrarse",
+      "cart": "Carrito",
+      "app_default": "App Temusy",
+      "locale_hint": "Idioma y moneda",
+      "visual_search_hint": "Busqueda visual"
     }
   },
   "footer": {

@@ -336,6 +336,15 @@
       "title": "我的账户",
       "login": "登录",
       "logout": "退出"
+    },
+    "marketplace": {
+      "all_categories": "全部分类",
+      "welcome": "欢迎",
+      "sign_in_register": "登录 / 注册",
+      "cart": "购物车",
+      "app_default": "Temusy 应用",
+      "locale_hint": "语言和货币",
+      "visual_search_hint": "视觉搜索"
     }
   },
   "footer": {

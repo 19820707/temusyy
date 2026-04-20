@@ -336,6 +336,15 @@
       "title": "マイアカウント",
       "login": "ログイン",
       "logout": "ログアウト"
+    },
+    "marketplace": {
+      "all_categories": "すべてのカテゴリ",
+      "welcome": "ようこそ",
+      "sign_in_register": "ログイン / 登録",
+      "cart": "カート",
+      "app_default": "Temusyアプリ",
+      "locale_hint": "言語と通貨",
+      "visual_search_hint": "ビジュアル検索"
     }
   },
   "footer": {

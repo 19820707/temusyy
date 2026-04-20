@@ -336,6 +336,15 @@
       "title": "Mijn account",
       "login": "Inloggen",
       "logout": "Uitl"
+    },
+    "marketplace": {
+      "all_categories": "Alle categorieen",
+      "welcome": "Welkom",
+      "sign_in_register": "Inloggen / Registreren",
+      "cart": "Winkelwagen",
+      "app_default": "Temusy app",
+      "locale_hint": "Taal en valuta",
+      "visual_search_hint": "Visueel zoeken"
     }
   },
   "footer": {

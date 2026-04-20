@@ -336,6 +336,15 @@
       "title": "मेरा खाता\n",
       "login": "लॉग इन करें\n",
       "logout": "लोग आउट\n"
+    },
+    "marketplace": {
+      "all_categories": "Sabhi categories",
+      "welcome": "Welcome",
+      "sign_in_register": "Sign in / Register",
+      "cart": "Cart",
+      "app_default": "Temusy app",
+      "locale_hint": "Language aur currency",
+      "visual_search_hint": "Visual search"
     }
   },
   "footer": {

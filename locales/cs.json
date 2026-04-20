@@ -336,6 +336,15 @@
       "title": "Můj účet",
       "login": "Přihlásit ",
       "logout": "Odhlásit"
+    },
+    "marketplace": {
+      "all_categories": "Vsechny kategorie",
+      "welcome": "Vitejte",
+      "sign_in_register": "Prihlasit / Registrovat",
+      "cart": "Kosik",
+      "app_default": "Temusy app",
+      "locale_hint": "Jazyk a mena",
+      "visual_search_hint": "Vizualni vyhledavani"
     }
   },
   "footer": {

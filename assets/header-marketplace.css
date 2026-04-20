@@ -325,7 +325,7 @@
   border-color: #fff;
 }
 
-.site-header--marketplace .site-header-cart--count--always.visible + svg {
+.site-header--marketplace .site-header-cart--count--always.visible + .site-header-cart-icon {
   margin-right: 6px;
 }
 

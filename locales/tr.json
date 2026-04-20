@@ -336,6 +336,15 @@
       "title": "Hesabım",
       "login": "Oturum aç",
       "logout": "Çıkış Yap"
+    },
+    "marketplace": {
+      "all_categories": "Tum kategoriler",
+      "welcome": "Hos geldiniz",
+      "sign_in_register": "Giris / Kayit",
+      "cart": "Sepet",
+      "app_default": "Temusy app",
+      "locale_hint": "Dil ve para birimi",
+      "visual_search_hint": "Gorsel arama"
     }
   },
   "footer": {

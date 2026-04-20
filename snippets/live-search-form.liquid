@@ -54,6 +54,7 @@
       live-search-form
       form-fields-inline
       {% unless filter == blank %}live-search-filter-active{% endunless %}
+      {% if marketplace_chrome %}live-search-form--marketplace-chrome{% endif %}
     "
     action="{{ routes.search_url }}"
     method="get"

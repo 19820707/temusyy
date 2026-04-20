@@ -247,6 +247,15 @@
       "title": "Mio profilo",
       "login": "Accedi",
       "logout": "Esci"
+    },
+    "marketplace": {
+      "all_categories": "Tutte le categorie",
+      "welcome": "Benvenuto",
+      "sign_in_register": "Accedi / Registrati",
+      "cart": "Carrello",
+      "app_default": "App Temusy",
+      "locale_hint": "Lingua e valuta",
+      "visual_search_hint": "Ricerca visiva"
     }
   },
   "footer": {
