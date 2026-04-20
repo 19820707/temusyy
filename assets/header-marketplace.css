@@ -10,22 +10,42 @@
 
 .site-header--marketplace .site-header-main {
   align-items: center;
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+  max-width: 1660px;
+  min-height: 84px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
 }
 
 @media screen and (min-width: 1024px) {
   .site-header--marketplace .site-header-main {
-    padding-top: 0.875rem;
-    padding-bottom: 0.875rem;
+    padding-right: 4.5rem;
+    padding-left: 4.5rem;
   }
 }
 
 .site-header--marketplace .site-header-main-content {
+  display: grid;
+  grid-template-columns: minmax(7.75rem, 9.5rem) minmax(18rem, 1fr);
+  align-items: center;
   justify-content: flex-start;
   margin-right: 0;
   margin-left: 0;
-  gap: 0.75rem;
+  gap: 1.25rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.site-header--marketplace .site-header-main-content.small-promo-enabled {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.site-header--marketplace .site-header-main-content.small-promo-enabled .small-promo {
+  flex: 1 1 100%;
+  justify-content: flex-start;
 }
 
 @media screen and (min-width: 1024px) {
@@ -40,15 +60,25 @@
 }
 
 .site-header--marketplace .site-header-logo {
-  margin-right: 0.5rem;
+  width: 100%;
   margin-left: 0;
+  margin-right: 0;
   text-align: left;
+}
+
+.site-header--marketplace .site-logo {
+  width: 8.75rem;
+  max-width: 8.75rem !important;
+}
+
+.site-header--marketplace .site-logo-image {
+  max-height: 3rem !important;
 }
 
 .site-header--marketplace .site-header-main .live-search {
   flex: 1 1 auto;
   max-width: none;
-  height: 44px;
+  height: 42px;
   margin-top: 0;
 }
 
@@ -57,9 +87,9 @@
   top: 0;
   right: 0;
   left: 0;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #111827;
   border-radius: 9999px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  box-shadow: none;
   background: #fff;
 }
 
@@ -71,15 +101,15 @@
 
 .site-header--marketplace .live-search-form .form-field {
   position: relative;
-  height: 42px;
+  height: 40px;
 }
 
 .site-header--marketplace .live-search-form-field {
   flex: 1 1 auto;
   width: 100% !important;
   min-width: 0;
-  padding-right: 3.25rem;
-  padding-left: 1.125rem;
+  padding-right: 5rem;
+  padding-left: 1.5rem;
   border-radius: 9999px 0 0 9999px;
   font-size: 0.9375rem;
 }
@@ -87,13 +117,13 @@
 .site-header--marketplace .live-search-button {
   position: absolute;
   top: 50%;
-  right: 5px;
-  width: 34px;
+  right: 3px;
+  width: 4.25rem;
   height: 34px;
   margin: 0;
   padding: 0;
   border: 0 !important;
-  border-radius: 50%;
+  border-radius: 9999px;
   background: #0f172a !important;
   transform: translateY(-50%);
 }
@@ -116,7 +146,7 @@
 }
 
 .site-header--marketplace .live-search--active .live-search-button {
-  border-bottom-right-radius: 50%;
+  border-bottom-right-radius: 9999px;
 }
 
 .site-header--marketplace .site-header-right {
@@ -126,7 +156,7 @@
   align-items: center;
   justify-content: flex-end;
   height: auto;
-  gap: 0.75rem;
+  gap: 1rem;
   max-width: min(420px, 38vw);
 }
 
@@ -265,7 +295,7 @@
 }
 
 .site-header--marketplace .site-navigation-wrapper {
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #f1f5f9;
   background: #fff;
 }
 
@@ -274,15 +304,17 @@
   flex-wrap: nowrap;
   gap: 0.5rem;
   align-items: center;
-  max-width: 100%;
+  max-width: 1660px;
+  margin-right: auto;
+  margin-left: auto;
   padding-right: 0.625rem;
   padding-left: 0.625rem;
 }
 
 @media screen and (min-width: 1024px) {
   .site-header--marketplace .site-navigation-wrapper__inner {
-    padding-right: 1rem;
-    padding-left: 1rem;
+    padding-right: 4.5rem;
+    padding-left: 4.5rem;
   }
 }
 
@@ -291,9 +323,11 @@
   flex-shrink: 0;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
+  justify-content: center;
+  width: min(16.5rem, 22vw);
+  padding: 0.55rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 800;
   color: #0f172a;
   text-decoration: none;
   white-space: nowrap;
@@ -342,8 +376,8 @@
 }
 
 .site-header--marketplace .site-navigation .navmenu-link-depth-1 {
-  padding: 0.375rem 0.5rem;
-  font-size: 0.8125rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #0f172a;
 }
