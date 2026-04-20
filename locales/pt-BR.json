@@ -336,6 +336,14 @@
       "title": "Minha Conta",
       "login": "Entrar",
       "logout": "Sair"
+    },
+    "marketplace": {
+      "all_categories": "Todas as categorias",
+      "welcome": "Bem-vindo(a)",
+      "sign_in_register": "Entrar / Registar",
+      "cart": "Carrinho",
+      "app_default": "Obter a app",
+      "locale_hint": "Idioma e moeda atuais"
     }
   },
   "footer": {

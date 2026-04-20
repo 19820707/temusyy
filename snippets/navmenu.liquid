@@ -7,7 +7,12 @@
   @param blocks Array
     Array of blocks possibly containing meganav information
 
+  @param accent_nav_handle {String}
+    Optional top-level link handle to highlight (marketplace header).
+
 {% endcomment %}
+
+{% assign accent_nav_handle = accent_nav_handle | default: '' | strip %}
 
 {% assign menu_list = linklists[menu].links %}
 {% assign menu_title = linklists[menu].title %}
@@ -76,6 +81,7 @@
               navmenu-link-depth-1
               navmenu-link-parent
               {% if menu_item.active %}navmenu-link-active{% endif %}
+              {% if accent_nav_handle != blank and menu_item.handle == accent_nav_handle %}navmenu-link--marketplace-accent{% endif %}
             "
             aria-haspopup="true"
             aria-expanded="false"
@@ -87,6 +93,7 @@
             navmenu-link
             navmenu-link-depth-1
             {% if menu_item.active %}navmenu-link-active{% endif %}
+            {% if accent_nav_handle != blank and menu_item.handle == accent_nav_handle %}navmenu-link--marketplace-accent{% endif %}
           "
           href="{{ menu_item.url }}"
         >

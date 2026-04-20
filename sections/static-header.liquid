@@ -3,6 +3,17 @@
   {% assign has_box_shadow = true %}
 {% endif %}
 
+{% liquid
+  assign marketplace_header = false
+  if section.settings.header_visual_style == 'marketplace'
+    assign marketplace_header = true
+  endif
+%}
+
+{% if marketplace_header %}
+  {{ 'header-marketplace.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
 <script
   type="application/json"
   data-section-id="{{ section.id }}"
@@ -197,10 +208,17 @@
     </div>
 
     <div class="site-header-right">
-      {% render 'site-header-actions' %}
+      {% if marketplace_header %}
+        {% render 'header-marketplace-extras', section: section %}
+      {% endif %}
+
+      {% render 'site-header-actions', marketplace_header: marketplace_header %}
 
       <div class="site-header-cart">
-        <a class="site-header-cart--button" href="{{ routes.cart_url }}">
+        <a
+          class="site-header-cart--button{% if marketplace_header %} site-header-cart--button--marketplace{% endif %}"
+          href="{{ routes.cart_url }}"
+        >
           <span
             class="site-header-cart--count {% if cart.item_count > 0 %}visible{% endif %}"
             data-header-cart-count="{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}">
@@ -212,6 +230,9 @@
               {% render 'icon-library', id: 'icon-cart' %}
              {% endif %}
           </span>
+          {% if marketplace_header %}
+            <span class="site-header-cart-text" aria-hidden="true">{{ 'header.marketplace.cart' | t }}</span>
+          {% endif %}
           <span class="visually-hidden">{{ 'general.accessibility.cart' | t }}</span>
         </a>
       </div>
@@ -231,27 +252,38 @@
     data-site-navigation
     id="site-header-nav"
   >
-    <nav
-      class="site-navigation"
-      aria-label="{{ 'general.accessibility.nav_main' | t }}"
-    >
-      {%
-        render 'navmenu',
-        menu: section.settings.menu,
-        blocks: section.blocks,
-      %}
-
-      {% if section.settings.secondary_menu != blank %}
-        {%
-          render 'navlist',
-          menu_list: linklists[section.settings.secondary_menu].links,
-          depth: 1,
-          max_depth: 1,
-          aria_expanded: true,
-          navmenu_classes: 'site-navigation__secondary-menu',
-        %}
+    <div class="site-navigation-wrapper__inner">
+      {% if marketplace_header %}
+        <a class="marketplace-all-categories-pill" href="{{ routes.collections_url }}">
+          <span class="marketplace-all-categories-pill__icon" aria-hidden="true">
+            {% render 'icon-library', id: 'icon-filters' %}
+          </span>
+          <span>{{ 'header.marketplace.all_categories' | t }}</span>
+        </a>
       {% endif %}
-    </nav>
+      <nav
+        class="site-navigation"
+        aria-label="{{ 'general.accessibility.nav_main' | t }}"
+      >
+        {%
+          render 'navmenu',
+          menu: section.settings.menu,
+          blocks: section.blocks,
+          accent_nav_handle: section.settings.marketplace_accent_nav_handle
+        %}
+
+        {% if section.settings.secondary_menu != blank %}
+          {%
+            render 'navlist',
+            menu_list: linklists[section.settings.secondary_menu].links,
+            depth: 1,
+            max_depth: 1,
+            aria_expanded: true,
+            navmenu_classes: 'site-navigation__secondary-menu',
+          %}
+        {% endif %}
+      </nav>
+    </div>
   </div>
 
   {%
@@ -265,6 +297,33 @@
   "name": "t:sections.header.name",
   "class": "site-header-wrapper",
   "settings": [
+    {
+      "type": "select",
+      "id": "header_visual_style",
+      "label": "Header style",
+      "default": "theme",
+      "options": [
+        { "value": "theme", "label": "Theme default" },
+        { "value": "marketplace", "label": "Marketplace (wide search + category bar)" }
+      ]
+    },
+    {
+      "type": "url",
+      "id": "marketplace_app_url",
+      "label": "App download link (optional)"
+    },
+    {
+      "type": "text",
+      "id": "marketplace_app_label",
+      "label": "App download label",
+      "default": "Get the app"
+    },
+    {
+      "type": "text",
+      "id": "marketplace_accent_nav_handle",
+      "label": "Accent menu item handle (optional)",
+      "info": "Matches a top-level menu item handle for a red promo-style link (e.g. bundle-deals)."
+    },
     {
       "type": "checkbox",
       "id": "sticky_header",

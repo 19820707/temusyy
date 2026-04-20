@@ -23883,3 +23883,7 @@ rgb(255, 255, 255)
 .productgrid--item.productitem--no-smart-context .productitem--title a {
   text-decoration-thickness: 1px;
 }
+
+.site-navigation-wrapper__inner {
+  display: block;
+}

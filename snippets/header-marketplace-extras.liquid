@@ -1,0 +1,33 @@
+{% comment %}
+  Compact utilities row (app + locale readout) for marketplace-style header.
+  @param section {section} Header section object
+{% endcomment %}
+
+{% if section.settings.header_visual_style == 'marketplace' %}
+  <div class="header-mp-extras" data-header-marketplace-extras>
+    {% if section.settings.marketplace_app_url != blank %}
+      <a
+        class="header-mp-app"
+        href="{{ section.settings.marketplace_app_url }}"
+        {% if section.settings.marketplace_app_url contains 'http' %}rel="noopener noreferrer" target="_blank"{% endif %}
+      >
+        <span class="header-mp-extras__icon" aria-hidden="true">
+          {% render 'icon-library', id: 'icon-cell-phone' %}
+        </span>
+        <span>
+          {%- assign mp_app_lbl = section.settings.marketplace_app_label | strip -%}
+          {%- if mp_app_lbl == blank -%}
+            {{- 'header.marketplace.app_default' | t -}}
+          {%- else -%}
+            {{- mp_app_lbl | escape -}}
+          {%- endif -%}
+        </span>
+      </a>
+    {% endif %}
+
+    <span class="header-mp-locale" title="{{ 'header.marketplace.locale_hint' | t }}">
+      {{- request.locale.iso_code | upcase }} / {{ cart.currency.iso_code -}}
+    </span>
+  </div>
+{% endif %}
+

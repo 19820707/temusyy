@@ -1,0 +1,363 @@
+/**
+ * Marketplace header shell (AliExpress-inspired).
+ * Scoped to .site-header--marketplace so the default header layout stays intact.
+ */
+
+.site-header--marketplace.site-header {
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.08);
+  background-color: #fff;
+}
+
+.site-header--marketplace .site-header-main {
+  align-items: center;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .site-header--marketplace .site-header-main {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+}
+
+.site-header--marketplace .site-header-main-content {
+  justify-content: flex-start;
+  margin-right: 0;
+  margin-left: 0;
+  gap: 0.75rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .site-header--marketplace .site-header-main-content {
+    margin-right: 1rem;
+    margin-left: 0;
+  }
+
+  .site-header--marketplace .site-header-sticky--scrolled .site-header-main-content {
+    margin-left: 0;
+  }
+}
+
+.site-header--marketplace .site-header-logo {
+  margin-right: 0.5rem;
+  margin-left: 0;
+  text-align: left;
+}
+
+.site-header--marketplace .site-header-main .live-search {
+  flex: 1 1 auto;
+  max-width: none;
+  height: 44px;
+  margin-top: 0;
+}
+
+.site-header--marketplace .live-search-form {
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  background: #fff;
+}
+
+.site-header--marketplace .live-search-form:hover,
+.site-header--marketplace .live-search--focused .live-search-form {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.site-header--marketplace .live-search-form .form-field {
+  position: relative;
+  height: 42px;
+}
+
+.site-header--marketplace .live-search-form-field {
+  flex: 1 1 auto;
+  width: 100% !important;
+  min-width: 0;
+  padding-right: 3.25rem;
+  padding-left: 1.125rem;
+  border-radius: 9999px 0 0 9999px;
+  font-size: 0.9375rem;
+}
+
+.site-header--marketplace .live-search-button {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  border: 0 !important;
+  border-radius: 50%;
+  background: #0f172a !important;
+  transform: translateY(-50%);
+}
+
+.site-header--marketplace .live-search-button:not(.disabled):hover {
+  background: #1e293b !important;
+  border-color: transparent !important;
+}
+
+.site-header--marketplace .live-search-button:active {
+  background: #020617 !important;
+}
+
+.site-header--marketplace .live-search-button .search-icon--inactive svg {
+  color: #fff;
+}
+
+.site-header--marketplace .live-search-button.mdc-ripple-surface::after {
+  background-color: #fff;
+}
+
+.site-header--marketplace .live-search--active .live-search-button {
+  border-bottom-right-radius: 50%;
+}
+
+.site-header--marketplace .site-header-right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  height: auto;
+  gap: 0.75rem;
+  max-width: min(420px, 38vw);
+}
+
+@media screen and (min-width: 1024px) {
+  .site-header--marketplace .site-header-right {
+    gap: 1rem;
+    max-width: none;
+  }
+}
+
+.site-header--marketplace .header-mp-extras {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.125rem;
+  min-width: 0;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  color: #0f172a;
+}
+
+@media screen and (min-width: 1200px) {
+  .site-header--marketplace .header-mp-extras {
+    display: flex;
+  }
+}
+
+.site-header--marketplace .header-mp-extras a {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  max-width: 9.5rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header--marketplace .header-mp-extras a:hover {
+  text-decoration: underline;
+}
+
+.site-header--marketplace .header-mp-extras__icon svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+.site-header--marketplace .header-mp-locale {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.site-header--marketplace .header-mp-locale::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.125rem;
+  border-top: 4px solid #64748b;
+  border-right: 3px solid transparent;
+  border-left: 3px solid transparent;
+  content: "";
+}
+
+.site-header--marketplace .site-header-actions__account-link {
+  margin-right: 0;
+}
+
+.site-header--marketplace .site-header-actions {
+  flex-shrink: 0;
+}
+
+.site-header--marketplace .site-header_account-link-anchor--marketplace {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.site-header--marketplace .site-header_account-link-text-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.site-header--marketplace .site-header_account-link-line1 {
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  color: #64748b;
+}
+
+.site-header--marketplace .site-header_account-link-line2 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #0f172a;
+}
+
+.site-header--marketplace .site-header_account-link-anchor .site-header_account-link-text {
+  display: none;
+}
+
+.site-header--marketplace .site-header-cart {
+  position: relative;
+  top: auto;
+  right: auto;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+.site-header--marketplace .site-header-cart--button {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  padding: 0.25rem 0.375rem;
+}
+
+.site-header--marketplace .site-header-cart-text {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #0f172a;
+}
+
+.site-header--marketplace .site-header-cart--count {
+  top: -2px;
+  right: 2px;
+}
+
+.site-header--marketplace .site-navigation-wrapper {
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+}
+
+.site-header--marketplace .site-navigation-wrapper__inner {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  align-items: center;
+  max-width: 100%;
+  padding-right: 0.625rem;
+  padding-left: 0.625rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .site-header--marketplace .site-navigation-wrapper__inner {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+.site-header--marketplace .marketplace-all-categories-pill {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #0f172a;
+  text-decoration: none;
+  white-space: nowrap;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 9999px;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+@media screen and (min-width: 1024px) {
+  .site-header--marketplace .marketplace-all-categories-pill {
+    display: inline-flex;
+  }
+}
+
+.site-header--marketplace .marketplace-all-categories-pill:hover {
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.site-header--marketplace .marketplace-all-categories-pill svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.site-header--marketplace .site-navigation {
+  flex: 1 1 auto;
+  min-width: 0;
+  justify-content: flex-start;
+}
+
+.site-header--marketplace .site-navigation .navmenu-depth-1 {
+  flex-wrap: nowrap;
+  gap: 0.125rem;
+  margin-left: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.site-header--marketplace .site-navigation .navmenu-depth-1 > li {
+  flex: 0 0 auto;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.site-header--marketplace .site-navigation .navmenu-link-depth-1 {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.site-header--marketplace .site-navigation .navmenu-link-depth-1:hover,
+.site-header--marketplace .site-navigation .navmenu-link-depth-1[aria-expanded="true"] {
+  opacity: 1;
+  color: #ea580c;
+}
+
+.site-header--marketplace .site-navigation .navmenu-link--marketplace-accent {
+  color: #dc2626 !important;
+}
+
+.site-header--marketplace .site-navigation .navmenu-link--marketplace-accent:hover {
+  color: #b91c1c !important;
+}

@@ -12,6 +12,7 @@ const names = fs.readdirSync(assetsDir).sort();
 const allowed = [
   'empire.js',
   'empire.min.js',
+  'header-marketplace.css',
   'giftcard.css',
   'giftcard.css.liquid',
   'instantPage.min.js',

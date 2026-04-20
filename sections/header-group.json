@@ -45,8 +45,12 @@
     "header": {
       "type": "static-header",
       "settings": {
+        "header_visual_style": "marketplace",
+        "marketplace_app_url": "",
+        "marketplace_app_label": "",
+        "marketplace_accent_nav_handle": "",
         "sticky_header": false,
-        "full_width_header": false,
+        "full_width_header": true,
         "logo": "shopify://shop_images/ChatGPT_Image_9_05_2025_13_09_28_4a0a3865-a17b-493f-b57e-56d278437d22.png",
         "logo_height": 83,
         "logo_width": 218,
