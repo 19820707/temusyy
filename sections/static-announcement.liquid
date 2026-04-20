@@ -8,6 +8,7 @@
   assign micro_preset = section.settings.temusy_micro_reward_preset | default: 'custom'
   assign announcement_desktop = section.settings.announcement_text | strip
   assign announcement_mobile = section.settings.announcement_text_mobile | strip
+  assign announcement_placeholder = 'Announce something here'
   if micro_preset == 'discount_today'
     assign announcement_desktop = 'general.temusy_micro_reward.discount_desktop' | t
     assign announcement_mobile = 'general.temusy_micro_reward.discount_mobile' | t
@@ -17,6 +18,11 @@
   elsif micro_preset == 'live_deal_today'
     assign announcement_desktop = 'general.temusy_micro_reward.live_deal_desktop' | t
     assign announcement_mobile = 'general.temusy_micro_reward.live_deal_mobile' | t
+  elsif announcement_desktop == announcement_placeholder and announcement_mobile == blank
+    comment
+      invariant: never ship the theme-editor placeholder as a storefront announcement.
+    endcomment
+    assign announcement_desktop = blank
   endif
 %}
 
@@ -112,7 +118,7 @@
       "type": "checkbox",
       "id": "show_announcement",
       "label": "t:sections.announcement_bar.show_announcement.label",
-      "default": true
+      "default": false
     },
     {
       "type": "checkbox",
@@ -156,7 +162,7 @@
       "id": "announcement_text",
       "type": "textarea",
       "label": "t:sections.announcement_bar.announcement_text.label",
-      "default": "Announce something here"
+      "default": ""
     },
     {
       "id": "announcement_text_mobile",
