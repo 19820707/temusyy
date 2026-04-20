@@ -361,3 +361,31 @@
 .site-header--marketplace .site-navigation .navmenu-link--marketplace-accent:hover {
   color: #b91c1c !important;
 }
+
+.site-header--marketplace .live-search-button:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.site-header--marketplace .marketplace-all-categories-pill:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .site-header--marketplace .live-search-button {
+    forced-color-adjust: none;
+    background: ButtonText !important;
+    border: 1px solid ButtonText !important;
+  }
+
+  .site-header--marketplace .live-search-button .search-icon--inactive svg {
+    color: Canvas;
+  }
+
+  .site-header--marketplace .live-search-button:focus-visible,
+  .site-header--marketplace .marketplace-all-categories-pill:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

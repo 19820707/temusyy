@@ -4,12 +4,54 @@
 {% endcomment %}
 
 {% if section.settings.header_visual_style == 'marketplace' %}
+  {% liquid
+    assign mp_app_raw = section.settings.marketplace_app_url | strip
+    assign mp_app_lc = mp_app_raw | downcase
+    assign mp_app_safe = false
+    if mp_app_raw != blank
+      assign mp_app_safe = true
+      if mp_app_lc contains 'javascript:'
+        assign mp_app_safe = false
+      endif
+      if mp_app_lc contains 'vbscript:'
+        assign mp_app_safe = false
+      endif
+      if mp_app_lc contains 'file:'
+        assign mp_app_safe = false
+      endif
+      if mp_app_lc contains 'data:'
+        assign mp_app_safe = false
+      endif
+    endif
+
+    assign mp_app_two = mp_app_raw | slice: 0, 2
+
+    assign mp_lang = request.locale.iso_code | default: '' | upcase
+    if mp_lang == blank
+      assign mp_lang_alt = localization.language.iso_code | default: ''
+      if mp_lang_alt != blank
+        assign mp_lang = mp_lang_alt | upcase
+      endif
+    endif
+
+    assign mp_cur = cart.currency.iso_code | default: '' | upcase
+    if mp_cur == blank
+      assign mp_cur_alt = shop.currency.iso_code | default: ''
+      if mp_cur_alt != blank
+        assign mp_cur = mp_cur_alt | upcase
+      endif
+    endif
+  %}
+
   <div class="header-mp-extras" data-header-marketplace-extras>
-    {% if section.settings.marketplace_app_url != blank %}
+    {% if mp_app_safe %}
       <a
         class="header-mp-app"
-        href="{{ section.settings.marketplace_app_url }}"
-        {% if section.settings.marketplace_app_url contains 'http' %}rel="noopener noreferrer" target="_blank"{% endif %}
+        href="{{ mp_app_raw | escape }}"
+        {% if mp_app_lc contains 'http://' or mp_app_lc contains 'https://' or mp_app_two == '//' %}
+          rel="noopener noreferrer"
+          target="_blank"
+        {% endif %}
       >
         <span class="header-mp-extras__icon" aria-hidden="true">
           {% render 'icon-library', id: 'icon-cell-phone' %}
@@ -25,9 +67,15 @@
       </a>
     {% endif %}
 
-    <span class="header-mp-locale" title="{{ 'header.marketplace.locale_hint' | t }}">
-      {{- request.locale.iso_code | upcase }} / {{ cart.currency.iso_code -}}
-    </span>
+    {% if mp_lang != blank or mp_cur != blank %}
+      <span
+        class="header-mp-locale"
+        title="{{ 'header.marketplace.locale_hint' | t | escape }}"
+      >
+        {%- if mp_lang != blank -%}{{- mp_lang -}}{%- endif -%}
+        {%- if mp_lang != blank and mp_cur != blank %} / {% endif -%}
+        {%- if mp_cur != blank -%}{{- mp_cur -}}{%- endif -%}
+      </span>
+    {% endif %}
   </div>
 {% endif %}
-

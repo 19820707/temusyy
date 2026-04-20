@@ -12,7 +12,7 @@
 
 {% endcomment %}
 
-{% assign accent_nav_handle = accent_nav_handle | default: '' | strip %}
+{% assign accent_nav_handle = accent_nav_handle | default: '' | strip | downcase %}
 
 {% assign menu_list = linklists[menu].links %}
 {% assign menu_title = linklists[menu].title %}
