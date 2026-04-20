@@ -20,12 +20,25 @@
     assign temusy_fc = collection.handle
   endif
   assign deal_on_sale = false
+  assign deal_compare_price = blank
+  assign deal_price = v.price
+  assign deal_savings_percent = 0
   for variant in product.variants limit: 48
     if variant.compare_at_price != blank and variant.compare_at_price > variant.price
       assign deal_on_sale = true
+      assign deal_compare_price = variant.compare_at_price
+      assign deal_price = variant.price
       break
     endif
   endfor
+  if product.compare_at_price_varies == false and product.compare_at_price != blank and product.compare_at_price > product.price
+    assign deal_compare_price = product.compare_at_price
+    assign deal_price = product.price
+  endif
+  if deal_compare_price != blank and deal_compare_price > deal_price
+    assign deal_savings = deal_compare_price | minus: deal_price
+    assign deal_savings_percent = deal_savings | times: 100 | divided_by: deal_compare_price
+  endif
   assign loading_mode = 'lazy'
   if index != blank and index <= 2
     assign loading_mode = 'eager'
@@ -46,7 +59,13 @@
   >
     <div class="temusy-deal-card__media">
       {% if deal_on_sale %}
-        <span class="temusy-deal-card__badge">{{ 'product_price.badge.sale' | t }}</span>
+        <span class="temusy-deal-card__badge">
+          {% if deal_savings_percent > 0 %}
+            -{{ deal_savings_percent }}%
+          {% else %}
+            {{ 'product_price.badge.sale' | t }}
+          {% endif %}
+        </span>
       {% endif %}
       {% if img != blank %}
         {{
@@ -64,13 +83,14 @@
       {% endif %}
     </div>
     <div class="temusy-deal-card__body">
+      {% if product.vendor != blank %}
+        <span class="temusy-deal-card__vendor">{{ product.vendor | escape }}</span>
+      {% endif %}
       <span class="temusy-deal-card__title">{{ product.title | escape }}</span>
       <div class="temusy-deal-card__price-row">
         {% if deal_on_sale %}
-          {% if product.compare_at_price_varies == false and product.compare_at_price != blank and product.compare_at_price > product.price %}
-            <span class="temusy-deal-card__compare">{{ product.compare_at_price | money }}</span>
-          {% elsif v.compare_at_price != blank and v.compare_at_price > v.price %}
-            <span class="temusy-deal-card__compare">{{ v.compare_at_price | money }}</span>
+          {% if deal_compare_price != blank %}
+            <span class="temusy-deal-card__compare">{{ deal_compare_price | money }}</span>
           {% endif %}
         {% endif %}
         <span class="temusy-deal-card__price">
@@ -85,6 +105,7 @@
       {% unless v.available %}
         <span class="temusy-deal-card__soldout">{{ 'product_price.badge.sold_out' | t }}</span>
       {% endunless %}
+      <span class="temusy-deal-card__cta">{{ 'product.buttons.view_details' | t }}</span>
     </div>
   </a>
 {% endif %}

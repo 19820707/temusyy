@@ -48,6 +48,10 @@
   assign scroller_label = 'sections.temusy_deal_zone.scroller_region' | t
   assign scroll_prev_label = 'sections.temusy_deal_zone.scroll_previous' | t
   assign scroll_next_label = 'sections.temusy_deal_zone.scroll_next' | t
+  assign signal_one_label = section.settings.signal_one_label | strip
+  assign signal_two_label = section.settings.signal_two_label | strip
+  assign signal_three_label = section.settings.signal_three_label | strip
+  assign signal_four_label = section.settings.signal_four_label | strip
 %}
 
 {% style %}
@@ -60,7 +64,7 @@
     color-scheme: only light;
     background: var(--temusy-deal-bg);
     color: var(--temusy-deal-text);
-    border-radius: 14px;
+    border-radius: 8px;
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: 0 10px 40px rgba(15, 23, 42, 0.07);
     overflow: hidden;
@@ -83,6 +87,49 @@
     letter-spacing: 0.02em;
     line-height: 1.2;
   }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__signal-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin: 0 0 0.8rem;
+  }
+  @media screen and (min-width: 860px) {
+    #shopify-section-{{ section.id }} .temusy-deal-zone__signal-strip {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__signal {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.35rem;
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: var(--temusy-deal-text);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.2;
+    box-shadow: 0 1px 6px rgba(15, 23, 42, 0.04);
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__signal::before {
+    content: "";
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--temusy-deal-accent);
+    flex: 0 0 auto;
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__signal:hover,
+  #shopify-section-{{ section.id }} .temusy-deal-zone__signal:focus-visible {
+    border-color: rgba(15, 23, 42, 0.18);
+  }
+  #shopify-section-{{ section.id }} .temusy-deal-zone__signal:focus-visible {
+    outline: 2px solid var(--temusy-deal-accent);
+    outline-offset: 2px;
+  }
   #shopify-section-{{ section.id }} .temusy-deal-zone__rails {
     display: grid;
     grid-template-columns: 1fr;
@@ -97,7 +144,7 @@
     }
   }
   #shopify-section-{{ section.id }} .temusy-deal-zone__rail {
-    border-radius: 12px;
+    border-radius: 8px;
     background: var(--temusy-deal-surface);
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
@@ -143,7 +190,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 8px;
     background: rgba(15, 23, 42, 0.06);
     color: var(--temusy-deal-accent);
   }
@@ -259,7 +306,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     text-decoration: none;
     color: inherit;
@@ -308,7 +355,7 @@
     top: 0.35rem;
     inset-inline-start: 0.35rem;
     z-index: 1;
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -319,15 +366,25 @@
     line-height: 1;
   }
   #shopify-section-{{ section.id }} .temusy-deal-card__body {
-    padding: 0.45rem 0.5rem 0.55rem;
+    padding: 0.5rem 0.55rem 0.6rem;
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.24rem;
     flex: 1;
     min-height: 0;
   }
+  #shopify-section-{{ section.id }} .temusy-deal-card__vendor {
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: rgba(15, 23, 42, 0.52);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   #shopify-section-{{ section.id }} .temusy-deal-card__title {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     font-weight: 700;
     line-height: 1.25;
     display: -webkit-box;
@@ -356,7 +413,7 @@
     text-transform: lowercase;
   }
   #shopify-section-{{ section.id }} .temusy-deal-card__price {
-    font-size: 0.85rem;
+    font-size: 0.96rem;
     font-weight: 800;
     color: var(--temusy-deal-text);
   }
@@ -368,6 +425,12 @@
     font-weight: 700;
     color: rgba(15, 23, 42, 0.55);
   }
+  #shopify-section-{{ section.id }} .temusy-deal-card__cta {
+    margin-top: 0.1rem;
+    color: var(--temusy-deal-accent);
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
   #shopify-section-{{ section.id }} .temusy-deal-zone__scroller-shell {
     display: flex;
     align-items: stretch;
@@ -377,7 +440,7 @@
   #shopify-section-{{ section.id }} .temusy-deal-zone__scroller-nav {
     flex: 0 0 auto;
     width: 2.25rem;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid rgba(15, 23, 42, 0.1);
     background: var(--temusy-deal-surface);
     color: var(--temusy-deal-text);
@@ -468,12 +531,37 @@
       <h2 class="temusy-deal-zone__title">{{ section.settings.heading | escape }}</h2>
     {% endif %}
 
+    {% if signal_one_label != blank or signal_two_label != blank or signal_three_label != blank or signal_four_label != blank %}
+      <nav class="temusy-deal-zone__signal-strip" aria-label="{{ section.settings.signal_nav_label | escape }}">
+        {% if signal_one_label != blank %}
+          <a class="temusy-deal-zone__signal" href="{{ section.settings.signal_one_link | default: routes.all_products_collection_url }}">
+            {{ signal_one_label | escape }}
+          </a>
+        {% endif %}
+        {% if signal_two_label != blank %}
+          <a class="temusy-deal-zone__signal" href="{{ section.settings.signal_two_link | default: routes.all_products_collection_url }}">
+            {{ signal_two_label | escape }}
+          </a>
+        {% endif %}
+        {% if signal_three_label != blank %}
+          <a class="temusy-deal-zone__signal" href="{{ section.settings.signal_three_link | default: routes.all_products_collection_url }}">
+            {{ signal_three_label | escape }}
+          </a>
+        {% endif %}
+        {% if signal_four_label != blank %}
+          <a class="temusy-deal-zone__signal" href="{{ section.settings.signal_four_link | default: routes.all_products_collection_url }}">
+            {{ signal_four_label | escape }}
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+
     <div class="temusy-deal-zone__rails{% if bundle_ready %} temusy-deal-zone__rails--split{% endif %}">
       {% if bundle_ready %}
         <a
           class="temusy-deal-zone__rail temusy-deal-zone__rail--bundle"
           href="{{ bundle_url }}"
-          aria-label="{{ bundle_title | escape }} — {{ bundle_line | escape }}"
+          aria-label="{{ bundle_title | escape }} - {{ bundle_line | escape }}"
         >
           <span class="temusy-deal-zone__rail-icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -865,7 +953,61 @@
       "type": "text",
       "id": "heading",
       "label": "Section heading",
-      "default": "🔥 Today's deals"
+      "default": "Today's deals"
+    },
+    {
+      "type": "header",
+      "content": "Marketplace signal strip"
+    },
+    {
+      "type": "text",
+      "id": "signal_nav_label",
+      "label": "Signal strip accessibility label",
+      "default": "Shopping benefits"
+    },
+    {
+      "type": "text",
+      "id": "signal_one_label",
+      "label": "Signal 1 label",
+      "default": "Choice picks"
+    },
+    {
+      "type": "url",
+      "id": "signal_one_link",
+      "label": "Signal 1 link"
+    },
+    {
+      "type": "text",
+      "id": "signal_two_label",
+      "label": "Signal 2 label",
+      "default": "Bundle savings"
+    },
+    {
+      "type": "url",
+      "id": "signal_two_link",
+      "label": "Signal 2 link"
+    },
+    {
+      "type": "text",
+      "id": "signal_three_label",
+      "label": "Signal 3 label",
+      "default": "Secure checkout"
+    },
+    {
+      "type": "url",
+      "id": "signal_three_link",
+      "label": "Signal 3 link"
+    },
+    {
+      "type": "text",
+      "id": "signal_four_label",
+      "label": "Signal 4 label",
+      "default": "Support ready"
+    },
+    {
+      "type": "url",
+      "id": "signal_four_link",
+      "label": "Signal 4 link"
     },
     {
       "type": "header",
@@ -888,7 +1030,7 @@
       "type": "textarea",
       "id": "bundle_line",
       "label": "Bundle lane line",
-      "default": "3+ items — stack savings at checkout when your discount applies."
+      "default": "3+ items - stack savings at checkout when your discount applies."
     },
     {
       "type": "url",

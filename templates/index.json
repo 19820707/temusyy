@@ -21,7 +21,7 @@
           "settings": {
             "background_image": "shopify://shop_images/a-single-hand-holds-dropper-bottle.jpg",
             "title": "🔥 Best-selling beauty products",
-            "text": "⭐ Rated 4.8 by customers",
+            "text": "Rated 4.8 by customers",
             "color": "#222222",
             "link": "",
             "text_alignment": "left",
@@ -52,10 +52,19 @@
     "homepage_deal_zone": {
       "type": "dynamic-temusy-deal-zone",
       "settings": {
-        "heading": "🔥 Today's deals",
+        "heading": "Today's deals",
+        "signal_nav_label": "Shopping benefits",
+        "signal_one_label": "Choice picks",
+        "signal_one_link": "shopify://collections/best-sellers",
+        "signal_two_label": "Bundle savings",
+        "signal_two_link": "shopify://collections/best-sellers",
+        "signal_three_label": "Secure checkout",
+        "signal_three_link": "",
+        "signal_four_label": "Support ready",
+        "signal_four_link": "shopify://pages/support",
         "show_bundle_lane": true,
         "bundle_title": "Bundle deals",
-        "bundle_line": "3+ items — stack savings at checkout when your discount applies.",
+        "bundle_line": "3+ items - stack savings at checkout when your discount applies.",
         "bundle_link": "shopify://collections/best-sellers",
         "deals_rail_title": "Super deals",
         "show_countdown": true,
@@ -77,9 +86,9 @@
           "settings": {
             "collection": "best-sellers",
             "link": "shopify://collections/best-sellers",
-            "path_emoji": "⭐",
+            "path_emoji": "",
             "chip_label": "Best sellers",
-            "badge": "Top picks",
+            "badge": "Hot",
             "title": "Best sellers",
             "text": ""
           }
@@ -89,9 +98,9 @@
           "settings": {
             "collection": "toys-and-games",
             "link": "shopify://collections/toys-and-games",
-            "path_emoji": "🎁",
+            "path_emoji": "",
             "chip_label": "Gifts",
-            "badge": "Bundles",
+            "badge": "Gift-ready",
             "title": "Gifts",
             "text": ""
           }
@@ -101,9 +110,9 @@
           "settings": {
             "collection": "under-50",
             "link": "shopify://collections/under-50",
-            "path_emoji": "💸",
+            "path_emoji": "",
             "chip_label": "Under $50",
-            "badge": "Value offers",
+            "badge": "Value",
             "title": "Under $50",
             "text": ""
           }
@@ -113,9 +122,9 @@
           "settings": {
             "collection": "new-arrivals",
             "link": "shopify://collections/new-arrivals",
-            "path_emoji": "🔥",
+            "path_emoji": "",
             "chip_label": "Trending",
-            "badge": "Fresh offers",
+            "badge": "Just in",
             "title": "Trending",
             "text": ""
           }
@@ -130,7 +139,7 @@
         "intent_watch_under50": {
           "type": "search_intent_hint",
           "settings": {
-            "keywords": "watch, watches, relogio, relógio",
+            "keywords": "watch, watches, relogio",
             "label": "Watches under $50",
             "link": "shopify://collections/under-50"
           }
@@ -138,7 +147,7 @@
         "intent_watch_premium": {
           "type": "search_intent_hint",
           "settings": {
-            "keywords": "watch, watches, relogio, relógio",
+            "keywords": "watch, watches, relogio",
             "label": "Premium watches",
             "link": "shopify://collections/watches"
           }
@@ -146,7 +155,7 @@
         "intent_watch_bestsellers": {
           "type": "search_intent_hint",
           "settings": {
-            "keywords": "watch, watches, relogio, relógio",
+            "keywords": "watch, watches, relogio",
             "label": "Best sellers",
             "link": "shopify://collections/best-sellers"
           }
@@ -164,7 +173,7 @@
       ],
       "settings": {
         "kicker": "",
-        "title": "Shop flow automático",
+        "title": "Shop flow — faster by need",
         "text": "",
         "search_placeholder": "Search products",
         "search_button": "Go",
@@ -201,7 +210,7 @@
           "settings": {
             "collection": "under-50",
             "image": "shopify://shop_images/toy-drive-donation-box.jpg",
-            "title": "🎁 Under $50"
+            "title": "Under $50"
           }
         },
         "intent_best_sellers": {
@@ -209,7 +218,7 @@
           "settings": {
             "collection": "best-sellers",
             "image": "shopify://shop_images/loafers-leaning-along-white-wall.jpg",
-            "title": "🔥 Best sellers"
+            "title": "Best sellers"
           }
         },
         "intent_new_arrivals": {
@@ -217,7 +226,7 @@
           "settings": {
             "collection": "new-arrivals",
             "image": "shopify://shop_images/woman-listening-to-music.jpg",
-            "title": "🆕 New"
+            "title": "New"
           }
         }
       },
